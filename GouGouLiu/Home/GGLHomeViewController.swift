@@ -15,7 +15,6 @@ final class GGLHomeViewController: GGLBaseViewController {
         waterFallFlowLayout.sectionInset = UIEdgeInsets(top: itemSpacing, left: itemSpacing, bottom: itemSpacing, right: itemSpacing)
         waterFallFlowLayout.delegate = self
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: waterFallFlowLayout)
-        collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -27,7 +26,7 @@ final class GGLHomeViewController: GGLBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        navigationItem.title = "Home"
+        navigationItem.title = .Home
         setupUI()
     }
 

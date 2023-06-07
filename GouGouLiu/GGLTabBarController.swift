@@ -19,11 +19,11 @@ final class GGLTabBarController: UITabBarController {
 
     private func setupUI() {
         let homeNavigationController = setupNavigationController(viewController: homeViewController,
-                                                                 title: "Home",
+                                                                 title: .Home,
                                                                  image: .tab_bar_home_normal,
                                                                  selectedImage: .tab_bar_home_selected)
         let personalNavigationController = setupNavigationController(viewController: personalViewController,
-                                                                     title: "Personal",
+                                                                     title: .Personal,
                                                                      image: .tab_bar_personal_normal,
                                                                      selectedImage: .tab_bar_personal_selected)
         let viewControllers: [UIViewController] = [
