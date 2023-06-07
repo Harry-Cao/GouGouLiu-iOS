@@ -11,7 +11,6 @@ final class GGLPersonalViewController: GGLBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
         navigationItem.title = .Personal
         setupUI()
     }

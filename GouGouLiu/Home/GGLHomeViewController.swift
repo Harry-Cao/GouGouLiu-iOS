@@ -9,6 +9,7 @@ import UIKit
 
 final class GGLHomeViewController: GGLBaseViewController {
 
+    private let itemSpacing: CGFloat = 4.0
     private lazy var recommendCollectionView: UICollectionView = {
         let waterFallFlowLayout = GGLWaterFallFlowLayout()
         waterFallFlowLayout.minimumInteritemSpacing = itemSpacing
@@ -21,11 +22,9 @@ final class GGLHomeViewController: GGLBaseViewController {
         collectionView.register(GGLHomeRecommendCell.self, forCellWithReuseIdentifier: "\(GGLHomeRecommendCell.self)")
         return collectionView
     }()
-    private let itemSpacing: CGFloat = 4.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
         navigationItem.title = .Home
         setupUI()
     }

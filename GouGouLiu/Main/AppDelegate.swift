@@ -49,6 +49,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appearance.backgroundColor = .systemBackground
         appearance.titleTextAttributes = navBarAttributes
         appearance.setBackIndicatorImage(.navigation_bar_back, transitionMaskImage: .navigation_bar_back)
+        /// 将navigationBar的底部分割线设为透明
+//        appearance.shadowColor = .clear
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().isTranslucent = false

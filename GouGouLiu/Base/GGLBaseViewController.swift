@@ -11,11 +11,12 @@ class GGLBaseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
+        setupBaseUI()
     }
 
-    private func setupNavigationBar() {
+    private func setupBaseUI() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        view.backgroundColor = .systemBackground
     }
 
 }

@@ -10,6 +10,7 @@ import UIKit
 final class GGLTabBarController: UITabBarController {
 
     private let homeViewController = GGLHomeViewController()
+    private let messageViewController = GGLMessageViewController()
     private let personalViewController = GGLPersonalViewController()
 
     override func viewDidLoad() {
@@ -22,12 +23,17 @@ final class GGLTabBarController: UITabBarController {
                                                                  title: .Home,
                                                                  image: .tab_bar_home_normal,
                                                                  selectedImage: .tab_bar_home_selected)
+        let messageNavigationController = setupNavigationController(viewController: messageViewController,
+                                                                    title: .Message,
+                                                                    image: nil,
+                                                                    selectedImage: nil)
         let personalNavigationController = setupNavigationController(viewController: personalViewController,
                                                                      title: .Personal,
                                                                      image: .tab_bar_personal_normal,
                                                                      selectedImage: .tab_bar_personal_selected)
         let viewControllers: [UIViewController] = [
             homeNavigationController,
+            messageNavigationController,
             personalNavigationController
         ]
         self.viewControllers = viewControllers
