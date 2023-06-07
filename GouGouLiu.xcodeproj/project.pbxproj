@@ -24,6 +24,7 @@
 		3ED90C112A2E620B0079B4D3 /* GGLBaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED90C102A2E620B0079B4D3 /* GGLBaseNavigationController.swift */; };
 		3EF2266E2A2FA4AA00553325 /* UIFont+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF2266D2A2FA4AA00553325 /* UIFont+GGL.swift */; };
 		3EFF955B2A30DBC700E89069 /* GGLMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF955A2A30DBC700E89069 /* GGLMessageViewController.swift */; };
+		3EFF955D2A30DD1300E89069 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF955C2A30DD1300E89069 /* AppRouter.swift */; };
 		93F1242499CE7D731BC833A8 /* Pods_GouGouLiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997C3F54446B81575D166583 /* Pods_GouGouLiu.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,7 @@
 		3ED90C102A2E620B0079B4D3 /* GGLBaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLBaseNavigationController.swift; sourceTree = "<group>"; };
 		3EF2266D2A2FA4AA00553325 /* UIFont+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+GGL.swift"; sourceTree = "<group>"; };
 		3EFF955A2A30DBC700E89069 /* GGLMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLMessageViewController.swift; sourceTree = "<group>"; };
+		3EFF955C2A30DD1300E89069 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		997C3F54446B81575D166583 /* Pods_GouGouLiu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GouGouLiu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFC02D02FD232B01697F298E /* Pods-GouGouLiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GouGouLiu.release.xcconfig"; path = "Target Support Files/Pods-GouGouLiu/Pods-GouGouLiu.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,6 +130,7 @@
 				3ED90BFD2A2E4A200079B4D3 /* UIImage+GGL.swift */,
 				3EF2266D2A2FA4AA00553325 /* UIFont+GGL.swift */,
 				3E6B0C312A3087D9002317D6 /* String+GGL.swift */,
+				3EFF955C2A30DD1300E89069 /* AppRouter.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				3ED90BFB2A2E31A90079B4D3 /* GGLTabBarController.swift in Sources */,
 				3ED90C022A2E4DED0079B4D3 /* GGLHomeRecommendCell.swift in Sources */,
 				3EFF955B2A30DBC700E89069 /* GGLMessageViewController.swift in Sources */,
+				3EFF955D2A30DD1300E89069 /* AppRouter.swift in Sources */,
 				3ED90BE92A2E24410079B4D3 /* SceneDelegate.swift in Sources */,
 				3ED90C0E2A2E5E490079B4D3 /* GGLGlobalImport.swift in Sources */,
 				3ED90C072A2E59F40079B4D3 /* GGLTopicViewController.swift in Sources */,
@@ -476,6 +480,7 @@
 				GCC_PREFIX_HEADER = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GouGouLiu/Support/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "狗狗溜";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -509,6 +514,7 @@
 				GCC_PREFIX_HEADER = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GouGouLiu/Support/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "狗狗溜";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

@@ -13,5 +13,7 @@ pod 'Moya'
 pod 'SDWebImage'
 pod 'SnapKit'
 pod 'Alamofire'
+pod 'URLNavigator'
+pod 'Hero'
 
 end

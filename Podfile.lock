@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.7.1)
+  - Hero (1.6.2)
   - Moya (15.0.0):
     - Moya/Core (= 15.0.0)
   - Moya/Core (15.0.0):
@@ -9,29 +10,36 @@ PODS:
     - SDWebImage/Core (= 5.15.8)
   - SDWebImage/Core (5.15.8)
   - SnapKit (5.6.0)
+  - URLNavigator (2.4.1)
 
 DEPENDENCIES:
   - Alamofire
+  - Hero
   - Moya
   - RxSwift
   - SDWebImage
   - SnapKit
+  - URLNavigator
 
 SPEC REPOS:
   https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
     - Alamofire
+    - Hero
     - Moya
     - RxSwift
     - SDWebImage
     - SnapKit
+    - URLNavigator
 
 SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
+  Hero: c69009dbc9e2f0472e081adc644dba05fcedae72
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SDWebImage: cb032eba469c54e0000e78bcb0a13cdde0a52798
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  URLNavigator: 9e277a422a5c131a3e37970c2558e0e866cc22bd
 
-PODFILE CHECKSUM: 54134d16d15f66f29286bcee07162f95d6bf14a4
+PODFILE CHECKSUM: 7a4c441dbbee856c9fab6b075c21b74d59381a6a
 
 COCOAPODS: 1.11.3

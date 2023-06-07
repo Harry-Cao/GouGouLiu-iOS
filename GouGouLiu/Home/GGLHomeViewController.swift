@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Hero
 
 final class GGLHomeViewController: GGLBaseViewController {
 
@@ -57,9 +58,28 @@ extension GGLHomeViewController: UICollectionViewDataSource {
 extension GGLHomeViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        let heroId = "\(Date())"
+        cell?.hero.id = heroId
         let viewController = GGLTopicViewController()
-        viewController.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(viewController, animated: true)
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.hero.isEnabled = true
+        navigationController.view.hero.id = heroId
+        AppRouter.shared.present(navigationController)
+    }
+
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        if velocity.y > 1 {
+            navigationController?.setNavigationBarHidden(true, animated: true)
+        } else if velocity.y < -1 {
+            navigationController?.setNavigationBarHidden(false, animated: true)
+        }
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView.contentOffset.y < view.safeAreaInsets.top else { return }
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
 }

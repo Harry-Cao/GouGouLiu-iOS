@@ -14,4 +14,8 @@ final class GGLTopicViewController: GGLBaseViewController {
         navigationItem.title = .Topic
     }
 
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        dismiss(animated: true)
+    }
+
 }
