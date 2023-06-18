@@ -71,15 +71,23 @@ extension GGLHomeViewController: UICollectionViewDelegate {
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if velocity.y > 1 {
-            navigationController?.setNavigationBarHidden(true, animated: true)
+            hideNavigationBar()
         } else if velocity.y < -1 {
-            navigationController?.setNavigationBarHidden(false, animated: true)
+            showNavigationBar()
         }
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView.contentOffset.y < view.safeAreaInsets.top else { return }
+        guard scrollView.contentOffset.y < 5 else { return }
+        showNavigationBar()
+    }
+
+    private func showNavigationBar() {
         navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+
+    private func hideNavigationBar() {
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
 }
