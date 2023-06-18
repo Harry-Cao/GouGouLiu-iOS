@@ -62,7 +62,7 @@ extension GGLHomeViewController: UICollectionViewDelegate {
         let heroId = "\(Date())"
         cell?.hero.id = heroId
         let viewController = GGLTopicViewController()
-        let navigationController = UINavigationController(rootViewController: viewController)
+        let navigationController = GGLBaseNavigationController(rootViewController: viewController)
         navigationController.modalPresentationStyle = .fullScreen
         navigationController.hero.isEnabled = true
         navigationController.view.hero.id = heroId

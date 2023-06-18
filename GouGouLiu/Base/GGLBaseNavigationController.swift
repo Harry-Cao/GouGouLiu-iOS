@@ -14,4 +14,11 @@ class GGLBaseNavigationController: UINavigationController {
         
     }
 
+    override func pushViewController(_ viewController: UIViewController, animated: Bool) {
+        if !viewControllers.isEmpty {
+            viewController.hidesBottomBarWhenPushed = true
+        }
+        super.pushViewController(viewController, animated: animated)
+    }
+
 }

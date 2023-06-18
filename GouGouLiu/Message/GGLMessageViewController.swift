@@ -6,12 +6,22 @@
 //
 
 import UIKit
+import SwiftUI
 
-class GGLMessageViewController: GGLBaseViewController {
+class GGLMessageViewController: UIHostingController<MessageContentView> {
+
+    init() {
+        super.init(rootView: MessageContentView())
+    }
+
+    @MainActor required dynamic init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = .Message
+        setupBackBarButtonItem()
         setupUI()
     }
 
@@ -19,4 +29,28 @@ class GGLMessageViewController: GGLBaseViewController {
         
     }
 
+}
+
+struct MessageContentView: View {
+    var messageModels: [MessageModel] = [
+        MessageModel(name: "Tom", message: "Hi Ben! Here is a great news for you, please check this message before dinner.")
+    ]
+    var body: some View {
+        List(messageModels) { model in
+            NavigationLink {
+                GGLChatRoomView()
+            } label: {
+                MessageCell(messageModel: model)
+            }
+        }
+        .listStyle(.plain)
+    }
+}
+
+struct GGLMessagePreviewProvider_Previews: PreviewProvider {
+    static var previews: some View {
+        MessageContentView(messageModels: [
+            MessageModel(name: "Tom", message: "Hi Ben! Here is a great news for you, please check this message before dinner.")
+        ])
+    }
 }
