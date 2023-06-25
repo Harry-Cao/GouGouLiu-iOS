@@ -22,11 +22,20 @@ class GGLMessageViewController: UIHostingController<MessageContentView> {
         super.viewDidLoad()
         navigationItem.title = .Message
         setupBackBarButtonItem()
+        setupRightBarButtonItems()
         setupUI()
+    }
+
+    private func setupRightBarButtonItems() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(didTapRefresh))
     }
 
     private func setupUI() {
         
+    }
+
+    @objc private func didTapRefresh() {
+        rootView.messageModels.append(MessageModel(name: "Tom", message: "Hi Ben! Here is a great news for you, please check this message before dinner."))
     }
 
 }
@@ -37,8 +46,8 @@ struct MessageContentView: View {
     ]
     var body: some View {
         List(messageModels) { model in
-            NavigationLink {
-                GGLChatRoomView()
+            Button {
+                AppRouter.shared.push(GGLChatRoomViewController())
             } label: {
                 MessageCell(messageModel: model)
             }
