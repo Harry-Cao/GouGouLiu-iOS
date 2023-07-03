@@ -47,9 +47,9 @@ extension GGLHomeViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(GGLHomeRecommendCell.self)", for: indexPath)
-        cell.backgroundColor = .red
-        return cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(GGLHomeRecommendCell.self)", for: indexPath) as? GGLHomeRecommendCell
+        cell?.setup()
+        return cell ?? UICollectionViewCell()
     }
 
 }
