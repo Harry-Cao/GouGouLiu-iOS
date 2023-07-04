@@ -7,9 +7,11 @@
 
 import UIKit
 import Hero
+import RxSwift
 
 final class GGLHomeViewController: GGLBaseViewController {
 
+    private let viewModel = GGLHomeViewModel()
     private let itemSpacing: CGFloat = 4.0
     private lazy var recommendCollectionView: UICollectionView = {
         let waterFallFlowLayout = GGLWaterFallFlowLayout()
@@ -28,6 +30,8 @@ final class GGLHomeViewController: GGLBaseViewController {
         super.viewDidLoad()
         navigationItem.title = .Home
         setupUI()
+        bindData()
+        getData()
     }
 
     private func setupUI() {
@@ -37,18 +41,30 @@ final class GGLHomeViewController: GGLBaseViewController {
         }
     }
 
+    private func bindData() {
+        viewModel.updateSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            self.recommendCollectionView.reloadData()
+        }).disposed(by: viewModel.disposeBag)
+    }
+
+    private func getData() {
+        viewModel.getHomePostData()
+    }
+
 }
 
 // MARK: - UICollectionViewDataSource
 extension GGLHomeViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 100
+        return viewModel.dataSource.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(GGLHomeRecommendCell.self)", for: indexPath) as? GGLHomeRecommendCell
-        cell?.setup()
+        let model = viewModel.dataSource[indexPath.item]
+        cell?.setup(model: model)
         return cell ?? UICollectionViewCell()
     }
 

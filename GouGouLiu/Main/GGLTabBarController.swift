@@ -16,9 +16,14 @@ final class GGLTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupViewControllers()
     }
 
     private func setupUI() {
+        self.view.backgroundColor = .systemBackground
+    }
+
+    private func setupViewControllers() {
         let homeNavigationController = setupNavigationController(viewController: homeViewController,
                                                                  title: .Home,
                                                                  image: .tab_bar_home_normal,

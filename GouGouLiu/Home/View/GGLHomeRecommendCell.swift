@@ -9,7 +9,19 @@ import UIKit
 
 final class GGLHomeRecommendCell: UICollectionViewCell {
 
-    private let imageView: UIImageView = UIImageView()
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = .systemGray
+        return label
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,15 +35,22 @@ final class GGLHomeRecommendCell: UICollectionViewCell {
     private func setupUI() {
         self.layer.cornerRadius = 8
         self.layer.masksToBounds = true
-        addSubview(imageView)
+        [imageView, titleLabel].forEach(addSubview)
         imageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.leading.top.trailing.equalToSuperview()
+            make.bottom.equalTo(titleLabel.snp.top)
+        }
+        titleLabel.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(12)
+            make.bottom.equalToSuperview().inset(8)
+            make.height.equalTo(40)
         }
     }
 
-    func setup() {
-        let url = URL(string: "http://192.168.0.123:88//appIcon.png")
+    func setup(model: GGLHomePostModel_Data) {
+        let url = URL(string: model.cover_image ?? "")
         imageView.sd_setImage(with: url)
+        titleLabel.text = model.post_title
     }
 
 }

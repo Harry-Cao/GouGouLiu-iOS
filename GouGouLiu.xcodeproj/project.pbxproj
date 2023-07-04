@@ -13,6 +13,10 @@
 		3E6EB8252A3F54FE00675A2A /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6EB8242A3F54FE00675A2A /* MessageModel.swift */; };
 		3E6EB82B2A3F565100675A2A /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6EB82A2A3F565100675A2A /* MessageCell.swift */; };
 		3EAD23E42A401C9F000238AC /* GGLChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD23E32A401C9F000238AC /* GGLChatRoomViewController.swift */; };
+		3EB404AD2A5487F00032E899 /* GGLHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB404AC2A5487F00032E899 /* GGLHomeViewModel.swift */; };
+		3EB404B02A54890F0032E899 /* GGLHomePostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB404AF2A54890F0032E899 /* GGLHomePostModel.swift */; };
+		3EB404B32A548B680032E899 /* GGLHomePostAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB404B22A548B680032E899 /* GGLHomePostAPI.swift */; };
+		3EB404B62A548D200032E899 /* Observable+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB404B52A548D200032E899 /* Observable+GGL.swift */; };
 		3ED90BE72A2E24410079B4D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED90BE62A2E24410079B4D3 /* AppDelegate.swift */; };
 		3ED90BE92A2E24410079B4D3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED90BE82A2E24410079B4D3 /* SceneDelegate.swift */; };
 		3ED90BEB2A2E24410079B4D3 /* GGLHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED90BEA2A2E24410079B4D3 /* GGLHomeViewController.swift */; };
@@ -40,6 +44,10 @@
 		3E6EB8242A3F54FE00675A2A /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		3E6EB82A2A3F565100675A2A /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		3EAD23E32A401C9F000238AC /* GGLChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatRoomViewController.swift; sourceTree = "<group>"; };
+		3EB404AC2A5487F00032E899 /* GGLHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLHomeViewModel.swift; sourceTree = "<group>"; };
+		3EB404AF2A54890F0032E899 /* GGLHomePostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLHomePostModel.swift; sourceTree = "<group>"; };
+		3EB404B22A548B680032E899 /* GGLHomePostAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLHomePostAPI.swift; sourceTree = "<group>"; };
+		3EB404B52A548D200032E899 /* Observable+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+GGL.swift"; sourceTree = "<group>"; };
 		3ED90BE32A2E24410079B4D3 /* GouGouLiu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GouGouLiu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ED90BE62A2E24410079B4D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3ED90BE82A2E24410079B4D3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +123,30 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		3EB404AE2A54880D0032E899 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3EB404AC2A5487F00032E899 /* GGLHomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3EB404B12A5489DA0032E899 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3EB404AF2A54890F0032E899 /* GGLHomePostModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3EB404B42A548CA90032E899 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				3EB404B22A548B680032E899 /* GGLHomePostAPI.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		3ED90BDA2A2E24410079B4D3 = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +187,7 @@
 				3EF2266D2A2FA4AA00553325 /* UIFont+GGL.swift */,
 				3E6B0C312A3087D9002317D6 /* String+GGL.swift */,
 				3E1EF4842A3F4B50008D65C8 /* UIHostingController+GGL.swift */,
+				3EB404B52A548D200032E899 /* Observable+GGL.swift */,
 				3EFF955C2A30DD1300E89069 /* AppRouter.swift */,
 			);
 			path = Utilities;
@@ -164,7 +197,10 @@
 			isa = PBXGroup;
 			children = (
 				3ED90BEA2A2E24410079B4D3 /* GGLHomeViewController.swift */,
+				3EB404AE2A54880D0032E899 /* ViewModel */,
 				3E2DA2762A2F845E001D9352 /* View */,
+				3EB404B12A5489DA0032E899 /* Model */,
+				3EB404B42A548CA90032E899 /* API */,
 				3E2DA2752A2F8455001D9352 /* Layout */,
 			);
 			path = Home;
@@ -355,14 +391,18 @@
 				3EAD23E42A401C9F000238AC /* GGLChatRoomViewController.swift in Sources */,
 				3EF2266E2A2FA4AA00553325 /* UIFont+GGL.swift in Sources */,
 				3ED90BEB2A2E24410079B4D3 /* GGLHomeViewController.swift in Sources */,
+				3EB404AD2A5487F00032E899 /* GGLHomeViewModel.swift in Sources */,
 				3E6B0C322A3087D9002317D6 /* String+GGL.swift in Sources */,
 				3ED90BFE2A2E4A200079B4D3 /* UIImage+GGL.swift in Sources */,
 				3ED90C112A2E620B0079B4D3 /* GGLBaseNavigationController.swift in Sources */,
 				3E1EF4852A3F4B50008D65C8 /* UIHostingController+GGL.swift in Sources */,
 				3ED90BE72A2E24410079B4D3 /* AppDelegate.swift in Sources */,
+				3EB404B32A548B680032E899 /* GGLHomePostAPI.swift in Sources */,
 				3ED90BFB2A2E31A90079B4D3 /* GGLTabBarController.swift in Sources */,
+				3EB404B02A54890F0032E899 /* GGLHomePostModel.swift in Sources */,
 				3E6EB8252A3F54FE00675A2A /* MessageModel.swift in Sources */,
 				3ED90C022A2E4DED0079B4D3 /* GGLHomeRecommendCell.swift in Sources */,
+				3EB404B62A548D200032E899 /* Observable+GGL.swift in Sources */,
 				3EFF955B2A30DBC700E89069 /* GGLMessageViewController.swift in Sources */,
 				3EFF955D2A30DD1300E89069 /* AppRouter.swift in Sources */,
 				3ED90BE92A2E24410079B4D3 /* SceneDelegate.swift in Sources */,
