@@ -30,8 +30,8 @@ final class GGLTabBarController: UITabBarController {
                                                                  selectedImage: .tab_bar_home_selected)
         let messageNavigationController = setupNavigationController(viewController: messageViewController,
                                                                     title: .Message,
-                                                                    image: nil,
-                                                                    selectedImage: nil)
+                                                                    image: .tab_bar_message_normal,
+                                                                    selectedImage: .tab_bar_message_selected)
         let personalNavigationController = setupNavigationController(viewController: personalViewController,
                                                                      title: .Personal,
                                                                      image: .tab_bar_personal_normal,
