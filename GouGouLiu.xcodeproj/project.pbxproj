@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E0A078A2A55BAF900D60819 /* GGLOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A07892A55BAF900D60819 /* GGLOrderViewController.swift */; };
 		3E1EF4852A3F4B50008D65C8 /* UIHostingController+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EF4842A3F4B50008D65C8 /* UIHostingController+GGL.swift */; };
 		3E2DA2742A2F76F9001D9352 /* GGLWaterFallFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2DA2732A2F76F9001D9352 /* GGLWaterFallFlowLayout.swift */; };
 		3E6B0C322A3087D9002317D6 /* String+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6B0C312A3087D9002317D6 /* String+GGL.swift */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		20732876E0B494D5AF100F24 /* Pods-GouGouLiu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GouGouLiu.debug.xcconfig"; path = "Target Support Files/Pods-GouGouLiu/Pods-GouGouLiu.debug.xcconfig"; sourceTree = "<group>"; };
+		3E0A07892A55BAF900D60819 /* GGLOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLOrderViewController.swift; sourceTree = "<group>"; };
 		3E1EF4842A3F4B50008D65C8 /* UIHostingController+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIHostingController+GGL.swift"; sourceTree = "<group>"; };
 		3E2DA2732A2F76F9001D9352 /* GGLWaterFallFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLWaterFallFlowLayout.swift; sourceTree = "<group>"; };
 		3E6B0C312A3087D9002317D6 /* String+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+GGL.swift"; sourceTree = "<group>"; };
@@ -89,6 +91,14 @@
 				EFC02D02FD232B01697F298E /* Pods-GouGouLiu.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		3E0A078B2A55BAFC00D60819 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				3E0A07892A55BAF900D60819 /* GGLOrderViewController.swift */,
+			);
+			path = Order;
 			sourceTree = "<group>";
 		};
 		3E2DA2752A2F8455001D9352 /* Layout */ = {
@@ -170,6 +180,7 @@
 			children = (
 				3EFF95582A30DB8100E89069 /* Main */,
 				3ED90C002A2E4CFA0079B4D3 /* Home */,
+				3E0A078B2A55BAFC00D60819 /* Order */,
 				3EFF95592A30DB9E00E89069 /* Message */,
 				3ED90C032A2E543A0079B4D3 /* Personal */,
 				3ED90C082A2E5A1E0079B4D3 /* Topic */,
@@ -397,6 +408,7 @@
 				3ED90C112A2E620B0079B4D3 /* GGLBaseNavigationController.swift in Sources */,
 				3E1EF4852A3F4B50008D65C8 /* UIHostingController+GGL.swift in Sources */,
 				3ED90BE72A2E24410079B4D3 /* AppDelegate.swift in Sources */,
+				3E0A078A2A55BAF900D60819 /* GGLOrderViewController.swift in Sources */,
 				3EB404B32A548B680032E899 /* GGLHomePostAPI.swift in Sources */,
 				3ED90BFB2A2E31A90079B4D3 /* GGLTabBarController.swift in Sources */,
 				3EB404B02A54890F0032E899 /* GGLHomePostModel.swift in Sources */,

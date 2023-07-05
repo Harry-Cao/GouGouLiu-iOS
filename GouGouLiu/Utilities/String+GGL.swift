@@ -10,6 +10,7 @@ import Foundation
 extension String {
 
     static let Home: String = "Home"
+    static let Order: String = "Order"
     static let Message: String = "Message"
     static let Personal: String = "Personal"
     static let Topic: String = "Topic"

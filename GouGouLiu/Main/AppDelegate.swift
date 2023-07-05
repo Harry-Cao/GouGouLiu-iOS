@@ -32,25 +32,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private func setupAppearance() {
         // UITabBar
-        UITabBar.appearance().unselectedItemTintColor = .secondaryLabel
-        UITabBar.appearance().tintColor = .label
+        let tabBarAppearance = UITabBar.appearance()
+        tabBarAppearance.unselectedItemTintColor = .secondaryLabel
+        tabBarAppearance.tintColor = .label
         /// tabBar遮挡到内容时的背景色
-        UITabBar.appearance().barTintColor = .systemBackground
+        tabBarAppearance.barTintColor = .systemBackground
         /// 滚动到底部时的背景色
-        UITabBar.appearance().backgroundColor = .systemBackground
+        tabBarAppearance.backgroundColor = .systemBackground
+        /// 隐藏分割线
+        tabBarAppearance.backgroundImage = UIImage()
+        tabBarAppearance.shadowImage = UIImage()
 
         // UINavigationBar
         let navBarAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label,
                                 NSAttributedString.Key.font: UIFont.navigation_bar_title]
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .systemBackground
-        appearance.titleTextAttributes = navBarAttributes
-        appearance.setBackIndicatorImage(.navigation_bar_back, transitionMaskImage: .navigation_bar_back)
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithOpaqueBackground()
+        navigationBarAppearance.backgroundColor = .systemBackground
+        navigationBarAppearance.titleTextAttributes = navBarAttributes
+        navigationBarAppearance.setBackIndicatorImage(.navigation_bar_back, transitionMaskImage: .navigation_bar_back)
         /// 将navigationBar的底部分割线设为透明
-        appearance.shadowColor = .clear
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        navigationBarAppearance.shadowColor = .clear
+        UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
         UINavigationBar.appearance().isTranslucent = false
         /// navigationBar上其他控件的颜色，例如返回按钮
         UINavigationBar.appearance().tintColor = .label
