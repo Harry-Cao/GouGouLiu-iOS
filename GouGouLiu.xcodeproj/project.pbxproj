@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3E0A078A2A55BAF900D60819 /* GGLOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A07892A55BAF900D60819 /* GGLOrderViewController.swift */; };
+		3E0A078D2A55D8B400D60819 /* GGLPhotoDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A078C2A55D8B400D60819 /* GGLPhotoDownloadManager.swift */; };
 		3E1EF4852A3F4B50008D65C8 /* UIHostingController+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EF4842A3F4B50008D65C8 /* UIHostingController+GGL.swift */; };
 		3E2DA2742A2F76F9001D9352 /* GGLWaterFallFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2DA2732A2F76F9001D9352 /* GGLWaterFallFlowLayout.swift */; };
 		3E6B0C322A3087D9002317D6 /* String+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6B0C312A3087D9002317D6 /* String+GGL.swift */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		20732876E0B494D5AF100F24 /* Pods-GouGouLiu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GouGouLiu.debug.xcconfig"; path = "Target Support Files/Pods-GouGouLiu/Pods-GouGouLiu.debug.xcconfig"; sourceTree = "<group>"; };
 		3E0A07892A55BAF900D60819 /* GGLOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLOrderViewController.swift; sourceTree = "<group>"; };
+		3E0A078C2A55D8B400D60819 /* GGLPhotoDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GGLPhotoDownloadManager.swift; sourceTree = "<group>"; };
 		3E1EF4842A3F4B50008D65C8 /* UIHostingController+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIHostingController+GGL.swift"; sourceTree = "<group>"; };
 		3E2DA2732A2F76F9001D9352 /* GGLWaterFallFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLWaterFallFlowLayout.swift; sourceTree = "<group>"; };
 		3E6B0C312A3087D9002317D6 /* String+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+GGL.swift"; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				3E1EF4842A3F4B50008D65C8 /* UIHostingController+GGL.swift */,
 				3EB404B52A548D200032E899 /* Observable+GGL.swift */,
 				3EFF955C2A30DD1300E89069 /* AppRouter.swift */,
+				3E0A078C2A55D8B400D60819 /* GGLPhotoDownloadManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 				3EB404B32A548B680032E899 /* GGLHomePostAPI.swift in Sources */,
 				3ED90BFB2A2E31A90079B4D3 /* GGLTabBarController.swift in Sources */,
 				3EB404B02A54890F0032E899 /* GGLHomePostModel.swift in Sources */,
+				3E0A078D2A55D8B400D60819 /* GGLPhotoDownloadManager.swift in Sources */,
 				3E6EB8252A3F54FE00675A2A /* MessageModel.swift in Sources */,
 				3ED90C022A2E4DED0079B4D3 /* GGLHomeRecommendCell.swift in Sources */,
 				3EB404B62A548D200032E899 /* Observable+GGL.swift in Sources */,

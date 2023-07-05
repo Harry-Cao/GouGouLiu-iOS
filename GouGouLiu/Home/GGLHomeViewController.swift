@@ -77,7 +77,9 @@ extension GGLHomeViewController: UICollectionViewDelegate {
         let cell = collectionView.cellForItem(at: indexPath)
         let heroId = "\(Date())"
         cell?.hero.id = heroId
+        let model = viewModel.dataSource[indexPath.item]
         let viewController = GGLTopicViewController()
+        viewController.postModel = model
         let navigationController = GGLBaseNavigationController(rootViewController: viewController)
         navigationController.modalPresentationStyle = .fullScreen
         navigationController.hero.isEnabled = true

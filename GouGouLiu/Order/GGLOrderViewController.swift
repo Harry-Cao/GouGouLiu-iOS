@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GGLOrderViewController: GGLBaseViewController {
+final class GGLOrderViewController: GGLBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

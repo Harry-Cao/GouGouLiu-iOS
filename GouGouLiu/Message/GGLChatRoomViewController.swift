@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GGLChatRoomViewController: GGLBaseViewController {
+final class GGLChatRoomViewController: GGLBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

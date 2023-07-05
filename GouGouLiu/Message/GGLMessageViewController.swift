@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 
-class GGLMessageViewController: UIHostingController<MessageContentView> {
+final class GGLMessageViewController: UIHostingController<MessageContentView> {
 
     init() {
         super.init(rootView: MessageContentView())
