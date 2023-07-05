@@ -155,12 +155,16 @@ final class GGLPhotoDownloadManager {
 }
 
 extension GGLPhotoDownloadManager {
+
     final class PhotoDownloadModel {
+
         var urlString: String
         var isSaved: Bool = false
 
         init(urlString: String) {
             self.urlString = urlString
         }
+
     }
+
 }

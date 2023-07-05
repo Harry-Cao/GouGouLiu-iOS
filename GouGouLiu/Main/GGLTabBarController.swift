@@ -55,6 +55,7 @@ final class GGLTabBarController: UITabBarController {
                                            normalImage: UIImage?,
                                            selectedImage: UIImage?) -> GGLBaseNavigationController {
         let navigationController = GGLBaseNavigationController(rootViewController: viewController)
+        // make the image could show their original color
         let normalImage = normalImage?.withRenderingMode(.alwaysOriginal)
         let selectedImage = selectedImage?.withRenderingMode(.alwaysOriginal)
         let tabBarItem = UITabBarItem(title: title, image: normalImage, selectedImage: selectedImage)
