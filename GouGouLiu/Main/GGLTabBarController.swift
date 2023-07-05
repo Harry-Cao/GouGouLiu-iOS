@@ -26,15 +26,15 @@ final class GGLTabBarController: UITabBarController {
     private func setupViewControllers() {
         let homeNavigationController = setupNavigationController(viewController: homeViewController,
                                                                  title: .Home,
-                                                                 image: .tab_bar_home_normal,
+                                                                 normalImage: .tab_bar_home_normal,
                                                                  selectedImage: .tab_bar_home_selected)
         let messageNavigationController = setupNavigationController(viewController: messageViewController,
                                                                     title: .Message,
-                                                                    image: .tab_bar_message_normal,
+                                                                    normalImage: .tab_bar_message_normal,
                                                                     selectedImage: .tab_bar_message_selected)
         let personalNavigationController = setupNavigationController(viewController: personalViewController,
                                                                      title: .Personal,
-                                                                     image: .tab_bar_personal_normal,
+                                                                     normalImage: .tab_bar_personal_normal,
                                                                      selectedImage: .tab_bar_personal_selected)
         let viewControllers: [UIViewController] = [
             homeNavigationController,
@@ -46,10 +46,12 @@ final class GGLTabBarController: UITabBarController {
 
     private func setupNavigationController(viewController: UIViewController,
                                            title: String?,
-                                           image: UIImage?,
+                                           normalImage: UIImage?,
                                            selectedImage: UIImage?) -> GGLBaseNavigationController {
         let navigationController = GGLBaseNavigationController(rootViewController: viewController)
-        let tabBarItem = UITabBarItem(title: title, image: image, selectedImage: selectedImage)
+        let normalImage = normalImage?.withRenderingMode(.alwaysOriginal)
+        let selectedImage = selectedImage?.withRenderingMode(.alwaysOriginal)
+        let tabBarItem = UITabBarItem(title: title, image: normalImage, selectedImage: selectedImage)
         navigationController.tabBarItem = tabBarItem
         return navigationController
     }
