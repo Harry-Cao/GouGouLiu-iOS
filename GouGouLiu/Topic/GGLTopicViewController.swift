@@ -39,7 +39,7 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     private func setupData() {
-        guard let coverUrl = postModel?.cover_image else { return }
+        guard let coverUrl = postModel?.cover_image_preview else { return }
         let url = URL(string: coverUrl)
         previewImageView.sd_setImage(with: url)
     }
