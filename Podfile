@@ -15,5 +15,6 @@ pod 'SnapKit'
 pod 'Alamofire'
 pod 'URLNavigator'
 pod 'Hero'
+pod 'ProgressHUD'
 
 end

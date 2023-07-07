@@ -5,10 +5,11 @@ PODS:
     - Moya/Core (= 15.0.0)
   - Moya/Core (15.0.0):
     - Alamofire (~> 5.0)
+  - ProgressHUD (13.6.2)
   - RxSwift (6.5.0)
-  - SDWebImage (5.15.8):
-    - SDWebImage/Core (= 5.15.8)
-  - SDWebImage/Core (5.15.8)
+  - SDWebImage (5.16.0):
+    - SDWebImage/Core (= 5.16.0)
+  - SDWebImage/Core (5.16.0)
   - SnapKit (5.6.0)
   - URLNavigator (2.4.1)
 
@@ -16,6 +17,7 @@ DEPENDENCIES:
   - Alamofire
   - Hero
   - Moya
+  - ProgressHUD
   - RxSwift
   - SDWebImage
   - SnapKit
@@ -26,6 +28,7 @@ SPEC REPOS:
     - Alamofire
     - Hero
     - Moya
+    - ProgressHUD
     - RxSwift
     - SDWebImage
     - SnapKit
@@ -35,11 +38,12 @@ SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
   Hero: c69009dbc9e2f0472e081adc644dba05fcedae72
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
+  ProgressHUD: 355915c8f033e626788fa9b0d99d06e8691595ab
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
-  SDWebImage: cb032eba469c54e0000e78bcb0a13cdde0a52798
+  SDWebImage: 2aea163b50bfcb569a2726b6a754c54a4506fcf6
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   URLNavigator: 9e277a422a5c131a3e37970c2558e0e866cc22bd
 
-PODFILE CHECKSUM: 7a4c441dbbee856c9fab6b075c21b74d59381a6a
+PODFILE CHECKSUM: 231186335945e05c5dd3da0ed2f6987509469224
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1
