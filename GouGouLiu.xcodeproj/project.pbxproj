@@ -19,6 +19,7 @@
 		3EB404B02A54890F0032E899 /* GGLHomePostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB404AF2A54890F0032E899 /* GGLHomePostModel.swift */; };
 		3EB404B32A548B680032E899 /* GGLHomePostAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB404B22A548B680032E899 /* GGLHomePostAPI.swift */; };
 		3EB404B62A548D200032E899 /* Observable+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB404B52A548D200032E899 /* Observable+GGL.swift */; };
+		3ED370CD2A5974E300639291 /* GGLAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED370CC2A5974E300639291 /* GGLAPIConstants.swift */; };
 		3ED90BE72A2E24410079B4D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED90BE62A2E24410079B4D3 /* AppDelegate.swift */; };
 		3ED90BE92A2E24410079B4D3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED90BE82A2E24410079B4D3 /* SceneDelegate.swift */; };
 		3ED90BEB2A2E24410079B4D3 /* GGLHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED90BEA2A2E24410079B4D3 /* GGLHomeViewController.swift */; };
@@ -52,6 +53,7 @@
 		3EB404AF2A54890F0032E899 /* GGLHomePostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLHomePostModel.swift; sourceTree = "<group>"; };
 		3EB404B22A548B680032E899 /* GGLHomePostAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLHomePostAPI.swift; sourceTree = "<group>"; };
 		3EB404B52A548D200032E899 /* Observable+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+GGL.swift"; sourceTree = "<group>"; };
+		3ED370CC2A5974E300639291 /* GGLAPIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLAPIConstants.swift; sourceTree = "<group>"; };
 		3ED90BE32A2E24410079B4D3 /* GouGouLiu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GouGouLiu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ED90BE62A2E24410079B4D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3ED90BE82A2E24410079B4D3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 		3ED90BFC2A2E49E30079B4D3 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				3ED370CC2A5974E300639291 /* GGLAPIConstants.swift */,
 				3ED90BFD2A2E4A200079B4D3 /* UIImage+GGL.swift */,
 				3EF2266D2A2FA4AA00553325 /* UIFont+GGL.swift */,
 				3E6B0C312A3087D9002317D6 /* String+GGL.swift */,
@@ -413,6 +416,7 @@
 				3ED90BE72A2E24410079B4D3 /* AppDelegate.swift in Sources */,
 				3E0A078A2A55BAF900D60819 /* GGLOrderViewController.swift in Sources */,
 				3EB404B32A548B680032E899 /* GGLHomePostAPI.swift in Sources */,
+				3ED370CD2A5974E300639291 /* GGLAPIConstants.swift in Sources */,
 				3ED90BFB2A2E31A90079B4D3 /* GGLTabBarController.swift in Sources */,
 				3EB404B02A54890F0032E899 /* GGLHomePostModel.swift in Sources */,
 				3E0A078D2A55D8B400D60819 /* GGLPhotoDownloadManager.swift in Sources */,
