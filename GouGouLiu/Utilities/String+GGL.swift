@@ -23,7 +23,7 @@ extension String {
 
 extension String {
 
-    static let api_baseURL = "http://f3.fgct.cc:40024"
+    static let api_baseURL = "http://f3.fgct.cc:53710"
     static let api_homePageData = "/json/homePageData.json"
 
 }

@@ -2,8 +2,9 @@ import UIKit
 import Photos
 
 extension GGLPhotoDownloadManager {
-    typealias TBPhotoDownloadProgressBlock = (_ index: Int, _ total: Int, _ success: Bool) -> Void
-    typealias TBPhotoDownloadCompletedBlock = (_ allSuccess: Bool, _ failUrlStrings: [String]?) -> Void
+    typealias GGLPhotoDownloadProgressBlock = (_ receivedSize: Int, _ expectedSize: Int) -> Void
+    typealias GGLPhotoDownloadQueueProgressBlock = (_ index: Int, _ total: Int, _ success: Bool) -> Void
+    typealias GGLPhotoDownloadCompletedBlock = (_ allSuccess: Bool, _ failUrlStrings: [String]?) -> Void
 }
 
 final class GGLPhotoDownloadManager {
@@ -13,14 +14,15 @@ final class GGLPhotoDownloadManager {
     private var urlModels: [PhotoDownloadModel] = []
     private var workItems: [DispatchWorkItem] = []
     private var isPause: Bool = false
-    private var completedBlock: TBPhotoDownloadCompletedBlock?
+    private var completedBlock: GGLPhotoDownloadCompletedBlock?
     private var failUrlStrings: [String] {
         return urlModels.compactMap({ $0.isSaved ? nil : $0.urlString })
     }
 
     func downloadPhotosToAlbum(urls: [String],
-                               progress progressBlock: TBPhotoDownloadProgressBlock? = nil,
-                               completed completedBlock: TBPhotoDownloadCompletedBlock? = nil) {
+                               progress progressBlock: GGLPhotoDownloadProgressBlock? = nil,
+                               queueProgress queueProgressBlock: GGLPhotoDownloadQueueProgressBlock? = nil,
+                               completed completedBlock: GGLPhotoDownloadCompletedBlock? = nil) {
         self.completedBlock = completedBlock
         workItems.removeAll()
         guard !urls.isEmpty else {
@@ -41,7 +43,9 @@ final class GGLPhotoDownloadManager {
 
                     let workItem = DispatchWorkItem {
                         let url = URL(string: urlString)
-                        SDWebImageManager.shared.loadImage(with: url, progress: nil) { image, _, _, _, _, _ in
+                        SDWebImageManager.shared.loadImage(with: url) { receivedSize, expectedSize, _ in
+                            progressBlock?(receivedSize, expectedSize)
+                        } completed: { image, _, _, _, _, _ in
                             self.workItems.removeFirst()
                             if let image = image {
                                 self.saveImageToAlbum(image: image, toAlbum: album) { success in
@@ -51,7 +55,7 @@ final class GGLPhotoDownloadManager {
                                         let failUrlStrings = self.failUrlStrings
                                         completedBlock?(failUrlStrings.isEmpty, failUrlStrings)
                                     } else {
-                                        progressBlock?(index, urls.count, success)
+                                        queueProgressBlock?(index, urls.count, success)
                                         self.runNextWorkItem()
                                     }
                                 }
@@ -61,12 +65,13 @@ final class GGLPhotoDownloadManager {
                                         let failUrlStrings = self.failUrlStrings
                                         completedBlock?(failUrlStrings.isEmpty, failUrlStrings)
                                     } else {
-                                        progressBlock?(index, urls.count, false)
+                                        queueProgressBlock?(index, urls.count, false)
                                         self.runNextWorkItem()
                                     }
                                 }
                             }
                         }
+
                     }
 
                     self.workItems.append(workItem)

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 final class GGLTopicViewController: GGLBaseViewController {
 
@@ -48,7 +49,11 @@ final class GGLTopicViewController: GGLBaseViewController {
         let alertController = UIAlertController(title: "确认下载图片？", message: nil, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "确定", style: .default) { _ in
             guard let coverUrl = self.postModel?.cover_image else { return }
-            GGLPhotoDownloadManager.shared.downloadPhotosToAlbum(urls: [coverUrl])
+            GGLPhotoDownloadManager.shared.downloadPhotosToAlbum(urls: [coverUrl], progress:  { receivedSize, expectedSize in
+                ProgressHUD.showProgress(CGFloat(receivedSize/expectedSize))
+            }, completed:  { allSuccess, failUrlStrings in
+                ProgressHUD.showSucceed()
+            })
         }
         let cancelAction = UIAlertAction(title: "取消", style: .cancel)
         [confirmAction, cancelAction].forEach(alertController.addAction)
