@@ -9,7 +9,7 @@ import Foundation
 
 extension String {
 
-    static let app_Chinese_name = "狗狗溜"
+    static let app_name = "狗狗溜"
     static let app_English_name = "Walk Walk"
 
     static let Home: String = "Home"

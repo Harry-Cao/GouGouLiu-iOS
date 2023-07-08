@@ -10,7 +10,7 @@ extension GGLPhotoDownloadManager {
 final class GGLPhotoDownloadManager {
 
     static let shared: GGLPhotoDownloadManager = GGLPhotoDownloadManager()
-    private let albumTitle: String = .app_Chinese_name
+    private let albumTitle: String = .app_name
     private var urlModels: [PhotoDownloadModel] = []
     private var workItems: [DispatchWorkItem] = []
     private var isPause: Bool = false
