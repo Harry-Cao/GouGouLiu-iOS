@@ -9,12 +9,12 @@ import Foundation
 
 extension URL {
 
-    static let api_baseURL = URL(string: "http://f3.fgct.cc:53710")!
+    static let api_baseURL = URL(string: "http://f3.fgct.cc:12873")!
 
 }
 
 extension String {
 
-    static let path_homePageJson = "/json/homePageData.json"
+    static let path_homePagePost = "/api/home/post"
 
 }
