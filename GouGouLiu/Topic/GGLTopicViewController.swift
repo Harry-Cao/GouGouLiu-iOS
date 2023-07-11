@@ -50,7 +50,7 @@ final class GGLTopicViewController: GGLBaseViewController {
         let confirmAction = UIAlertAction(title: "确定", style: .default) { _ in
             guard let coverUrl = self.postModel?.cover_image else { return }
             GGLPhotoDownloadManager.shared.downloadPhotosToAlbum(urls: [coverUrl], progress:  { receivedSize, expectedSize in
-                ProgressHUD.showProgress(CGFloat(receivedSize/expectedSize))
+                ProgressHUD.showProgress(CGFloat(receivedSize)/CGFloat(expectedSize))
             }, completed:  { allSuccess, failUrlStrings in
                 ProgressHUD.showSucceed()
             })
