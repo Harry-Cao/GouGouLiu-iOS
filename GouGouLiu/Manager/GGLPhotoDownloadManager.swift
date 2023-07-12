@@ -18,6 +18,7 @@ final class GGLPhotoDownloadManager {
     private var failUrlStrings: [String] {
         return urlModels.compactMap({ $0.isSaved ? nil : $0.urlString })
     }
+    private var customNameForPhoto: String { "GGL_\(Date().timeIntervalSince1970)" }
 
     func downloadPhotosToAlbum(urls: [String],
                                progress progressBlock: GGLPhotoDownloadProgressBlock? = nil,
@@ -45,10 +46,12 @@ final class GGLPhotoDownloadManager {
                         let url = URL(string: urlString)
                         SDWebImageManager.shared.loadImage(with: url) { receivedSize, expectedSize, _ in
                             progressBlock?(receivedSize, expectedSize)
-                        } completed: { image, _, _, _, _, _ in
+                        } completed: { _, _, _, _, finished, imageUrl in
                             self.workItems.removeFirst()
-                            if let image = image {
-                                self.saveImageToAlbum(image: image, toAlbum: album) { success in
+                            if finished,
+                               let cachePath = SDImageCache.shared.cachePath(forKey: imageUrl?.absoluteString),
+                               let fileUrl = URL(string: cachePath) {
+                                self.saveImageToAlbum(imageUrl: fileUrl, toAlbum: album) { success in
                                     let urlModel = self.urlModels[index]
                                     urlModel.isSaved = success
                                     if self.workItems.isEmpty {
@@ -137,6 +140,26 @@ final class GGLPhotoDownloadManager {
             }
             DispatchQueue.main.async {
                 completion(album)
+            }
+        }
+    }
+
+    private func saveImageToAlbum(imageUrl: URL, toAlbum album: PHAssetCollection? = nil, completion: ((Bool) -> Void)? = nil) {
+        PHPhotoLibrary.shared().performChanges { [weak self] in
+            guard let self = self else { return }
+            let assetChangeRequest = PHAssetCreationRequest.forAsset()
+            assetChangeRequest.creationDate = Date()
+            let option = PHAssetResourceCreationOptions()
+            option.originalFilename = self.customNameForPhoto
+            assetChangeRequest.addResource(with: .photo, fileURL: imageUrl, options: option)
+            if let album = album, album.assetCollectionType == .album {
+                let placeHolder = assetChangeRequest.placeholderForCreatedAsset
+                let albumChangeRequest = PHAssetCollectionChangeRequest(for: album)
+                albumChangeRequest?.addAssets([placeHolder] as NSFastEnumeration)
+            }
+        } completionHandler: { success, _ in
+            DispatchQueue.main.async {
+                completion?(success)
             }
         }
     }
