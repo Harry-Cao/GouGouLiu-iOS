@@ -38,23 +38,3 @@ extension Observable where Element: Decodable {
             }
     }
 }
-
-extension Observable {
-    static func ofRequest<API>(api: API,
-                               provider: MoyaProvider<API>,
-                               callbackQueue: DispatchQueue? = .global(qos: .utility))
-        -> Observable<Moya.Response> where API: TargetType {
-            return Observable<Moya.Response>.create { observer -> Disposable in
-                provider.request(api, callbackQueue: callbackQueue) { response in
-                    switch response {
-                    case .success(let value):
-                        observer.onNext(value)
-                        observer.onCompleted()
-                    case .failure(let error):
-                        observer.onError(error)
-                    }
-                }
-                return Disposables.create()
-            }
-    }
-}
