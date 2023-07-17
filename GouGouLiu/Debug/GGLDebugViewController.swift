@@ -7,6 +7,8 @@
 
 import UIKit
 import SwiftUI
+import RxSwift
+import ProgressHUD
 
 final class GGLDebugViewController: UIHostingController<DebugContentView> {
 
@@ -52,14 +54,20 @@ extension DebugContentView {
         var title: String {
             switch self {
             case .uploadPhoto:
-                return "Update Photo"
+                return "Upload Photo"
             }
         }
 
         func action() {
             switch self {
             case .uploadPhoto:
-                print("Update Photo")
+                let image: UIImage? = .tab_bar_home_normal
+                guard let data = image?.pngData() else { return }
+                GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .avatar).subscribe(onNext: { response in
+                    if response.ret == 0 {
+                        ProgressHUD.showSucceed()
+                    }
+                }).disposed(by: GGLUploadPhotoManager.shared.disposeBag)
             }
         }
     }

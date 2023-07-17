@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Moya
 
 extension String {
 
@@ -19,5 +20,14 @@ extension String {
     static let Topic: String = "Topic"
     static let ChatRoom: String = "ChatRoom"
     static let Debug: String = "Debug"
+
+}
+
+extension String {
+
+    func multipartFormData(name: String) -> MultipartFormData {
+        let valueData = self.data(using: .utf8) ?? Data()
+        return MultipartFormData(provider: .data(valueData), name: name)
+    }
 
 }
