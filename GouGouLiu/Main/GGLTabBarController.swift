@@ -18,6 +18,7 @@ final class GGLTabBarController: UITabBarController {
         super.viewDidLoad()
         setupUI()
         setupViewControllers()
+        addDebugGestureIfNeeded()
     }
 
     private func setupUI() {
@@ -61,6 +62,20 @@ final class GGLTabBarController: UITabBarController {
         let tabBarItem = UITabBarItem(title: title, image: normalImage, selectedImage: selectedImage)
         navigationController.tabBarItem = tabBarItem
         return navigationController
+    }
+
+    private func addDebugGestureIfNeeded() {
+        #if DEBUG
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(openDebugPage))
+        gesture.numberOfTapsRequired = 3
+        self.tabBar.addGestureRecognizer(gesture)
+        #endif
+    }
+
+    @objc private func openDebugPage() {
+        let debugVC = GGLDebugViewController()
+        let navigationController = GGLBaseNavigationController(rootViewController: debugVC)
+        AppRouter.shared.present(navigationController)
     }
 
 }

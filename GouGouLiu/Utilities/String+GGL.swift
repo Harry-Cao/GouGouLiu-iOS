@@ -18,5 +18,6 @@ extension String {
     static let Personal: String = "Personal"
     static let Topic: String = "Topic"
     static let ChatRoom: String = "ChatRoom"
+    static let Debug: String = "Debug"
 
 }

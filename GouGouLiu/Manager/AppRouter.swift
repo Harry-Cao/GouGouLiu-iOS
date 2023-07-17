@@ -8,7 +8,7 @@
 import UIKit
 import URLNavigator
 
-final class AppRouter: NSObject {
+final class AppRouter {
 
     static let shared = AppRouter()
 

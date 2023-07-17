@@ -35,6 +35,7 @@
 		3ED90C0E2A2E5E490079B4D3 /* GGLGlobalImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED90C0D2A2E5E490079B4D3 /* GGLGlobalImport.swift */; };
 		3ED90C112A2E620B0079B4D3 /* GGLBaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED90C102A2E620B0079B4D3 /* GGLBaseNavigationController.swift */; };
 		3EF2266E2A2FA4AA00553325 /* UIFont+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF2266D2A2FA4AA00553325 /* UIFont+GGL.swift */; };
+		3EF3CABA2A65014100C46F38 /* GGLDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF3CAB92A65014100C46F38 /* GGLDebugViewController.swift */; };
 		3EFF955B2A30DBC700E89069 /* GGLMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF955A2A30DBC700E89069 /* GGLMessageViewController.swift */; };
 		3EFF955D2A30DD1300E89069 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF955C2A30DD1300E89069 /* AppRouter.swift */; };
 		93F1242499CE7D731BC833A8 /* Pods_GouGouLiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997C3F54446B81575D166583 /* Pods_GouGouLiu.framework */; };
@@ -72,6 +73,7 @@
 		3ED90C0D2A2E5E490079B4D3 /* GGLGlobalImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLGlobalImport.swift; sourceTree = "<group>"; };
 		3ED90C102A2E620B0079B4D3 /* GGLBaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLBaseNavigationController.swift; sourceTree = "<group>"; };
 		3EF2266D2A2FA4AA00553325 /* UIFont+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+GGL.swift"; sourceTree = "<group>"; };
+		3EF3CAB92A65014100C46F38 /* GGLDebugViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GGLDebugViewController.swift; sourceTree = "<group>"; };
 		3EFF955A2A30DBC700E89069 /* GGLMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLMessageViewController.swift; sourceTree = "<group>"; };
 		3EFF955C2A30DD1300E89069 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		997C3F54446B81575D166583 /* Pods_GouGouLiu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GouGouLiu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -199,6 +201,7 @@
 				3EFF95592A30DB9E00E89069 /* Message */,
 				3ED90C032A2E543A0079B4D3 /* Personal */,
 				3ED90C082A2E5A1E0079B4D3 /* Topic */,
+				3EF3CAB82A65012D00C46F38 /* Debug */,
 				3ED370CE2A597C4300639291 /* Manager */,
 				3ED90C0B2A2E5AB30079B4D3 /* Base */,
 				3ED90BFC2A2E49E30079B4D3 /* Utilities */,
@@ -268,6 +271,14 @@
 				3ED90BF42A2E24420079B4D3 /* Info.plist */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		3EF3CAB82A65012D00C46F38 /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				3EF3CAB92A65014100C46F38 /* GGLDebugViewController.swift */,
+			);
+			path = Debug;
 			sourceTree = "<group>";
 		};
 		3EFF95582A30DB8100E89069 /* Main */ = {
@@ -430,6 +441,7 @@
 				3ED370CD2A5974E300639291 /* GGLAPIConstants.swift in Sources */,
 				3ED90BFB2A2E31A90079B4D3 /* GGLTabBarController.swift in Sources */,
 				3EB404B02A54890F0032E899 /* GGLHomePostModel.swift in Sources */,
+				3EF3CABA2A65014100C46F38 /* GGLDebugViewController.swift in Sources */,
 				3E0A078D2A55D8B400D60819 /* GGLPhotoDownloadManager.swift in Sources */,
 				3E6EB8252A3F54FE00675A2A /* MessageModel.swift in Sources */,
 				3ED90C022A2E4DED0079B4D3 /* GGLHomeRecommendCell.swift in Sources */,
