@@ -27,12 +27,12 @@ final class GGLDebugViewController: UIHostingController<DebugContentView> {
 
 struct DebugContentView: View {
     var menuRows: [DebugRow] = [
-        .uploadPhoto
+        .uploadPhoto,
     ]
     var body: some View {
         List(menuRows) { row in
             Button {
-                row.action?()
+                row.action()
             } label: {
                 Text(row.title)
             }
@@ -55,15 +55,12 @@ extension DebugContentView {
                 return "Update Photo"
             }
         }
-        var action: (() -> Void)? {
-            var action: (() -> Void)?
+
+        func action() {
             switch self {
             case .uploadPhoto:
-                action = {
-                    print("Update Photo")
-                }
+                print("Update Photo")
             }
-            return action
         }
     }
 
