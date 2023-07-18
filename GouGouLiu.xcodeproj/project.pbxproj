@@ -9,13 +9,13 @@
 /* Begin PBXBuildFile section */
 		3E0A078A2A55BAF900D60819 /* GGLOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A07892A55BAF900D60819 /* GGLOrderViewController.swift */; };
 		3E0A078D2A55D8B400D60819 /* GGLPhotoDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A078C2A55D8B400D60819 /* GGLPhotoDownloadManager.swift */; };
-		3E1EF4852A3F4B50008D65C8 /* UIHostingController+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EF4842A3F4B50008D65C8 /* UIHostingController+GGL.swift */; };
 		3E2DA2742A2F76F9001D9352 /* GGLWaterFallFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2DA2732A2F76F9001D9352 /* GGLWaterFallFlowLayout.swift */; };
 		3E5509332A66900F00653568 /* GGLNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5509322A66900F00653568 /* GGLNetworkManager.swift */; };
 		3E6B0C322A3087D9002317D6 /* String+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6B0C312A3087D9002317D6 /* String+GGL.swift */; };
 		3E6EB8252A3F54FE00675A2A /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6EB8242A3F54FE00675A2A /* MessageModel.swift */; };
 		3E6EB82B2A3F565100675A2A /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6EB82A2A3F565100675A2A /* MessageCell.swift */; };
 		3E77FCA52A66CC7C00699C47 /* NSNotification.Name+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E77FCA42A66CC7C00699C47 /* NSNotification.Name+GGL.swift */; };
+		3E77FCA72A66DB6D00699C47 /* GGLBaseHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E77FCA62A66DB6D00699C47 /* GGLBaseHostingController.swift */; };
 		3E90E2DE2A652BD000A6EA70 /* GGLUploadPhotoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E90E2DD2A652BD000A6EA70 /* GGLUploadPhotoAPI.swift */; };
 		3E90E2E02A652CD500A6EA70 /* GGLUploadPhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E90E2DF2A652CD500A6EA70 /* GGLUploadPhotoManager.swift */; };
 		3EA4B3242A65C33E00A592BA /* GGLUploadPhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA4B3232A65C33E00A592BA /* GGLUploadPhotoModel.swift */; };
@@ -50,13 +50,13 @@
 		20732876E0B494D5AF100F24 /* Pods-GouGouLiu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GouGouLiu.debug.xcconfig"; path = "Target Support Files/Pods-GouGouLiu/Pods-GouGouLiu.debug.xcconfig"; sourceTree = "<group>"; };
 		3E0A07892A55BAF900D60819 /* GGLOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLOrderViewController.swift; sourceTree = "<group>"; };
 		3E0A078C2A55D8B400D60819 /* GGLPhotoDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GGLPhotoDownloadManager.swift; sourceTree = "<group>"; };
-		3E1EF4842A3F4B50008D65C8 /* UIHostingController+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIHostingController+GGL.swift"; sourceTree = "<group>"; };
 		3E2DA2732A2F76F9001D9352 /* GGLWaterFallFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLWaterFallFlowLayout.swift; sourceTree = "<group>"; };
 		3E5509322A66900F00653568 /* GGLNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLNetworkManager.swift; sourceTree = "<group>"; };
 		3E6B0C312A3087D9002317D6 /* String+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+GGL.swift"; sourceTree = "<group>"; };
 		3E6EB8242A3F54FE00675A2A /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		3E6EB82A2A3F565100675A2A /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		3E77FCA42A66CC7C00699C47 /* NSNotification.Name+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification.Name+GGL.swift"; sourceTree = "<group>"; };
+		3E77FCA62A66DB6D00699C47 /* GGLBaseHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLBaseHostingController.swift; sourceTree = "<group>"; };
 		3E90E2DD2A652BD000A6EA70 /* GGLUploadPhotoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLUploadPhotoAPI.swift; sourceTree = "<group>"; };
 		3E90E2DF2A652CD500A6EA70 /* GGLUploadPhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLUploadPhotoManager.swift; sourceTree = "<group>"; };
 		3EA4B3232A65C33E00A592BA /* GGLUploadPhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLUploadPhotoModel.swift; sourceTree = "<group>"; };
@@ -255,7 +255,6 @@
 				3ED90BFD2A2E4A200079B4D3 /* UIImage+GGL.swift */,
 				3EF2266D2A2FA4AA00553325 /* UIFont+GGL.swift */,
 				3E6B0C312A3087D9002317D6 /* String+GGL.swift */,
-				3E1EF4842A3F4B50008D65C8 /* UIHostingController+GGL.swift */,
 				3EB404B52A548D200032E899 /* Observable+GGL.swift */,
 				3E77FCA42A66CC7C00699C47 /* NSNotification.Name+GGL.swift */,
 				3ED370CF2A597CB900639291 /* GGLTool.swift */,
@@ -296,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				3ED90C092A2E5A870079B4D3 /* GGLBaseViewController.swift */,
+				3E77FCA62A66DB6D00699C47 /* GGLBaseHostingController.swift */,
 				3ED90C102A2E620B0079B4D3 /* GGLBaseNavigationController.swift */,
 			);
 			path = Base;
@@ -474,10 +474,10 @@
 				3ED90BFE2A2E4A200079B4D3 /* UIImage+GGL.swift in Sources */,
 				3E90E2E02A652CD500A6EA70 /* GGLUploadPhotoManager.swift in Sources */,
 				3ED90C112A2E620B0079B4D3 /* GGLBaseNavigationController.swift in Sources */,
-				3E1EF4852A3F4B50008D65C8 /* UIHostingController+GGL.swift in Sources */,
 				3ED90BE72A2E24410079B4D3 /* AppDelegate.swift in Sources */,
 				3E0A078A2A55BAF900D60819 /* GGLOrderViewController.swift in Sources */,
 				3EB404B32A548B680032E899 /* GGLHomePostAPI.swift in Sources */,
+				3E77FCA72A66DB6D00699C47 /* GGLBaseHostingController.swift in Sources */,
 				3ED370CD2A5974E300639291 /* GGLAPIConstants.swift in Sources */,
 				3EA4B3242A65C33E00A592BA /* GGLUploadPhotoModel.swift in Sources */,
 				3ED90BFB2A2E31A90079B4D3 /* GGLTabBarController.swift in Sources */,

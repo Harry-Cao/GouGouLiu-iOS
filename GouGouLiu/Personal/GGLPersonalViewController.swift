@@ -5,9 +5,9 @@
 //  Created by Harry Cao on 2023/6/6.
 //
 
-import UIKit
+import SwiftUI
 
-final class GGLPersonalViewController: GGLBaseViewController {
+final class GGLPersonalViewController: GGLBaseHostingController<PersonalContentView> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,4 +19,17 @@ final class GGLPersonalViewController: GGLBaseViewController {
         
     }
 
+}
+
+struct PersonalContentView: View {
+    var body: some View {
+        List() {
+            Button {
+                AppRouter.shared.push(GGLDebugViewController(rootView: DebugContentView()))
+            } label: {
+                Text("Debug")
+            }
+        }
+        .listStyle(.plain)
+    }
 }

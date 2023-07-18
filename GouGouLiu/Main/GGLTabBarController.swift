@@ -11,14 +11,13 @@ final class GGLTabBarController: UITabBarController {
 
     private let homeViewController = GGLHomeViewController()
     private let orderViewController = GGLOrderViewController()
-    private let messageViewController = GGLMessageViewController()
-    private let personalViewController = GGLPersonalViewController()
+    private let messageViewController = GGLMessageViewController(rootView: MessageContentView())
+    private let personalViewController = GGLPersonalViewController(rootView: PersonalContentView())
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setupViewControllers()
-        addDebugGestureIfNeeded()
     }
 
     private func setupUI() {
@@ -62,20 +61,6 @@ final class GGLTabBarController: UITabBarController {
         let tabBarItem = UITabBarItem(title: title, image: normalImage, selectedImage: selectedImage)
         navigationController.tabBarItem = tabBarItem
         return navigationController
-    }
-
-    private func addDebugGestureIfNeeded() {
-        #if DEBUG
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(openDebugPage))
-        gesture.numberOfTapsRequired = 3
-        self.tabBar.addGestureRecognizer(gesture)
-        #endif
-    }
-
-    @objc private func openDebugPage() {
-        let debugVC = GGLDebugViewController()
-        let navigationController = GGLBaseNavigationController(rootViewController: debugVC)
-        AppRouter.shared.present(navigationController)
     }
 
 }

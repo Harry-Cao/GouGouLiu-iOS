@@ -10,15 +10,7 @@ import SwiftUI
 import RxSwift
 import ProgressHUD
 
-final class GGLDebugViewController: UIHostingController<DebugContentView> {
-
-    init() {
-        super.init(rootView: DebugContentView())
-    }
-
-    @MainActor required dynamic init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+final class GGLDebugViewController: GGLBaseHostingController<DebugContentView> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
