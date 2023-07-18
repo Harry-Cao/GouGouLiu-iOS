@@ -9,8 +9,9 @@ import Foundation
 
 struct GGLHomePostModel: Codable {
 
+    var code: Int?
+    var msg: String?
     var data: [GGLHomePostModel_Data]?
-    var update_time: String?
 
 }
 

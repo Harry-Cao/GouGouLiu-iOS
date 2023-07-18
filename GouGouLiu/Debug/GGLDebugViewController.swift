@@ -56,7 +56,7 @@ extension DebugContentView {
                 let image: UIImage? = .tab_bar_home_normal
                 guard let data = image?.pngData() else { return }
                 GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .avatar).subscribe(onNext: { response in
-                    if response.ret == 0 {
+                    if response.code == 0 {
                         ProgressHUD.showSucceed()
                     }
                 }).disposed(by: GGLUploadPhotoManager.shared.disposeBag)
