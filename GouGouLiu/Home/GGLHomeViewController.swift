@@ -8,6 +8,8 @@
 import UIKit
 import Hero
 import RxSwift
+import Alamofire
+import ProgressHUD
 
 final class GGLHomeViewController: GGLBaseViewController {
 
@@ -31,7 +33,7 @@ final class GGLHomeViewController: GGLBaseViewController {
         navigationItem.title = .Home
         setupUI()
         bindData()
-        getData()
+        addObserver()
     }
 
     private func setupUI() {
@@ -50,6 +52,21 @@ final class GGLHomeViewController: GGLBaseViewController {
 
     private func getData() {
         viewModel.getHomePostData()
+    }
+
+    private func addObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(networkStatusUpdated), name: .networkStatusUpdated, object: nil)
+    }
+
+    @objc private func networkStatusUpdated() {
+        // 处理首次启动app网络请求时机问题
+        guard viewModel.dataSource.isEmpty else { return }
+        switch GGLNetworkManager.shared.networkStatus {
+        case .reachable(_):
+            getData()
+        default:
+            ProgressHUD.show(.tips_network_error, icon: .failed)
+        }
     }
 
 }

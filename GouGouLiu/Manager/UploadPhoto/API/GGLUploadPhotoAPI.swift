@@ -31,7 +31,7 @@ struct GGLUploadPhotoAPI: TargetType {
             data.append(MultipartFormData(provider: .data(imageData), name: "image_data"))
         }
         if let imageType = imageType {
-            let valueData = imageType.multipartFormData(name: "image_type")
+            let valueData = String(imageType).multipartFormData(name: "image_type")
             data.append(valueData)
         }
         return .uploadMultipart(data)

@@ -21,6 +21,8 @@ extension String {
     static let ChatRoom: String = "ChatRoom"
     static let Debug: String = "Debug"
 
+    static let tips_network_error: String = "网络不可用"
+
 }
 
 extension String {
