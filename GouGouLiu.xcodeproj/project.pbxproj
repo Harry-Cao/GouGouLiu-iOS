@@ -155,14 +155,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		3E90E2E12A652CDB00A6EA70 /* UploadPhoto */ = {
+		3E90E2E12A652CDB00A6EA70 /* ServerPhoto */ = {
 			isa = PBXGroup;
 			children = (
 				3E90E2DF2A652CD500A6EA70 /* GGLServerPhotoManager.swift */,
 				3EA4B3252A65C38E00A592BA /* API */,
 				3EA4B3262A65C39B00A592BA /* Model */,
 			);
-			path = UploadPhoto;
+			path = ServerPhoto;
 			sourceTree = "<group>";
 		};
 		3EA4B3252A65C38E00A592BA /* API */ = {
@@ -212,7 +212,7 @@
 				3EFF955C2A30DD1300E89069 /* AppRouter.swift */,
 				3E0A078C2A55D8B400D60819 /* GGLPhotoDownloadManager.swift */,
 				3E5509322A66900F00653568 /* GGLNetworkManager.swift */,
-				3E90E2E12A652CDB00A6EA70 /* UploadPhoto */,
+				3E90E2E12A652CDB00A6EA70 /* ServerPhoto */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
