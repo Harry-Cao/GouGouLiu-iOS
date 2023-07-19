@@ -20,5 +20,6 @@ extension String {
 
     static let path_homePagePost = "/api/home/post"
     static let path_uploadPhoto = "/api/photo/upload"
+    static let path_clearAllPhoto = "/api/photo/clearAll"
 
 }

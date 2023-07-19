@@ -12,6 +12,7 @@ struct GGLUploadPhotoAPI: TargetType {
 
     var imageData: Data?
     var imageType: Int?
+    var contactId: String?
 
     var baseURL: URL {
         .api_baseURL
@@ -28,10 +29,14 @@ struct GGLUploadPhotoAPI: TargetType {
     var task: Moya.Task {
         var data = [MultipartFormData]()
         if let imageData = imageData {
-            data.append(MultipartFormData(provider: .data(imageData), name: "image_data"))
+            data.append(MultipartFormData(provider: .data(imageData), name: "image_data", fileName: "Img_2023.png", mimeType: "image/jpeg"))
         }
         if let imageType = imageType {
             let valueData = String(imageType).multipartFormData(name: "image_type")
+            data.append(valueData)
+        }
+        if let contactId = contactId {
+            let valueData = contactId.multipartFormData(name: "contact_id")
             data.append(valueData)
         }
         return .uploadMultipart(data)

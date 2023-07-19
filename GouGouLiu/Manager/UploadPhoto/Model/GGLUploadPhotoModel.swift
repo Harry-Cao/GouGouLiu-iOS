@@ -10,6 +10,7 @@ import Foundation
 struct GGLUploadPhotoModel: Codable {
     var code: Int?
     var data: GGLUploadPhotoModel_Data?
+    var msg: String?
 }
 
 struct GGLUploadPhotoModel_Data: Codable {

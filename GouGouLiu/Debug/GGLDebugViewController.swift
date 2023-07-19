@@ -22,6 +22,7 @@ final class GGLDebugViewController: GGLBaseHostingController<DebugContentView> {
 struct DebugContentView: View {
     var menuRows: [DebugRow] = [
         .uploadPhoto,
+        .clearAllPhoto,
     ]
     var body: some View {
         List(menuRows) { row in
@@ -39,6 +40,7 @@ extension DebugContentView {
 
     enum DebugRow: Identifiable {
         case uploadPhoto
+        case clearAllPhoto
 
         var id: UUID {
             return UUID()
@@ -47,6 +49,8 @@ extension DebugContentView {
             switch self {
             case .uploadPhoto:
                 return "Upload Photo"
+            case .clearAllPhoto:
+                return "Clear All Photos"
             }
         }
 
@@ -55,11 +59,17 @@ extension DebugContentView {
             case .uploadPhoto:
                 let image: UIImage? = .tab_bar_home_normal
                 guard let data = image?.pngData() else { return }
-                GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .avatar).subscribe(onNext: { response in
+                GGLServerPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: "3260").subscribe(onNext: { response in
+                    if response.code == 0 {
+                        ProgressHUD.show(response.data?.url, icon: .succeed)
+                    }
+                }).disposed(by: GGLServerPhotoManager.shared.disposeBag)
+            case .clearAllPhoto:
+                GGLServerPhotoManager.shared.clearAllPhotos().subscribe(onNext: { response in
                     if response.code == 0 {
                         ProgressHUD.showSucceed()
                     }
-                }).disposed(by: GGLUploadPhotoManager.shared.disposeBag)
+                }).disposed(by: GGLServerPhotoManager.shared.disposeBag)
             }
         }
     }
