@@ -57,14 +57,15 @@ extension DebugContentView {
         func action() {
             switch self {
             case .uploadPhoto:
-                let image: UIImage? = .tab_bar_home_normal
-                guard let data = image?.jpegData(compressionQuality: 0.7) else { return }
-                GGLServerPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: "3260").subscribe(onNext: { response in
-                    if response.code == 0 {
-                        ProgressHUD.show(response.data?.url, icon: .succeed)
-                        UIPasteboard.general.string = response.data?.url
-                    }
-                }).disposed(by: GGLServerPhotoManager.shared.disposeBag)
+                GGLServerPhotoManager.shared.pickImage { image in
+                    guard let data = image?.jpegData(compressionQuality: 1) else { return }
+                    GGLServerPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: "3260").subscribe(onNext: { response in
+                        if response.code == 0 {
+                            ProgressHUD.show(response.data?.url, icon: .succeed)
+                            UIPasteboard.general.string = response.data?.url
+                        }
+                    }).disposed(by: GGLServerPhotoManager.shared.disposeBag)
+                }
             case .clearAllPhoto:
                 GGLServerPhotoManager.shared.clearAllPhotos().subscribe(onNext: { response in
                     if response.code == 0 {
