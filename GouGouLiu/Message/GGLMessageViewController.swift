@@ -13,15 +13,10 @@ final class GGLMessageViewController: GGLBaseHostingController<MessageContentVie
         super.viewDidLoad()
         navigationItem.title = .Message
         setupRightBarButtonItems()
-        setupUI()
     }
 
     private func setupRightBarButtonItems() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(didTapRefresh))
-    }
-
-    private func setupUI() {
-        
     }
 
     @objc private func didTapRefresh() {

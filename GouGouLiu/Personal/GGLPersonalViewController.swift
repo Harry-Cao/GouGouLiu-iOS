@@ -12,24 +12,53 @@ final class GGLPersonalViewController: GGLBaseHostingController<PersonalContentV
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = .Personal
-        setupUI()
-    }
-
-    private func setupUI() {
-        
     }
 
 }
 
 struct PersonalContentView: View {
+    var settingRows: [SettingRow] = [
+        .login,
+        .debug,
+    ]
     var body: some View {
-        List() {
+        List(settingRows) { row in
             Button {
-                AppRouter.shared.push(GGLDebugViewController(rootView: DebugContentView()))
+                row.action()
             } label: {
-                Text("Debug")
+                Text(row.title)
             }
         }
         .listStyle(.plain)
     }
+}
+
+extension PersonalContentView {
+
+    enum SettingRow: Identifiable {
+        case login
+        case debug
+
+        var id: UUID {
+            return UUID()
+        }
+        var title: String {
+            switch self {
+            case .login:
+                return "Login"
+            case .debug:
+                return "Debug"
+            }
+        }
+
+        func action() {
+            switch self {
+            case .login:
+                GGLUser.current.login()
+            case .debug:
+                AppRouter.shared.push(GGLDebugViewController(rootView: DebugContentView()))
+            }
+        }
+    }
+
 }
