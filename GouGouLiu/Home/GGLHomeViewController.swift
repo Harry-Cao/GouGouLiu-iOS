@@ -14,6 +14,7 @@ import ProgressHUD
 final class GGLHomeViewController: GGLBaseViewController {
 
     private let viewModel = GGLHomeViewModel()
+    private let disposeBag = DisposeBag()
     private let itemSpacing: CGFloat = 4.0
     private lazy var recommendCollectionView: UICollectionView = {
         let waterFallFlowLayout = GGLWaterFallFlowLayout()
@@ -45,9 +46,8 @@ final class GGLHomeViewController: GGLBaseViewController {
 
     private func bindData() {
         viewModel.updateSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] _ in
-            guard let self = self else { return }
-            self.recommendCollectionView.reloadData()
-        }).disposed(by: viewModel.disposeBag)
+            self?.recommendCollectionView.reloadData()
+        }).disposed(by: disposeBag)
     }
 
     private func getData() {

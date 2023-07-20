@@ -18,10 +18,9 @@ final class GGLHomeViewModel {
 
     func getHomePostData() {
         fetchHomePostData().subscribe(onNext: { [weak self] postModel in
-            guard let data = postModel.data,
-                  let self = self else { return }
-            self.dataSource = data
-            self.updateSubject.onNext(nil)
+            guard let data = postModel.data else { return }
+            self?.dataSource = data
+            self?.updateSubject.onNext(nil)
         }).disposed(by: disposeBag)
     }
 
