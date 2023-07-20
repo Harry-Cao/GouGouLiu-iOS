@@ -17,11 +17,11 @@ extension UserDefaults {
         }
     }
 
-    static var account: String? {
+    static var username: String? {
         get {
-            return UserDefaults.standard.string(forKey: "UserDefaults_account")
+            return UserDefaults.standard.string(forKey: "UserDefaults_username")
         } set {
-            UserDefaults.standard.set(newValue, forKey: "UserDefaults_account")
+            UserDefaults.standard.set(newValue, forKey: "UserDefaults_username")
         }
     }
 

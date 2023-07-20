@@ -18,7 +18,10 @@ final class GGLPersonalViewController: GGLBaseHostingController<PersonalContentV
 
 struct PersonalContentView: View {
     var settingRows: [SettingRow] = [
+        .signup,
         .login,
+        .logout,
+        .signout,
         .debug,
     ]
     var body: some View {
@@ -36,7 +39,10 @@ struct PersonalContentView: View {
 extension PersonalContentView {
 
     enum SettingRow: Identifiable {
+        case signup
         case login
+        case logout
+        case signout
         case debug
 
         var id: UUID {
@@ -44,8 +50,14 @@ extension PersonalContentView {
         }
         var title: String {
             switch self {
+            case .signup:
+                return "Sign up"
             case .login:
-                return "Login"
+                return "Log in"
+            case .logout:
+                return "Log out"
+            case .signout:
+                return "Sign out"
             case .debug:
                 return "Debug"
             }
@@ -53,8 +65,22 @@ extension PersonalContentView {
 
         func action() {
             switch self {
+            case .signup:
+                UIAlertController.popupAccountInfoInputAlert(title: "注册账号") { username, password in
+                    guard let username = username,
+                          let password = password else { return }
+                    GGLUser.current.signup(username: username, password: password)
+                }
             case .login:
-                GGLUser.current.login()
+                UIAlertController.popupAccountInfoInputAlert(title: "登录账号") { username, password in
+                    guard let username = username,
+                          let password = password else { return }
+                    GGLUser.current.login(username: username, password: password)
+                }
+            case .logout:
+                GGLUser.current.logout()
+            case .signout:
+                break
             case .debug:
                 AppRouter.shared.push(GGLDebugViewController(rootView: DebugContentView()))
             }

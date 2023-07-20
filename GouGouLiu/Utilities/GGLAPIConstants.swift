@@ -21,5 +21,8 @@ extension String {
     static let path_homePagePost = "/api/home/post"
     static let path_uploadPhoto = "/api/photo/upload"
     static let path_clearAllPhoto = "/api/photo/clearAll"
+    static let path_userSignup = "/api/user/signup"
+    static let path_userLogin = "/api/user/login"
+    static let path_userLogout = "/api/user/logout"
 
 }

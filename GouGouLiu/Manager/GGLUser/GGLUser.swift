@@ -6,10 +6,14 @@
 //
 
 import Foundation
+import RxSwift
+import ProgressHUD
 
 final class GGLUser {
 
     static let current = GGLUser()
+    private let networkHelper = GGLUserNetworkHelper()
+    private let disposeBag = DisposeBag()
 
     var userId: String? {
         get {
@@ -19,11 +23,11 @@ final class GGLUser {
         }
     }
 
-    var account: String? {
+    var username: String? {
         get {
-            return UserDefaults.account
+            return UserDefaults.username
         } set {
-            UserDefaults.account = newValue
+            UserDefaults.username = newValue
         }
     }
 
@@ -48,23 +52,44 @@ final class GGLUser {
 
 }
 
+// MARK: - Request
 extension GGLUser {
 
-    func signup(account: String, password: String) {
-        // account, password 请求注册接口
-        // 成功则保存
+    func signup(username: String, password: String) {
+        // username, password 请求注册接口
+        networkHelper.requestSignup(username: username, password: password).subscribe(onNext: { model in
+            if model.code == 0 {
+                GGLUser.current.username = username
+                GGLUser.current.password = password
+                ProgressHUD.showSucceed("注册成功")
+            }
+        }).disposed(by: disposeBag)
     }
 
-    func login() {
-        // account, password 请求登录接口
+    func login(username: String, password: String) {
+        // username, password 请求登录接口
+        networkHelper.requestLogin(username: username, password: password).subscribe(onNext: { model in
+            if model.code == 0 {
+                GGLUser.current.userStatus = .alreadyLogin
+                ProgressHUD.showSucceed("登录成功")
+            }
+        }).disposed(by: disposeBag)
     }
 
     func logout() {
-        // account 请求登出接口
+        // username 请求登出接口
+        guard let username = GGLUser.current.username else { return }
+        networkHelper.requestLogout(username: username).subscribe(onNext: { model in
+            if model.code == 0 {
+                GGLUser.current.userStatus = .logout
+                ProgressHUD.showSucceed("登出成功")
+            }
+        }).disposed(by: disposeBag)
     }
 
 }
 
+// MARK: - Enum
 extension GGLUser {
 
     enum Status: Int {
