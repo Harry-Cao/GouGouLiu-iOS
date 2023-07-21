@@ -23,6 +23,10 @@ struct DebugContentView: View {
     var menuRows: [DebugRow] = [
         .uploadPhoto,
         .clearAllPhoto,
+        .signup,
+        .login,
+        .logout,
+        .signout,
     ]
     var body: some View {
         List(menuRows) { row in
@@ -41,6 +45,10 @@ extension DebugContentView {
     enum DebugRow: Identifiable {
         case uploadPhoto
         case clearAllPhoto
+        case signup
+        case login
+        case logout
+        case signout
 
         var id: UUID {
             return UUID()
@@ -51,6 +59,14 @@ extension DebugContentView {
                 return "Upload Photo"
             case .clearAllPhoto:
                 return "Clear All Photos"
+            case .signup:
+                return "Sign Up"
+            case .login:
+                return "Log In"
+            case .logout:
+                return "Log Out"
+            case .signout:
+                return "Sign Out"
             }
         }
 
@@ -72,6 +88,22 @@ extension DebugContentView {
                         ProgressHUD.showSucceed()
                     }
                 }).disposed(by: GGLServerPhotoManager.shared.disposeBag)
+            case .signup:
+                UIAlertController.popupAccountInfoInputAlert(title: "注册账号") { username, password in
+                    guard let username = username,
+                          let password = password else { return }
+                    GGLUser.current.signup(username: username, password: password)
+                }
+            case .login:
+                UIAlertController.popupAccountInfoInputAlert(title: "登录账号") { username, password in
+                    guard let username = username,
+                          let password = password else { return }
+                    GGLUser.current.login(username: username, password: password)
+                }
+            case .logout:
+                GGLUser.current.logout()
+            case .signout:
+                break
             }
         }
     }
