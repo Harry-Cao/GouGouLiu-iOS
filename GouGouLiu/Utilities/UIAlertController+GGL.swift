@@ -21,10 +21,16 @@ extension UIAlertController {
         alertController.addAction(cancelAction)
         alertController.addTextField { textField in
             textField.placeholder = "username"
+            textField.snp.makeConstraints { make in
+                make.height.equalTo(24)
+            }
         }
         alertController.addTextField { textField in
             textField.placeholder = "password"
             textField.isSecureTextEntry = true
+            textField.snp.makeConstraints { make in
+                make.height.equalTo(24)
+            }
         }
         AppRouter.shared.present(alertController)
     }

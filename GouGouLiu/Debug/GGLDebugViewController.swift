@@ -77,9 +77,9 @@ extension DebugContentView {
         func action() {
             switch self {
             case .uploadPhoto:
+                guard let userId = GGLUser.current.getUserId() else { return }
                 GGLServerPhotoManager.shared.pickImage { image in
-                    guard let data = image?.jpegData(compressionQuality: 1),
-                          let userId = GGLUser.current.getUserId() else { return }
+                    guard let data = image?.jpegData(compressionQuality: 1) else { return }
                     GGLServerPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: userId).subscribe(onNext: { model in
                         if model.code == 0 {
                             ProgressHUD.showSucceed(model.msg)
