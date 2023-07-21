@@ -21,7 +21,7 @@ struct GGLClearAllPhotoAPI: TargetType {
     }
     
     var method: Moya.Method {
-        .get
+        .post
     }
     
     var task: Moya.Task {
