@@ -27,6 +27,7 @@ struct DebugContentView: View {
         .login,
         .logout,
         .signout,
+        .clearAllUser,
     ]
     var body: some View {
         List(menuRows) { row in
@@ -49,6 +50,7 @@ extension DebugContentView {
         case login
         case logout
         case signout
+        case clearAllUser
 
         var id: UUID {
             return UUID()
@@ -67,6 +69,8 @@ extension DebugContentView {
                 return "Log Out"
             case .signout:
                 return "Sign Out"
+            case .clearAllUser:
+                return "Clear All Users"
             }
         }
 
@@ -74,20 +78,17 @@ extension DebugContentView {
             switch self {
             case .uploadPhoto:
                 GGLServerPhotoManager.shared.pickImage { image in
-                    guard let data = image?.jpegData(compressionQuality: 1) else { return }
-                    GGLServerPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: "3260").subscribe(onNext: { response in
-                        if response.code == 0 {
-                            ProgressHUD.show(response.data?.url, icon: .succeed)
-                            UIPasteboard.general.string = response.data?.url
+                    guard let data = image?.jpegData(compressionQuality: 1),
+                          let userId = GGLUser.current.getUserId() else { return }
+                    GGLServerPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: userId).subscribe(onNext: { model in
+                        if model.code == 0 {
+                            ProgressHUD.showSucceed(model.msg)
+                            UIPasteboard.general.string = model.data?.url
                         }
                     }).disposed(by: GGLServerPhotoManager.shared.disposeBag)
                 }
             case .clearAllPhoto:
-                GGLServerPhotoManager.shared.clearAllPhotos().subscribe(onNext: { response in
-                    if response.code == 0 {
-                        ProgressHUD.showSucceed()
-                    }
-                }).disposed(by: GGLServerPhotoManager.shared.disposeBag)
+                GGLServerPhotoManager.shared.clearAllPhotos()
             case .signup:
                 UIAlertController.popupAccountInfoInputAlert(title: "注册账号") { username, password in
                     guard let username = username,
@@ -104,6 +105,8 @@ extension DebugContentView {
                 GGLUser.current.logout()
             case .signout:
                 break
+            case .clearAllUser:
+                GGLUser.current.clearAll()
             }
         }
     }

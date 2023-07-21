@@ -21,9 +21,14 @@ final class GGLUserNetworkHelper {
         return Observable<GGLBaseMoyaModel>.ofRequest(api: api, provider: MoyaProvider<GGLUserLoginAPI>())
     }
 
-    func requestLogout(username: String) -> Observable<GGLBaseMoyaModel> {
-        let api = GGLUserLogoutAPI(username: username)
+    func requestLogout(userId: String) -> Observable<GGLBaseMoyaModel> {
+        let api = GGLUserLogoutAPI(userId: userId)
         return Observable<GGLBaseMoyaModel>.ofRequest(api: api, provider: MoyaProvider<GGLUserLogoutAPI>())
+    }
+
+    func requestClearAll(userId: String) -> Observable<GGLBaseMoyaModel> {
+        let api = GGLUserClearAllAPI(userId: userId)
+        return Observable<GGLBaseMoyaModel>.ofRequest(api: api, provider: MoyaProvider<GGLUserClearAllAPI>())
     }
 
 }

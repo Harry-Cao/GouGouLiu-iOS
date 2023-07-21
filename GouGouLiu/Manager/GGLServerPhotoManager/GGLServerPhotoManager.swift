@@ -8,6 +8,7 @@
 import Foundation
 import Moya
 import RxSwift
+import ProgressHUD
 
 extension GGLServerPhotoManager {
     typealias ImageBlock = (_ image: UIImage?) -> Void
@@ -25,8 +26,17 @@ final class GGLServerPhotoManager: NSObject, UINavigationControllerDelegate {
         return Observable<GGLUploadPhotoModel>.ofRequest(api: api, provider: moyaProvider)
     }
 
-    func clearAllPhotos() -> Observable<GGLBaseMoyaModel> {
-        let api = GGLClearAllPhotoAPI()
+    func clearAllPhotos() {
+        guard let userId = GGLUser.current.getUserId() else { return }
+        requestClearAllPhotos(userId: userId).subscribe(onNext: { model in
+            if model.code == 0 {
+                ProgressHUD.showSucceed(model.msg)
+            }
+        }).disposed(by: disposeBag)
+    }
+
+    func requestClearAllPhotos(userId: String)  -> Observable<GGLBaseMoyaModel> {
+        let api = GGLClearAllPhotoAPI(userId: userId)
         return Observable<GGLBaseMoyaModel>.ofRequest(api: api, provider: MoyaProvider<GGLClearAllPhotoAPI>())
     }
 

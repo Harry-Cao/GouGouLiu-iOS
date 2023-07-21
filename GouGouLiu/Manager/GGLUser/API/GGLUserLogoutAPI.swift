@@ -10,7 +10,7 @@ import Moya
 
 struct GGLUserLogoutAPI: TargetType {
 
-    var username: String
+    var userId: String
 
     var baseURL: URL {
         .api_baseURL
@@ -26,7 +26,7 @@ struct GGLUserLogoutAPI: TargetType {
 
     var task: Moya.Task {
         var para: [String: Any] = [:]
-        para.updateValue(username, forKey: "user")
+        para.updateValue(userId, forKey: "userId")
         return .requestParameters(parameters: para, encoding: URLEncoding.queryString)
     }
 
