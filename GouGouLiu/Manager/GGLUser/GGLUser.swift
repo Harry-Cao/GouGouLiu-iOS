@@ -22,34 +22,13 @@ final class GGLUser {
             UserDefaults.userId = newValue
         }
     }
-
-    var username: String? {
-        get {
-            return UserDefaults.username
-        } set {
-            UserDefaults.username = newValue
-        }
-    }
-
-    var password: String? {
-        get {
-            return UserDefaults.password
-        } set {
-            UserDefaults.password = newValue
-        }
-    }
-
-    var userStatus: Status {
-        get {
-            guard let userStatusValue = UserDefaults.userStatus,
-                  let userStatus = Status(rawValue: userStatusValue)
-            else { return .unregistered }
-            return userStatus
-        } set {
-            if newValue == .logout {
-                removeUserData()
+    var username: String?
+    var password: String?
+    var userStatus: Status = .unregistered {
+        didSet {
+            if userStatus == .logout {
+                userId = nil
             }
-            UserDefaults.userStatus = newValue.rawValue
         }
     }
 
@@ -113,12 +92,6 @@ extension GGLUser {
             ProgressHUD.showFailed("请先登录")
         }
         return userId
-    }
-
-    private func removeUserData() {
-        userId = nil
-        username = nil
-        password = nil
     }
 
 }

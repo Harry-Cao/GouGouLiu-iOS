@@ -20,15 +20,20 @@ struct PersonalContentView: View {
     var settingRows: [SettingRow] = [
         .debug,
     ]
+    @State var avatarUrl: String = ""
     var body: some View {
-        List(settingRows) { row in
-            Button {
-                row.action()
-            } label: {
-                Text(row.title)
+        VStack {
+            WebImage(url: URL(string: avatarUrl))
+            Text(GGLUser.current.username ?? "")
+            List(settingRows) { row in
+                Button {
+                    row.action()
+                } label: {
+                    Text(row.title)
+                }
             }
+            .listStyle(.plain)
         }
-        .listStyle(.plain)
     }
 }
 
