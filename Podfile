@@ -11,6 +11,7 @@ target 'GouGouLiu' do
 pod 'RxSwift'
 pod 'Moya'
 pod 'SDWebImage'
+pod 'SDWebImageSwiftUI'
 pod 'SnapKit'
 pod 'Alamofire'
 pod 'URLNavigator'
