@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class GGLMoyaModel<T: Codable>: Codable {
+struct GGLMoyaModel<T: Codable>: Codable {
 
     var code: Int?
     var msg: String?
