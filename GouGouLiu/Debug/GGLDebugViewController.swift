@@ -77,7 +77,7 @@ extension DebugContentView {
         func action() {
             switch self {
             case .uploadPhoto:
-                guard let userId = GGLUser.current.getUserId() else { return }
+                guard let userId = GGLUser.getUserId() else { return }
                 GGLServerPhotoManager.shared.pickImage { image in
                     guard let data = image?.jpegData(compressionQuality: 1) else { return }
                     GGLServerPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: userId).subscribe(onNext: { model in
@@ -93,20 +93,20 @@ extension DebugContentView {
                 UIAlertController.popupAccountInfoInputAlert(title: "注册账号") { username, password in
                     guard let username = username,
                           let password = password else { return }
-                    GGLUser.current.signup(username: username, password: password)
+                    GGLUser.signup(username: username, password: password)
                 }
             case .login:
                 UIAlertController.popupAccountInfoInputAlert(title: "登录账号") { username, password in
                     guard let username = username,
                           let password = password else { return }
-                    GGLUser.current.login(username: username, password: password)
+                    GGLUser.login(username: username, password: password)
                 }
             case .logout:
-                GGLUser.current.logout()
+                GGLUser.logout()
             case .signout:
                 break
             case .clearAllUser:
-                GGLUser.current.clearAll()
+                GGLUser.clearAll()
             }
         }
     }

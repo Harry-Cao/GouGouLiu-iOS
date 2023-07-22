@@ -80,7 +80,7 @@ final class GGLHomeRecommendCell: UICollectionViewCell {
         }
     }
 
-    func setup(model: GGLHomePostModel_Data) {
+    func setup(model: GGLHomePostModel) {
         let coverUrl = URL(string: model.cover_image_preview ?? "")
         imageView.sd_setImage(with: coverUrl)
         titleLabel.text = model.post_title

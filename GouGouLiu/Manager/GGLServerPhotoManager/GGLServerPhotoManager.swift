@@ -21,13 +21,13 @@ final class GGLServerPhotoManager: NSObject, UINavigationControllerDelegate {
     private let moyaProvider = MoyaProvider<GGLUploadPhotoAPI>()
     private(set) var disposeBag = DisposeBag()
 
-    func uploadPhoto(data: Data, type: ImageType, contactId: String) -> Observable<GGLUploadPhotoModel> {
+    func uploadPhoto(data: Data, type: ImageType, contactId: String) -> Observable<GGLMoyaModel<GGLUploadPhotoModel>> {
         let api = GGLUploadPhotoAPI(imageData: data, imageType: type.rawValue, contactId: contactId)
-        return Observable<GGLUploadPhotoModel>.ofRequest(api: api, provider: moyaProvider)
+        return Observable<GGLMoyaModel<GGLUploadPhotoModel>>.ofRequest(api: api, provider: moyaProvider)
     }
 
     func clearAllPhotos() {
-        guard let userId = GGLUser.current.getUserId() else { return }
+        guard let userId = GGLUser.getUserId() else { return }
         requestClearAllPhotos(userId: userId).subscribe(onNext: { model in
             if model.code == 0 {
                 ProgressHUD.showSucceed(model.msg)

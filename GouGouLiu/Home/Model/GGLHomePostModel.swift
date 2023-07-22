@@ -9,14 +9,6 @@ import Foundation
 
 struct GGLHomePostModel: Codable {
 
-    var code: Int?
-    var msg: String?
-    var data: [GGLHomePostModel_Data]?
-
-}
-
-struct GGLHomePostModel_Data: Codable {
-
     var user_name: String?
     var user_avatar: String?
     var cover_image: String?

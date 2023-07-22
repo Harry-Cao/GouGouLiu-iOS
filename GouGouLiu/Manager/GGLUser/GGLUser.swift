@@ -11,20 +11,18 @@ import ProgressHUD
 
 final class GGLUser {
 
-    static let current = GGLUser()
-    private let networkHelper = GGLUserNetworkHelper()
-    private let disposeBag = DisposeBag()
+    static private(set) var current = GGLUserModel()
+    static let networkHelper = GGLUserNetworkHelper()
+    static let disposeBag = DisposeBag()
 
-    var userId: String? {
+    static var userId: String? {
         get {
             return UserDefaults.userId
         } set {
             UserDefaults.userId = newValue
         }
     }
-    var username: String?
-    var password: String?
-    var userStatus: Status = .unregistered {
+    static var userStatus: Status = .unregistered {
         didSet {
             if userStatus == .logout {
                 userId = nil
@@ -37,44 +35,31 @@ final class GGLUser {
 // MARK: - Request
 extension GGLUser {
 
-    func signup(username: String, password: String) {
-        // username, password 请求注册接口
-        networkHelper.requestSignup(username: username, password: password).subscribe(onNext: { model in
-            if model.code == 0 {
-                GGLUser.current.username = username
-                GGLUser.current.password = password
-                GGLUser.current.userId = model.data?["userId"] as? String
-            }
-            ProgressHUD.showSucceed(model.msg)
-        }).disposed(by: disposeBag)
+    static func signup(username: String, password: String) {
+        networkHelper.requestSignup(username: username, password: password)
     }
 
-    func login(username: String, password: String) {
-        // username, password 请求登录接口
+    static func login(username: String, password: String) {
         networkHelper.requestLogin(username: username, password: password).subscribe(onNext: { model in
-            if model.code == 0 {
-                GGLUser.current.username = username
-                GGLUser.current.password = password
-                GGLUser.current.userId = model.data?["userId"] as? String
-                GGLUser.current.userStatus = .alreadyLogin
-            }
+            guard let user = model.data else { return }
+            current = user
+            userId = current.userId
             ProgressHUD.showSucceed(model.msg)
         }).disposed(by: disposeBag)
     }
 
-    func logout() {
-        // username 请求登出接口
-        guard let userId = GGLUser.current.getUserId() else { return }
+    static func logout() {
+        guard let userId = GGLUser.getUserId() else { return }
         networkHelper.requestLogout(userId: userId).subscribe(onNext: { model in
             if model.code == 0 {
-                GGLUser.current.userStatus = .logout
+                userStatus = .logout
             }
             ProgressHUD.showSucceed(model.msg)
         }).disposed(by: disposeBag)
     }
 
-    func clearAll() {
-        guard let userId = GGLUser.current.getUserId() else { return }
+    static func clearAll() {
+        guard let userId = GGLUser.getUserId() else { return }
         networkHelper.requestClearAll(userId: userId).subscribe(onNext: { model in
             ProgressHUD.showSucceed(model.msg)
         }).disposed(by: disposeBag)
@@ -85,10 +70,9 @@ extension GGLUser {
 // MARK: - Method
 extension GGLUser {
 
-    func getUserId() -> String? {
+    static func getUserId() -> String? {
         let userId = UserDefaults.userId
         if userId == nil {
-            // 跳转到登录界面
             ProgressHUD.showFailed("请先登录")
         }
         return userId

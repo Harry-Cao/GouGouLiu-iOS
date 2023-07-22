@@ -10,7 +10,7 @@ import ProgressHUD
 
 final class GGLTopicViewController: GGLBaseViewController {
 
-    var postModel: GGLHomePostModel_Data?
+    var postModel: GGLHomePostModel?
     private(set) var previewImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
