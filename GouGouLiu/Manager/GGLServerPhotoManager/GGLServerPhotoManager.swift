@@ -35,9 +35,9 @@ final class GGLServerPhotoManager: NSObject, UINavigationControllerDelegate {
         }).disposed(by: disposeBag)
     }
 
-    func requestClearAllPhotos(userId: String)  -> Observable<GGLBaseMoyaModel> {
+    func requestClearAllPhotos(userId: String)  -> Observable<GGLMoyaModel<[String: String]>> {
         let api = GGLClearAllPhotoAPI(userId: userId)
-        return Observable<GGLBaseMoyaModel>.ofRequest(api: api, provider: MoyaProvider<GGLClearAllPhotoAPI>())
+        return Observable<GGLMoyaModel<[String: String]>>.ofRequest(api: api, provider: MoyaProvider<GGLClearAllPhotoAPI>())
     }
 
     func pickImage(completion: @escaping ImageBlock) {
