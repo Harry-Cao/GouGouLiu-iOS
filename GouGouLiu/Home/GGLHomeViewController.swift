@@ -9,7 +9,6 @@ import UIKit
 import Hero
 import RxSwift
 import Alamofire
-import ProgressHUD
 
 final class GGLHomeViewController: GGLBaseViewController {
 

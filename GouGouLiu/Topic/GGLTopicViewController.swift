@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import ProgressHUD
 
 final class GGLTopicViewController: GGLBaseViewController {
 

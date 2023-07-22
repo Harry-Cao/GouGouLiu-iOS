@@ -7,28 +7,16 @@
 
 import Foundation
 import RxSwift
-import ProgressHUD
 
 final class GGLUser {
 
-    static private(set) var current = GGLUserModel()
+    static private(set) var current: GGLUserModel? {
+        didSet {
+            UserDefaults.userId = current?.userId
+        }
+    }
     static let networkHelper = GGLUserNetworkHelper()
     static let disposeBag = DisposeBag()
-
-    static var userId: String? {
-        get {
-            return UserDefaults.userId
-        } set {
-            UserDefaults.userId = newValue
-        }
-    }
-    static var userStatus: Status = .unregistered {
-        didSet {
-            if userStatus == .logout {
-                userId = nil
-            }
-        }
-    }
 
 }
 
@@ -41,9 +29,10 @@ extension GGLUser {
 
     static func login(username: String, password: String) {
         networkHelper.requestLogin(username: username, password: password).subscribe(onNext: { model in
-            guard let user = model.data else { return }
-            current = user
-            userId = current.userId
+            if model.code == 0,
+               let user = model.data {
+                current = user
+            }
             ProgressHUD.showSucceed(model.msg)
         }).disposed(by: disposeBag)
     }
@@ -51,9 +40,6 @@ extension GGLUser {
     static func logout() {
         guard let userId = GGLUser.getUserId() else { return }
         networkHelper.requestLogout(userId: userId).subscribe(onNext: { model in
-            if model.code == 0 {
-                userStatus = .logout
-            }
             ProgressHUD.showSucceed(model.msg)
         }).disposed(by: disposeBag)
     }
@@ -76,20 +62,6 @@ extension GGLUser {
             ProgressHUD.showFailed("请先登录")
         }
         return userId
-    }
-
-}
-
-// MARK: - Enum
-extension GGLUser {
-
-    enum Status: Int {
-        /// 未注册
-        case unregistered
-        /// 已登录
-        case alreadyLogin
-        /// 退出登录
-        case logout
     }
 
 }

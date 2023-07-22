@@ -8,7 +8,6 @@
 import Foundation
 import Moya
 import RxSwift
-import ProgressHUD
 
 extension GGLServerPhotoManager {
     typealias ImageBlock = (_ image: UIImage?) -> Void

@@ -12,5 +12,6 @@ struct GGLUserModel: Codable {
     var userId: String?
     var username: String?
     var password: String?
+    var avatarUrl: String?
 
 }
