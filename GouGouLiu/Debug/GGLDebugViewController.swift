@@ -20,7 +20,8 @@ final class GGLDebugViewController: GGLBaseHostingController<DebugContentView> {
 
 struct DebugContentView: View {
     var menuRows: [DebugRow] = [
-        .uploadPhoto,
+        .uploadAvatar,
+        .uploadPost,
         .clearAllPhoto,
         .signup,
         .login,
@@ -43,7 +44,8 @@ struct DebugContentView: View {
 extension DebugContentView {
 
     enum DebugRow: Identifiable {
-        case uploadPhoto
+        case uploadAvatar
+        case uploadPost
         case clearAllPhoto
         case signup
         case login
@@ -56,8 +58,10 @@ extension DebugContentView {
         }
         var title: String {
             switch self {
-            case .uploadPhoto:
-                return "Upload Photo"
+            case .uploadAvatar:
+                return "Upload Avatar"
+            case .uploadPost:
+                return "Upload Post"
             case .clearAllPhoto:
                 return "Clear All Photos"
             case .signup:
@@ -75,19 +79,30 @@ extension DebugContentView {
 
         func action() {
             switch self {
-            case .uploadPhoto:
+            case .uploadAvatar:
                 guard let userId = GGLUser.getUserId() else { return }
-                GGLServerPhotoManager.shared.pickImage { image in
+                GGLUploadPhotoManager.shared.pickImage { image in
                     guard let data = image?.jpegData(compressionQuality: 1) else { return }
-                    GGLServerPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: userId).subscribe(onNext: { model in
+                    GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: userId).subscribe(onNext: { model in
                         if model.code == 0 {
                             ProgressHUD.showSucceed(model.msg)
                             UIPasteboard.general.string = model.data?.url
                         }
-                    }).disposed(by: GGLServerPhotoManager.shared.disposeBag)
+                    }).disposed(by: GGLUploadPhotoManager.shared.disposeBag)
+                }
+            case .uploadPost:
+                guard let userId = GGLUser.getUserId() else { return }
+                GGLUploadPhotoManager.shared.pickImage { image in
+                    guard let data = image?.jpegData(compressionQuality: 1) else { return }
+                    GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .post, contactId: userId).subscribe(onNext: { model in
+                        if model.code == 0 {
+                            ProgressHUD.showSucceed(model.msg)
+                            UIPasteboard.general.string = model.data?.url
+                        }
+                    }).disposed(by: GGLUploadPhotoManager.shared.disposeBag)
                 }
             case .clearAllPhoto:
-                GGLServerPhotoManager.shared.clearAllPhotos()
+                GGLUploadPhotoManager.shared.clearAllPhotos()
             case .signup:
                 UIAlertController.popupAccountInfoInputAlert(title: "注册账号") { username, password in
                     guard let username = username,

@@ -29,14 +29,14 @@ struct GGLUploadPhotoAPI: TargetType {
     var task: Moya.Task {
         var data = [MultipartFormData]()
         if let imageData = imageData {
-            data.append(MultipartFormData(provider: .data(imageData), name: "image_data", fileName: "GGL_Img.jpeg", mimeType: "image/jpeg"))
+            data.append(MultipartFormData(provider: .data(imageData), name: "imageData", fileName: "GGL_Img.jpeg", mimeType: "image/jpeg"))
         }
         if let imageType = imageType {
-            let valueData = String(imageType).multipartFormData(name: "image_type")
+            let valueData = String(imageType).multipartFormData(name: "imageType")
             data.append(valueData)
         }
         if let contactId = contactId {
-            let valueData = contactId.multipartFormData(name: "contact_id")
+            let valueData = contactId.multipartFormData(name: "contactId")
             data.append(valueData)
         }
         return .uploadMultipart(data)

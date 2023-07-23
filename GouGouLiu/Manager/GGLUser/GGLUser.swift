@@ -40,6 +40,7 @@ extension GGLUser {
     static func logout() {
         guard let userId = GGLUser.getUserId() else { return }
         networkHelper.requestLogout(userId: userId).subscribe(onNext: { model in
+            current = nil
             ProgressHUD.showSucceed(model.msg)
         }).disposed(by: disposeBag)
     }

@@ -1,5 +1,5 @@
 //
-//  GGLServerPhotoManager.swift
+//  GGLUploadPhotoManager.swift
 //  GouGouLiu
 //
 //  Created by Harry Cao on 7/17/23.
@@ -9,13 +9,13 @@ import Foundation
 import Moya
 import RxSwift
 
-extension GGLServerPhotoManager {
+extension GGLUploadPhotoManager {
     typealias ImageBlock = (_ image: UIImage?) -> Void
 }
 
-final class GGLServerPhotoManager: NSObject, UINavigationControllerDelegate {
+final class GGLUploadPhotoManager: NSObject, UINavigationControllerDelegate {
 
-    static let shared = GGLServerPhotoManager()
+    static let shared = GGLUploadPhotoManager()
     private var finishPickingMediaBlock: ImageBlock?
     private let moyaProvider = MoyaProvider<GGLUploadPhotoAPI>()
     private(set) var disposeBag = DisposeBag()
@@ -49,7 +49,7 @@ final class GGLServerPhotoManager: NSObject, UINavigationControllerDelegate {
 }
 
 // MARK: - UIImagePickerControllerDelegate
-extension GGLServerPhotoManager: UIImagePickerControllerDelegate {
+extension GGLUploadPhotoManager: UIImagePickerControllerDelegate {
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true) { [weak self] in
@@ -60,7 +60,7 @@ extension GGLServerPhotoManager: UIImagePickerControllerDelegate {
 
 }
 
-extension GGLServerPhotoManager {
+extension GGLUploadPhotoManager {
 
     enum ImageType: Int {
         case avatar
