@@ -24,7 +24,9 @@ final class GGLUser {
 extension GGLUser {
 
     static func signup(username: String, password: String) {
-        networkHelper.requestSignup(username: username, password: password)
+        networkHelper.requestSignup(username: username, password: password).subscribe(onNext: { model in
+            ProgressHUD.showSucceed(model.msg)
+        }).disposed(by: disposeBag)
     }
 
     static func login(username: String, password: String) {
