@@ -19,5 +19,7 @@ extension UIImage {
     static var tab_bar_message_selected: UIImage? { UIImage(named: "tab_bar_message_selected") }
     static var tab_bar_personal_normal: UIImage? { UIImage(named: "tab_bar_personal_normal") }
     static var tab_bar_personal_selected: UIImage? { UIImage(named: "tab_bar_personal_selected") }
+    static var tab_bar_extension: UIImage? { UIImage(named: "tab_bar_extension") }
+    static var tab_bar_fold_up: UIImage? { UIImage(named: "tab_bar_fold_up") }
     
 }

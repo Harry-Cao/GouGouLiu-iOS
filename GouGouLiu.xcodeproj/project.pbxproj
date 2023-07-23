@@ -17,6 +17,8 @@
 		3E3C4B432A69A9DC0028710A /* GGLUserSignupAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C4B422A69A9DC0028710A /* GGLUserSignupAPI.swift */; };
 		3E3C4B452A69AB270028710A /* GGLUserLogoutAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C4B442A69AB270028710A /* GGLUserLogoutAPI.swift */; };
 		3E3C4B472A69B3B70028710A /* UIAlertController+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C4B462A69B3B70028710A /* UIAlertController+GGL.swift */; };
+		3E453B432A6D941B00B30C3C /* GGLPublishOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E453B422A6D941B00B30C3C /* GGLPublishOptionViewController.swift */; };
+		3E453B452A6D976B00B30C3C /* String+Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E453B442A6D976B00B30C3C /* String+Hero.swift */; };
 		3E5509332A66900F00653568 /* GGLNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5509322A66900F00653568 /* GGLNetworkManager.swift */; };
 		3E6B0C322A3087D9002317D6 /* String+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6B0C312A3087D9002317D6 /* String+GGL.swift */; };
 		3E6EB8252A3F54FE00675A2A /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6EB8242A3F54FE00675A2A /* MessageModel.swift */; };
@@ -69,6 +71,8 @@
 		3E3C4B422A69A9DC0028710A /* GGLUserSignupAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLUserSignupAPI.swift; sourceTree = "<group>"; };
 		3E3C4B442A69AB270028710A /* GGLUserLogoutAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLUserLogoutAPI.swift; sourceTree = "<group>"; };
 		3E3C4B462A69B3B70028710A /* UIAlertController+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+GGL.swift"; sourceTree = "<group>"; };
+		3E453B422A6D941B00B30C3C /* GGLPublishOptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPublishOptionViewController.swift; sourceTree = "<group>"; };
+		3E453B442A6D976B00B30C3C /* String+Hero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Hero.swift"; sourceTree = "<group>"; };
 		3E5509322A66900F00653568 /* GGLNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLNetworkManager.swift; sourceTree = "<group>"; };
 		3E6B0C312A3087D9002317D6 /* String+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+GGL.swift"; sourceTree = "<group>"; };
 		3E6EB8242A3F54FE00675A2A /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
@@ -317,6 +321,7 @@
 				3ED90BFD2A2E4A200079B4D3 /* UIImage+GGL.swift */,
 				3EF2266D2A2FA4AA00553325 /* UIFont+GGL.swift */,
 				3E6B0C312A3087D9002317D6 /* String+GGL.swift */,
+				3E453B442A6D976B00B30C3C /* String+Hero.swift */,
 				3EB404B52A548D200032E899 /* Observable+GGL.swift */,
 				3E26D10A2A6856CF00803FC1 /* UserDefaults+GGL.swift */,
 				3E3C4B462A69B3B70028710A /* UIAlertController+GGL.swift */,
@@ -391,6 +396,7 @@
 				3ED90BE62A2E24410079B4D3 /* AppDelegate.swift */,
 				3ED90BE82A2E24410079B4D3 /* SceneDelegate.swift */,
 				3ED90BFA2A2E31A90079B4D3 /* GGLTabBarController.swift */,
+				3E453B422A6D941B00B30C3C /* GGLPublishOptionViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -532,6 +538,7 @@
 				3E2DA2742A2F76F9001D9352 /* GGLWaterFallFlowLayout.swift in Sources */,
 				3E3C4B452A69AB270028710A /* GGLUserLogoutAPI.swift in Sources */,
 				3ED90C052A2E54580079B4D3 /* GGLPersonalViewController.swift in Sources */,
+				3E453B432A6D941B00B30C3C /* GGLPublishOptionViewController.swift in Sources */,
 				3EAD23E42A401C9F000238AC /* GGLChatRoomViewController.swift in Sources */,
 				3EF2266E2A2FA4AA00553325 /* UIFont+GGL.swift in Sources */,
 				3ED90BEB2A2E24410079B4D3 /* GGLHomeViewController.swift in Sources */,
@@ -568,6 +575,7 @@
 				3EFF955D2A30DD1300E89069 /* AppRouter.swift in Sources */,
 				3ED90BE92A2E24410079B4D3 /* SceneDelegate.swift in Sources */,
 				3ED90C0E2A2E5E490079B4D3 /* GGLGlobalImport.swift in Sources */,
+				3E453B452A6D976B00B30C3C /* String+Hero.swift in Sources */,
 				3E3C4B432A69A9DC0028710A /* GGLUserSignupAPI.swift in Sources */,
 				3ED90C072A2E59F40079B4D3 /* GGLTopicViewController.swift in Sources */,
 				3E3C4B3F2A69A3950028710A /* GGLUserLoginAPI.swift in Sources */,

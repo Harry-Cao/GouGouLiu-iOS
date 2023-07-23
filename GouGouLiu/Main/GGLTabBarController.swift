@@ -11,6 +11,7 @@ final class GGLTabBarController: UITabBarController {
 
     private let homeViewController = GGLHomeViewController()
     private let orderViewController = GGLOrderViewController()
+    private let emptyViewController = UIViewController()
     private let messageViewController = GGLMessageViewController(rootView: MessageContentView())
     private let personalViewController = GGLPersonalViewController(rootView: PersonalContentView())
 
@@ -18,6 +19,7 @@ final class GGLTabBarController: UITabBarController {
         super.viewDidLoad()
         setupUI()
         setupViewControllers()
+        setupMiddleButton()
     }
 
     private func setupUI() {
@@ -44,6 +46,7 @@ final class GGLTabBarController: UITabBarController {
         let viewControllers: [UIViewController] = [
             homeNavigationController,
             orderNavigationController,
+            emptyViewController,
             messageNavigationController,
             personalNavigationController
         ]
@@ -61,6 +64,27 @@ final class GGLTabBarController: UITabBarController {
         let tabBarItem = UITabBarItem(title: title, image: normalImage, selectedImage: selectedImage)
         navigationController.tabBarItem = tabBarItem
         return navigationController
+    }
+
+    private func setupMiddleButton() {
+        let middleButton = UIButton()
+        middleButton.setImage(.tab_bar_extension, for: .normal)
+        middleButton.backgroundColor = .systemBackground
+        middleButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        middleButton.layer.cornerRadius = 40
+        let middleBarButton = tabBar.subviews[2]
+        middleBarButton.addSubview(middleButton)
+        middleButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(-15)
+            make.leading.bottom.trailing.equalToSuperview()
+        }
+        middleButton.addTarget(self, action: #selector(didTapMiddleButton(sender:)), for: .touchUpInside)
+    }
+
+    @objc private func didTapMiddleButton(sender: UIButton) {
+        let optionViewController = GGLPublishOptionViewController()
+        optionViewController.modalPresentationStyle = .fullScreen
+        AppRouter.shared.present(optionViewController)
     }
 
 }

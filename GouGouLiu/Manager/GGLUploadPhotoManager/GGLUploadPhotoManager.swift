@@ -40,10 +40,13 @@ final class GGLUploadPhotoManager: NSObject, UINavigationControllerDelegate {
     }
 
     func pickImage(completion: @escaping ImageBlock) {
+        ProgressHUD.show()
         finishPickingMediaBlock = completion
         let imagePickerViewController = UIImagePickerController()
         imagePickerViewController.delegate = self
-        AppRouter.shared.present(imagePickerViewController)
+        AppRouter.shared.present(imagePickerViewController) {
+            ProgressHUD.dismiss()
+        }
     }
 
 }
