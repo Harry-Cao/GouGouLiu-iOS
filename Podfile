@@ -9,6 +9,7 @@ target 'GouGouLiu' do
   # Pods for GouGouLiu
 
 pod 'RxSwift'
+pod 'RxCocoa'
 pod 'Moya'
 pod 'SDWebImage'
 pod 'SDWebImageSwiftUI'
