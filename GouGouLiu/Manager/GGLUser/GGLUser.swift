@@ -25,17 +25,17 @@ extension GGLUser {
 
     static func signup(username: String, password: String) {
         networkHelper.requestSignup(username: username, password: password).subscribe(onNext: { model in
-            ProgressHUD.showSucceed(model.msg)
+            ProgressHUD.showServerMsg(model: model)
         }).disposed(by: disposeBag)
     }
 
     static func login(username: String, password: String) {
         networkHelper.requestLogin(username: username, password: password).subscribe(onNext: { model in
-            if model.code == 0,
+            if model.code == .success,
                let user = model.data {
                 current = user
             }
-            ProgressHUD.showSucceed(model.msg)
+            ProgressHUD.showServerMsg(model: model)
         }).disposed(by: disposeBag)
     }
 
@@ -43,14 +43,14 @@ extension GGLUser {
         guard let userId = GGLUser.getUserId() else { return }
         networkHelper.requestLogout(userId: userId).subscribe(onNext: { model in
             current = nil
-            ProgressHUD.showSucceed(model.msg)
+            ProgressHUD.showServerMsg(model: model)
         }).disposed(by: disposeBag)
     }
 
     static func clearAll() {
         guard let userId = GGLUser.getUserId() else { return }
         networkHelper.requestClearAll(userId: userId).subscribe(onNext: { model in
-            ProgressHUD.showSucceed(model.msg)
+            ProgressHUD.showServerMsg(model: model)
         }).disposed(by: disposeBag)
     }
 

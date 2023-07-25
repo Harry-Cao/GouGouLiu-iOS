@@ -15,6 +15,7 @@ extension String {
 
     static let Home: String = "Home"
     static let Order: String = "Order"
+    static let Post: String = "Post"
     static let Message: String = "Message"
     static let Personal: String = "Personal"
     static let Topic: String = "Topic"

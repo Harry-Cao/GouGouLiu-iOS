@@ -9,8 +9,17 @@ import Foundation
 
 struct GGLMoyaModel<T: Codable>: Codable {
 
-    var code: Int?
+    var code: ResultCode?
     var msg: String?
     var data: T?
+
+}
+
+extension GGLMoyaModel {
+
+    enum ResultCode: Int, Codable {
+        case success
+        case failed
+    }
 
 }

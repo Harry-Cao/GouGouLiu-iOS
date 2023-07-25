@@ -84,10 +84,10 @@ extension DebugContentView {
                 GGLUploadPhotoManager.shared.pickImage { image in
                     guard let data = image?.jpegData(compressionQuality: 1) else { return }
                     GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: userId).subscribe(onNext: { model in
-                        if model.code == 0 {
-                            ProgressHUD.showSucceed(model.msg)
+                        if model.code == .success {
                             UIPasteboard.general.string = model.data?.url
                         }
+                        ProgressHUD.showServerMsg(model: model)
                     }).disposed(by: GGLUploadPhotoManager.shared.disposeBag)
                 }
             case .uploadPost:
@@ -95,10 +95,10 @@ extension DebugContentView {
                 GGLUploadPhotoManager.shared.pickImage { image in
                     guard let data = image?.jpegData(compressionQuality: 1) else { return }
                     GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .post, contactId: userId).subscribe(onNext: { model in
-                        if model.code == 0 {
-                            ProgressHUD.showSucceed(model.msg)
+                        if model.code == .success {
                             UIPasteboard.general.string = model.data?.url
                         }
+                        ProgressHUD.showServerMsg(model: model)
                     }).disposed(by: GGLUploadPhotoManager.shared.disposeBag)
                 }
             case .clearAllPhoto:

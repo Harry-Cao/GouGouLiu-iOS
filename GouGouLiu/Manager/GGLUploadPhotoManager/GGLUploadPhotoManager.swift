@@ -28,9 +28,7 @@ final class GGLUploadPhotoManager: NSObject, UINavigationControllerDelegate {
     func clearAllPhotos() {
         guard let userId = GGLUser.getUserId() else { return }
         requestClearAllPhotos(userId: userId).subscribe(onNext: { model in
-            if model.code == 0 {
-                ProgressHUD.showSucceed(model.msg)
-            }
+            ProgressHUD.showServerMsg(model: model)
         }).disposed(by: disposeBag)
     }
 
