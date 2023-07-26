@@ -11,6 +11,9 @@ import Moya
 struct GGLPostAPI: TargetType {
 
     var userId: String
+    var imageUrls: [String]
+    var title: String
+    var content: String?
 
     var baseURL: URL {
         .api_baseURL
@@ -26,8 +29,11 @@ struct GGLPostAPI: TargetType {
 
     var task: Moya.Task {
         var para: [String: Any] = [:]
-        para.updateValue(userId, forKey: "userId")
-        return .requestParameters(parameters: para, encoding: URLEncoding.queryString)
+        para["userId"] = userId
+        para["imageUrls"] = imageUrls
+        para["title"] = title
+        para["content"] = content
+        return .requestParameters(parameters: para, encoding: JSONEncoding.default)
     }
     
     var headers: [String : String]? {

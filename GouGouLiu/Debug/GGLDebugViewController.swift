@@ -28,6 +28,7 @@ struct DebugContentView: View {
         .logout,
         .signout,
         .clearAllUser,
+        .clearAllPost, 
     ]
     var body: some View {
         List(menuRows) { row in
@@ -52,6 +53,7 @@ extension DebugContentView {
         case logout
         case signout
         case clearAllUser
+        case clearAllPost
 
         var id: UUID {
             return UUID()
@@ -74,6 +76,8 @@ extension DebugContentView {
                 return "Sign Out"
             case .clearAllUser:
                 return "Clear All Users"
+            case .clearAllPost:
+                return "Clear All Posts"
             }
         }
 
@@ -121,6 +125,8 @@ extension DebugContentView {
                 break
             case .clearAllUser:
                 GGLUser.clearAll()
+            case .clearAllPost:
+                break
             }
         }
     }

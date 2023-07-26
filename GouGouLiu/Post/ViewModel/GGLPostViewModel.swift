@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import RxSwift
+import Moya
 
 final class GGLPostViewModel {
 
-    private var uploadPhotoUrls = [String]()
+    var uploadPhotoUrls = [String]()
+    private let moyaProvider = MoyaProvider<GGLPostAPI>()
+    private let disposeBag = DisposeBag()
 
     func uploadPhoto() {
         guard let userId = GGLUser.getUserId() else { return }
@@ -26,11 +30,16 @@ final class GGLPostViewModel {
 
     func publishPost() {
         guard let userId = GGLUser.getUserId() else { return }
-        requestPublishPost(userId: userId)
+        let title = GGLPostManager.shared.cacheTitle ?? ""
+        let content = GGLPostManager.shared.cacheContent
+        requestPublishPost(userId: userId, imageUrls: uploadPhotoUrls, title: title, content: content).subscribe(onNext: { model in
+            ProgressHUD.showServerMsg(model: model)
+        }).disposed(by: disposeBag)
     }
 
-    private func requestPublishPost(userId: String) {
-        
+    private func requestPublishPost(userId: String, imageUrls: [String], title: String, content: String?) -> Observable<GGLMoyaModel<GGLPostModel>> {
+        let api = GGLPostAPI(userId: userId, imageUrls: imageUrls, title: title, content: content)
+        return .ofRequest(api: api, provider: moyaProvider)
     }
 
 }

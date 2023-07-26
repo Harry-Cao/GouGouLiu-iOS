@@ -81,7 +81,7 @@ final class GGLHomeRecommendCell: UICollectionViewCell {
     }
 
     func setup(model: GGLHomePostModel) {
-        let coverUrl = URL(string: model.postImages ?? "")
+        let coverUrl = URL(string: model.postImages?.first ?? "")
         imageView.sd_setImage(with: coverUrl)
         titleLabel.text = model.postTitle
         let avatarUrl = URL(string: model.userAvatar ?? "")

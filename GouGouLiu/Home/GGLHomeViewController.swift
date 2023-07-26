@@ -104,11 +104,12 @@ extension GGLHomeViewController: UICollectionViewDelegate {
     }
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        if velocity.y > 1 {
-            hideNavigationBar()
-        } else if velocity.y < -1 {
-            showNavigationBar()
-        }
+        // TODO: - 处理对其他界面navigationBar的影响
+//        if velocity.y > 1 {
+//            hideNavigationBar()
+//        } else if velocity.y < -1 {
+//            showNavigationBar()
+//        }
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

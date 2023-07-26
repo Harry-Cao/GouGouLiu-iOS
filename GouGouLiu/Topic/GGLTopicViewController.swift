@@ -39,7 +39,7 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     private func setupData() {
-        guard let coverUrl = postModel?.postImages else { return }
+        guard let coverUrl = postModel?.postImages?.first else { return }
         let url = URL(string: coverUrl)
         previewImageView.sd_setImage(with: url)
     }
@@ -47,7 +47,7 @@ final class GGLTopicViewController: GGLBaseViewController {
     @objc private func didTapCoverImageView() {
         let alertController = UIAlertController(title: "确认下载图片？", message: nil, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "确定", style: .default) { _ in
-            guard let coverUrl = self.postModel?.postImages else { return }
+            guard let coverUrl = self.postModel?.postImages?.first else { return }
             GGLPhotoDownloadManager.shared.downloadPhotosToAlbum(urls: [coverUrl], progress:  { receivedSize, expectedSize in
                 ProgressHUD.showProgress(CGFloat(receivedSize)/CGFloat(expectedSize))
             }, completed:  { allSuccess, failUrlStrings in
