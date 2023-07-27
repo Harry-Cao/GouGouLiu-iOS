@@ -28,7 +28,7 @@ final class GGLPostInputTitleCell: GGLBaseTableViewCell {
     private func setupUI() {
         contentView.addSubview(inputTestField)
         inputTestField.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.leading.trailing.equalToSuperview().inset(12)
             make.top.bottom.equalToSuperview()
             make.height.equalTo(48)
         }

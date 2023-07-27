@@ -18,7 +18,7 @@ final class GGLPostViewController: GGLBaseViewController {
         button.setTitle("发布", for: .normal)
         button.layer.cornerRadius = 23
         button.layer.masksToBounds = true
-        button.backgroundColor = .systemGreen.withAlphaComponent(0.5)
+        button.backgroundColor = .systemYellow.withAlphaComponent(0.8)
         return button
     }()
     private let disposeBag = DisposeBag()

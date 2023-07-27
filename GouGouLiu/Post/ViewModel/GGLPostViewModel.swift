@@ -30,6 +30,10 @@ final class GGLPostViewModel {
 
     func publishPost() {
         guard let userId = GGLUser.getUserId() else { return }
+        guard !uploadPhotoUrls.isEmpty else {
+            ProgressHUD.showError("请上传至少一张图片")
+            return
+        }
         let title = GGLPostManager.shared.cacheTitle ?? ""
         let content = GGLPostManager.shared.cacheContent
         requestPublishPost(userId: userId, imageUrls: uploadPhotoUrls, title: title, content: content).subscribe(onNext: { model in
