@@ -21,7 +21,6 @@ final class GGLDebugViewController: GGLBaseHostingController<DebugContentView> {
 struct DebugContentView: View {
     var menuRows: [DebugRow] = [
         .uploadAvatar,
-        .uploadPost,
         .clearAllPhoto,
         .signup,
         .login,
@@ -46,7 +45,6 @@ extension DebugContentView {
 
     enum DebugRow: Identifiable {
         case uploadAvatar
-        case uploadPost
         case clearAllPhoto
         case signup
         case login
@@ -62,8 +60,6 @@ extension DebugContentView {
             switch self {
             case .uploadAvatar:
                 return "Upload Avatar"
-            case .uploadPost:
-                return "Upload Post"
             case .clearAllPhoto:
                 return "Clear All Photos"
             case .signup:
@@ -87,18 +83,9 @@ extension DebugContentView {
                 guard let userId = GGLUser.getUserId() else { return }
                 GGLUploadPhotoManager.shared.pickImage { image in
                     guard let data = image?.jpegData(compressionQuality: 1) else { return }
-                    GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: userId).subscribe(onNext: { model in
-                        if model.code == .success {
-                            UIPasteboard.general.string = model.data?.url
-                        }
-                        ProgressHUD.showServerMsg(model: model)
-                    }).disposed(by: GGLUploadPhotoManager.shared.disposeBag)
-                }
-            case .uploadPost:
-                guard let userId = GGLUser.getUserId() else { return }
-                GGLUploadPhotoManager.shared.pickImage { image in
-                    guard let data = image?.jpegData(compressionQuality: 1) else { return }
-                    GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .post, contactId: userId).subscribe(onNext: { model in
+                    GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: userId, progressBlock: { progress in
+                        ProgressHUD.showProgress(progress.progress)
+                    }).subscribe(onNext: { model in
                         if model.code == .success {
                             UIPasteboard.general.string = model.data?.url
                         }

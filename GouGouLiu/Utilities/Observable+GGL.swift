@@ -12,10 +12,11 @@ import Foundation
 extension Observable where Element: Decodable {
     static func ofRequest<API>(api: API,
                                provider: MoyaProvider<API>,
-                               callbackQueue: DispatchQueue? = .global(qos: .utility))
+                               callbackQueue: DispatchQueue? = .global(qos: .utility),
+                               progressBlock: ProgressBlock? = nil)
         -> Observable<Element> where API: TargetType {
             return Observable<Element>.create { observer -> Disposable in
-                provider.request(api, callbackQueue: callbackQueue) { response in
+                provider.request(api, callbackQueue: callbackQueue, progress: progressBlock) { response in
                     switch response {
                     case .success(let value):
                         do {
@@ -30,26 +31,6 @@ extension Observable where Element: Decodable {
                         } catch {
                             observer.onError(error)
                         }
-                    case .failure(let error):
-                        observer.onError(error)
-                    }
-                }
-                return Disposables.create()
-            }
-    }
-}
-
-extension Observable {
-    static func ofRequest<API>(api: API,
-                               provider: MoyaProvider<API>,
-                               callbackQueue: DispatchQueue? = .global(qos: .utility))
-        -> Observable<Moya.Response> where API: TargetType {
-            return Observable<Moya.Response>.create { observer -> Disposable in
-                provider.request(api, callbackQueue: callbackQueue) { response in
-                    switch response {
-                    case .success(let value):
-                        observer.onNext(value)
-                        observer.onCompleted()
                     case .failure(let error):
                         observer.onError(error)
                     }

@@ -26,8 +26,15 @@ final class GGLPostViewController: GGLBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = .Post
+        bindData()
         setupUI()
         setupAdapter()
+    }
+
+    private func bindData() {
+        viewModel.uploadSubject.subscribe(onNext: { [weak self] _ in
+            self?.reloadUploadPhotoCell()
+        }).disposed(by: disposeBag)
     }
 
     private func setupUI() {
@@ -54,19 +61,7 @@ final class GGLPostViewController: GGLBaseViewController {
             if let urlString {
                 ProgressHUD.show("该功能暂不支持\n\(urlString)", icon: .message)
             } else {
-                guard let userId = GGLUser.getUserId() else { return }
-                GGLUploadPhotoManager.shared.pickImage { image in
-                    guard let data = image?.jpegData(compressionQuality: 1) else { return }
-                    GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .post, contactId: userId)
-                        .observe(on: MainScheduler.instance)
-                        .subscribe(onNext: { model in
-                        if model.code == .success, let urlString = model.data?.url {
-                            self?.viewModel.uploadPhotoUrls.append(urlString)
-                            self?.reloadUploadPhotoCell()
-                        }
-                        ProgressHUD.showServerMsg(model: model)
-                    }).disposed(by: GGLUploadPhotoManager.shared.disposeBag)
-                }
+                self?.viewModel.uploadPhoto()
             }
         }
     }
