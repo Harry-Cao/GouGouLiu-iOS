@@ -19,7 +19,7 @@ final class GGLPostViewModel {
     func uploadPhoto() {
         guard let userId = GGLUser.getUserId() else { return }
         GGLUploadPhotoManager.shared.pickImage { image in
-            guard let data = image?.jpegData(compressionQuality: 1) else { return }
+            guard let data = image?.fixOrientation().jpegData(compressionQuality: 1) else { return }
             GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .post, contactId: userId, progressBlock: { progress in
                 ProgressHUD.showServerProgress(progress: progress.progress)
             }).observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] model in
