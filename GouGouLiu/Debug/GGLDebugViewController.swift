@@ -27,7 +27,8 @@ struct DebugContentView: View {
         .logout,
         .signout,
         .clearAllUser,
-        .clearAllPost, 
+        .clearAllPost,
+        .clearImageCache,
     ]
     var body: some View {
         List(menuRows) { row in
@@ -52,6 +53,7 @@ extension DebugContentView {
         case signout
         case clearAllUser
         case clearAllPost
+        case clearImageCache
 
         var id: UUID {
             return UUID()
@@ -74,6 +76,8 @@ extension DebugContentView {
                 return "Clear All Users"
             case .clearAllPost:
                 return "Clear All Posts"
+            case .clearImageCache:
+                return "Clear Image Cache"
             }
         }
 
@@ -114,6 +118,11 @@ extension DebugContentView {
                 GGLUser.clearAll()
             case .clearAllPost:
                 break
+            case .clearImageCache:
+                SDImageCache.shared.clearMemory()
+                SDImageCache.shared.clearDisk {
+                    ProgressHUD.showSucceed("清理完成")
+                }
             }
         }
     }

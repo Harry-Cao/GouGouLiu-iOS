@@ -14,7 +14,7 @@ extension ProgressHUD {
         case .success:
             ProgressHUD.showSucceed(model.msg)
         case .failed:
-            ProgressHUD.showError(model.msg)
+            ProgressHUD.showFailed(model.msg)
         default:
             break
         }
