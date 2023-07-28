@@ -28,6 +28,8 @@ final class GGLPostViewModel {
                     self?.uploadSubject.onNext(nil)
                 }
                 ProgressHUD.showServerMsg(model: model)
+            }, onError: { error in
+                ProgressHUD.showFailed(error.localizedDescription)
             }).disposed(by: GGLUploadPhotoManager.shared.disposeBag)
         }
     }

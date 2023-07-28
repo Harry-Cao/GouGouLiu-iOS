@@ -88,12 +88,14 @@ extension DebugContentView {
                 GGLUploadPhotoManager.shared.pickImage { image in
                     guard let data = image?.fixOrientation().jpegData(compressionQuality: 1) else { return }
                     GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: userId, progressBlock: { progress in
-                        ProgressHUD.showProgress(progress.progress)
+                        ProgressHUD.showServerProgress(progress: progress.progress)
                     }).subscribe(onNext: { model in
                         if model.code == .success {
                             UIPasteboard.general.string = model.data?.url
                         }
                         ProgressHUD.showServerMsg(model: model)
+                    }, onError: { error in
+                        ProgressHUD.showFailed(error.localizedDescription)
                     }).disposed(by: GGLUploadPhotoManager.shared.disposeBag)
                 }
             case .clearAllPhoto:
