@@ -32,6 +32,7 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     private func setupUI() {
+        topicTableView.bounces = false
         [topicTableView].forEach(view.addSubview)
         topicTableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
