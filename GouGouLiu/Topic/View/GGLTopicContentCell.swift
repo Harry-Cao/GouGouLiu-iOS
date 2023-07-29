@@ -11,13 +11,13 @@ final class GGLTopicContentCell: GGLBaseTableViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
     private let contentLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .light)
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
@@ -41,13 +41,15 @@ final class GGLTopicContentCell: GGLBaseTableViewCell {
         [titleLabel, contentLabel].forEach(mainStackView.addArrangedSubview)
         [mainStackView].forEach(contentView.addSubview)
         mainStackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(20)
+            make.edges.equalToSuperview().inset(16)
         }
     }
     
     func setup(title: String?, content: String?) {
         titleLabel.text = title
         contentLabel.text = content
+        titleLabel.isHidden = title == nil
+        contentLabel.isHidden = content == nil
     }
 
 }
