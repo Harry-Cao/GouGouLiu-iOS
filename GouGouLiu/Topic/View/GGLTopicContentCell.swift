@@ -11,12 +11,14 @@ final class GGLTopicContentCell: GGLBaseTableViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
     private let contentLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 16, weight: .light)
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
