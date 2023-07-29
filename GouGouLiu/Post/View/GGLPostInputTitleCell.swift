@@ -11,9 +11,15 @@ final class GGLPostInputTitleCell: GGLBaseTableViewCell {
 
     private lazy var inputTestField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "输入标题"
+        textField.placeholder = "填写标题会有更多赞哦~"
         textField.addTarget(self, action: #selector(inputDidChanged(textField:)), for: .editingChanged)
+        textField.tintColor = .systemYellow
         return textField
+    }()
+    private let dividerLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .opaqueSeparator
+        return view
     }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -26,11 +32,16 @@ final class GGLPostInputTitleCell: GGLBaseTableViewCell {
     }
 
     private func setupUI() {
-        contentView.addSubview(inputTestField)
+        [inputTestField, dividerLine].forEach(contentView.addSubview)
         inputTestField.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(12)
             make.top.bottom.equalToSuperview()
             make.height.equalTo(48)
+        }
+        dividerLine.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(12)
+            make.height.equalTo(1)
         }
     }
 

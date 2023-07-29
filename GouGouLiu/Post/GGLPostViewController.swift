@@ -45,7 +45,7 @@ final class GGLPostViewController: GGLBaseViewController {
         }
         publishButton.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalTo(view.snp.bottomMargin)
+            make.bottom.equalTo(view.snp.bottomMargin).inset(12)
             make.height.equalTo(46)
         }
         publishButton.addTarget(self, action: #selector(didTapPublishButton), for: .touchUpInside)

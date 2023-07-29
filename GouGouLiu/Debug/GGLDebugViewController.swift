@@ -121,6 +121,7 @@ extension DebugContentView {
             case .clearAllPost:
                 break
             case .clearImageCache:
+                ProgressHUD.show()
                 SDImageCache.shared.clearMemory()
                 SDImageCache.shared.clearDisk {
                     ProgressHUD.showSucceed("清理完成")

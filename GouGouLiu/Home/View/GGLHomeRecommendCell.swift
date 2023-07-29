@@ -15,9 +15,18 @@ final class GGLHomeRecommendCell: UICollectionViewCell {
         imageView.layer.masksToBounds = true
         return imageView
     }()
-    private let detailContainer: UIView = {
-        let view = UIView()
-        view.backgroundColor = .secondarySystemBackground
+    private let mainStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 8
+        view.alignment = .leading
+        return view
+    }()
+    private let userInfoStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.spacing = 6
+        view.alignment = .center
         return view
     }()
     private let titleLabel: UILabel = {
@@ -25,6 +34,7 @@ final class GGLHomeRecommendCell: UICollectionViewCell {
         label.numberOfLines = 2
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .label
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
     private let avatarImageView: UIImageView = {
@@ -53,37 +63,36 @@ final class GGLHomeRecommendCell: UICollectionViewCell {
     private func setupUI() {
         self.layer.cornerRadius = 8
         self.layer.masksToBounds = true
-        [imageView, detailContainer].forEach(addSubview)
-        [titleLabel, avatarImageView, nameLabel].forEach(detailContainer.addSubview)
+        self.backgroundColor = .secondarySystemBackground
+        [imageView, mainStackView].forEach(addSubview)
+        [titleLabel, userInfoStackView].forEach(mainStackView.addArrangedSubview)
+        [avatarImageView, nameLabel].forEach(userInfoStackView.addArrangedSubview)
+        setupConstraints()
+    }
+
+    private func setupConstraints() {
         imageView.snp.makeConstraints { make in
             make.leading.top.trailing.equalToSuperview()
-            make.bottom.equalTo(detailContainer.snp.top)
         }
-        detailContainer.snp.makeConstraints { make in
-            make.leading.bottom.trailing.equalToSuperview()
-        }
-        titleLabel.snp.makeConstraints { make in
+        mainStackView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(12)
-            make.top.equalToSuperview().inset(12)
-            make.height.equalTo(30)
-        }
-        avatarImageView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
-            make.leading.equalToSuperview().inset(12)
-            make.size.equalTo(CGSize(width: 20, height: 20))
+            make.top.equalTo(imageView.snp.bottom).offset(12)
             make.bottom.equalToSuperview().inset(8)
         }
-        nameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(avatarImageView.snp.trailing).offset(6)
-            make.centerY.equalTo(avatarImageView)
-            make.trailing.equalToSuperview().inset(12)
+        avatarImageView.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 20, height: 20))
         }
     }
 
     func setup(model: GGLHomePostModel) {
         let coverUrl = URL(string: model.postImages?.first ?? "")
         imageView.sd_setImage(with: coverUrl)
-        titleLabel.text = model.postTitle
+        if let postTitle = model.postTitle, !postTitle.isEmpty {
+            titleLabel.isHidden = false
+            titleLabel.text = postTitle
+        } else {
+            titleLabel.isHidden = true
+        }
         let avatarUrl = URL(string: model.userAvatar ?? "")
         avatarImageView.sd_setImage(with: avatarUrl)
         nameLabel.text = model.userName

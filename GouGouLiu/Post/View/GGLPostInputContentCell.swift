@@ -11,12 +11,10 @@ final class GGLPostInputContentCell: GGLBaseTableViewCell {
 
     private lazy var inputTextView: UITextView = {
         let textView = UITextView()
+        textView.font = UIFont.systemFont(ofSize: 12)
         textView.delegate = self
-        textView.layer.masksToBounds = true
-        textView.layer.cornerRadius = 8
-        textView.layer.borderWidth = 1
-        textView.layer.borderColor = UIColor.label.cgColor
-        textView.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        textView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+        textView.tintColor = .systemYellow
         return textView
     }()
 
@@ -30,7 +28,7 @@ final class GGLPostInputContentCell: GGLBaseTableViewCell {
     }
 
     private func setupUI() {
-        contentView.addSubview(inputTextView)
+        [inputTextView].forEach(contentView.addSubview)
         inputTextView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview().inset(12)

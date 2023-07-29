@@ -11,7 +11,7 @@ final class GGLPostUploadPhotoContentCell: UICollectionViewCell {
 
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .lightGray
+        imageView.backgroundColor = .opaqueSeparator
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 4
         return imageView
@@ -34,7 +34,7 @@ final class GGLPostUploadPhotoContentCell: UICollectionViewCell {
 
     func setupEmpty() {
         photoImageView.contentMode = .center
-        photoImageView.image = .tab_bar_home_normal
+        photoImageView.image = .icon_add
     }
 
     func setup(urlString: String) {

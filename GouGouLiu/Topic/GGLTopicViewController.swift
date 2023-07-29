@@ -10,6 +10,7 @@ import UIKit
 final class GGLTopicViewController: GGLBaseViewController {
 
     var postModel: GGLHomePostModel?
+    private let imageHeight: CGFloat = 4032/3024 * UIScreen.main.bounds.width
     private(set) var previewImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -32,7 +33,7 @@ final class GGLTopicViewController: GGLBaseViewController {
         [previewImageView].forEach(view.addSubview)
         previewImageView.snp.makeConstraints { make in
             make.leading.top.trailing.equalToSuperview()
-            make.height.equalTo(400)
+            make.height.equalTo(imageHeight)
         }
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapCoverImageView))
         previewImageView.addGestureRecognizer(tapGesture)
