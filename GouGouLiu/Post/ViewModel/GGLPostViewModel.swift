@@ -15,6 +15,7 @@ final class GGLPostViewModel {
     private let moyaProvider = MoyaProvider<GGLPostAPI>()
     private let disposeBag = DisposeBag()
     private(set) var uploadSubject = PublishSubject<Any?>()
+    private(set) var publishSubject = PublishSubject<Any?>()
 
     func uploadPhoto() {
         guard let userId = GGLUser.getUserId() else { return }
@@ -22,7 +23,7 @@ final class GGLPostViewModel {
             guard let data = image?.fixOrientation().jpegData(compressionQuality: 1) else { return }
             GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .post, contactId: userId, progressBlock: { progress in
                 ProgressHUD.showServerProgress(progress: progress.progress)
-            }).observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] model in
+            }).subscribe(onNext: { [weak self] model in
                 if model.code == .success, let url = model.data?.url {
                     self?.uploadPhotoUrls.append(url)
                     self?.uploadSubject.onNext(nil)
@@ -42,7 +43,10 @@ final class GGLPostViewModel {
         }
         let title = GGLPostManager.shared.cacheTitle ?? ""
         let content = GGLPostManager.shared.cacheContent
-        requestPublishPost(userId: userId, imageUrls: uploadPhotoUrls, title: title, content: content).subscribe(onNext: { model in
+        requestPublishPost(userId: userId, imageUrls: uploadPhotoUrls, title: title, content: content).subscribe(onNext: { [weak self] model in
+            if model.code == .success {
+                self?.publishSubject.onNext(nil)
+            }
             ProgressHUD.showServerMsg(model: model)
         }).disposed(by: disposeBag)
     }

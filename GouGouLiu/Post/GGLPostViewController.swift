@@ -11,6 +11,7 @@ import RxSwift
 final class GGLPostViewController: GGLBaseViewController {
 
     private let viewModel = GGLPostViewModel()
+    private let disposeBag = DisposeBag()
     private var adapter = GGLPostAdapter()
     private lazy var postTableView = GGLBaseTableView()
     private let publishButton: UIButton = {
@@ -21,7 +22,6 @@ final class GGLPostViewController: GGLBaseViewController {
         button.backgroundColor = .systemYellow.withAlphaComponent(0.8)
         return button
     }()
-    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +32,11 @@ final class GGLPostViewController: GGLBaseViewController {
     }
 
     private func bindData() {
-        viewModel.uploadSubject.subscribe(onNext: { [weak self] _ in
+        viewModel.uploadSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] _ in
             self?.reloadUploadPhotoCell()
+        }).disposed(by: disposeBag)
+        viewModel.publishSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
         }).disposed(by: disposeBag)
     }
 
