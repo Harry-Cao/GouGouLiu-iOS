@@ -44,6 +44,9 @@ final class GGLTopicViewController: GGLBaseViewController {
             guard let urlStrings = self?.viewModel.postModel?.postImages else { return }
             cell.setup(urlStrings: urlStrings)
         }
+        adapter.contentCellConfigurator = { [weak self] cell in
+            cell.setup(title: self?.viewModel.postModel?.postTitle, content: self?.viewModel.postModel?.postContent)
+        }
         adapter.photoBrowserCellDidSelectHandler = { [weak self] _, index in
             guard let urlString = self?.viewModel.postModel?.postImages?[index] else { return }
             self?.downloadImage(urlString: urlString)
@@ -51,17 +54,13 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     private func downloadImage(urlString: String) {
-        let alertController = UIAlertController(title: "确认下载图片？", message: nil, preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "确定", style: .default) { _ in
+        UIAlertController.popupConfirmAlert(title: "确认下载图片？") {
             GGLPhotoDownloadManager.shared.downloadPhotosToAlbum(urls: [urlString], progress:  { receivedSize, expectedSize in
                 ProgressHUD.showProgress(CGFloat(receivedSize)/CGFloat(expectedSize))
             }, completed:  { allSuccess, failUrlStrings in
                 ProgressHUD.showSucceed()
             })
         }
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
-        [confirmAction, cancelAction].forEach(alertController.addAction)
-        present(alertController, animated: true)
     }
 
     @objc private func didTapBackButton() {

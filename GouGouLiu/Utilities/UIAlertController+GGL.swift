@@ -35,4 +35,14 @@ extension UIAlertController {
         AppRouter.shared.present(alertController)
     }
 
+    static func popupConfirmAlert(title: String? = nil, completion: (()->Void)? = nil) {
+        let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "确定", style: .default) { _ in
+            completion?()
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        [confirmAction, cancelAction].forEach(alertController.addAction)
+        AppRouter.shared.present(alertController)
+    }
+
 }

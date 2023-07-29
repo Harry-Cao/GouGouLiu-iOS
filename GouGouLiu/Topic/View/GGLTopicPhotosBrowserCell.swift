@@ -19,16 +19,11 @@ final class GGLTopicPhotosBrowserCell: GGLBaseTableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupBrowser()
         setupUI()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setupBrowser() {
-        
     }
 
     private func setupUI() {

@@ -15,6 +15,7 @@ struct GGLHomePostModel: Codable {
     var userAvatar: String?
     var postImages: [String]?
     var postTitle: String?
+    var postContent: String?
     var updateTime: String?
 
 }

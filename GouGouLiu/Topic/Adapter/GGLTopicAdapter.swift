@@ -19,6 +19,7 @@ final class GGLTopicAdapter: NSObject {
         }
     }
     var photoBrowserCellConfigurator: ((_ photoBrowserCell: GGLTopicPhotosBrowserCell)->Void)?
+    var contentCellConfigurator: ((_ contentCell: GGLTopicContentCell)->Void)?
     var photoBrowserCellDidSelectHandler: ((_ browser: GGLWebImageBrowser, _ index: Int)->Void)?
 
 }
@@ -41,6 +42,7 @@ extension GGLTopicAdapter: UITableViewDataSource, UITableViewDelegate {
             cell = photoBrowserCell
         case .content:
             let contentCell: GGLTopicContentCell = tableView.dequeueReusableCell(for: indexPath)
+            contentCellConfigurator?(contentCell)
             cell = contentCell
         }
         return cell ?? UITableViewCell()
