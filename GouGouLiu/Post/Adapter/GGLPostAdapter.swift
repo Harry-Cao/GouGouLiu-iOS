@@ -19,7 +19,7 @@ final class GGLPostAdapter: NSObject {
             tableView?.register(GGLPostInputContentCell.self, forCellReuseIdentifier: "\(GGLPostInputContentCell.self)")
         }
     }
-    var uploadPhotoCellConfiguration: ((_ uploadPhotoCell: GGLPostUploadPhotoCell) -> Void)?
+    var uploadPhotoCellConfigurator: ((_ uploadPhotoCell: GGLPostUploadPhotoCell) -> Void)?
     var uploadPhotoCellSelectedHandler: ((_ urlString: String?) -> Void)?
 
 }
@@ -36,15 +36,15 @@ extension GGLPostAdapter: UITableViewDataSource, UITableViewDelegate {
         let cellType = cellTypes[indexPath.row]
         switch cellType {
         case .uploadPhoto:
-            let uploadPhotoCell = tableView.dequeueReusableCell(withIdentifier: "\(GGLPostUploadPhotoCell.self)", for: indexPath) as! GGLPostUploadPhotoCell
+            let uploadPhotoCell: GGLPostUploadPhotoCell = tableView.dequeueReusableCell(for: indexPath)
             uploadPhotoCell.delegate = self
-            uploadPhotoCellConfiguration?(uploadPhotoCell)
+            uploadPhotoCellConfigurator?(uploadPhotoCell)
             cell = uploadPhotoCell
         case .inputTitle:
-            let inputTitleCell = tableView.dequeueReusableCell(withIdentifier: "\(GGLPostInputTitleCell.self)", for: indexPath) as? GGLPostInputTitleCell
+            let inputTitleCell: GGLPostInputTitleCell = tableView.dequeueReusableCell(for: indexPath)
             cell = inputTitleCell
         case .inputContent:
-            let inputContentCell = tableView.dequeueReusableCell(withIdentifier: "\(GGLPostInputContentCell.self)", for: indexPath) as? GGLPostInputContentCell
+            let inputContentCell: GGLPostInputContentCell = tableView.dequeueReusableCell(for: indexPath)
             cell = inputContentCell
         }
         return cell ?? UITableViewCell()
@@ -60,7 +60,6 @@ extension GGLPostAdapter: UITableViewDataSource, UITableViewDelegate {
 extension GGLPostAdapter: GGLPostUploadPhotoCellDelegate {
 
     func didSelectItem(urlString: String?) {
-        // a block, call viewModel to upload photo, when success, viewModel will call uploadPhotoCell to setup with another block, at last, we call reload
         uploadPhotoCellSelectedHandler?(urlString)
     }
 
@@ -68,7 +67,7 @@ extension GGLPostAdapter: GGLPostUploadPhotoCellDelegate {
 
 extension GGLPostAdapter {
 
-    enum PostCellType: String {
+    enum PostCellType {
         case uploadPhoto
         case inputTitle
         case inputContent

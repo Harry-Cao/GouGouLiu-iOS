@@ -9,47 +9,51 @@ import UIKit
 
 final class GGLTopicViewController: GGLBaseViewController {
 
-    var postModel: GGLHomePostModel?
-    private let imageHeight: CGFloat = 4032/3024 * UIScreen.main.bounds.width
-    private(set) var previewImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.isUserInteractionEnabled = true
-        return imageView
-    }()
+    var postModel: GGLHomePostModel? {
+        didSet {
+            viewModel.postModel = postModel
+            topicTableView.reloadData()
+        }
+    }
+    private let viewModel = GGLTopicViewModel()
+    private let adapter = GGLTopicAdapter()
+    private let topicTableView = GGLBaseTableView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = .Topic
+        setupNavigationItem()
         setupUI()
-        setupData()
+        setupAdapter()
     }
 
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        dismiss(animated: true)
+    private func setupNavigationItem() {
+        navigationItem.title = .Topic
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: .navigation_bar_back, style: .plain, target: self, action: #selector(didTapBackButton))
     }
 
     private func setupUI() {
-        [previewImageView].forEach(view.addSubview)
-        previewImageView.snp.makeConstraints { make in
-            make.leading.top.trailing.equalToSuperview()
-            make.height.equalTo(imageHeight)
+        [topicTableView].forEach(view.addSubview)
+        topicTableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapCoverImageView))
-        previewImageView.addGestureRecognizer(tapGesture)
     }
 
-    private func setupData() {
-        guard let coverUrl = postModel?.postImages?.first else { return }
-        let url = URL(string: coverUrl)
-        previewImageView.sd_setImage(with: url)
+    private func setupAdapter() {
+        adapter.tableView = topicTableView
+        adapter.photoBrowserCellConfigurator = { [weak self] cell in
+            guard let urlStrings = self?.viewModel.postModel?.postImages else { return }
+            cell.setup(urlStrings: urlStrings)
+        }
+        adapter.photoBrowserCellDidSelectHandler = { [weak self] _, index in
+            guard let urlString = self?.viewModel.postModel?.postImages?[index] else { return }
+            self?.downloadImage(urlString: urlString)
+        }
     }
 
-    @objc private func didTapCoverImageView() {
+    private func downloadImage(urlString: String) {
         let alertController = UIAlertController(title: "确认下载图片？", message: nil, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "确定", style: .default) { _ in
-            guard let coverUrl = self.postModel?.postImages?.first else { return }
-            GGLPhotoDownloadManager.shared.downloadPhotosToAlbum(urls: [coverUrl], progress:  { receivedSize, expectedSize in
+            GGLPhotoDownloadManager.shared.downloadPhotosToAlbum(urls: [urlString], progress:  { receivedSize, expectedSize in
                 ProgressHUD.showProgress(CGFloat(receivedSize)/CGFloat(expectedSize))
             }, completed:  { allSuccess, failUrlStrings in
                 ProgressHUD.showSucceed()
@@ -58,6 +62,10 @@ final class GGLTopicViewController: GGLBaseViewController {
         let cancelAction = UIAlertAction(title: "取消", style: .cancel)
         [confirmAction, cancelAction].forEach(alertController.addAction)
         present(alertController, animated: true)
+    }
+
+    @objc private func didTapBackButton() {
+        self.dismiss(animated: true)
     }
 
 }

@@ -13,7 +13,7 @@ final class GGLPostViewController: GGLBaseViewController {
     private let viewModel = GGLPostViewModel()
     private let disposeBag = DisposeBag()
     private var adapter = GGLPostAdapter()
-    private lazy var postTableView = GGLBaseTableView()
+    private let postTableView = GGLBaseTableView()
     private let publishButton: UIButton = {
         let button = UIButton()
         button.setTitle("发布", for: .normal)
@@ -56,7 +56,7 @@ final class GGLPostViewController: GGLBaseViewController {
 
     private func setupAdapter() {
         adapter.tableView = postTableView
-        adapter.uploadPhotoCellConfiguration = { [weak self] uploadPhotoCell in
+        adapter.uploadPhotoCellConfigurator = { [weak self] uploadPhotoCell in
             guard let urlStrings = self?.viewModel.uploadPhotoUrls else { return }
             uploadPhotoCell.urlStrings = urlStrings
         }

@@ -6,3 +6,20 @@
 //
 
 import Foundation
+
+extension UITableViewCell {
+
+    static var cellReuseIdentifier: String { String(describing: self) }
+
+}
+
+extension UITableView {
+
+    func dequeueReusableCell<T: UITableViewCell>(for indexPath: IndexPath) -> T {
+        guard let cell = self.dequeueReusableCell(withIdentifier: T.cellReuseIdentifier, for: indexPath) as? T else {
+            fatalError("Cannot dequeueReusableCell of \(T.self) type!")
+        }
+        return cell
+    }
+
+}

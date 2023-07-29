@@ -7,7 +7,7 @@
 
 import UIKit
 
-var mainWindow: UIWindow?
+var mainWindow: UIWindow!
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -17,10 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         mainWindow = UIWindow(frame: windowScene.coordinateSpace.bounds)
-        mainWindow?.windowScene = windowScene
+        mainWindow.windowScene = windowScene
         let tabBarController = GGLTabBarController()
-        mainWindow?.rootViewController = tabBarController
-        mainWindow?.makeKeyAndVisible()
+        mainWindow.rootViewController = tabBarController
+        mainWindow.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
