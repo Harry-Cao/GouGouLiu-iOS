@@ -21,9 +21,16 @@ final class GGLTopicViewController: GGLBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupEdgeGesture()
         setupNavigationItem()
         setupUI()
         setupAdapter()
+    }
+
+    private func setupEdgeGesture() {
+        let edgeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleEdgePanGesture))
+        edgeGesture.edges = .left
+        view.addGestureRecognizer(edgeGesture)
     }
 
     private func setupNavigationItem() {
@@ -62,6 +69,10 @@ final class GGLTopicViewController: GGLBaseViewController {
                 ProgressHUD.showSucceed()
             })
         }
+    }
+
+    @objc private func handleEdgePanGesture() {
+        self.dismiss(animated: true)
     }
 
     @objc private func didTapBackButton() {
