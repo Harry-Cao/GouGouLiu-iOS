@@ -15,12 +15,18 @@ final class GGLHomeViewController: GGLBaseViewController {
     private let viewModel = GGLHomeViewModel()
     private let disposeBag = DisposeBag()
     private let itemSpacing: CGFloat = 4.0
+    private lazy var refreshControl: UIRefreshControl = {
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        return control
+    }()
     private lazy var recommendCollectionView: UICollectionView = {
         let waterFallFlowLayout = GGLWaterFallFlowLayout()
         waterFallFlowLayout.minimumInteritemSpacing = itemSpacing
         waterFallFlowLayout.sectionInset = UIEdgeInsets(top: itemSpacing, left: itemSpacing, bottom: itemSpacing, right: itemSpacing)
         waterFallFlowLayout.delegate = self
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: waterFallFlowLayout)
+        collectionView.refreshControl = refreshControl
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -46,6 +52,7 @@ final class GGLHomeViewController: GGLBaseViewController {
     private func bindData() {
         viewModel.updateSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] _ in
             self?.recommendCollectionView.reloadData()
+            self?.refreshControl.endRefreshing()
         }).disposed(by: disposeBag)
     }
 
@@ -55,6 +62,10 @@ final class GGLHomeViewController: GGLBaseViewController {
 
     private func addObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(networkStatusUpdated), name: .networkStatusUpdated, object: nil)
+    }
+
+    @objc private func refreshData() {
+        getData()
     }
 
     @objc private func networkStatusUpdated() {
