@@ -53,6 +53,7 @@ final class GGLHomeViewController: GGLBaseViewController {
         viewModel.updateSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] _ in
             self?.recommendCollectionView.reloadData()
             self?.refreshControl.endRefreshing()
+            self?.dismissEmptyDataView()
         }).disposed(by: disposeBag)
     }
 
@@ -75,7 +76,7 @@ final class GGLHomeViewController: GGLBaseViewController {
         case .reachable(_):
             getData()
         default:
-            ProgressHUD.show(.tips_network_error, icon: .failed)
+            showEmptyDataView()
         }
     }
 
