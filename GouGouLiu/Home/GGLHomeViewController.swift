@@ -89,10 +89,10 @@ extension GGLHomeViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(GGLHomeRecommendCell.self)", for: indexPath) as? GGLHomeRecommendCell
+        let cell: GGLHomeRecommendCell = collectionView.dequeueReusableCell(for: indexPath)
         let model = viewModel.dataSource[indexPath.item]
-        cell?.setup(model: model)
-        return cell ?? UICollectionViewCell()
+        cell.setup(model: model)
+        return cell
     }
 
 }
