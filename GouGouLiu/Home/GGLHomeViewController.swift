@@ -52,10 +52,9 @@ final class GGLHomeViewController: GGLBaseViewController {
     private func bindData() {
         viewModel.updateSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] data in
             self?.recommendCollectionView.reloadData()
+            self?.refreshControl.endRefreshing()
             guard !data.isEmpty else { return }
             self?.dismissEmptyDataView()
-        }, onCompleted: { [weak self] in
-            self?.refreshControl.endRefreshing()
         }).disposed(by: disposeBag)
     }
 

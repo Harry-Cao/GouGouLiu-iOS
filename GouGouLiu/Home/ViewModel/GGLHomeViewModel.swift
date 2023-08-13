@@ -21,8 +21,6 @@ final class GGLHomeViewModel {
             guard let data = model.data else { return }
             self?.dataSource = data
             self?.updateSubject.onNext(data)
-        }, onCompleted: { [weak self] in
-            self?.updateSubject.onCompleted()
         }).disposed(by: disposeBag)
     }
 
