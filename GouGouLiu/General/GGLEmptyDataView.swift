@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol GGLEmptyDataViewDelegate: AnyObject {
+    func didTapRefresh()
+}
+
 final class GGLEmptyDataView: UIView {
+
+    weak var delegate: GGLEmptyDataViewDelegate?
 
     private let emptyDataImageView: UIImageView = {
         let imageView = UIImageView()
@@ -40,6 +46,11 @@ final class GGLEmptyDataView: UIView {
             make.top.equalTo(emptyDataImageView.snp.bottom).offset(4)
             make.centerX.equalToSuperview()
         }
+        refreshButton.addTarget(self, action: #selector(didTapRefresh), for: .touchUpInside)
+    }
+
+    @objc private func didTapRefresh() {
+        delegate?.didTapRefresh()
     }
 
 }

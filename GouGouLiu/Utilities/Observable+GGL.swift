@@ -27,13 +27,13 @@ extension Observable where Element: Decodable {
                                                           using: decoder,
                                                           failsOnEmptyData: false)
                             observer.onNext(questions)
-                            observer.onCompleted()
                         } catch {
                             observer.onError(error)
                         }
                     case .failure(let error):
                         observer.onError(error)
                     }
+                    observer.onCompleted()
                 }
                 return Disposables.create()
             }

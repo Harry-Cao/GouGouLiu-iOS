@@ -26,7 +26,8 @@ class GGLBaseViewController: UIViewController {
 // MARK: - Empty Data View
 extension GGLBaseViewController {
 
-    func showEmptyDataView() {
+    func showEmptyDataView(target: GGLEmptyDataViewDelegate) {
+        emptyDataView.delegate = target
         view.addSubview(emptyDataView)
         emptyDataView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -34,6 +35,7 @@ extension GGLBaseViewController {
     }
 
     func dismissEmptyDataView() {
+        emptyDataView.delegate = nil
         emptyDataView.removeFromSuperview()
     }
 

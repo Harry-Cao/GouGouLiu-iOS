@@ -50,23 +50,17 @@ final class GGLHomeViewController: GGLBaseViewController {
     }
 
     private func bindData() {
-        viewModel.updateSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] _ in
+        viewModel.updateSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] data in
             self?.recommendCollectionView.reloadData()
-            self?.refreshControl.endRefreshing()
+            guard !data.isEmpty else { return }
             self?.dismissEmptyDataView()
+        }, onCompleted: { [weak self] in
+            self?.refreshControl.endRefreshing()
         }).disposed(by: disposeBag)
-    }
-
-    private func getData() {
-        viewModel.getHomePostData()
     }
 
     private func addObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(networkStatusUpdated), name: .networkStatusUpdated, object: nil)
-    }
-
-    @objc private func refreshData() {
-        getData()
     }
 
     @objc private func networkStatusUpdated() {
@@ -74,10 +68,24 @@ final class GGLHomeViewController: GGLBaseViewController {
         guard viewModel.dataSource.isEmpty else { return }
         switch GGLNetworkManager.shared.networkStatus {
         case .reachable(_):
-            getData()
+            refreshData()
         default:
-            showEmptyDataView()
+            showEmptyDataView(target: self)
         }
+    }
+
+    @objc private func refreshData() {
+        refreshControl.beginRefreshing()
+        viewModel.getHomePostData()
+    }
+
+}
+
+// MARK: - GGLEmptyDataViewDelegate
+extension GGLHomeViewController: GGLEmptyDataViewDelegate {
+
+    func didTapRefresh() {
+        refreshData()
     }
 
 }
