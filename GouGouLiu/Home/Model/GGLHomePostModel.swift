@@ -13,6 +13,7 @@ struct GGLHomePostModel: Codable {
     var postId: String?
     var userName: String?
     var userAvatar: String?
+    var coverImageUrl: String?
     var postImages: [String]?
     var postTitle: String?
     var postContent: String?

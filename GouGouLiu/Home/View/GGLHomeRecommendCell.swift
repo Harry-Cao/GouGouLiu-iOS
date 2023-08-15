@@ -85,7 +85,7 @@ final class GGLHomeRecommendCell: UICollectionViewCell {
     }
 
     func setup(model: GGLHomePostModel) {
-        let coverUrl = URL(string: model.postImages?.first ?? "")
+        let coverUrl = URL(string: model.coverImageUrl ?? "")
         imageView.sd_setImage(with: coverUrl)
         if let postTitle = model.postTitle, !postTitle.isEmpty {
             titleLabel.isHidden = false

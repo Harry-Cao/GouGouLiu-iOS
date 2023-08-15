@@ -49,8 +49,8 @@ final class GGLTopicViewController: GGLBaseViewController {
     private func setupAdapter() {
         adapter.tableView = topicTableView
         adapter.photoBrowserCellConfigurator = { [weak self] cell in
-            guard let urlStrings = self?.viewModel.postModel?.postImages else { return }
-            cell.setup(urlStrings: urlStrings)
+            guard let coverImageUrl = self?.viewModel.postModel?.coverImageUrl else { return }
+            cell.setup(urlStrings: [coverImageUrl])
         }
         adapter.contentCellConfigurator = { [weak self] cell in
             cell.setup(title: self?.viewModel.postModel?.postTitle, content: self?.viewModel.postModel?.postContent)
