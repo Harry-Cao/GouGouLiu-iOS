@@ -57,7 +57,7 @@ final class GGLPostViewController: GGLBaseViewController {
     private func setupAdapter() {
         adapter.tableView = postTableView
         adapter.uploadPhotoCellConfigurator = { [weak self] uploadPhotoCell in
-            guard let urlStrings = self?.viewModel.uploadPhotoUrls else { return }
+            guard let urlStrings = self?.viewModel.uploadPhotos.compactMap({ $0.previewUrl }) else { return }
             uploadPhotoCell.urlStrings = urlStrings
         }
         adapter.uploadPhotoCellSelectedHandler = { [weak self] urlString in

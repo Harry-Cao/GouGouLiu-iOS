@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class GGLTopicViewController: GGLBaseViewController {
 
@@ -18,6 +19,7 @@ final class GGLTopicViewController: GGLBaseViewController {
     private let viewModel = GGLTopicViewModel()
     private let adapter = GGLTopicAdapter()
     private let topicTableView = GGLBaseTableView()
+    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +27,8 @@ final class GGLTopicViewController: GGLBaseViewController {
         setupNavigationItem()
         setupUI()
         setupAdapter()
+        bindData()
+        getData()
     }
 
     private func setupEdgeGesture() {
@@ -49,8 +53,11 @@ final class GGLTopicViewController: GGLBaseViewController {
     private func setupAdapter() {
         adapter.tableView = topicTableView
         adapter.photoBrowserCellConfigurator = { [weak self] cell in
-            guard let coverImageUrl = self?.viewModel.postModel?.coverImageUrl else { return }
-            cell.setup(urlStrings: [coverImageUrl])
+            guard let urlStrings = self?.viewModel.postModel?.postImages else {
+                cell.setup(urlStrings: [self?.viewModel.postModel?.coverImageUrl ?? ""])
+                return
+            }
+            cell.setup(urlStrings: urlStrings)
         }
         adapter.contentCellConfigurator = { [weak self] cell in
             cell.setup(title: self?.viewModel.postModel?.postTitle, content: self?.viewModel.postModel?.postContent)
@@ -69,6 +76,16 @@ final class GGLTopicViewController: GGLBaseViewController {
                 ProgressHUD.showSucceed()
             })
         }
+    }
+
+    private func bindData() {
+        viewModel.updateSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] model in
+            self?.topicTableView.reloadData()
+        }).disposed(by: disposeBag)
+    }
+
+    private func getData() {
+        viewModel.getPostData()
     }
 
     @objc private func handleEdgePanGesture() {

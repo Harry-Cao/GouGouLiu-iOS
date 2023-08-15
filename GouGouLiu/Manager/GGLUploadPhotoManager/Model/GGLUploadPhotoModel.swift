@@ -9,6 +9,9 @@ import Foundation
 
 struct GGLUploadPhotoModel: Codable {
 
-    var url: String?
+    var originalUrl: String?
+    var previewUrl: String?
+    var type: String?
+    var contactId: String?
 
 }

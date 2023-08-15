@@ -47,6 +47,7 @@
 		3EADA9462A715AB400F5BB13 /* GGLPostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EADA9452A715AB400F5BB13 /* GGLPostModel.swift */; };
 		3EADA9492A71896700F5BB13 /* GGLPostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EADA9482A71896700F5BB13 /* GGLPostManager.swift */; };
 		3EADFE7B2A6AEAD400225625 /* GGLUserClearAllAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EADFE7A2A6AEAD400225625 /* GGLUserClearAllAPI.swift */; };
+		3EB0DE172A8BE98B00ED00D8 /* GGLTopicAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB0DE162A8BE98B00ED00D8 /* GGLTopicAPI.swift */; };
 		3EB404AD2A5487F00032E899 /* GGLHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB404AC2A5487F00032E899 /* GGLHomeViewModel.swift */; };
 		3EB404B02A54890F0032E899 /* GGLHomePostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB404AF2A54890F0032E899 /* GGLHomePostModel.swift */; };
 		3EB404B32A548B680032E899 /* GGLHomePostAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB404B22A548B680032E899 /* GGLHomePostAPI.swift */; };
@@ -121,6 +122,7 @@
 		3EADA9452A715AB400F5BB13 /* GGLPostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPostModel.swift; sourceTree = "<group>"; };
 		3EADA9482A71896700F5BB13 /* GGLPostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPostManager.swift; sourceTree = "<group>"; };
 		3EADFE7A2A6AEAD400225625 /* GGLUserClearAllAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLUserClearAllAPI.swift; sourceTree = "<group>"; };
+		3EB0DE162A8BE98B00ED00D8 /* GGLTopicAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLTopicAPI.swift; sourceTree = "<group>"; };
 		3EB404AC2A5487F00032E899 /* GGLHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLHomeViewModel.swift; sourceTree = "<group>"; };
 		3EB404AF2A54890F0032E899 /* GGLHomePostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLHomePostModel.swift; sourceTree = "<group>"; };
 		3EB404B22A548B680032E899 /* GGLHomePostAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLHomePostAPI.swift; sourceTree = "<group>"; };
@@ -348,6 +350,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		3EB0DE182A8BE9B800ED00D8 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				3EB0DE162A8BE98B00ED00D8 /* GGLTopicAPI.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
 		3EB404AE2A54880D0032E899 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -511,6 +521,7 @@
 				3ECFA7652A751C4E00CB465B /* Adapter */,
 				3ECFA7662A751C5400CB465B /* ViewModel */,
 				3ECFA76B2A751CD600CB465B /* View */,
+				3EB0DE182A8BE9B800ED00D8 /* API */,
 			);
 			path = Topic;
 			sourceTree = "<group>";
@@ -737,6 +748,7 @@
 				3E5509332A66900F00653568 /* GGLNetworkManager.swift in Sources */,
 				3E6EB8252A3F54FE00675A2A /* MessageModel.swift in Sources */,
 				3E3C4B3D2A69A2A70028710A /* GGLUserNetworkHelper.swift in Sources */,
+				3EB0DE172A8BE98B00ED00D8 /* GGLTopicAPI.swift in Sources */,
 				3ED90C022A2E4DED0079B4D3 /* GGLHomeRecommendCell.swift in Sources */,
 				3E453B4C2A6DA96A00B30C3C /* GGLPostAPI.swift in Sources */,
 				3EADFE7B2A6AEAD400225625 /* GGLUserClearAllAPI.swift in Sources */,

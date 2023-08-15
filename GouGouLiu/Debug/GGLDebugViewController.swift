@@ -91,7 +91,7 @@ extension DebugContentView {
                         ProgressHUD.showServerProgress(progress: progress.progress)
                     }).subscribe(onNext: { model in
                         if model.code == .success {
-                            UIPasteboard.general.string = model.data?.url
+                            UIPasteboard.general.string = model.data?.originalUrl
                         }
                         ProgressHUD.showServerMsg(model: model)
                     }, onError: { error in
