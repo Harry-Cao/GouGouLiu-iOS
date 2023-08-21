@@ -8,25 +8,19 @@
 import UIKit
 import Hero
 import RxSwift
-import Alamofire
+import MJRefresh
 
 final class GGLHomeViewController: GGLBaseViewController {
 
     private let viewModel = GGLHomeViewModel()
     private let disposeBag = DisposeBag()
     private let itemSpacing: CGFloat = 4.0
-    private lazy var refreshControl: UIRefreshControl = {
-        let control = UIRefreshControl()
-        control.addTarget(self, action: #selector(refreshData), for: .valueChanged)
-        return control
-    }()
     private lazy var recommendCollectionView: UICollectionView = {
         let waterFallFlowLayout = GGLWaterFallFlowLayout()
         waterFallFlowLayout.minimumInteritemSpacing = itemSpacing
         waterFallFlowLayout.sectionInset = UIEdgeInsets(top: itemSpacing, left: itemSpacing, bottom: itemSpacing, right: itemSpacing)
         waterFallFlowLayout.delegate = self
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: waterFallFlowLayout)
-        collectionView.refreshControl = refreshControl
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -38,6 +32,7 @@ final class GGLHomeViewController: GGLBaseViewController {
         super.viewDidLoad()
         navigationItem.title = .Home
         setupUI()
+        setupRefreshComponent()
         bindData()
         addObserver()
     }
@@ -49,10 +44,17 @@ final class GGLHomeViewController: GGLBaseViewController {
         }
     }
 
+    private func setupRefreshComponent() {
+        MJRefreshNormalHeader { [weak self] in
+            self?.viewModel.getHomePostData()
+        }.autoChangeTransparency(true)
+            .link(to: recommendCollectionView)
+    }
+
     private func bindData() {
         viewModel.updateSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] data in
+            self?.recommendCollectionView.mj_header?.endRefreshing()
             self?.recommendCollectionView.reloadData()
-            self?.refreshControl.endRefreshing()
             guard !data.isEmpty else { return }
             self?.dismissEmptyDataView()
         }).disposed(by: disposeBag)
@@ -74,8 +76,7 @@ final class GGLHomeViewController: GGLBaseViewController {
     }
 
     @objc private func refreshData() {
-        refreshControl.beginRefreshing()
-        viewModel.getHomePostData()
+        recommendCollectionView.mj_header?.beginRefreshing()
     }
 
 }

@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (5.7.1)
   - Hero (1.6.2)
+  - MJRefresh (3.7.5)
   - Moya (15.0.0):
     - Moya/Core (= 15.0.0)
   - Moya/Core (15.0.0):
@@ -23,6 +24,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - Hero
+  - MJRefresh
   - Moya
   - ProgressHUD
   - RxCocoa
@@ -36,6 +38,7 @@ SPEC REPOS:
   https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
     - Alamofire
     - Hero
+    - MJRefresh
     - Moya
     - ProgressHUD
     - RxCocoa
@@ -49,6 +52,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
   Hero: c69009dbc9e2f0472e081adc644dba05fcedae72
+  MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   ProgressHUD: 355915c8f033e626788fa9b0d99d06e8691595ab
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
@@ -59,6 +63,6 @@ SPEC CHECKSUMS:
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   URLNavigator: 9e277a422a5c131a3e37970c2558e0e866cc22bd
 
-PODFILE CHECKSUM: 7bbeec8997b5649080c75e9282009060cd9ba85f
+PODFILE CHECKSUM: 16c7a87f51bb6e59ea022f55658906f91c93d50a
 
 COCOAPODS: 1.12.1

@@ -18,5 +18,6 @@ pod 'Alamofire'
 pod 'URLNavigator'
 pod 'Hero'
 pod 'ProgressHUD'
+pod 'MJRefresh'
 
 end
