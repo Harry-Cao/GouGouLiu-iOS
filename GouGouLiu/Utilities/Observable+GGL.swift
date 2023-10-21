@@ -15,7 +15,7 @@ extension Observable where Element: Decodable {
                                callbackQueue: DispatchQueue? = .global(qos: .utility),
                                progressBlock: ProgressBlock? = nil)
         -> Observable<Element> where API: TargetType {
-            return Observable<Element>.create { observer -> Disposable in
+            return Observable.create { observer -> Disposable in
                 provider.request(api, callbackQueue: callbackQueue, progress: progressBlock) { response in
                     switch response {
                     case .success(let value):
