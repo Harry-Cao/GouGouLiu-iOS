@@ -26,6 +26,7 @@ extension String {
     static let path_userLogout = "/api/user/logout"
     static let path_userClearAll = "/api/user/clearAll"
     static let path_publishPost = "/api/post/publish"
+    static let path_postClearAll = "/api/post/clearAll"
     static let path_searchPost = "api/post/search"
 
 }

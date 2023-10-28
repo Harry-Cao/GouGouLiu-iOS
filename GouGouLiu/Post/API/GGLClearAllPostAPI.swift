@@ -1,25 +1,23 @@
 //
-//  GGLUserSignupAPI.swift
+//  GGLClearAllPostAPI.swift
 //  GouGouLiu
 //
-//  Created by Harry Cao on 7/21/23.
+//  Created by Harry Cao on 10/29/23.
 //
 
 import Foundation
 import Moya
 
-struct GGLUserSignupAPI: TargetType {
+struct GGLClearAllPostAPI: TargetType {
 
-    var username: String
-    var password: String
-    var isSuper: Bool
+    var userId: String
 
     var baseURL: URL {
         .api_baseURL
     }
 
     var path: String {
-        .path_userSignup
+        .path_postClearAll
     }
 
     var method: Moya.Method {
@@ -28,9 +26,7 @@ struct GGLUserSignupAPI: TargetType {
 
     var task: Moya.Task {
         var para: [String: Any] = [:]
-        para.updateValue(username, forKey: "username")
-        para.updateValue(password, forKey: "password")
-        para.updateValue(isSuper, forKey: "isSuper")
+        para.updateValue(userId, forKey: "userId")
         return .requestParameters(parameters: para, encoding: URLEncoding.queryString)
     }
 

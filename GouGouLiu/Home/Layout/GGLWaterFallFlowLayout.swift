@@ -41,6 +41,7 @@ final class GGLWaterFallFlowLayout: UICollectionViewLayout {
         let itemCount = collectionView!.numberOfItems(inSection: 0)
         // 最小高度索引
         var minHeightIndex = 0
+        guard itemCount > 0 else { return }
         // 遍历 item 计算并缓存属性
         for i in layoutAttributeArray.count ..< itemCount {
             let indexPath = IndexPath(item: i, section: 0)

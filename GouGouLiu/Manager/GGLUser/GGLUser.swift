@@ -23,8 +23,8 @@ final class GGLUser {
 // MARK: - Request
 extension GGLUser {
 
-    static func signup(username: String, password: String) {
-        networkHelper.requestSignup(username: username, password: password).subscribe(onNext: { model in
+    static func signup(username: String, password: String, isSuper: Bool) {
+        networkHelper.requestSignup(username: username, password: password, isSuper: isSuper).subscribe(onNext: { model in
             ProgressHUD.showServerMsg(model: model)
         }).disposed(by: disposeBag)
     }

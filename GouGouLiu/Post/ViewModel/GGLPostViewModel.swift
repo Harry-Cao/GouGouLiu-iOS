@@ -13,6 +13,7 @@ final class GGLPostViewModel {
 
     var uploadPhotos = [GGLUploadPhotoModel]()
     private let moyaProvider = MoyaProvider<GGLPostAPI>()
+    private let clearAllMoyaProvider = MoyaProvider<GGLClearAllPostAPI>()
     private let disposeBag = DisposeBag()
     private(set) var uploadSubject = PublishSubject<Any?>()
     private(set) var publishSubject = PublishSubject<Any?>()
@@ -54,6 +55,11 @@ final class GGLPostViewModel {
     private func requestPublishPost(userId: String, coverUrl: String, imageUrls: [String], title: String, content: String?) -> Observable<GGLMoyaModel<GGLPostModel>> {
         let api = GGLPostAPI(userId: userId, coverUrl: coverUrl, imageUrls: imageUrls, title: title, content: content)
         return .ofRequest(api: api, provider: moyaProvider)
+    }
+
+    func clearAllPost(userId: String) -> Observable<GGLMoyaModel<GGLPostModel>> {
+        let api = GGLClearAllPostAPI(userId: userId)
+        return .ofRequest(api: api, provider: MoyaProvider<GGLClearAllPostAPI>())
     }
 
 }

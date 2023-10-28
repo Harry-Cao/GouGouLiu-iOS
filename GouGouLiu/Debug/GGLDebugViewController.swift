@@ -11,6 +11,8 @@ import RxSwift
 
 final class GGLDebugViewController: GGLBaseHostingController<DebugContentView> {
 
+    static let disposeBag = DisposeBag()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = .Debug
@@ -101,13 +103,13 @@ extension DebugContentView {
             case .clearAllPhoto:
                 GGLUploadPhotoManager.shared.clearAllPhotos()
             case .signup:
-                UIAlertController.popupAccountInfoInputAlert(title: "注册账号") { username, password in
+                UIAlertController.popupAccountInfoInputAlert(title: "注册账号") { username, password, isSuper in
                     guard let username = username,
                           let password = password else { return }
-                    GGLUser.signup(username: username, password: password)
+                    GGLUser.signup(username: username, password: password, isSuper: isSuper ?? false)
                 }
             case .login:
-                UIAlertController.popupAccountInfoInputAlert(title: "登录账号") { username, password in
+                UIAlertController.popupAccountInfoInputAlert(title: "登录账号") { username, password, _ in
                     guard let username = username,
                           let password = password else { return }
                     GGLUser.login(username: username, password: password)
@@ -119,7 +121,11 @@ extension DebugContentView {
             case .clearAllUser:
                 GGLUser.clearAll()
             case .clearAllPost:
-                break
+                guard let userId = GGLUser.getUserId() else { return }
+                let postViewModel = GGLPostViewModel()
+                postViewModel.clearAllPost(userId: userId).subscribe(onNext: { model in
+                    ProgressHUD.showServerMsg(model: model)
+                }).disposed(by: GGLDebugViewController.disposeBag)
             case .clearImageCache:
                 ProgressHUD.show()
                 SDImageCache.shared.clearMemory()
