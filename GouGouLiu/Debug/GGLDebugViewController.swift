@@ -23,13 +23,13 @@ final class GGLDebugViewController: GGLBaseHostingController<DebugContentView> {
 struct DebugContentView: View {
     var menuRows: [DebugRow] = [
         .uploadAvatar,
-        .clearAllPhoto,
         .signup,
         .login,
         .logout,
         .signout,
         .clearAllUser,
         .clearAllPost,
+        .clearAllPhoto,
         .clearImageCache,
     ]
     var body: some View {
