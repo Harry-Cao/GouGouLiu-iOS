@@ -15,8 +15,8 @@ extension URL {
 
 extension String {
 
-    static let api_host = "f3.ttkt.cc:12873"
-//    static let api_host = "192.168.0.123:8888"
+    static let api_host = "f3.ttkt.cc:14648"
+//    static let api_host = "192.168.0.211:8888"
 
     static let path_homePagePost = "/api/home/post"
     static let path_uploadPhoto = "/api/photo/upload"

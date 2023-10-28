@@ -14,7 +14,7 @@ extension Observable where Element: Decodable {
                                provider: MoyaProvider<API>,
                                callbackQueue: DispatchQueue? = .global(qos: .utility),
                                progressBlock: ProgressBlock? = nil)
-        -> Observable<Element> where API: TargetType {
+        -> Observable where API: TargetType {
             return Observable.create { observer -> Disposable in
                 provider.request(api, callbackQueue: callbackQueue, progress: progressBlock) { response in
                     switch response {
