@@ -32,20 +32,18 @@ extension GGLTopicAdapter: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: UITableViewCell?
         let cellType = cellTypes[indexPath.row]
         switch cellType {
         case .photos:
             let photoBrowserCell: GGLTopicPhotosBrowserCell = tableView.dequeueReusableCell(for: indexPath)
             photoBrowserCellConfigurator?(photoBrowserCell)
             photoBrowserCell.browserView.delegate = self
-            cell = photoBrowserCell
+            return photoBrowserCell
         case .content:
             let contentCell: GGLTopicContentCell = tableView.dequeueReusableCell(for: indexPath)
             contentCellConfigurator?(contentCell)
-            cell = contentCell
+            return contentCell
         }
-        return cell ?? UITableViewCell()
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

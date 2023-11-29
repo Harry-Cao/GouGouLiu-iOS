@@ -32,22 +32,20 @@ extension GGLPostAdapter: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: UITableViewCell?
         let cellType = cellTypes[indexPath.row]
         switch cellType {
         case .uploadPhoto:
             let uploadPhotoCell: GGLPostUploadPhotoCell = tableView.dequeueReusableCell(for: indexPath)
             uploadPhotoCell.delegate = self
             uploadPhotoCellConfigurator?(uploadPhotoCell)
-            cell = uploadPhotoCell
+            return uploadPhotoCell
         case .inputTitle:
             let inputTitleCell: GGLPostInputTitleCell = tableView.dequeueReusableCell(for: indexPath)
-            cell = inputTitleCell
+            return inputTitleCell
         case .inputContent:
             let inputContentCell: GGLPostInputContentCell = tableView.dequeueReusableCell(for: indexPath)
-            cell = inputContentCell
+            return inputContentCell
         }
-        return cell ?? UITableViewCell()
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

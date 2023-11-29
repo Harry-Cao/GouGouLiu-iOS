@@ -12,8 +12,8 @@ final class GGLTabBarController: UITabBarController {
     private let homeViewController = GGLHomeViewController()
     private let orderViewController = GGLOrderViewController()
     private let emptyViewController = UIViewController()
-    private let messageViewController = GGLMessageViewController(rootView: MessageContentView())
-    private let personalViewController = GGLPersonalViewController(rootView: PersonalContentView())
+    private let messageViewController = GGLMessageViewController()
+    private let personalViewController = GGLPersonalViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
