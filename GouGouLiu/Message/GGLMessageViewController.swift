@@ -13,46 +13,29 @@ final class GGLMessageViewController: GGLBaseHostingController<MessageContentVie
         super.init(rootView: MessageContentView())
     }
 
-    @MainActor required dynamic init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = .Message
-        setupRightBarButtonItems()
-    }
-
-    private func setupRightBarButtonItems() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(didTapRefresh))
-    }
-
-    @objc private func didTapRefresh() {
-        rootView.messageModels.append(MessageModel(name: "Tom", message: "Hi Ben! Here is a great news for you, please check this message before dinner."))
     }
 
 }
 
 struct MessageContentView: View {
-    var messageModels: [MessageModel] = [
-        MessageModel(name: "Tom", message: "Hi Ben! Here is a great news for you, please check this message before dinner.")
+    var messageModels: [GGLMessageModel] = [
+        GGLMessageModel(type: .gemini, avatar: "http://f3.ttkt.cc:12873/GGLServer/media/global/pyy.jpeg", name: "Gemini", message: "Hi, I'm Gemini! A powerful chat bot for you.")
     ]
     var body: some View {
         List(messageModels) { model in
             Button {
-                AppRouter.shared.push(GGLChatRoomViewController())
+                AppRouter.shared.push(GGLChatRoomViewController(messageModel: model))
             } label: {
-                MessageCell(messageModel: model)
+                GGLMessageCell(messageModel: model)
             }
         }
         .listStyle(.plain)
-    }
-}
-
-struct GGLMessagePreviewProvider_Previews: PreviewProvider {
-    static var previews: some View {
-        MessageContentView(messageModels: [
-            MessageModel(name: "Tom", message: "Hi Ben! Here is a great news for you, please check this message before dinner.")
-        ])
     }
 }

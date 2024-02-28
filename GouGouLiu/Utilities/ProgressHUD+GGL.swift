@@ -21,7 +21,7 @@ extension ProgressHUD {
     }
 
     static func showServerProgress(progress: Double) {
-        ProgressHUD.showProgress(progress, interaction: true)
+        ProgressHUD.showProgress(progress)
         if progress == 1.0 {
             ProgressHUD.show("正在压缩...")
         }

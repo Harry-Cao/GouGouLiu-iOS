@@ -23,7 +23,7 @@ extension UIImage {
     static var tab_bar_fold_up: UIImage? { UIImage(named: "tab_bar_fold_up") }
 
     static var icon_add: UIImage? { UIImage(named: "icon_add") }
-    static var icon_empty_data: UIImage? { UIImage(named: "empty_data") }
+    static var icon_empty_data: UIImage? { UIImage(named: "empty_data")?.withTintColor(.label) }
     
 }
 
