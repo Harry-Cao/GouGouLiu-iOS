@@ -74,7 +74,7 @@ struct GGLChatRoomInputView: View {
                     Spacer()
                 }
                 .onLongPressGesture(minimumDuration: 1, maximumDistance: 60) {
-                    ProgressHUD.show("开始录音...")
+                    ProgressHUD.showSucceed("开始录音...")
                 } onPressingChanged: { onPress in
                     print("!!!onPress: \(onPress)")
                 }

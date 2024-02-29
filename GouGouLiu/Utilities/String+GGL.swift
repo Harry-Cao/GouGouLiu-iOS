@@ -19,7 +19,6 @@ extension String {
     static let Message: String = "Message"
     static let Personal: String = "Personal"
     static let Topic: String = "Topic"
-    static let ChatRoom: String = "ChatRoom"
     static let Debug: String = "Debug"
 
     static let tips_network_error: String = "网络不可用"

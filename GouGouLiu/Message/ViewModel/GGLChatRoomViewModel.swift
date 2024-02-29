@@ -24,22 +24,27 @@ final class GGLChatRoomViewModel: ObservableObject {
 
     func geminiSayHi() {
         guard messageModel.type == .gemini else { return }
-        chatModels.append(GGLChatTextModel(role: .other, content: "hi", avatar: messageModel.avatar))
+        chatModels.append(GGLChatTextModel(role: .other, content: messageModel.message, avatar: messageModel.avatar))
     }
 
     func sendMessage() {
         guard !inputText.isEmpty else { return }
-        chatModels.append(GGLChatTextModel(role: .user, content: inputText, avatar: "http://f3.ttkt.cc:12873/GGLServer/media/global/cys.jpg"))
-        responding = true
-        respondMessage = "收到问题：\(inputText)\n"
+        let prompt = inputText
         inputText = ""
+        chatModels.append(GGLChatTextModel(role: .user, content: prompt, avatar: "http://f3.ttkt.cc:12873/GGLServer/media/global/cys.jpg"))
+        responding = true
+        respondMessage = ""
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [self] timer in
             respondMessage.append("答复")
             if respondMessage.count > 20 {
-                responding = false
-                chatModels.append(GGLChatTextModel(role: .other, content: respondMessage, avatar: messageModel.avatar))
+                receivedAnswer()
                 timer.invalidate()
             }
         }
+    }
+
+    private func receivedAnswer() {
+        responding = false
+        chatModels.append(GGLChatTextModel(role: .other, content: respondMessage, avatar: messageModel.avatar))
     }
 }

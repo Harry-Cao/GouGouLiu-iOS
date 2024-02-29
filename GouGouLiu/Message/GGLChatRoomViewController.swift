@@ -19,7 +19,7 @@ final class GGLChatRoomViewController: GGLBaseHostingController<GGLChatRoomConte
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = .ChatRoom
+        navigationItem.title = rootView.viewModel.messageModel.name
     }
 }
 
@@ -28,8 +28,8 @@ struct GGLChatRoomContentView: View {
 
     var body: some View {
         VStack {
-            ScrollViewReader { proxy in
-                ScrollView {
+            ScrollView {
+                ScrollViewReader { proxy in
                     LazyVStack(spacing: 0) {
                         ForEach(viewModel.chatModels) { model in
                             GGLChatMessageAdapter(model: model)
@@ -38,11 +38,15 @@ struct GGLChatRoomContentView: View {
                             GGLChatMessageAdapter(model: GGLChatTextModel(role: .other, content: viewModel.respondMessage, avatar: viewModel.messageModel.avatar))
                         }
                     }
-                }
-                .onChange(of: viewModel.chatModels) { _ in
-                    withAnimation {
+                    .onAppear(perform: {
                         guard let lastId = viewModel.chatModels.last?.id else { return }
-                        proxy.scrollTo(lastId)
+                        proxy.scrollTo(lastId, anchor: .bottom)
+                    })
+                    .onChange(of: viewModel.chatModels) { _ in
+                        withAnimation {
+                            guard let lastId = viewModel.chatModels.last?.id else { return }
+                            proxy.scrollTo(lastId, anchor: .bottom)
+                        }
                     }
                 }
             }
