@@ -18,6 +18,7 @@ final class GGLChatRoomViewModel: ObservableObject {
     @Published var inputText: String = ""
     @Published var responding: Bool = false
     @Published var respondMessage: String = ""
+    let respondId = UUID()
     var sendDisabled: Bool {
         return responding
     }

@@ -28,14 +28,15 @@ struct GGLChatRoomContentView: View {
 
     var body: some View {
         VStack {
-            ScrollView {
-                ScrollViewReader { proxy in
+            ScrollViewReader { proxy in
+                ScrollView {
                     LazyVStack(spacing: 0) {
                         ForEach(viewModel.chatModels) { model in
                             GGLChatMessageAdapter(model: model)
                         }
                         if viewModel.responding {
                             GGLChatMessageAdapter(model: GGLChatTextModel(role: .other, content: viewModel.respondMessage, avatar: viewModel.messageModel.avatar))
+                                .id(viewModel.respondId)
                         }
                     }
                     .onAppear(perform: {
@@ -46,6 +47,11 @@ struct GGLChatRoomContentView: View {
                         withAnimation {
                             guard let lastId = viewModel.chatModels.last?.id else { return }
                             proxy.scrollTo(lastId, anchor: .bottom)
+                        }
+                    }
+                    .onChange(of: viewModel.respondMessage) { _ in
+                        withAnimation {
+                            proxy.scrollTo(viewModel.respondId, anchor: .bottom)
                         }
                     }
                 }
