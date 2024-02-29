@@ -29,6 +29,8 @@
 		3E6861412B8CE50500B07FDA /* GGLChatMessageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6861402B8CE50500B07FDA /* GGLChatMessageAdapter.swift */; };
 		3E6861482B8DA10F00B07FDA /* GGLChatRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6861472B8DA10F00B07FDA /* GGLChatRoomViewModel.swift */; };
 		3E68614D2B8E280900B07FDA /* GGLChatRoomInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68614C2B8E280900B07FDA /* GGLChatRoomInputView.swift */; };
+		3E6861542B8F778A00B07FDA /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = 3E6861532B8F778A00B07FDA /* GoogleGenerativeAI */; };
+		3E6861562B8F77E000B07FDA /* GGLGoogleAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6861552B8F77E000B07FDA /* GGLGoogleAI.swift */; };
 		3E6B0C322A3087D9002317D6 /* String+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6B0C312A3087D9002317D6 /* String+GGL.swift */; };
 		3E6D46382A7011A5000AB07C /* ProgressHUD+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D46372A7011A5000AB07C /* ProgressHUD+GGL.swift */; };
 		3E6D463E2A701C2A000AB07C /* GGLPostAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D463D2A701C2A000AB07C /* GGLPostAdapter.swift */; };
@@ -50,6 +52,7 @@
 		3E9F11552A6C179200A1CC90 /* GGLMoyaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9F11542A6C179200A1CC90 /* GGLMoyaModel.swift */; };
 		3EA4B3242A65C33E00A592BA /* GGLUploadPhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA4B3232A65C33E00A592BA /* GGLUploadPhotoModel.swift */; };
 		3EAD23E42A401C9F000238AC /* GGLChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD23E32A401C9F000238AC /* GGLChatRoomViewController.swift */; };
+		3EAD9D1A2B90C78400AFCF06 /* GenerativeAI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3EAD9D192B90C78400AFCF06 /* GenerativeAI-Info.plist */; };
 		3EADA9462A715AB400F5BB13 /* GGLPostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EADA9452A715AB400F5BB13 /* GGLPostModel.swift */; };
 		3EADA9492A71896700F5BB13 /* GGLPostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EADA9482A71896700F5BB13 /* GGLPostManager.swift */; };
 		3EADFE7B2A6AEAD400225625 /* GGLUserClearAllAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EADFE7A2A6AEAD400225625 /* GGLUserClearAllAPI.swift */; };
@@ -121,6 +124,7 @@
 		3E6861402B8CE50500B07FDA /* GGLChatMessageAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatMessageAdapter.swift; sourceTree = "<group>"; };
 		3E6861472B8DA10F00B07FDA /* GGLChatRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatRoomViewModel.swift; sourceTree = "<group>"; };
 		3E68614C2B8E280900B07FDA /* GGLChatRoomInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatRoomInputView.swift; sourceTree = "<group>"; };
+		3E6861552B8F77E000B07FDA /* GGLGoogleAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLGoogleAI.swift; sourceTree = "<group>"; };
 		3E6B0C312A3087D9002317D6 /* String+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+GGL.swift"; sourceTree = "<group>"; };
 		3E6D46372A7011A5000AB07C /* ProgressHUD+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgressHUD+GGL.swift"; sourceTree = "<group>"; };
 		3E6D463D2A701C2A000AB07C /* GGLPostAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPostAdapter.swift; sourceTree = "<group>"; };
@@ -142,6 +146,7 @@
 		3E9F11542A6C179200A1CC90 /* GGLMoyaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLMoyaModel.swift; sourceTree = "<group>"; };
 		3EA4B3232A65C33E00A592BA /* GGLUploadPhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLUploadPhotoModel.swift; sourceTree = "<group>"; };
 		3EAD23E32A401C9F000238AC /* GGLChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatRoomViewController.swift; sourceTree = "<group>"; };
+		3EAD9D192B90C78400AFCF06 /* GenerativeAI-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GenerativeAI-Info.plist"; sourceTree = "<group>"; };
 		3EADA9452A715AB400F5BB13 /* GGLPostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPostModel.swift; sourceTree = "<group>"; };
 		3EADA9482A71896700F5BB13 /* GGLPostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPostManager.swift; sourceTree = "<group>"; };
 		3EADFE7A2A6AEAD400225625 /* GGLUserClearAllAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLUserClearAllAPI.swift; sourceTree = "<group>"; };
@@ -189,6 +194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93F1242499CE7D731BC833A8 /* Pods_GouGouLiu.framework in Frameworks */,
+				3E6861542B8F778A00B07FDA /* GoogleGenerativeAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,6 +486,7 @@
 			isa = PBXGroup;
 			children = (
 				3EFF955C2A30DD1300E89069 /* AppRouter.swift */,
+				3E6861552B8F77E000B07FDA /* GGLGoogleAI.swift */,
 				3E0A078C2A55D8B400D60819 /* GGLPhotoDownloadManager.swift */,
 				3E5509322A66900F00653568 /* GGLNetworkManager.swift */,
 				3E1B016B2A68632200E9B05E /* GGLUser */,
@@ -524,6 +531,7 @@
 				3ED90C0B2A2E5AB30079B4D3 /* Base */,
 				3ED90BFC2A2E49E30079B4D3 /* Utilities */,
 				3ED90C0F2A2E5E780079B4D3 /* Support */,
+				3EAD9D192B90C78400AFCF06 /* GenerativeAI-Info.plist */,
 			);
 			path = GouGouLiu;
 			sourceTree = "<group>";
@@ -669,6 +677,9 @@
 			dependencies = (
 			);
 			name = GouGouLiu;
+			packageProductDependencies = (
+				3E6861532B8F778A00B07FDA /* GoogleGenerativeAI */,
+			);
 			productName = GouGouLiu;
 			productReference = 3ED90BE32A2E24410079B4D3 /* GouGouLiu.app */;
 			productType = "com.apple.product-type.application";
@@ -719,6 +730,9 @@
 				Base,
 			);
 			mainGroup = 3ED90BDA2A2E24410079B4D3;
+			packageReferences = (
+				3E6861522B8F778A00B07FDA /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
+			);
 			productRefGroup = 3ED90BE42A2E24410079B4D3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -736,6 +750,7 @@
 			files = (
 				3ED90BF32A2E24420079B4D3 /* LaunchScreen.storyboard in Resources */,
 				3ED90BF02A2E24420079B4D3 /* Assets.xcassets in Resources */,
+				3EAD9D1A2B90C78400AFCF06 /* GenerativeAI-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -803,6 +818,7 @@
 				3EADA9492A71896700F5BB13 /* GGLPostManager.swift in Sources */,
 				3E6D46522A703AB6000AB07C /* UICollectionView+GGL.swift in Sources */,
 				3E53B5352A8800930007C560 /* GGLEmptyDataView.swift in Sources */,
+				3E6861562B8F77E000B07FDA /* GGLGoogleAI.swift in Sources */,
 				3E3C4B452A69AB270028710A /* GGLUserLogoutAPI.swift in Sources */,
 				3E6861482B8DA10F00B07FDA /* GGLChatRoomViewModel.swift in Sources */,
 				3ED90C052A2E54580079B4D3 /* GGLPersonalViewController.swift in Sources */,
@@ -1162,6 +1178,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3E6861522B8F778A00B07FDA /* XCRemoteSwiftPackageReference "generative-ai-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/generative-ai-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.8;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3E6861532B8F778A00B07FDA /* GoogleGenerativeAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E6861522B8F778A00B07FDA /* XCRemoteSwiftPackageReference "generative-ai-swift" */;
+			productName = GoogleGenerativeAI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3ED90BDB2A2E24410079B4D3 /* Project object */;
 }

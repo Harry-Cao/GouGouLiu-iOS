@@ -35,6 +35,22 @@ final class GGLChatRoomViewModel: ObservableObject {
         chatModels.append(GGLChatTextModel(role: .user, content: prompt, avatar: "http://f3.ttkt.cc:12873/GGLServer/media/global/cys.jpg"))
         responding = true
         respondMessage = ""
+        if messageModel.type == .gemini {
+            Task {
+                let responseStream = GGLGoogleAI.shared.chat.sendMessageStream(prompt)
+                for try await chunk in responseStream {
+                    if let text = chunk.text {
+                        DispatchQueue.main.async { [weak self] in
+                            self?.respondMessage += text
+                        }
+                    }
+                }
+                DispatchQueue.main.async { [weak self] in
+                    self?.receivedAnswer()
+                }
+            }
+            return
+        }
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [self] timer in
             respondMessage.append("答复")
             if respondMessage.count > 20 {
