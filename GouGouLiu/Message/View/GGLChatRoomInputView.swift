@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import ProgressHUD
 
 struct GGLChatRoomInputView: View {
     @Binding var inputText: String
