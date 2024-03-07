@@ -8,15 +8,11 @@
 import SwiftUI
 
 struct GGLChatMessageAdapter: View {
-    let model: GGLChatBaseModel
+    let model: GGLChatModel
     var body: some View {
         switch model.type {
         case .text:
-            if let messageModel = model as? GGLChatTextModel {
-                GGLChatCell(model: messageModel)
-            } else {
-                EmptyView()
-            }
+            GGLChatCell(model: model)
         }
     }
 }

@@ -31,28 +31,26 @@ struct GGLChatRoomContentView: View {
             ScrollViewReader { proxy in
                 ScrollView {
                     LazyVStack(spacing: 0) {
-                        ForEach(viewModel.chatModels) { model in
+                        ForEach(viewModel.messageModel.messages) { model in
                             GGLChatMessageAdapter(model: model)
                         }
                         if viewModel.responding {
-                            GGLChatMessageAdapter(model: GGLChatTextModel(role: .other, content: viewModel.respondMessage, avatar: viewModel.messageModel.avatar))
+                            GGLChatMessageAdapter(model: GGLChatModel.createText(role: .other, content: viewModel.respondMessage, avatar: viewModel.messageModel.avatar))
                                 .id(viewModel.respondId)
                         }
                     }
                     .onAppear(perform: {
-                        guard let lastId = viewModel.chatModels.last?.id else { return }
+                        guard let lastId = viewModel.messageModel.messages.last?.id else { return }
                         proxy.scrollTo(lastId, anchor: .bottom)
                     })
-                    .onChange(of: viewModel.chatModels) { _ in
+                    .onChange(of: viewModel.messageModel.messages) { _ in
                         withAnimation {
-                            guard let lastId = viewModel.chatModels.last?.id else { return }
+                            guard let lastId = viewModel.messageModel.messages.last?.id else { return }
                             proxy.scrollTo(lastId, anchor: .bottom)
                         }
                     }
                     .onChange(of: viewModel.respondMessage) { _ in
-                        withAnimation {
-                            proxy.scrollTo(viewModel.respondId, anchor: .bottom)
-                        }
+                        proxy.scrollTo(viewModel.respondId, anchor: .bottom)
                     }
                 }
             }

@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 final class GGLMessageViewController: GGLBaseHostingController<MessageContentView> {
 
     init() {
+        _ = GGLDataBase.shared
         super.init(rootView: MessageContentView())
     }
 
@@ -25,12 +27,14 @@ final class GGLMessageViewController: GGLBaseHostingController<MessageContentVie
 }
 
 struct MessageContentView: View {
-    var messageModels: [GGLMessageModel] = [
-        GGLMessageModel(avatar: "http://f3.ttkt.cc:12873/GGLServer/media/global/dog.png", name: "狗狗溜客服", message: "您在使用过程中遇到任何问题都可以向我反馈"),
-        GGLMessageModel(type: .gemini, avatar: "http://f3.ttkt.cc:12873/GGLServer/media/global/pyy.jpeg", name: "Gemini", message: "Hi, I'm Gemini! A powerful chat bot for you.")
-    ]
+//    private let messageModels: [GGLMessageModel] = [
+//        GGLMessageModel(avatar: "http://f3.ttkt.cc:12873/GGLServer/media/global/dog.png", name: "狗狗溜客服", message: "您在使用过程中遇到任何问题都可以向我反馈"),
+//        GGLMessageModel(type: .gemini, avatar: "http://f3.ttkt.cc:12873/GGLServer/media/global/pyy.jpeg", name: "Gemini", message: "Hi, I'm Gemini! A powerful chat bot for you.")
+//    ]
+//    @ObservedResults(GGLMessageModel.self) var messageModels
+    let messageModels = GGLDataBase.shared.objects(GGLMessageModel.self)
     var body: some View {
-        List(messageModels) { model in
+        List(messageModels!) { model in
             Button {
                 AppRouter.shared.push(GGLChatRoomViewController(messageModel: model))
             } label: {

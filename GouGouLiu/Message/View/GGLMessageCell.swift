@@ -20,7 +20,7 @@ struct GGLMessageCell: View {
             VStack(alignment: .leading, spacing: 4, content: {
                 Text(messageModel.name)
                     .font(.headline)
-                Text(messageModel.message)
+                Text(messageModel.messages.last?.content ?? "")
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .offset(x: 2, y: 0)
