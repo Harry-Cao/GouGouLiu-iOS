@@ -21,18 +21,7 @@ final class GGLDebugViewController: GGLBaseHostingController<DebugContentView> {
 }
 
 struct DebugContentView: View {
-    var menuRows: [DebugRow] = [
-        .uploadAvatar,
-        .signup,
-        .login,
-        .logout,
-        .signout,
-        .clearAllUser,
-        .clearAllPost,
-        .clearAllPhoto,
-        .clearImageCache,
-        .initMessage
-    ]
+    var menuRows = DebugRow.allCases
     var body: some View {
         List(menuRows) { row in
             Button {
@@ -47,7 +36,7 @@ struct DebugContentView: View {
 
 extension DebugContentView {
 
-    enum DebugRow: Identifiable {
+    enum DebugRow: Identifiable, CaseIterable {
         case uploadAvatar
         case clearAllPhoto
         case signup
@@ -57,7 +46,6 @@ extension DebugContentView {
         case clearAllUser
         case clearAllPost
         case clearImageCache
-        case initMessage
 
         var id: UUID {
             return UUID()
@@ -82,8 +70,6 @@ extension DebugContentView {
                 return "Clear All Posts"
             case .clearImageCache:
                 return "Clear Image Cache"
-            case .initMessage:
-                return "Add Message"
             }
         }
 
@@ -136,15 +122,6 @@ extension DebugContentView {
                 SDImageCache.shared.clearDisk {
                     ProgressHUD.showSucceed("清理完成")
                 }
-            case .initMessage:
-                let results = GGLDataBase.shared.objects(GGLMessageModel.self)
-                guard results.isEmpty else { return }
-                let clientObject = GGLMessageModel.create(avatar: "http://f3.ttkt.cc:12873/GGLServer/media/global/dog.png", name: "狗狗溜客服")
-                GGLDataBase.shared.add(clientObject)
-                GGLDataBase.shared.insert(GGLChatModel.createText(role: .other, content: "您在使用过程中遇到任何问题都可以向我反馈", avatar: clientObject.avatar), to: clientObject.messages)
-                let geminiObject = GGLMessageModel.create(type: .gemini, avatar: "http://f3.ttkt.cc:12873/GGLServer/media/global/pyy.jpeg", name: "Gemini")
-                GGLDataBase.shared.add(geminiObject)
-                GGLDataBase.shared.insert(GGLChatModel.createText(role: .other, content: "Hi, I'm Gemini! A powerful chat bot for you.", avatar: geminiObject.avatar), to: geminiObject.messages)
             }
         }
     }

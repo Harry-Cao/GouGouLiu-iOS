@@ -11,6 +11,7 @@ import RealmSwift
 final class GGLMessageViewController: GGLBaseHostingController<MessageContentView> {
 
     init() {
+        GGLDataBase.setupBaseMessagesIfNeeded()
         super.init(rootView: MessageContentView())
     }
 
@@ -26,8 +27,7 @@ final class GGLMessageViewController: GGLBaseHostingController<MessageContentVie
 }
 
 struct MessageContentView: View {
-//    @ObservedResults(GGLMessageModel.self) var messageModels
-    let messageModels = GGLDataBase.shared.objects(GGLMessageModel.self)
+    @State var messageModels: [GGLMessageModel] = []
     var body: some View {
         List(messageModels) { model in
             Button {
@@ -37,5 +37,10 @@ struct MessageContentView: View {
             }
         }
         .listStyle(.plain)
+        .onAppear {
+            messageModels = GGLDataBase.shared.objects(GGLMessageModel.self).sorted(by: { model1, model2 in
+                model1.messages.last?.time ?? Date() > model2.messages.last?.time ?? Date()
+            })
+        }
     }
 }

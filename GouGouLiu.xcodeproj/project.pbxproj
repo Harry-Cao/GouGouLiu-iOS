@@ -32,6 +32,7 @@
 		3E6A55192B95D85000279BD6 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 3E6A55182B95D85000279BD6 /* Realm */; };
 		3E6A551B2B95D85000279BD6 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3E6A551A2B95D85000279BD6 /* RealmSwift */; };
 		3E6A551D2B9816DA00279BD6 /* GGLDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6A551C2B9816DA00279BD6 /* GGLDataBase.swift */; };
+		3E6A556B2B9A2B4600279BD6 /* GGLDataBase+Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6A556A2B9A2B4600279BD6 /* GGLDataBase+Message.swift */; };
 		3E6B0C322A3087D9002317D6 /* String+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6B0C312A3087D9002317D6 /* String+GGL.swift */; };
 		3E6D46382A7011A5000AB07C /* ProgressHUD+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D46372A7011A5000AB07C /* ProgressHUD+GGL.swift */; };
 		3E6D463E2A701C2A000AB07C /* GGLPostAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D463D2A701C2A000AB07C /* GGLPostAdapter.swift */; };
@@ -125,6 +126,7 @@
 		3E6861472B8DA10F00B07FDA /* GGLChatRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatRoomViewModel.swift; sourceTree = "<group>"; };
 		3E68614C2B8E280900B07FDA /* GGLChatRoomInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatRoomInputView.swift; sourceTree = "<group>"; };
 		3E6A551C2B9816DA00279BD6 /* GGLDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLDataBase.swift; sourceTree = "<group>"; };
+		3E6A556A2B9A2B4600279BD6 /* GGLDataBase+Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GGLDataBase+Message.swift"; sourceTree = "<group>"; };
 		3E6B0C312A3087D9002317D6 /* String+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+GGL.swift"; sourceTree = "<group>"; };
 		3E6D46372A7011A5000AB07C /* ProgressHUD+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgressHUD+GGL.swift"; sourceTree = "<group>"; };
 		3E6D463D2A701C2A000AB07C /* GGLPostAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPostAdapter.swift; sourceTree = "<group>"; };
@@ -299,6 +301,15 @@
 				3E6861472B8DA10F00B07FDA /* GGLChatRoomViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3E6A55692B9A2B2700279BD6 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				3E6A551C2B9816DA00279BD6 /* GGLDataBase.swift */,
+				3E6A556A2B9A2B4600279BD6 /* GGLDataBase+Message.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		3E6D46392A7015C0000AB07C /* Controller */ = {
@@ -486,7 +497,6 @@
 			isa = PBXGroup;
 			children = (
 				3EFF955C2A30DD1300E89069 /* AppRouter.swift */,
-				3E6A551C2B9816DA00279BD6 /* GGLDataBase.swift */,
 				3E0A078C2A55D8B400D60819 /* GGLPhotoDownloadManager.swift */,
 				3E5509322A66900F00653568 /* GGLNetworkManager.swift */,
 				3E1B016B2A68632200E9B05E /* GGLUser */,
@@ -527,6 +537,7 @@
 				3ED90C082A2E5A1E0079B4D3 /* Topic */,
 				3EF3CAB82A65012D00C46F38 /* Debug */,
 				3ED370CE2A597C4300639291 /* Manager */,
+				3E6A55692B9A2B2700279BD6 /* Data */,
 				3ECFA7732A75312600CB465B /* General */,
 				3ED90C0B2A2E5AB30079B4D3 /* Base */,
 				3ED90BFC2A2E49E30079B4D3 /* Utilities */,
@@ -820,6 +831,7 @@
 				3E53B5352A8800930007C560 /* GGLEmptyDataView.swift in Sources */,
 				3E3C4B452A69AB270028710A /* GGLUserLogoutAPI.swift in Sources */,
 				3E6861482B8DA10F00B07FDA /* GGLChatRoomViewModel.swift in Sources */,
+				3E6A556B2B9A2B4600279BD6 /* GGLDataBase+Message.swift in Sources */,
 				3ED90C052A2E54580079B4D3 /* GGLPersonalViewController.swift in Sources */,
 				3E453B432A6D941B00B30C3C /* GGLPublishOptionViewController.swift in Sources */,
 				3EAD23E42A401C9F000238AC /* GGLChatRoomViewController.swift in Sources */,
