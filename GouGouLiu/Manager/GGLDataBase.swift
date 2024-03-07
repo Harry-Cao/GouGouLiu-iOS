@@ -9,22 +9,21 @@ import RealmSwift
 
 final class GGLDataBase {
     static let shared = GGLDataBase()
-    private lazy var realm: Realm? = {
+    private lazy var realm: Realm = {
         let config = Realm.Configuration(schemaVersion: 0)
         Realm.Configuration.defaultConfiguration = config
         do {
             let realm = try Realm()
             return realm
         } catch {
-            print(error)
+            fatalError("Realm initialize failed.")
         }
-        return nil
     }()
 
     func add(_ object: Object) {
         do {
-            try realm?.write({
-                realm?.add(object)
+            try realm.write({
+                realm.add(object)
             })
         } catch {
             print(error)
@@ -33,7 +32,7 @@ final class GGLDataBase {
 
     func insert<T>(_ object: T, to set: MutableSet<T>) {
         do {
-            try realm?.write({
+            try realm.write({
                 set.insert(object)
             })
         } catch {
@@ -41,7 +40,7 @@ final class GGLDataBase {
         }
     }
 
-    func objects<Element: RealmFetchable>(_ type: Element.Type) -> Results<Element>? {
-        return realm?.objects(Element.self)
+    func objects<Element: RealmFetchable>(_ type: Element.Type) -> Results<Element> {
+        return realm.objects(Element.self)
     }
 }

@@ -31,7 +31,7 @@ struct DebugContentView: View {
         .clearAllPost,
         .clearAllPhoto,
         .clearImageCache,
-        .addMessage
+        .initMessage
     ]
     var body: some View {
         List(menuRows) { row in
@@ -57,7 +57,7 @@ extension DebugContentView {
         case clearAllUser
         case clearAllPost
         case clearImageCache
-        case addMessage
+        case initMessage
 
         var id: UUID {
             return UUID()
@@ -82,7 +82,7 @@ extension DebugContentView {
                 return "Clear All Posts"
             case .clearImageCache:
                 return "Clear Image Cache"
-            case .addMessage:
+            case .initMessage:
                 return "Add Message"
             }
         }
@@ -136,12 +136,15 @@ extension DebugContentView {
                 SDImageCache.shared.clearDisk {
                     ProgressHUD.showSucceed("清理完成")
                 }
-            case .addMessage:
-                let clientObject = GGLMessageModel()
-                clientObject.avatar = "http://f3.ttkt.cc:12873/GGLServer/media/global/dog.png"
-                clientObject.name = "狗狗溜客服"
+            case .initMessage:
+                let results = GGLDataBase.shared.objects(GGLMessageModel.self)
+                guard results.isEmpty else { return }
+                let clientObject = GGLMessageModel.create(avatar: "http://f3.ttkt.cc:12873/GGLServer/media/global/dog.png", name: "狗狗溜客服")
                 GGLDataBase.shared.add(clientObject)
                 GGLDataBase.shared.insert(GGLChatModel.createText(role: .other, content: "您在使用过程中遇到任何问题都可以向我反馈", avatar: clientObject.avatar), to: clientObject.messages)
+                let geminiObject = GGLMessageModel.create(type: .gemini, avatar: "http://f3.ttkt.cc:12873/GGLServer/media/global/pyy.jpeg", name: "Gemini")
+                GGLDataBase.shared.add(geminiObject)
+                GGLDataBase.shared.insert(GGLChatModel.createText(role: .other, content: "Hi, I'm Gemini! A powerful chat bot for you.", avatar: geminiObject.avatar), to: geminiObject.messages)
             }
         }
     }

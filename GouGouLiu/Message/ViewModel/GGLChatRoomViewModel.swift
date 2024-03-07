@@ -22,12 +22,6 @@ final class GGLChatRoomViewModel: ObservableObject {
         return responding
     }
 
-    func geminiSayHi() {
-        guard messageModel.type == .gemini else { return }
-        let model = GGLChatModel.createText(role: .other, content: "Hi~", avatar: messageModel.avatar)
-        GGLDataBase.shared.insert(model, to: messageModel.messages)
-    }
-
     func sendMessage() {
         guard !inputText.isEmpty else { return }
         let prompt = inputText

@@ -60,9 +60,6 @@ struct GGLChatRoomContentView: View {
                 viewModel.sendMessage()
             }
         }
-        .onAppear(perform: {
-            viewModel.geminiSayHi()
-        })
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
