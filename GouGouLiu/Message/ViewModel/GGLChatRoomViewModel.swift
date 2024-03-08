@@ -13,6 +13,7 @@ final class GGLChatRoomViewModel: ObservableObject {
         self.messageModel = messageModel
     }
 
+    @Published var chatModels: [GGLChatModel] = []
     @Published var inputMode: GGLChatInputMode = .text
     @Published var inputText: String = ""
     @Published var responding: Bool = false
@@ -27,6 +28,7 @@ final class GGLChatRoomViewModel: ObservableObject {
         let prompt = inputText
         inputText = ""
         let model = GGLChatModel.createText(role: .user, content: prompt, avatar: "http://f3.ttkt.cc:12873/GGLServer/media/global/cys.jpg")
+        chatModels.append(model)
         GGLDataBase.shared.insert(model, to: messageModel.messages)
         responding = true
         respondMessage = ""
@@ -45,6 +47,7 @@ final class GGLChatRoomViewModel: ObservableObject {
     private func receivedAnswer() {
         responding = false
         let model = GGLChatModel.createText(role: .other, content: respondMessage, avatar: messageModel.avatar)
+        chatModels.append(model)
         GGLDataBase.shared.insert(model, to: messageModel.messages)
     }
 }
