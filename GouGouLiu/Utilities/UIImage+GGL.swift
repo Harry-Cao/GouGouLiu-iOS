@@ -24,6 +24,8 @@ extension UIImage {
 
     static var icon_add: UIImage? { UIImage(named: "icon_add") }
     static var icon_empty_data: UIImage? { UIImage(named: "empty_data")?.withTintColor(.label) }
+    static var publish_order: UIImage? { UIImage(named: "publish_order") }
+    static var publish_post: UIImage? { UIImage(named: "publish_post") }
     
 }
 

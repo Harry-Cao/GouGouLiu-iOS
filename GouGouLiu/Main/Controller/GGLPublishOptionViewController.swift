@@ -13,19 +13,19 @@ final class GGLPublishOptionViewController: GGLBaseViewController {
         let button = UIButton()
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
-        button.backgroundColor = .red
+        button.setBackgroundImage(.publish_post, for: .normal)
         return button
     }()
     private let publishOrderButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
-        button.backgroundColor = .blue
+        button.setBackgroundImage(.publish_order, for: .normal)
         return button
     }()
     private let containerView: UIStackView = {
         let stackView = UIStackView()
-        stackView.spacing = 24
+        stackView.spacing = 12
         stackView.distribution = .fillEqually
         return stackView
     }()
@@ -45,7 +45,7 @@ final class GGLPublishOptionViewController: GGLBaseViewController {
         [publishPostButton, publishOrderButton].forEach(containerView.addArrangedSubview)
         [foldUpButton, containerView].forEach(view.addSubview)
         containerView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(48)
+            make.leading.trailing.equalToSuperview().inset(24)
             make.bottom.equalTo(foldUpButton.snp.top).offset(-36)
             make.height.equalTo(200)
         }
