@@ -20,10 +20,12 @@ struct GGLMessageCell: View {
             VStack(alignment: .leading, spacing: 4, content: {
                 Text(messageModel.name)
                     .font(.headline)
+                    .lineLimit(1)
                 Text(messageModel.messages.last?.content ?? "")
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .offset(x: 2, y: 0)
+                    .lineLimit(2)
             })
             Spacer()
         })
