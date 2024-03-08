@@ -10,6 +10,7 @@ import SwiftUI
 final class GGLMessageViewController: GGLBaseHostingController<MessageContentView> {
 
     init() {
+        GGLDataBase.setupBaseMessagesIfNeeded()
         super.init(rootView: MessageContentView())
     }
 
@@ -25,10 +26,7 @@ final class GGLMessageViewController: GGLBaseHostingController<MessageContentVie
 }
 
 struct MessageContentView: View {
-    var messageModels: [GGLMessageModel] = [
-        GGLMessageModel(avatar: "http://f3.ttkt.cc:12873/GGLServer/media/global/dog.png", name: "狗狗溜客服", message: "您在使用过程中遇到任何问题都可以向我反馈"),
-        GGLMessageModel(type: .gemini, avatar: "http://f3.ttkt.cc:12873/GGLServer/media/global/pyy.jpeg", name: "Gemini", message: "Hi, I'm Gemini! A powerful chat bot for you.")
-    ]
+    @State var messageModels: [GGLMessageModel] = []
     var body: some View {
         List(messageModels) { model in
             Button {
@@ -38,5 +36,10 @@ struct MessageContentView: View {
             }
         }
         .listStyle(.plain)
+        .onAppear {
+            messageModels = GGLDataBase.shared.objects(GGLMessageModel.self).sorted(by: { model1, model2 in
+                model1.messages.last?.time ?? Date() > model2.messages.last?.time ?? Date()
+            })
+        }
     }
 }
