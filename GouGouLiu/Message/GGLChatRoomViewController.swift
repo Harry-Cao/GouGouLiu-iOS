@@ -45,7 +45,7 @@ struct GGLChatRoomContentView: View {
                         guard let lastId = viewModel.messageModel.messages.last?.id else { return }
                         proxy.scrollTo(lastId, anchor: .bottom)
                     })
-                    .onChange(of: viewModel.messageModel.messages) { _ in
+                    .onChange(of: viewModel.chatModels) { _ in
                         withAnimation {
                             guard let lastId = viewModel.messageModel.messages.last?.id else { return }
                             proxy.scrollTo(lastId, anchor: .bottom)
