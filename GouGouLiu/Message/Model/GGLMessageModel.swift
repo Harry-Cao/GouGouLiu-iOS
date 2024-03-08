@@ -27,9 +27,3 @@ final class GGLMessageModel: Object, Identifiable {
         return model
     }
 }
-
-extension GGLDataBase {
-    func getAllMessages() {
-        
-    }
-}

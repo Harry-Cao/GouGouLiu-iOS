@@ -37,9 +37,9 @@ class GGLChatModel: Object, Identifiable {
     @Persisted var content: String
     @Persisted var avatar: String?
 
-    static func createText(type: GGLChatType = .text, role: GGLChatRole, content: String, avatar: String?) -> GGLChatModel {
+    static func createText(role: GGLChatRole, content: String, avatar: String?) -> GGLChatModel {
         let model = GGLChatModel()
-        model.type = type
+        model.type = .text
         model.role = role
         model.content = content
         model.avatar = avatar

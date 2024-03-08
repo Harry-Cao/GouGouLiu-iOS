@@ -30,11 +30,14 @@ final class GGLChatRoomViewModel: ObservableObject {
         GGLDataBase.shared.insert(model, to: messageModel.messages)
         responding = true
         respondMessage = ""
-        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [self] timer in
-            respondMessage.append("答复")
-            if respondMessage.count > 20 {
-                receivedAnswer()
-                timer.invalidate()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+            Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
+                guard let self else { return }
+                self.respondMessage.append("答复")
+                if self.respondMessage.count > 20 {
+                    self.receivedAnswer()
+                    timer.invalidate()
+                }
             }
         }
     }

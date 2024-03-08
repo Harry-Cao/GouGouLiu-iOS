@@ -8,6 +8,7 @@
 import SwiftUI
 
 final class GGLChatRoomViewController: GGLBaseHostingController<GGLChatRoomContentView> {
+
     init(messageModel: GGLMessageModel) {
         let viewModel = GGLChatRoomViewModel(messageModel: messageModel)
         super.init(rootView: GGLChatRoomContentView(viewModel: viewModel))
@@ -21,6 +22,7 @@ final class GGLChatRoomViewController: GGLBaseHostingController<GGLChatRoomConte
         super.viewDidLoad()
         navigationItem.title = rootView.viewModel.messageModel.name
     }
+
 }
 
 struct GGLChatRoomContentView: View {

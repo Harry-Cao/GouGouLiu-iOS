@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import RealmSwift
 
 final class GGLMessageViewController: GGLBaseHostingController<MessageContentView> {
 
