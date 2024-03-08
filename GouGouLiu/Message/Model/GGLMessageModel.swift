@@ -5,17 +5,25 @@
 //  Created by Harry Cao on 2023/6/18.
 //
 
-import Foundation
+import RealmSwift
 
-enum GGLMessageType {
+enum GGLMessageType: String, PersistableEnum {
     case normal
     case gemini
 }
 
-struct GGLMessageModel: Identifiable {
-    let id = UUID()
-    var type: GGLMessageType = .normal
-    let avatar: String?
-    let name: String
-    let message: String
+final class GGLMessageModel: Object, Identifiable {
+    @Persisted(primaryKey: true) var id = UUID()
+    @Persisted var type: GGLMessageType = .normal
+    @Persisted var avatar: String?
+    @Persisted var name: String
+    @Persisted var messages: MutableSet<GGLChatModel>
+
+    static func create(type: GGLMessageType = .normal, avatar: String?, name: String) -> GGLMessageModel {
+        let model = GGLMessageModel()
+        model.type = type
+        model.avatar = avatar
+        model.name = name
+        return model
+    }
 }

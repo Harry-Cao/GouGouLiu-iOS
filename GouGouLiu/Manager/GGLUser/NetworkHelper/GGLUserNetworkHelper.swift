@@ -11,7 +11,6 @@ import Moya
 
 final class GGLUserNetworkHelper {
 
-    @discardableResult
     func requestSignup(username: String, password: String, isSuper: Bool) -> Observable<GGLMoyaModel<GGLUserModel>> {
         let api = GGLUserSignupAPI(username: username, password: password, isSuper: isSuper)
         return Observable<GGLMoyaModel<GGLUserModel>>.ofRequest(api: api, provider: MoyaProvider<GGLUserSignupAPI>())

@@ -24,11 +24,15 @@
 		3E453B4C2A6DA96A00B30C3C /* GGLPostAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E453B4B2A6DA96A00B30C3C /* GGLPostAPI.swift */; };
 		3E53B5352A8800930007C560 /* GGLEmptyDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E53B5342A8800930007C560 /* GGLEmptyDataView.swift */; };
 		3E5509332A66900F00653568 /* GGLNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5509322A66900F00653568 /* GGLNetworkManager.swift */; };
-		3E68613D2B8CDBC500B07FDA /* GGLChatBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68613C2B8CDBC500B07FDA /* GGLChatBaseModel.swift */; };
+		3E68613D2B8CDBC500B07FDA /* GGLChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68613C2B8CDBC500B07FDA /* GGLChatModel.swift */; };
 		3E68613F2B8CDD8000B07FDA /* GGLChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68613E2B8CDD8000B07FDA /* GGLChatCell.swift */; };
 		3E6861412B8CE50500B07FDA /* GGLChatMessageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6861402B8CE50500B07FDA /* GGLChatMessageAdapter.swift */; };
 		3E6861482B8DA10F00B07FDA /* GGLChatRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6861472B8DA10F00B07FDA /* GGLChatRoomViewModel.swift */; };
 		3E68614D2B8E280900B07FDA /* GGLChatRoomInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68614C2B8E280900B07FDA /* GGLChatRoomInputView.swift */; };
+		3E6A55192B95D85000279BD6 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 3E6A55182B95D85000279BD6 /* Realm */; };
+		3E6A551B2B95D85000279BD6 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3E6A551A2B95D85000279BD6 /* RealmSwift */; };
+		3E6A551D2B9816DA00279BD6 /* GGLDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6A551C2B9816DA00279BD6 /* GGLDataBase.swift */; };
+		3E6A556B2B9A2B4600279BD6 /* GGLDataBase+Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6A556A2B9A2B4600279BD6 /* GGLDataBase+Message.swift */; };
 		3E6B0C322A3087D9002317D6 /* String+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6B0C312A3087D9002317D6 /* String+GGL.swift */; };
 		3E6D46382A7011A5000AB07C /* ProgressHUD+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D46372A7011A5000AB07C /* ProgressHUD+GGL.swift */; };
 		3E6D463E2A701C2A000AB07C /* GGLPostAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D463D2A701C2A000AB07C /* GGLPostAdapter.swift */; };
@@ -116,11 +120,13 @@
 		3E453B4B2A6DA96A00B30C3C /* GGLPostAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPostAPI.swift; sourceTree = "<group>"; };
 		3E53B5342A8800930007C560 /* GGLEmptyDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLEmptyDataView.swift; sourceTree = "<group>"; };
 		3E5509322A66900F00653568 /* GGLNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLNetworkManager.swift; sourceTree = "<group>"; };
-		3E68613C2B8CDBC500B07FDA /* GGLChatBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatBaseModel.swift; sourceTree = "<group>"; };
+		3E68613C2B8CDBC500B07FDA /* GGLChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatModel.swift; sourceTree = "<group>"; };
 		3E68613E2B8CDD8000B07FDA /* GGLChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatCell.swift; sourceTree = "<group>"; };
 		3E6861402B8CE50500B07FDA /* GGLChatMessageAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatMessageAdapter.swift; sourceTree = "<group>"; };
 		3E6861472B8DA10F00B07FDA /* GGLChatRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatRoomViewModel.swift; sourceTree = "<group>"; };
 		3E68614C2B8E280900B07FDA /* GGLChatRoomInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatRoomInputView.swift; sourceTree = "<group>"; };
+		3E6A551C2B9816DA00279BD6 /* GGLDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLDataBase.swift; sourceTree = "<group>"; };
+		3E6A556A2B9A2B4600279BD6 /* GGLDataBase+Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GGLDataBase+Message.swift"; sourceTree = "<group>"; };
 		3E6B0C312A3087D9002317D6 /* String+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+GGL.swift"; sourceTree = "<group>"; };
 		3E6D46372A7011A5000AB07C /* ProgressHUD+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgressHUD+GGL.swift"; sourceTree = "<group>"; };
 		3E6D463D2A701C2A000AB07C /* GGLPostAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPostAdapter.swift; sourceTree = "<group>"; };
@@ -188,6 +194,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E6A551B2B95D85000279BD6 /* RealmSwift in Frameworks */,
+				3E6A55192B95D85000279BD6 /* Realm in Frameworks */,
 				93F1242499CE7D731BC833A8 /* Pods_GouGouLiu.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -295,6 +303,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		3E6A55692B9A2B2700279BD6 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				3E6A551C2B9816DA00279BD6 /* GGLDataBase.swift */,
+				3E6A556A2B9A2B4600279BD6 /* GGLDataBase+Message.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		3E6D46392A7015C0000AB07C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,7 +361,7 @@
 			isa = PBXGroup;
 			children = (
 				3E6EB8242A3F54FE00675A2A /* GGLMessageModel.swift */,
-				3E68613C2B8CDBC500B07FDA /* GGLChatBaseModel.swift */,
+				3E68613C2B8CDBC500B07FDA /* GGLChatModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -520,6 +537,7 @@
 				3ED90C082A2E5A1E0079B4D3 /* Topic */,
 				3EF3CAB82A65012D00C46F38 /* Debug */,
 				3ED370CE2A597C4300639291 /* Manager */,
+				3E6A55692B9A2B2700279BD6 /* Data */,
 				3ECFA7732A75312600CB465B /* General */,
 				3ED90C0B2A2E5AB30079B4D3 /* Base */,
 				3ED90BFC2A2E49E30079B4D3 /* Utilities */,
@@ -669,6 +687,10 @@
 			dependencies = (
 			);
 			name = GouGouLiu;
+			packageProductDependencies = (
+				3E6A55182B95D85000279BD6 /* Realm */,
+				3E6A551A2B95D85000279BD6 /* RealmSwift */,
+			);
 			productName = GouGouLiu;
 			productReference = 3ED90BE32A2E24410079B4D3 /* GouGouLiu.app */;
 			productType = "com.apple.product-type.application";
@@ -719,6 +741,9 @@
 				Base,
 			);
 			mainGroup = 3ED90BDA2A2E24410079B4D3;
+			packageReferences = (
+				3E6A55172B95D85000279BD6 /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = 3ED90BE42A2E24410079B4D3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -797,7 +822,8 @@
 			files = (
 				3ED90C0A2A2E5A870079B4D3 /* GGLBaseViewController.swift in Sources */,
 				3E6D46382A7011A5000AB07C /* ProgressHUD+GGL.swift in Sources */,
-				3E68613D2B8CDBC500B07FDA /* GGLChatBaseModel.swift in Sources */,
+				3E68613D2B8CDBC500B07FDA /* GGLChatModel.swift in Sources */,
+				3E6A551D2B9816DA00279BD6 /* GGLDataBase.swift in Sources */,
 				3E2DA2742A2F76F9001D9352 /* GGLWaterFallFlowLayout.swift in Sources */,
 				3ECFA7642A750A3100CB465B /* GGLTopicViewModel.swift in Sources */,
 				3EADA9492A71896700F5BB13 /* GGLPostManager.swift in Sources */,
@@ -805,6 +831,7 @@
 				3E53B5352A8800930007C560 /* GGLEmptyDataView.swift in Sources */,
 				3E3C4B452A69AB270028710A /* GGLUserLogoutAPI.swift in Sources */,
 				3E6861482B8DA10F00B07FDA /* GGLChatRoomViewModel.swift in Sources */,
+				3E6A556B2B9A2B4600279BD6 /* GGLDataBase+Message.swift in Sources */,
 				3ED90C052A2E54580079B4D3 /* GGLPersonalViewController.swift in Sources */,
 				3E453B432A6D941B00B30C3C /* GGLPublishOptionViewController.swift in Sources */,
 				3EAD23E42A401C9F000238AC /* GGLChatRoomViewController.swift in Sources */,
@@ -1162,6 +1189,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3E6A55172B95D85000279BD6 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3E6A55182B95D85000279BD6 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E6A55172B95D85000279BD6 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		3E6A551A2B95D85000279BD6 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E6A55172B95D85000279BD6 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3ED90BDB2A2E24410079B4D3 /* Project object */;
 }

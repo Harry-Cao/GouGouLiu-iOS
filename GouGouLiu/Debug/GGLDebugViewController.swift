@@ -21,17 +21,7 @@ final class GGLDebugViewController: GGLBaseHostingController<DebugContentView> {
 }
 
 struct DebugContentView: View {
-    var menuRows: [DebugRow] = [
-        .uploadAvatar,
-        .signup,
-        .login,
-        .logout,
-        .signout,
-        .clearAllUser,
-        .clearAllPost,
-        .clearAllPhoto,
-        .clearImageCache,
-    ]
+    var menuRows = DebugRow.allCases
     var body: some View {
         List(menuRows) { row in
             Button {
@@ -46,7 +36,7 @@ struct DebugContentView: View {
 
 extension DebugContentView {
 
-    enum DebugRow: Identifiable {
+    enum DebugRow: Identifiable, CaseIterable {
         case uploadAvatar
         case clearAllPhoto
         case signup

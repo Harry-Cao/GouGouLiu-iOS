@@ -15,7 +15,7 @@ enum GGLChatCellComponentType {
 }
 
 struct GGLChatCell: View {
-    let model: GGLChatTextModel
+    let model: GGLChatModel
 
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
