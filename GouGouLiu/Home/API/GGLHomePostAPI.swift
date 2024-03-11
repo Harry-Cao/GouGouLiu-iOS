@@ -11,11 +11,11 @@ import Moya
 struct GGLHomePostAPI: TargetType {
 
     var baseURL: URL {
-        .api_baseURL
+        GGLAPI.baseURL
     }
 
     var path: String {
-        .path_homePagePost
+        GGLAPI.homePagePost
     }
 
     var method: Moya.Method {

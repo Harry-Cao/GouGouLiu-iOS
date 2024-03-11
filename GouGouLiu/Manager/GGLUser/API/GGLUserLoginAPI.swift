@@ -14,11 +14,11 @@ struct GGLUserLoginAPI: TargetType {
     var password: String
 
     var baseURL: URL {
-        .api_baseURL
+        GGLAPI.baseURL
     }
 
     var path: String {
-        .path_userLogin
+        GGLAPI.userLogin
     }
 
     var method: Moya.Method {

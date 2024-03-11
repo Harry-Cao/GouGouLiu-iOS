@@ -15,11 +15,11 @@ struct GGLUploadPhotoAPI: TargetType {
     var contactId: String?
 
     var baseURL: URL {
-        .api_baseURL
+        GGLAPI.baseURL
     }
     
     var path: String {
-        .path_uploadPhoto
+        GGLAPI.uploadPhoto
     }
     
     var method: Moya.Method {

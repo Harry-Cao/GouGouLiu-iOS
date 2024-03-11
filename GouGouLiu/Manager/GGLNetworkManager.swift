@@ -11,7 +11,7 @@ import Alamofire
 final class GGLNetworkManager {
 
     var networkStatus: NetworkReachabilityManager.NetworkReachabilityStatus = .unknown
-    private let networkManager = NetworkReachabilityManager(host: .api_host)
+    private let networkManager = NetworkReachabilityManager(host: GGLAPI.host)
     static let shared = GGLNetworkManager()
 
     func startListening() {

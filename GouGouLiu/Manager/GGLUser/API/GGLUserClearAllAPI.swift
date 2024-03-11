@@ -13,11 +13,11 @@ struct GGLUserClearAllAPI: TargetType {
     var userId: String
 
     var baseURL: URL {
-        .api_baseURL
+        GGLAPI.baseURL
     }
 
     var path: String {
-        .path_userClearAll
+        GGLAPI.userClearAll
     }
 
     var method: Moya.Method {

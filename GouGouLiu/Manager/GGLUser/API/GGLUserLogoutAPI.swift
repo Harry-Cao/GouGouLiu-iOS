@@ -13,11 +13,11 @@ struct GGLUserLogoutAPI: TargetType {
     var userId: String
 
     var baseURL: URL {
-        .api_baseURL
+        GGLAPI.baseURL
     }
 
     var path: String {
-        .path_userLogout
+        GGLAPI.userLogout
     }
 
     var method: Moya.Method {
