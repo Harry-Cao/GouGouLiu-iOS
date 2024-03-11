@@ -4,7 +4,7 @@ git clone https://github.com/Harry-Cao/GouGouLiu.git
 ```
 
 ## Dependance
-In this project, I use [cocoapods](https://cocoapods.org) and [swiftpm](https://www.swift.org/documentation/package-manager/) at the same time. So you still need to set up for dependance installed by cocoapods.
+In this project, I use [cocoapods](https://cocoapods.org) and [swiftpm](https://www.swift.org/documentation/package-manager/) at the same time. So you still need to set up for dependances that installed by cocoapods.
 ```
 pod install
 ```
