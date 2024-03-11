@@ -13,11 +13,11 @@ struct GGLClearAllPhotoAPI: TargetType {
     var userId: String
 
     var baseURL: URL {
-        .api_baseURL
+        GGLAPI.baseURL
     }
     
     var path: String {
-        .path_clearAllPhoto
+        GGLAPI.clearAllPhoto
     }
     
     var method: Moya.Method {

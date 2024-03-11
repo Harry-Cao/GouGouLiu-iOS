@@ -32,6 +32,22 @@ final class GGLChatRoomViewModel: ObservableObject {
         GGLDataBase.shared.insert(model, to: messageModel.messages)
         responding = true
         respondMessage = ""
+        if messageModel.type == .gemini {
+            Task {
+                let responseStream = GGLGoogleAI.shared.chat.sendMessageStream(prompt)
+                for try await chunk in responseStream {
+                    if let text = chunk.text {
+                        DispatchQueue.main.async { [weak self] in
+                            self?.respondMessage += text
+                        }
+                    }
+                }
+                DispatchQueue.main.async { [weak self] in
+                    self?.receivedAnswer()
+                }
+            }
+            return
+        }
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
             Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
                 guard let self else { return }

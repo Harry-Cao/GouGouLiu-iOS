@@ -17,11 +17,11 @@ struct GGLPostAPI: TargetType {
     var content: String?
 
     var baseURL: URL {
-        .api_baseURL
+        GGLAPI.baseURL
     }
 
     var path: String {
-        .path_publishPost
+        GGLAPI.publishPost
     }
 
     var method: Moya.Method {

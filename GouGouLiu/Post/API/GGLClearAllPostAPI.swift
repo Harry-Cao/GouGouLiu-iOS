@@ -13,11 +13,11 @@ struct GGLClearAllPostAPI: TargetType {
     var userId: String
 
     var baseURL: URL {
-        .api_baseURL
+        GGLAPI.baseURL
     }
 
     var path: String {
-        .path_postClearAll
+        GGLAPI.postClearAll
     }
 
     var method: Moya.Method {

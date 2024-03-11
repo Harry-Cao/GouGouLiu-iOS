@@ -13,11 +13,11 @@ struct GGLTopicAPI: TargetType {
     var postId: String
 
     var baseURL: URL {
-        .api_baseURL
+        GGLAPI.baseURL
     }
 
     var path: String {
-        .path_searchPost
+        GGLAPI.searchPost
     }
 
     var method: Moya.Method {

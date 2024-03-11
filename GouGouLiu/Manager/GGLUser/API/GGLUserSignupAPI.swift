@@ -15,11 +15,11 @@ struct GGLUserSignupAPI: TargetType {
     var isSuper: Bool
 
     var baseURL: URL {
-        .api_baseURL
+        GGLAPI.baseURL
     }
 
     var path: String {
-        .path_userSignup
+        GGLAPI.userSignup
     }
 
     var method: Moya.Method {
