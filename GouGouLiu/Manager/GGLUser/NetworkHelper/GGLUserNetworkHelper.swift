@@ -21,6 +21,11 @@ final class GGLUserNetworkHelper {
         return Observable<GGLMoyaModel<GGLUserModel>>.ofRequest(api: api, provider: MoyaProvider<GGLUserLoginAPI>())
     }
 
+    func requestLogin(userId: String) -> Observable<GGLMoyaModel<GGLUserModel>> {
+        let api = GGLUserLoginAPI(userId: userId)
+        return Observable<GGLMoyaModel<GGLUserModel>>.ofRequest(api: api, provider: MoyaProvider<GGLUserLoginAPI>())
+    }
+
     func requestLogout(userId: String) -> Observable<GGLMoyaModel<GGLUserModel>> {
         let api = GGLUserLogoutAPI(userId: userId)
         return Observable<GGLMoyaModel<GGLUserModel>>.ofRequest(api: api, provider: MoyaProvider<GGLUserLogoutAPI>())
@@ -29,6 +34,16 @@ final class GGLUserNetworkHelper {
     func requestClearAll(userId: String) -> Observable<GGLMoyaModel<GGLUserModel>> {
         let api = GGLUserClearAllAPI(userId: userId)
         return Observable<GGLMoyaModel<GGLUserModel>>.ofRequest(api: api, provider: MoyaProvider<GGLUserClearAllAPI>())
+    }
+
+    func requestAllUsers(userId: String) -> Observable<GGLMoyaModel<[GGLUserModel]>> {
+        let api = GGLAllUserAPI(userId: userId)
+        return Observable<GGLMoyaModel<[GGLUserModel]>>.ofRequest(api: api, provider: MoyaProvider<GGLAllUserAPI>())
+    }
+
+    func requestGetUser(userId: String) -> Observable<GGLMoyaModel<GGLUserModel>> {
+        let api = GGLGetUserAPI(userId: userId)
+        return Observable<GGLMoyaModel<GGLUserModel>>.ofRequest(api: api, provider: MoyaProvider<GGLGetUserAPI>())
     }
 
 }

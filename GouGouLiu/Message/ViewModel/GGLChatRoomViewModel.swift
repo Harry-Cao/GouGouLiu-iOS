@@ -6,14 +6,11 @@
 //
 
 import SwiftUI
+import RxSwift
 
 final class GGLChatRoomViewModel: ObservableObject {
-    let messageModel: GGLMessageModel
-    init(messageModel: GGLMessageModel) {
-        self.messageModel = messageModel
-    }
-
-    @Published var chatModels: [GGLChatModel] = []
+    @Published var messageModel: GGLMessageModel
+    @Published var scrollToBottomFlag = false
     @Published var inputMode: GGLChatInputMode = .text
     @Published var inputText: String = ""
     @Published var responding: Bool = false
@@ -22,17 +19,69 @@ final class GGLChatRoomViewModel: ObservableObject {
     var sendDisabled: Bool {
         return responding
     }
+    private let disposeBag = DisposeBag()
+
+    init(messageModel: GGLMessageModel) {
+        self.messageModel = messageModel
+        onReceivedMessage()
+        subscribeUserUpdate()
+        updateMessageModel()
+    }
+
+    private func onReceivedMessage() {
+        GGLWebSocketManager.shared.textSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] text in
+            guard let self,
+                  let model = GGLTool.jsonStringToModel(jsonString: text, to: GGLWebSocketModel.self),
+                  model.senderId == messageModel.userId,
+                  let type = model.type else { return }
+            switch type {
+            case .peer_message:
+                self.scrollToBottom()
+            }
+        }).disposed(by: disposeBag)
+    }
+
+    private func subscribeUserUpdate() {
+        GGLDataBase.shared.userUpdateSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] user in
+            guard let self else { return }
+            self.messageModel = self.messageModel
+        }).disposed(by: disposeBag)
+    }
+
+    private func updateMessageModel() {
+        GGLDataBase.shared.updateMessageModel(messageModel)
+    }
 
     func sendMessage() {
-        guard !inputText.isEmpty else { return }
+        guard !inputText.isEmpty,
+              let userId = GGLUser.getUserId() else { return }
         let prompt = inputText
         inputText = ""
-        let model = GGLChatModel.createText(role: .user, content: prompt, avatar: "http://f3.ttkt.cc:12873/GGLServer/media/global/cys.jpg")
-        chatModels.append(model)
+        let model = GGLChatModel.createText(userId: userId, content: prompt)
+        scrollToBottom()
         GGLDataBase.shared.insert(model, to: messageModel.messages)
-        responding = true
         respondMessage = ""
-        if messageModel.type == .gemini {
+        if !handleSystemSending(prompt) {
+            GGLWebSocketManager.shared.sendPeerMessage(prompt, targetId: messageModel.userId)
+        }
+    }
+
+    private func handleSystemSending(_ prompt: String) -> Bool {
+        guard let systemId = GGLSystemUser(rawValue: messageModel.userId) else { return false }
+        responding = true
+        switch systemId {
+        case .clientService:
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+                Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
+                    guard let self else { return }
+                    self.respondMessage.append("答复")
+                    if self.respondMessage.count > 20 {
+                        self.receivedAnswer()
+                        timer.invalidate()
+                    }
+                }
+            }
+        case .gemini:
             Task {
                 let responseStream = GGLGoogleAI.shared.chat.sendMessageStream(prompt)
                 for try await chunk in responseStream {
@@ -46,24 +95,18 @@ final class GGLChatRoomViewModel: ObservableObject {
                     self?.receivedAnswer()
                 }
             }
-            return
         }
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
-            Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
-                guard let self else { return }
-                self.respondMessage.append("答复")
-                if self.respondMessage.count > 20 {
-                    self.receivedAnswer()
-                    timer.invalidate()
-                }
-            }
-        }
+        return true
     }
 
     private func receivedAnswer() {
         responding = false
-        let model = GGLChatModel.createText(role: .other, content: respondMessage, avatar: messageModel.avatar)
-        chatModels.append(model)
+        let model = GGLChatModel.createText(userId: messageModel.userId, content: respondMessage)
+        scrollToBottom()
         GGLDataBase.shared.insert(model, to: messageModel.messages)
+    }
+
+    private func scrollToBottom() {
+        scrollToBottomFlag.toggle()
     }
 }

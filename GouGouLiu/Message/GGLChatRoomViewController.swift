@@ -20,7 +20,7 @@ final class GGLChatRoomViewController: GGLBaseHostingController<GGLChatRoomConte
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = rootView.viewModel.messageModel.name
+        navigationItem.title = GGLUser.getUser(userId: rootView.viewModel.messageModel.userId)?.userName
     }
 
 }
@@ -37,7 +37,7 @@ struct GGLChatRoomContentView: View {
                             GGLChatMessageAdapter(model: model)
                         }
                         if viewModel.responding {
-                            GGLChatMessageAdapter(model: GGLChatModel.createText(role: .other, content: viewModel.respondMessage, avatar: viewModel.messageModel.avatar))
+                            GGLChatMessageAdapter(model: GGLChatModel.createText(userId: viewModel.messageModel.userId, content: viewModel.respondMessage))
                                 .id(viewModel.respondId)
                         }
                     }
@@ -45,7 +45,7 @@ struct GGLChatRoomContentView: View {
                         guard let lastId = viewModel.messageModel.messages.last?.id else { return }
                         proxy.scrollTo(lastId, anchor: .bottom)
                     })
-                    .onChange(of: viewModel.chatModels) { _ in
+                    .onChange(of: viewModel.scrollToBottomFlag) { _ in
                         withAnimation {
                             guard let lastId = viewModel.messageModel.messages.last?.id else { return }
                             proxy.scrollTo(lastId, anchor: .bottom)

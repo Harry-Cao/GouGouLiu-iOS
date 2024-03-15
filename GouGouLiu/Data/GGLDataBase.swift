@@ -6,6 +6,7 @@
 //
 
 import RealmSwift
+import RxSwift
 
 final class GGLDataBase {
     static let shared = GGLDataBase()
@@ -19,6 +20,12 @@ final class GGLDataBase {
             fatalError("Realm initialize failed.")
         }
     }()
+    private(set) var userUpdateSubject = PublishSubject<GGLUserModel>()
+    private(set) var disposeBag = DisposeBag()
+
+    func startSubscribe() {
+        subscribeMessage()
+    }
 
     func add(_ object: Object) {
         do {
@@ -34,6 +41,16 @@ final class GGLDataBase {
         do {
             try realm.write({
                 set.insert(object)
+            })
+        } catch {
+            print(error)
+        }
+    }
+
+    func write(_ action: () -> Void) {
+        do {
+            try realm.write({
+                action()
             })
         } catch {
             print(error)
