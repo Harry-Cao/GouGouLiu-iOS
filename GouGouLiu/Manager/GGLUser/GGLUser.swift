@@ -73,7 +73,7 @@ extension GGLUser {
 
     static func getUser(userId: String) -> GGLUserModel? {
         if let systemUser = GGLSystemUser(rawValue: userId) {
-            return GGLUserModel.createSystem(userId: userId, userName: systemUser.name, avatarUrl: systemUser.avatar)
+            return GGLUserModel.create(userId: userId, userName: systemUser.name, avatarUrl: systemUser.avatar)
         }
         let results = GGLDataBase.shared.objects(GGLUserModel.self).filter({ $0.userId == userId })
         if let target = results.first {

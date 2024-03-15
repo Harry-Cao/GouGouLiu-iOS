@@ -12,13 +12,7 @@ final class GGLUserModel: Object, Codable {
     @Persisted var userName: String?
     @Persisted var avatarUrl: String?
 
-    static func create(userId: String) -> GGLUserModel {
-        let model = GGLUserModel()
-        model.userId = userId
-        return model
-    }
-
-    static func createSystem(userId: String, userName: String, avatarUrl: String) -> GGLUserModel {
+    static func create(userId: String, userName: String? = nil, avatarUrl: String? = nil) -> GGLUserModel {
         let model = GGLUserModel()
         model.userId = userId
         model.userName = userName
