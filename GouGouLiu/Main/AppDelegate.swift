@@ -14,6 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         setupAppearance()
         GGLNetworkManager.shared.startListening()
+        GGLWebSocketManager.shared.startSubscribe()
+        GGLDataBase.shared.startSubscribe()
+        loginWithUserId()
         return true
     }
 
@@ -66,6 +69,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+    private func loginWithUserId() {
+        guard let userId = GGLUser.getUserId(showHUD: false) else { return }
+        GGLUser.login(userId: userId)
+    }
 
 }
 

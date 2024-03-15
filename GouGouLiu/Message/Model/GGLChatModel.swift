@@ -11,11 +11,6 @@ enum GGLChatType: String, PersistableEnum {
     case text
 }
 
-enum GGLChatRole: String, PersistableEnum {
-    case user
-    case other
-}
-
 enum GGLChatInputMode: CaseIterable {
     case text
     case speech
@@ -28,21 +23,19 @@ enum GGLChatInputMode: CaseIterable {
     }
 }
 
-class GGLChatModel: Object, Identifiable {
-    @Persisted(primaryKey: true) var id = UUID()
+final class GGLChatModel: Object, Identifiable {
+    @Persisted var id = UUID()
     @Persisted var time = Date()
     @Persisted var type: GGLChatType
 
-    @Persisted var role: GGLChatRole
+    @Persisted var userId: String
     @Persisted var content: String
-    @Persisted var avatar: String?
 
-    static func createText(role: GGLChatRole, content: String, avatar: String?) -> GGLChatModel {
+    static func createText(userId: String, content: String) -> GGLChatModel {
         let model = GGLChatModel()
         model.type = .text
-        model.role = role
+        model.userId = userId
         model.content = content
-        model.avatar = avatar
         return model
     }
 }

@@ -46,7 +46,7 @@ struct GGLChatRoomInputView: View {
             .foregroundColor(Color(uiColor: .label))
             switch inputMode {
             case .text:
-                TextField(sendDisabled ? "" : "输入问题...", text: $inputText)
+                TextField("Type...", text: $inputText)
                     .disableAutocorrection(true)
                     .padding([.leading, .trailing], 8)
                     .disabled(sendDisabled)

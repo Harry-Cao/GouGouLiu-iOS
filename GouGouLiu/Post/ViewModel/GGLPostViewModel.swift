@@ -14,7 +14,6 @@ final class GGLPostViewModel {
     var uploadPhotos = [GGLUploadPhotoModel]()
     private let moyaProvider = MoyaProvider<GGLPostAPI>()
     private let clearAllMoyaProvider = MoyaProvider<GGLClearAllPostAPI>()
-    private let disposeBag = DisposeBag()
     private(set) var uploadSubject = PublishSubject<Any?>()
     private(set) var publishSubject = PublishSubject<Any?>()
 
@@ -22,7 +21,7 @@ final class GGLPostViewModel {
         guard let userId = GGLUser.getUserId() else { return }
         GGLUploadPhotoManager.shared.pickImage { image in
             guard let data = image?.fixOrientation().jpegData(compressionQuality: 1) else { return }
-            GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .post, contactId: userId, progressBlock: { progress in
+            let _ = GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .post, contactId: userId, progressBlock: { progress in
                 ProgressHUD.showServerProgress(progress: progress.progress)
             }).subscribe(onNext: { [weak self] model in
                 if model.code == .success, let photo = model.data {
@@ -32,7 +31,7 @@ final class GGLPostViewModel {
                 ProgressHUD.showServerMsg(model: model)
             }, onError: { error in
                 ProgressHUD.showFailed(error.localizedDescription)
-            }).disposed(by: GGLUploadPhotoManager.shared.disposeBag)
+            })
         }
     }
 
@@ -44,12 +43,12 @@ final class GGLPostViewModel {
         }
         let title = GGLPostManager.shared.cacheTitle ?? ""
         let content = GGLPostManager.shared.cacheContent
-        requestPublishPost(userId: userId, coverUrl: coverUrl, imageUrls: uploadPhotos.compactMap({ $0.originalUrl }), title: title, content: content).subscribe(onNext: { [weak self] model in
+        let _ = requestPublishPost(userId: userId, coverUrl: coverUrl, imageUrls: uploadPhotos.compactMap({ $0.originalUrl }), title: title, content: content).subscribe(onNext: { [weak self] model in
             if model.code == .success {
                 self?.publishSubject.onNext(nil)
             }
             ProgressHUD.showServerMsg(model: model)
-        }).disposed(by: disposeBag)
+        })
     }
 
     private func requestPublishPost(userId: String, coverUrl: String, imageUrls: [String], title: String, content: String?) -> Observable<GGLMoyaModel<GGLPostModel>> {

@@ -22,7 +22,7 @@ struct GGLChatCell: View {
             ForEach(components, id: \.self) { type in
                 switch type {
                 case .avatar:
-                    WebImage(url: URL(string: model.avatar ?? ""))
+                    WebImage(url: URL(string: GGLUser.getUser(userId: model.userId)?.avatarUrl ?? ""))
                         .resizable()
                         .scaledToFill()
                         .frame(width: 48, height: 48, alignment: .center)
@@ -44,6 +44,6 @@ struct GGLChatCell: View {
 
     private var components: [GGLChatCellComponentType] {
         let components: [GGLChatCellComponentType] = [.avatar, .content, .spacer]
-        return model.role == .other ? components : components.reversed()
+        return model.userId == GGLUser.getUserId(showHUD: false) ? components.reversed() : components
     }
 }

@@ -10,8 +10,7 @@ import SwiftUI
 final class GGLMessageViewController: GGLBaseHostingController<MessageContentView> {
 
     init() {
-        GGLDataBase.setupBaseMessagesIfNeeded()
-        super.init(rootView: MessageContentView())
+        super.init(rootView: MessageContentView(viewModel: GGLMessageViewModel()))
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -26,9 +25,10 @@ final class GGLMessageViewController: GGLBaseHostingController<MessageContentVie
 }
 
 struct MessageContentView: View {
-    @State var messageModels: [GGLMessageModel] = []
+    @ObservedObject var viewModel: GGLMessageViewModel
+
     var body: some View {
-        List(messageModels) { model in
+        List(viewModel.messageModels) { model in
             Button {
                 AppRouter.shared.push(GGLChatRoomViewController(messageModel: model))
             } label: {
@@ -37,9 +37,7 @@ struct MessageContentView: View {
         }
         .listStyle(.plain)
         .onAppear {
-            messageModels = GGLDataBase.shared.objects(GGLMessageModel.self).sorted(by: { model1, model2 in
-                model1.messages.last?.time ?? Date() > model2.messages.last?.time ?? Date()
-            })
+            viewModel.updateData()
         }
     }
 }

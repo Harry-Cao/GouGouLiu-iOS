@@ -1,25 +1,23 @@
 //
-//  GGLUserLoginAPI.swift
+//  GGLAllUserAPI.swift
 //  GouGouLiu
 //
-//  Created by Harry Cao on 7/21/23.
+//  Created by Harry Cao on 3/14/24.
 //
 
 import Foundation
 import Moya
 
-struct GGLUserLoginAPI: TargetType {
+struct GGLAllUserAPI: TargetType {
 
-    var username: String?
-    var password: String?
-    var userId: String?
+    var userId: String
 
     var baseURL: URL {
         GGLAPI.baseURL
     }
 
     var path: String {
-        GGLAPI.userLogin
+        GGLAPI.allUsers
     }
 
     var method: Moya.Method {
@@ -28,9 +26,7 @@ struct GGLUserLoginAPI: TargetType {
 
     var task: Moya.Task {
         var para: [String: Any] = [:]
-        para["username"] = username
-        para["password"] = password
-        para["userId"] = userId
+        para.updateValue(userId, forKey: "userId")
         return .requestParameters(parameters: para, encoding: URLEncoding.queryString)
     }
 

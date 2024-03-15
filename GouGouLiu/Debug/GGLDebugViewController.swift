@@ -11,8 +11,6 @@ import RxSwift
 
 final class GGLDebugViewController: GGLBaseHostingController<DebugContentView> {
 
-    static let disposeBag = DisposeBag()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = .Debug
@@ -37,15 +35,16 @@ struct DebugContentView: View {
 extension DebugContentView {
 
     enum DebugRow: Identifiable, CaseIterable {
-        case uploadAvatar
-        case clearAllPhoto
         case signup
         case login
         case logout
         case signout
+        case uploadAvatar
+        case allUserList
+        case clearImageCache
         case clearAllUser
         case clearAllPost
-        case clearImageCache
+        case clearAllPhoto
 
         var id: UUID {
             return UUID()
@@ -70,6 +69,8 @@ extension DebugContentView {
                 return "Clear All Posts"
             case .clearImageCache:
                 return "Clear Image Cache"
+            case .allUserList:
+                return "All User List"
             }
         }
 
@@ -79,7 +80,7 @@ extension DebugContentView {
                 guard let userId = GGLUser.getUserId() else { return }
                 GGLUploadPhotoManager.shared.pickImage { image in
                     guard let data = image?.fixOrientation().jpegData(compressionQuality: 1) else { return }
-                    GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: userId, progressBlock: { progress in
+                    let _ = GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: userId, progressBlock: { progress in
                         ProgressHUD.showServerProgress(progress: progress.progress)
                     }).subscribe(onNext: { model in
                         if model.code == .success {
@@ -88,7 +89,7 @@ extension DebugContentView {
                         ProgressHUD.showServerMsg(model: model)
                     }, onError: { error in
                         ProgressHUD.showFailed(error.localizedDescription)
-                    }).disposed(by: GGLUploadPhotoManager.shared.disposeBag)
+                    })
                 }
             case .clearAllPhoto:
                 GGLUploadPhotoManager.shared.clearAllPhotos()
@@ -99,11 +100,7 @@ extension DebugContentView {
                     GGLUser.signup(username: username, password: password, isSuper: isSuper ?? false)
                 }
             case .login:
-                UIAlertController.popupAccountInfoInputAlert(title: "登录账号") { username, password, _ in
-                    guard let username = username,
-                          let password = password else { return }
-                    GGLUser.login(username: username, password: password)
-                }
+                AppRouter.shared.present(GGLLoginViewController())
             case .logout:
                 GGLUser.logout()
             case .signout:
@@ -113,15 +110,17 @@ extension DebugContentView {
             case .clearAllPost:
                 guard let userId = GGLUser.getUserId() else { return }
                 let postViewModel = GGLPostViewModel()
-                postViewModel.clearAllPost(userId: userId).subscribe(onNext: { model in
+                let _ = postViewModel.clearAllPost(userId: userId).subscribe(onNext: { model in
                     ProgressHUD.showServerMsg(model: model)
-                }).disposed(by: GGLDebugViewController.disposeBag)
+                })
             case .clearImageCache:
                 ProgressHUD.show()
                 SDImageCache.shared.clearMemory()
                 SDImageCache.shared.clearDisk {
                     ProgressHUD.showSucceed("清理完成")
                 }
+            case .allUserList:
+                AppRouter.shared.push(GGLUserListViewController())
             }
         }
     }

@@ -18,7 +18,6 @@ final class GGLUploadPhotoManager: NSObject, UINavigationControllerDelegate {
     static let shared = GGLUploadPhotoManager()
     private var finishPickingMediaBlock: ImageBlock?
     private let moyaProvider = MoyaProvider<GGLUploadPhotoAPI>()
-    private(set) var disposeBag = DisposeBag()
 
     func uploadPhoto(data: Data, type: ImageType, contactId: String, progressBlock: ProgressBlock? = nil) -> Observable<GGLMoyaModel<GGLUploadPhotoModel>> {
         let api = GGLUploadPhotoAPI(imageData: data, imageType: type.rawValue, contactId: contactId)
@@ -27,9 +26,9 @@ final class GGLUploadPhotoManager: NSObject, UINavigationControllerDelegate {
 
     func clearAllPhotos() {
         guard let userId = GGLUser.getUserId() else { return }
-        requestClearAllPhotos(userId: userId).subscribe(onNext: { model in
+        let _ = requestClearAllPhotos(userId: userId).subscribe(onNext: { model in
             ProgressHUD.showServerMsg(model: model)
-        }).disposed(by: disposeBag)
+        })
     }
 
     func requestClearAllPhotos(userId: String)  -> Observable<GGLMoyaModel<[String: String]>> {
