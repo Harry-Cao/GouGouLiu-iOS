@@ -25,7 +25,7 @@ enum GGLChatInputMode: CaseIterable {
 
 final class GGLChatModel: Object, Identifiable {
     @Persisted var id = UUID()
-    @Persisted var time = Date()
+    @Persisted var createTime = Date()
     @Persisted var type: GGLChatType
 
     @Persisted var userId: String

@@ -32,8 +32,8 @@ extension GGLDataBase {
     }
 
     func fetchMessageModels(ownerId: String?) -> [GGLMessageModel] {
-        return GGLDataBase.shared.objects(GGLMessageModel.self).filter({ $0.ownerId == ownerId }).sorted(by: { model1, model2 in
-            model1.messages.last?.time ?? Date() > model2.messages.last?.time ?? Date()
+        return GGLDataBase.shared.objects(GGLMessageModel.self).filter({ $0.ownerId == ownerId }).sorted(by: {
+            $0.compareTime > $1.compareTime
         })
     }
 
