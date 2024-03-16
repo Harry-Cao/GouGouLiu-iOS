@@ -11,8 +11,8 @@ import RxSwift
 
 final class GGLWebSocketManager {
     static let shared = GGLWebSocketManager()
-    var socket: WebSocket?
-    var userId: String?
+    private var socket: WebSocket?
+    private var userId: String?
     private(set) var textSubject = PublishSubject<String>()
     private let disposeBag = DisposeBag()
 
