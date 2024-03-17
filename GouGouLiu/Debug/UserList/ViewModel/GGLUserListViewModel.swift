@@ -30,9 +30,8 @@ final class GGLUserListViewModel: ObservableObject {
     func onClick(model: GGLUserModel) {
         guard let ownerId = GGLUser.getUserId(showHUD: false),
               let userId = model.userId else { return }
-        let results = GGLDataBase.shared.objects(GGLMessageModel.self).filter("ownerId == %@ AND userId == %@", ownerId, userId)
         let messageModel: GGLMessageModel
-        if let existMessageModel = results.first {
+        if let existMessageModel = GGLDataBase.shared.fetchMessageModel(ownerId: ownerId, userId: userId) {
             messageModel = existMessageModel
         } else {
             let model = GGLMessageModel.create(ownerId: ownerId, userId: userId)
