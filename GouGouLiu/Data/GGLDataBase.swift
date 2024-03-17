@@ -29,22 +29,20 @@ final class GGLDataBase {
     }
 
     func add(_ object: Object) {
-        do {
-            try realm.write({
-                realm.add(object)
-            })
-        } catch {
-            print(error)
+        write {
+            realm.add(object)
+        }
+    }
+
+    func delete(_ object: Object) {
+        write {
+            realm.delete(object)
         }
     }
 
     func insert<T>(_ object: T, to set: MutableSet<T>) {
-        do {
-            try realm.write({
-                set.insert(object)
-            })
-        } catch {
-            print(error)
+        write {
+            set.insert(object)
         }
     }
 

@@ -50,4 +50,18 @@ final class GGLMessageViewModel: ObservableObject {
             GGLDataBase.shared.insert(GGLChatModel.createText(userId: object.rawValue, content: object.welcomeWords), to: messageObject.messages)
         }
     }
+
+    func deleteDisabled(model: GGLMessageModel) -> Bool {
+        if let _ = GGLSystemUser(rawValue: model.userId) {
+            return true
+        }
+        return false
+    }
+
+    func onDelete(indexSet: IndexSet) {
+        guard let index = indexSet.first else { return }
+        let deleteModel = messageModels[index]
+        GGLDataBase.shared.delete(deleteModel)
+        messageModels.remove(at: index)
+    }
 }

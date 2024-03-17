@@ -28,12 +28,16 @@ struct MessageContentView: View {
     @ObservedObject var viewModel: GGLMessageViewModel
 
     var body: some View {
-        List(viewModel.messageModels) { model in
-            Button {
-                AppRouter.shared.push(GGLChatRoomViewController(messageModel: model))
-            } label: {
-                GGLMessageCell(messageModel: model)
+        List {
+            ForEach(viewModel.messageModels) { model in
+                Button {
+                    AppRouter.shared.push(GGLChatRoomViewController(messageModel: model))
+                } label: {
+                    GGLMessageCell(messageModel: model)
+                }
+                .deleteDisabled(viewModel.deleteDisabled(model: model))
             }
+            .onDelete(perform: viewModel.onDelete(indexSet:))
         }
         .listStyle(.plain)
         .onAppear {
