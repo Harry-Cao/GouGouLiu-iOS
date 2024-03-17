@@ -44,16 +44,15 @@ struct GGLChatRoomInputView: View {
                     .imageScale(.large)
             }
             .foregroundColor(Color(uiColor: .label))
+            .padding([.leading, .top, .bottom])
             switch inputMode {
             case .text:
-                TextField("Type...", text: $inputText)
+                TextEditor(text: $inputText)
                     .disableAutocorrection(true)
-                    .padding([.leading, .trailing], 8)
                     .disabled(sendDisabled)
                     .foregroundColor(Color(uiColor: .label))
-                    .onSubmit {
-                        onClickSend()
-                    }
+                    .cornerRadius(18)
+                    .frame(height: 36)
                 Button {
                     onClickSend()
                 } label: {
@@ -65,6 +64,7 @@ struct GGLChatRoomInputView: View {
                 }
                 .foregroundColor(Color(uiColor: .label))
                 .disabled(isSendDisabled)
+                .padding([.top, .bottom, .trailing])
             case .speech:
                 HStack {
                     Spacer()
@@ -72,6 +72,7 @@ struct GGLChatRoomInputView: View {
                         .foregroundColor(Color(uiColor: .label))
                     Spacer()
                 }
+                .padding()
                 .onLongPressGesture(minimumDuration: 1, maximumDistance: 60) {
                     ProgressHUD.showSucceed("开始录音...")
                 } onPressingChanged: { onPress in
@@ -79,7 +80,6 @@ struct GGLChatRoomInputView: View {
                 }
             }
         }
-        .padding()
         .background(Color.gray.opacity(0.1))
     }
 }
