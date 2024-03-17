@@ -9,10 +9,9 @@ import RxSwift
 
 extension GGLDataBase {
     func subscribeMessage() {
-        GGLWebSocketManager.shared.textSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] text in
+        GGLWebSocketManager.shared.messageSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] model in
             guard let self,
                   let ownerId = GGLUser.getUserId(showHUD: false),
-                  let model = GGLTool.jsonStringToModel(jsonString: text, to: GGLWebSocketModel.self),
                   let type = model.type else { return }
             switch type {
             case .peer_message:
@@ -42,6 +41,14 @@ extension GGLDataBase {
         write {
             messageModel.unReadNum += 1
         }
+        messageUnReadSubject.onNext(messageModel.unReadNum)
+    }
+
+    func clearUnRead(messageModel: GGLMessageModel) {
+        write {
+            messageModel.unReadNum = 0
+        }
+        messageUnReadSubject.onNext(messageModel.unReadNum)
     }
 
     func fetchMessageModels(ownerId: String?) -> [GGLMessageModel] {

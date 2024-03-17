@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		3E0A078A2A55BAF900D60819 /* GGLOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A07892A55BAF900D60819 /* GGLOrderViewController.swift */; };
 		3E0A078D2A55D8B400D60819 /* GGLPhotoDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A078C2A55D8B400D60819 /* GGLPhotoDownloadManager.swift */; };
+		3E0AC6982BA6B44F0075BBD6 /* GGLTabBarController+Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0AC6972BA6B44F0075BBD6 /* GGLTabBarController+Message.swift */; };
+		3E0AC69A2BA6BCCD0075BBD6 /* UITabBarController+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0AC6992BA6BCCD0075BBD6 /* UITabBarController+GGL.swift */; };
+		3E0AC69C2BA6D0B10075BBD6 /* GGLTabBarUnReadNumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0AC69B2BA6D0B10075BBD6 /* GGLTabBarUnReadNumView.swift */; };
 		3E26D1092A68555C00803FC1 /* GGLUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26D1082A68555C00803FC1 /* GGLUser.swift */; };
 		3E26D10B2A6856CF00803FC1 /* UserDefaults+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26D10A2A6856CF00803FC1 /* UserDefaults+GGL.swift */; };
 		3E2DA2742A2F76F9001D9352 /* GGLWaterFallFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2DA2732A2F76F9001D9352 /* GGLWaterFallFlowLayout.swift */; };
@@ -121,6 +124,9 @@
 		20732876E0B494D5AF100F24 /* Pods-GouGouLiu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GouGouLiu.debug.xcconfig"; path = "Target Support Files/Pods-GouGouLiu/Pods-GouGouLiu.debug.xcconfig"; sourceTree = "<group>"; };
 		3E0A07892A55BAF900D60819 /* GGLOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLOrderViewController.swift; sourceTree = "<group>"; };
 		3E0A078C2A55D8B400D60819 /* GGLPhotoDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GGLPhotoDownloadManager.swift; sourceTree = "<group>"; };
+		3E0AC6972BA6B44F0075BBD6 /* GGLTabBarController+Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GGLTabBarController+Message.swift"; sourceTree = "<group>"; };
+		3E0AC6992BA6BCCD0075BBD6 /* UITabBarController+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+GGL.swift"; sourceTree = "<group>"; };
+		3E0AC69B2BA6D0B10075BBD6 /* GGLTabBarUnReadNumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLTabBarUnReadNumView.swift; sourceTree = "<group>"; };
 		3E26D1082A68555C00803FC1 /* GGLUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLUser.swift; sourceTree = "<group>"; };
 		3E26D10A2A6856CF00803FC1 /* UserDefaults+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+GGL.swift"; sourceTree = "<group>"; };
 		3E2DA2732A2F76F9001D9352 /* GGLWaterFallFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLWaterFallFlowLayout.swift; sourceTree = "<group>"; };
@@ -259,6 +265,14 @@
 			path = Order;
 			sourceTree = "<group>";
 		};
+		3E0AC69D2BA6D13B0075BBD6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3E0AC69B2BA6D0B10075BBD6 /* GGLTabBarUnReadNumView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		3E1B016B2A68632200E9B05E /* GGLUser */ = {
 			isa = PBXGroup;
 			children = (
@@ -353,6 +367,7 @@
 			isa = PBXGroup;
 			children = (
 				3ED90BFA2A2E31A90079B4D3 /* GGLTabBarController.swift */,
+				3E0AC6972BA6B44F0075BBD6 /* GGLTabBarController+Message.swift */,
 				3E453B422A6D941B00B30C3C /* GGLPublishOptionViewController.swift */,
 			);
 			path = Controller;
@@ -628,6 +643,7 @@
 				3E6D46372A7011A5000AB07C /* ProgressHUD+GGL.swift */,
 				3E6D464F2A703AA8000AB07C /* UITableView+GGL.swift */,
 				3E6D46512A703AB6000AB07C /* UICollectionView+GGL.swift */,
+				3E0AC6992BA6BCCD0075BBD6 /* UITabBarController+GGL.swift */,
 				3ED370CF2A597CB900639291 /* GGLTool.swift */,
 			);
 			path = Utilities;
@@ -738,6 +754,7 @@
 				3ED90BE62A2E24410079B4D3 /* AppDelegate.swift */,
 				3ED90BE82A2E24410079B4D3 /* SceneDelegate.swift */,
 				3E6D46392A7015C0000AB07C /* Controller */,
+				3E0AC69D2BA6D13B0075BBD6 /* View */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -970,6 +987,7 @@
 				3ECFA7622A75074D00CB465B /* GGLTopicAdapter.swift in Sources */,
 				3EB404B02A54890F0032E899 /* GGLHomePostModel.swift in Sources */,
 				3EF3CABA2A65014100C46F38 /* GGLDebugViewController.swift in Sources */,
+				3E0AC69A2BA6BCCD0075BBD6 /* UITabBarController+GGL.swift in Sources */,
 				3E77FCA52A66CC7C00699C47 /* NSNotification.Name+GGL.swift in Sources */,
 				3E9F11502A6BBEE600A1CC90 /* GGLUserModel.swift in Sources */,
 				3E453B4A2A6DA78300B30C3C /* GGLPostViewModel.swift in Sources */,
@@ -989,6 +1007,7 @@
 				3E6D46502A703AA8000AB07C /* UITableView+GGL.swift in Sources */,
 				3ED9B5442BA433C300A13D38 /* GGLDataBase+ChatRoom.swift in Sources */,
 				3ED370D02A597CB900639291 /* GGLTool.swift in Sources */,
+				3E0AC6982BA6B44F0075BBD6 /* GGLTabBarController+Message.swift in Sources */,
 				3EB404B62A548D200032E899 /* Observable+GGL.swift in Sources */,
 				3ECFA7682A751C8600CB465B /* GGLTopicPhotosBrowserCell.swift in Sources */,
 				3E3C4B472A69B3B70028710A /* UIAlertController+GGL.swift in Sources */,
@@ -1008,6 +1027,7 @@
 				3E90E2DE2A652BD000A6EA70 /* GGLUploadPhotoAPI.swift in Sources */,
 				3EA1F2C92BA228E3005F2C6E /* GGLDataBase+Message.swift in Sources */,
 				3ED9B5412BA37D5000A13D38 /* GGLUserListCell.swift in Sources */,
+				3E0AC69C2BA6D0B10075BBD6 /* GGLTabBarUnReadNumView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

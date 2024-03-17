@@ -29,9 +29,8 @@ final class GGLChatRoomViewModel: ObservableObject {
     }
 
     private func onReceivedMessage() {
-        GGLWebSocketManager.shared.textSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] text in
+        GGLWebSocketManager.shared.messageSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] model in
             guard let self,
-                  let model = GGLTool.jsonStringToModel(jsonString: text, to: GGLWebSocketModel.self),
                   model.senderId == messageModel.userId,
                   let type = model.type else { return }
             switch type {
@@ -111,8 +110,6 @@ final class GGLChatRoomViewModel: ObservableObject {
     }
 
     func clearUnRead() {
-        GGLDataBase.shared.write {
-            messageModel.unReadNum = 0
-        }
+        GGLDataBase.shared.clearUnRead(messageModel: messageModel)
     }
 }
