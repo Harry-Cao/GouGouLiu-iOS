@@ -13,6 +13,7 @@ final class GGLMessageModel: Object, Identifiable {
     @Persisted var ownerId: String
     @Persisted var userId: String
     @Persisted var messages: MutableSet<GGLChatModel>
+    @Persisted var unReadNum: Int
 
     var compareTime: Date {
         if let lastMessage = messages.last {

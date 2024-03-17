@@ -30,13 +30,15 @@ final class GGLUserListViewModel: ObservableObject {
     func onClick(model: GGLUserModel) {
         guard let ownerId = GGLUser.getUserId(showHUD: false),
               let userId = model.userId else { return }
-        let results = GGLDataBase.shared.objects(GGLMessageModel.self).filter("ownerId == %@ AND userId == %@", ownerId, userId)
-        if let existMessageModel = results.first {
-            AppRouter.shared.push(GGLChatRoomViewController(messageModel: existMessageModel))
+        let messageModel: GGLMessageModel
+        if let existMessageModel = GGLDataBase.shared.fetchMessageModel(ownerId: ownerId, userId: userId) {
+            messageModel = existMessageModel
         } else {
-            let messageModel = GGLMessageModel.create(ownerId: ownerId, userId: userId)
-            GGLDataBase.shared.add(messageModel)
-            AppRouter.shared.push(GGLChatRoomViewController(messageModel: messageModel))
+            let model = GGLMessageModel.create(ownerId: ownerId, userId: userId)
+            GGLDataBase.shared.add(model)
+            messageModel = model
         }
+        GGLDataBase.shared.saveOrUpdateUser(model)
+        AppRouter.shared.push(GGLChatRoomViewController(messageModel: messageModel))
     }
 }

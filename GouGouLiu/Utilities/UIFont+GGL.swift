@@ -10,5 +10,6 @@ import UIKit
 extension UIFont {
 
     static var navigation_bar_title: UIFont { UIFont.systemFont(ofSize: 16, weight: .semibold) }
+    static let tab_bar_unRead_num = UIFont.systemFont(ofSize: 10)
 
 }

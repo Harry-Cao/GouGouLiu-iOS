@@ -18,9 +18,8 @@ final class GGLMessageViewModel: ObservableObject {
     }
 
     private func onReceivedMessage() {
-        GGLWebSocketManager.shared.textSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] text in
+        GGLWebSocketManager.shared.messageSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] model in
             guard let self,
-                  let model = GGLTool.jsonStringToModel(jsonString: text, to: GGLWebSocketModel.self),
                   let type = model.type else { return }
             switch type {
             case .peer_message:
@@ -45,7 +44,7 @@ final class GGLMessageViewModel: ObservableObject {
 
     private func setupSystemMessages(userId: String) {
         GGLSystemUser.allCases.forEach { object in
-            guard GGLDataBase.shared.fetchMessageModels(ownerId: userId, userId: object.rawValue).isEmpty else { return }
+            guard GGLDataBase.shared.fetchMessageModel(ownerId: userId, userId: object.rawValue) == nil else { return }
             let messageObject = GGLMessageModel.create(ownerId: userId, userId: object.rawValue)
             GGLDataBase.shared.add(messageObject)
             GGLDataBase.shared.insert(GGLChatModel.createText(userId: object.rawValue, content: object.welcomeWords), to: messageObject.messages)

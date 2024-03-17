@@ -13,7 +13,7 @@ final class GGLWebSocketManager {
     static let shared = GGLWebSocketManager()
     private var socket: WebSocket?
     private var userId: String?
-    private(set) var textSubject = PublishSubject<String>()
+    private(set) var messageSubject = PublishSubject<GGLWebSocketModel>()
     private let disposeBag = DisposeBag()
 
     func startSubscribe() {
@@ -56,7 +56,8 @@ final class GGLWebSocketManager {
     }
 
     private func onReceivedText(_ text: String) {
-        textSubject.onNext(text)
+        guard let model = GGLTool.jsonStringToModel(jsonString: text, to: GGLWebSocketModel.self) else { return }
+        messageSubject.onNext(model)
     }
 }
 
