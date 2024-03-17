@@ -62,4 +62,9 @@ extension GGLDataBase {
     func fetchMessageModel(ownerId: String, userId: String) -> GGLMessageModel? {
         return GGLDataBase.shared.objects(GGLMessageModel.self).filter("ownerId == %@ AND userId == %@", ownerId, userId).first
     }
+
+    func deleteMessageModel(_ messageModel: GGLMessageModel) {
+        delete(messageModel)
+        messageUnReadSubject.onNext(messageModel)
+    }
 }

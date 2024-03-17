@@ -60,8 +60,8 @@ final class GGLMessageViewModel: ObservableObject {
 
     func onDelete(indexSet: IndexSet) {
         guard let index = indexSet.first else { return }
-        let deleteModel = messageModels[index]
-        GGLDataBase.shared.delete(deleteModel)
+        let messageModel = messageModels[index]
+        GGLDataBase.shared.deleteMessageModel(messageModel)
         messageModels.remove(at: index)
     }
 }
