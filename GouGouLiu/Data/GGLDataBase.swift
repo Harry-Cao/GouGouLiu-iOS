@@ -21,7 +21,7 @@ final class GGLDataBase {
         }
     }()
     private(set) var userUpdateSubject = PublishSubject<GGLUserModel>()
-    private(set) var messageUnReadSubject = PublishSubject<Int>()
+    private(set) var messageUnReadSubject = PublishSubject<GGLMessageModel>()
     private(set) var disposeBag = DisposeBag()
 
     func startSubscribe() {

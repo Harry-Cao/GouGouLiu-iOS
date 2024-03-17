@@ -41,14 +41,14 @@ extension GGLDataBase {
         write {
             messageModel.unReadNum += 1
         }
-        messageUnReadSubject.onNext(messageModel.unReadNum)
+        messageUnReadSubject.onNext(messageModel)
     }
 
     func clearUnRead(messageModel: GGLMessageModel) {
         write {
             messageModel.unReadNum = 0
         }
-        messageUnReadSubject.onNext(messageModel.unReadNum)
+        messageUnReadSubject.onNext(messageModel)
     }
 
     func fetchMessageModels(ownerId: String?) -> [GGLMessageModel] {

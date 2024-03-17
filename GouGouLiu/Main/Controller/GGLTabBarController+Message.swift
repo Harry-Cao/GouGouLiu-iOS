@@ -10,9 +10,9 @@ import RxSwift
 
 extension GGLTabBarController {
     func subscribe() {
-        GGLDataBase.shared.messageUnReadSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] num in
+        GGLDataBase.shared.messageUnReadSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] _ in
             guard let self else { return }
-            updateUnReadNum(num)
+            updateUnReadNum()
         }).disposed(by: disposeBag)
         GGLUser.userStatusSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] _ in
             guard let self else { return }
@@ -20,8 +20,8 @@ extension GGLTabBarController {
         }).disposed(by: disposeBag)
     }
 
-    func updateUnReadNum(_ unReadNum: Int? = nil) {
-        let num = unReadNum ?? getUnReadNum()
+    func updateUnReadNum() {
+        let num = getUnReadNum()
         showUnReadNumView(num > 0)
         unReadNumView.text = String(num)
     }
