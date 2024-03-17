@@ -19,25 +19,40 @@ extension GGLDataBase {
                 guard let senderId = model.senderId,
                       let content = model.message else { return }
                 let chatModel = GGLChatModel.createText(userId: senderId, content: content)
-                let results = GGLDataBase.shared.objects(GGLMessageModel.self).filter("ownerId == %@ AND userId == %@", ownerId, senderId)
-                if let existMessageModel = results.first {
-                    self.insert(chatModel, to: existMessageModel.messages)
+                let messageModel: GGLMessageModel
+                if let existMessageModel = fetchMessageModel(ownerId: ownerId, userId: senderId) {
+                    messageModel = existMessageModel
                 } else {
-                    let messageModel = GGLMessageModel.create(ownerId: ownerId, userId: senderId)
-                    self.add(messageModel)
-                    self.insert(chatModel, to: messageModel.messages)
+                    let model = GGLMessageModel.create(ownerId: ownerId, userId: senderId)
+                    add(model)
+                    messageModel = model
                 }
+                insert(chatModel, to: messageModel.messages)
+                recordUnReadIfNeeded(messageModel: messageModel)
             }
         }).disposed(by: disposeBag)
     }
 
+    private func recordUnReadIfNeeded(messageModel: GGLMessageModel) {
+        if let topViewController = GGLTool.topViewController,
+           let chatRoomViewController = topViewController as? GGLChatRoomViewController,
+           chatRoomViewController.rootView.viewModel.messageModel.userId == messageModel.userId {
+            return
+        }
+        write {
+            messageModel.unReadNum += 1
+        }
+    }
+
     func fetchMessageModels(ownerId: String?) -> [GGLMessageModel] {
-        return GGLDataBase.shared.objects(GGLMessageModel.self).filter({ $0.ownerId == ownerId }).sorted(by: {
+        return GGLDataBase.shared.objects(GGLMessageModel.self).filter({
+            $0.ownerId == ownerId
+        }).sorted(by: {
             $0.compareTime > $1.compareTime
         })
     }
 
-    func fetchMessageModels(ownerId: String, userId: String) -> [GGLMessageModel] {
-        return GGLDataBase.shared.objects(GGLMessageModel.self).filter("ownerId == %@ AND userId == %@", ownerId, userId).map({ $0 })
+    func fetchMessageModel(ownerId: String, userId: String) -> GGLMessageModel? {
+        return GGLDataBase.shared.objects(GGLMessageModel.self).filter("ownerId == %@ AND userId == %@", ownerId, userId).first
     }
 }

@@ -109,4 +109,10 @@ final class GGLChatRoomViewModel: ObservableObject {
     private func scrollToBottom() {
         scrollToBottomFlag.toggle()
     }
+
+    func clearUnRead() {
+        GGLDataBase.shared.write {
+            messageModel.unReadNum = 0
+        }
+    }
 }
