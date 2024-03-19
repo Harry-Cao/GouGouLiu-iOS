@@ -19,7 +19,7 @@ final class GGLUploadPhotoManager: NSObject, UINavigationControllerDelegate {
     private var finishPickingMediaBlock: ImageBlock?
     private let moyaProvider = MoyaProvider<GGLUploadPhotoAPI>()
 
-    func uploadPhoto(data: Data, type: ImageType, contactId: String? = nil, progressBlock: ProgressBlock? = nil) -> Observable<GGLMoyaModel<GGLUploadPhotoModel>> {
+    func uploadPhoto(data: Data, type: ImageType, contactId: String, progressBlock: ProgressBlock? = nil) -> Observable<GGLMoyaModel<GGLUploadPhotoModel>> {
         let api = GGLUploadPhotoAPI(imageData: data, imageType: type.rawValue, contactId: contactId)
         return Observable<GGLMoyaModel<GGLUploadPhotoModel>>.ofRequest(api: api, provider: moyaProvider, progressBlock: progressBlock)
     }

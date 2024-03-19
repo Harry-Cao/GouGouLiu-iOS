@@ -33,15 +33,15 @@ final class GGLChatModel: Object, Identifiable {
     @Persisted var text: String
     @Persisted var photoUrl: String
 
-    static func createText(userId: String, content: String) -> GGLChatModel {
+    static func createText(_ text: String, userId: String) -> GGLChatModel {
         let model = GGLChatModel()
         model.type = .text
         model.userId = userId
-        model.text = content
+        model.text = text
         return model
     }
 
-    static func createPhoto(userId: String, photoUrl: String) -> GGLChatModel {
+    static func createPhoto(_ photoUrl: String, userId: String) -> GGLChatModel {
         let model = GGLChatModel()
         model.type = .photo
         model.userId = userId

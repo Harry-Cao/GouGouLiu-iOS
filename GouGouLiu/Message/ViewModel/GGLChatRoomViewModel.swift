@@ -62,7 +62,7 @@ final class GGLChatRoomViewModel: ObservableObject {
                 ProgressHUD.showServerMsg(model: model)
                 guard model.code == .success,
                       let url = model.data?.previewUrl else { return }
-                let model = GGLChatModel.createPhoto(userId: userId, photoUrl: url)
+                let model = GGLChatModel.createPhoto(url, userId: userId)
                 GGLDataBase.shared.insert(model, to: self.messageModel.messages)
                 self.scrollToBottom()
                 GGLWebSocketManager.shared.sendPeerPhoto(url, targetId: self.messageModel.userId)
@@ -77,7 +77,7 @@ final class GGLChatRoomViewModel: ObservableObject {
               let userId = GGLUser.getUserId() else { return }
         let prompt = inputText
         inputText = ""
-        let model = GGLChatModel.createText(userId: userId, content: prompt)
+        let model = GGLChatModel.createText(prompt, userId: userId)
         GGLDataBase.shared.insert(model, to: messageModel.messages)
         scrollToBottom()
         respondMessage = ""
@@ -121,7 +121,7 @@ final class GGLChatRoomViewModel: ObservableObject {
 
     private func receivedAnswer() {
         responding = false
-        let model = GGLChatModel.createText(userId: messageModel.userId, content: respondMessage)
+        let model = GGLChatModel.createText(respondMessage, userId: messageModel.userId)
         scrollToBottom()
         GGLDataBase.shared.insert(model, to: messageModel.messages)
     }

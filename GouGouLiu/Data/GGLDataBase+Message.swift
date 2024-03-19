@@ -21,11 +21,11 @@ extension GGLDataBase {
                 switch contentType {
                 case .text:
                     if let text = model.message {
-                        chatModel = GGLChatModel.createText(userId: senderId, content: text)
+                        chatModel = GGLChatModel.createText(text, userId: senderId)
                     }
                 case .photo:
                     if let photoUrl = model.photoUrl {
-                        chatModel = GGLChatModel.createPhoto(userId: senderId, photoUrl: photoUrl)
+                        chatModel = GGLChatModel.createPhoto(photoUrl, userId: senderId)
                     }
                 }
                 guard let chatModel else { return }

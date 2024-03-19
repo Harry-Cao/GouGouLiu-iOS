@@ -37,7 +37,7 @@ struct GGLChatRoomContentView: View {
                             GGLChatMessageAdapter(model: model)
                         }
                         if viewModel.responding {
-                            GGLChatMessageAdapter(model: GGLChatModel.createText(userId: viewModel.messageModel.userId, content: viewModel.respondMessage))
+                            GGLChatMessageAdapter(model: GGLChatModel.createText(viewModel.respondMessage, userId: viewModel.messageModel.userId))
                                 .id(viewModel.respondId)
                         }
                     }
