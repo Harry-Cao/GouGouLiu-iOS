@@ -11,7 +11,7 @@
 		3E0A078D2A55D8B400D60819 /* GGLPhotoDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A078C2A55D8B400D60819 /* GGLPhotoDownloadManager.swift */; };
 		3E0AC6982BA6B44F0075BBD6 /* GGLTabBarController+Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0AC6972BA6B44F0075BBD6 /* GGLTabBarController+Message.swift */; };
 		3E0AC69A2BA6BCCD0075BBD6 /* UITabBarController+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0AC6992BA6BCCD0075BBD6 /* UITabBarController+GGL.swift */; };
-		3E0AC69C2BA6D0B10075BBD6 /* GGLTabBarUnReadNumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0AC69B2BA6D0B10075BBD6 /* GGLTabBarUnReadNumView.swift */; };
+		3E0AC69C2BA6D0B10075BBD6 /* GGLTabBarBadgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0AC69B2BA6D0B10075BBD6 /* GGLTabBarBadgeLabel.swift */; };
 		3E26D1092A68555C00803FC1 /* GGLUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26D1082A68555C00803FC1 /* GGLUser.swift */; };
 		3E26D10B2A6856CF00803FC1 /* UserDefaults+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26D10A2A6856CF00803FC1 /* UserDefaults+GGL.swift */; };
 		3E2DA2742A2F76F9001D9352 /* GGLWaterFallFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2DA2732A2F76F9001D9352 /* GGLWaterFallFlowLayout.swift */; };
@@ -126,7 +126,7 @@
 		3E0A078C2A55D8B400D60819 /* GGLPhotoDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GGLPhotoDownloadManager.swift; sourceTree = "<group>"; };
 		3E0AC6972BA6B44F0075BBD6 /* GGLTabBarController+Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GGLTabBarController+Message.swift"; sourceTree = "<group>"; };
 		3E0AC6992BA6BCCD0075BBD6 /* UITabBarController+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+GGL.swift"; sourceTree = "<group>"; };
-		3E0AC69B2BA6D0B10075BBD6 /* GGLTabBarUnReadNumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLTabBarUnReadNumView.swift; sourceTree = "<group>"; };
+		3E0AC69B2BA6D0B10075BBD6 /* GGLTabBarBadgeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLTabBarBadgeLabel.swift; sourceTree = "<group>"; };
 		3E26D1082A68555C00803FC1 /* GGLUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLUser.swift; sourceTree = "<group>"; };
 		3E26D10A2A6856CF00803FC1 /* UserDefaults+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+GGL.swift"; sourceTree = "<group>"; };
 		3E2DA2732A2F76F9001D9352 /* GGLWaterFallFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLWaterFallFlowLayout.swift; sourceTree = "<group>"; };
@@ -268,7 +268,7 @@
 		3E0AC69D2BA6D13B0075BBD6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3E0AC69B2BA6D0B10075BBD6 /* GGLTabBarUnReadNumView.swift */,
+				3E0AC69B2BA6D0B10075BBD6 /* GGLTabBarBadgeLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1027,7 +1027,7 @@
 				3E90E2DE2A652BD000A6EA70 /* GGLUploadPhotoAPI.swift in Sources */,
 				3EA1F2C92BA228E3005F2C6E /* GGLDataBase+Message.swift in Sources */,
 				3ED9B5412BA37D5000A13D38 /* GGLUserListCell.swift in Sources */,
-				3E0AC69C2BA6D0B10075BBD6 /* GGLTabBarUnReadNumView.swift in Sources */,
+				3E0AC69C2BA6D0B10075BBD6 /* GGLTabBarBadgeLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

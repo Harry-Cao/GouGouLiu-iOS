@@ -15,8 +15,8 @@ final class GGLTabBarController: UITabBarController {
     private let emptyViewController = UIViewController()
     private let messageViewController = GGLMessageViewController()
     private let personalViewController = GGLPersonalViewController()
+    private(set) lazy var badgeLabel = GGLTabBarBadgeLabel()
     private(set) var disposeBag = DisposeBag()
-    private(set) lazy var unReadNumView = GGLTabBarUnReadNumView()
 
     override func viewDidLoad() {
         super.viewDidLoad()

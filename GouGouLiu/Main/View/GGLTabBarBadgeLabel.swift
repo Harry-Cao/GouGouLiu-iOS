@@ -1,5 +1,5 @@
 //
-//  GGLTabBarUnReadNumView.swift
+//  GGLTabBarBadgeLabel.swift
 //  GouGouLiu
 //
 //  Created by Harry Cao on 3/17/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class GGLTabBarUnReadNumView: UILabel {
+final class GGLTabBarBadgeLabel: UILabel {
     init() {
         super.init(frame: .zero)
         isHidden = true

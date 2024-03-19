@@ -23,7 +23,7 @@ extension GGLTabBarController {
     func updateUnReadNum() {
         let num = getUnReadNum()
         showUnReadNumView(num > 0)
-        unReadNumView.text = String(num)
+        badgeLabel.text = String(num)
     }
 
     private func getUnReadNum() -> Int {
@@ -35,14 +35,14 @@ extension GGLTabBarController {
     }
 
     private func showUnReadNumView(_ show: Bool) {
-        unReadNumView.isHidden = !show
+        badgeLabel.isHidden = !show
         if show {
             remakeUnReadNumViewConstraints()
         }
     }
 
     private func remakeUnReadNumViewConstraints() {
-        unReadNumView.removeFromSuperview()
+        badgeLabel.removeFromSuperview()
         if let index = viewControllers?.firstIndex(where: {
             guard let navigationController = $0 as? GGLBaseNavigationController,
                   let viewController = navigationController.viewControllers.first,
@@ -51,8 +51,8 @@ extension GGLTabBarController {
         }) {
             let messageItem = tabBarButtons[index]
             if let itemImageView = messageItem.subviews.first {
-                messageItem.addSubview(unReadNumView)
-                unReadNumView.snp.remakeConstraints {
+                messageItem.addSubview(badgeLabel)
+                badgeLabel.snp.remakeConstraints {
                     $0.leading.equalTo(itemImageView.snp.trailing).offset(-4)
                     $0.top.equalToSuperview()
                     $0.height.equalTo(16)
