@@ -12,6 +12,7 @@ struct GGLChatRoomInputView: View {
     let inputMode: GGLChatInputMode
     let sendDisabled: Bool
     let onSwitchInputModel: () -> Void
+    let onSendPhoto: () -> Void
     let onClickSend: () -> Void
 
     private var isSendDisabled: Bool {
@@ -45,6 +46,18 @@ struct GGLChatRoomInputView: View {
             }
             .foregroundColor(Color(uiColor: .label))
             .padding([.leading, .top, .bottom])
+            .padding(.trailing, 4)
+            Button {
+                onSendPhoto()
+            } label: {
+                Image(systemName: "photo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 24, height: 24)
+                    .imageScale(.large)
+            }
+            .foregroundColor(Color(uiColor: .label))
+            .padding(.trailing, 4)
             switch inputMode {
             case .text:
                 TextEditor(text: $inputText)

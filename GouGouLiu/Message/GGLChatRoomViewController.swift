@@ -56,11 +56,12 @@ struct GGLChatRoomContentView: View {
                     }
                 }
             }
-            GGLChatRoomInputView(inputText: $viewModel.inputText, inputMode: viewModel.inputMode, sendDisabled: viewModel.sendDisabled) {
-                viewModel.inputMode.toggle()
-            } onClickSend: {
-                viewModel.sendMessage()
-            }
+            GGLChatRoomInputView(inputText: $viewModel.inputText,
+                                 inputMode: viewModel.inputMode,
+                                 sendDisabled: viewModel.sendDisabled,
+                                 onSwitchInputModel: onSwitchInputModel,
+                                 onSendPhoto: onSendPhoto,
+                                 onClickSend: onClickSend)
         }
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -68,5 +69,17 @@ struct GGLChatRoomContentView: View {
         .onAppear {
             viewModel.clearUnRead()
         }
+    }
+
+    private func onSwitchInputModel() {
+        viewModel.inputMode.toggle()
+    }
+
+    private func onSendPhoto() {
+        viewModel.sendPhoto()
+    }
+
+    private func onClickSend() {
+        viewModel.sendMessage()
     }
 }

@@ -15,9 +15,20 @@ extension GGLDataBase {
                   let type = model.type else { return }
             switch type {
             case .peer_message:
-                guard let senderId = model.senderId,
-                      let content = model.message else { return }
-                let chatModel = GGLChatModel.createText(userId: senderId, content: content)
+                guard let contentType = model.contentType,
+                      let senderId = model.senderId else { return }
+                var chatModel: GGLChatModel?
+                switch contentType {
+                case .text:
+                    if let text = model.message {
+                        chatModel = GGLChatModel.createText(userId: senderId, content: text)
+                    }
+                case .photo:
+                    if let photoUrl = model.photoUrl {
+                        chatModel = GGLChatModel.createPhoto(userId: senderId, photoUrl: photoUrl)
+                    }
+                }
+                guard let chatModel else { return }
                 let messageModel: GGLMessageModel
                 if let existMessageModel = fetchMessageModel(ownerId: ownerId, userId: senderId) {
                     messageModel = existMessageModel

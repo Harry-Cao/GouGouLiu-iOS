@@ -22,6 +22,16 @@ final class GGLMessageModel: Object, Identifiable {
         return createTime
     }
 
+    var displayText: String {
+        guard let lastMessage = messages.last else { return "" }
+        switch lastMessage.type {
+        case .text:
+            return lastMessage.text
+        case .photo:
+            return "[图片]"
+        }
+    }
+
     static func create(ownerId: String, userId: String) -> GGLMessageModel {
         let model = GGLMessageModel()
         model.ownerId = ownerId

@@ -28,12 +28,20 @@ struct GGLChatCell: View {
                         .frame(width: 48, height: 48, alignment: .center)
                         .clipShape(.circle)
                 case .content:
-                    Text(model.content)
-                        .padding()
-                        .background {
-                            RoundedRectangle(cornerRadius: 8, style: .circular)
-                                .foregroundColor(Color.gray.opacity(0.2))
-                        }
+                    switch model.type {
+                    case .text:
+                        Text(model.text)
+                            .padding()
+                            .background {
+                                RoundedRectangle(cornerRadius: 8, style: .circular)
+                                    .foregroundColor(Color.gray.opacity(0.2))
+                            }
+                    case .photo:
+                        WebImage(url: URL(string: model.photoUrl))
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: 120)
+                    }
                 case .spacer:
                     Spacer()
                 }

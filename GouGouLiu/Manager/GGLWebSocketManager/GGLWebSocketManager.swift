@@ -47,14 +47,6 @@ final class GGLWebSocketManager {
         socket?.disconnect()
     }
 
-    func sendPeerMessage(_ message: String, targetId: String) {
-        guard let userId else { return }
-        let model = GGLWebSocketModel(type: .peer_message, senderId: userId, targetId: targetId, message: message)
-        if let jsonString = GGLTool.modelToJsonString(model) {
-            socket?.write(string: jsonString)
-        }
-    }
-
     private func onReceivedText(_ text: String) {
         guard let model = GGLTool.jsonStringToModel(jsonString: text, to: GGLWebSocketModel.self) else { return }
         messageSubject.onNext(model)
@@ -87,6 +79,24 @@ extension GGLWebSocketManager: WebSocketDelegate {
         case .peerClosed:
             print("peerClosed")
             break
+        }
+    }
+}
+
+extension GGLWebSocketManager {
+    func sendPeerText(_ text: String, targetId: String) {
+        guard let userId else { return }
+        let model = GGLWebSocketModel(type: .peer_message, senderId: userId, targetId: targetId, contentType: .text, message: text)
+        if let jsonString = GGLTool.modelToJsonString(model) {
+            socket?.write(string: jsonString)
+        }
+    }
+
+    func sendPeerPhoto(_ url: String, targetId: String) {
+        guard let userId else { return }
+        let model = GGLWebSocketModel(type: .peer_message, senderId: userId, targetId: targetId, contentType: .photo, photoUrl: url)
+        if let jsonString = GGLTool.modelToJsonString(model) {
+            socket?.write(string: jsonString)
         }
     }
 }

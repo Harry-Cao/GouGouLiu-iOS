@@ -11,7 +11,7 @@ struct GGLChatMessageAdapter: View {
     let model: GGLChatModel
     var body: some View {
         switch model.type {
-        case .text:
+        case .text, .photo:
             GGLChatCell(model: model)
         }
     }

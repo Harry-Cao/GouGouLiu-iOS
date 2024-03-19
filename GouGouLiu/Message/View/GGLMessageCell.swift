@@ -35,7 +35,7 @@ struct GGLMessageCell: View {
                 Text(GGLUser.getUser(userId: messageModel.userId)?.userName ?? "")
                     .font(.headline)
                     .lineLimit(1)
-                Text(messageModel.messages.last?.content ?? "")
+                Text(messageModel.displayText)
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .offset(x: 2, y: 0)

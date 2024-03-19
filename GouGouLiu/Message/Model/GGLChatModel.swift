@@ -9,6 +9,7 @@ import RealmSwift
 
 enum GGLChatType: String, PersistableEnum {
     case text
+    case photo
 }
 
 enum GGLChatInputMode: CaseIterable {
@@ -29,13 +30,22 @@ final class GGLChatModel: Object, Identifiable {
     @Persisted var type: GGLChatType
 
     @Persisted var userId: String
-    @Persisted var content: String
+    @Persisted var text: String
+    @Persisted var photoUrl: String
 
     static func createText(userId: String, content: String) -> GGLChatModel {
         let model = GGLChatModel()
         model.type = .text
         model.userId = userId
-        model.content = content
+        model.text = content
+        return model
+    }
+
+    static func createPhoto(userId: String, photoUrl: String) -> GGLChatModel {
+        let model = GGLChatModel()
+        model.type = .photo
+        model.userId = userId
+        model.photoUrl = photoUrl
         return model
     }
 }
