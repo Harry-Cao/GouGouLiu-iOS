@@ -56,7 +56,7 @@ final class GGLChatRoomViewModel: ObservableObject {
         GGLUploadPhotoManager.shared.pickImage { [weak self] image in
             guard let self,
                   let data = image?.fixOrientation().jpegData(compressionQuality: 0) else { return }
-            let _ = GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .message, contactId: messageModel.ownerId, progressBlock: { progress in
+            let _ = GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .chat, contactId: messageModel.ownerId, progressBlock: { progress in
                 ProgressHUD.showServerProgress(progress: progress.progress)
             }).observe(on: MainScheduler.instance).subscribe(onNext: { model in
                 ProgressHUD.showServerMsg(model: model)

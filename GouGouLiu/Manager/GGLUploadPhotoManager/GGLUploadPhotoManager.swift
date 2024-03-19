@@ -65,7 +65,7 @@ extension GGLUploadPhotoManager {
     enum ImageType: Int {
         case avatar
         case post
-        case message
+        case chat
     }
 
 }
