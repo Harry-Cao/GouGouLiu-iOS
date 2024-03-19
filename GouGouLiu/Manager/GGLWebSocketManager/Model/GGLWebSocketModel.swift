@@ -8,14 +8,21 @@
 import Foundation
 
 struct GGLWebSocketModel: Codable {
-    var type: MessageType?
-    var senderId: String?
-    var targetId: String?
+    let type: MessageType?
+    let senderId: String?
+    let targetId: String?
+    let contentType: ContentType?
+
     var message: String?
+    var photoUrl: String?
 }
 
 extension GGLWebSocketModel {
     enum MessageType: String, Codable {
-        case peer_message = "peer_message"
+        case peer_message
+    }
+    enum ContentType: String, Codable {
+        case text
+        case photo
     }
 }
