@@ -28,4 +28,15 @@ final class GGLHomeViewModel {
         return Observable<GGLMoyaModel<[GGLHomePostModel]>>.ofRequest(api: api, provider: moyaProvider)
     }
 
+    lazy var refreshImages: [UIImage] = {
+        var images = [UIImage]()
+        for i in 0...19 {
+            let imageName = "refresh_\(i)"
+            if let image = UIImage(named: imageName) {
+                images.append(image)
+            }
+        }
+        return images
+    }()
+
 }

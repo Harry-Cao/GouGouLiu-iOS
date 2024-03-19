@@ -45,10 +45,14 @@ final class GGLHomeViewController: GGLBaseViewController {
     }
 
     private func setupRefreshComponent() {
-        MJRefreshNormalHeader { [weak self] in
+        let header = MJRefreshGifHeader { [weak self] in
             self?.viewModel.getHomePostData()
-        }.autoChangeTransparency(true)
-            .link(to: recommendCollectionView)
+        }
+        header.lastUpdatedTimeLabel?.isHidden = true
+        header.stateLabel?.isHidden = true
+        header.setImages(viewModel.refreshImages, for: .idle)
+        header.setImages(viewModel.refreshImages, for: .refreshing)
+        header.link(to: recommendCollectionView)
     }
 
     private func bindData() {
