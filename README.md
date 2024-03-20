@@ -2,6 +2,7 @@
 GouGouLiu is a app serves for the dog keepers who need help for walking their dogs. This repository is for GouGouLiu iOS client. For UI part, develop by UIKit and SwiftUI.
 
 Mainly contain five modules:
+
 <img width="368" alt="Snipaste_2024-03-20_14-53-14" src="https://github.com/Harry-Cao/GouGouLiu/assets/61426193/09419933-74f1-44bc-91a6-79cec9a2d693">
 
 More details:
