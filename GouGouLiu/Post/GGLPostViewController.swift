@@ -19,7 +19,7 @@ final class GGLPostViewController: GGLBaseViewController {
         button.setTitle("发布", for: .normal)
         button.layer.cornerRadius = 23
         button.layer.masksToBounds = true
-        button.backgroundColor = .systemYellow.withAlphaComponent(0.8)
+        button.backgroundColor = .theme_color
         return button
     }()
 

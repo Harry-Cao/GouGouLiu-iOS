@@ -114,8 +114,8 @@ extension GGLHomeViewController: UICollectionViewDataSource {
 extension GGLHomeViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath)
         let heroId = "\(Date())"
+        let cell = collectionView.cellForItem(at: indexPath)
         cell?.hero.id = heroId
         let model = viewModel.dataSource[indexPath.item]
         let viewController = GGLTopicViewController()
@@ -155,7 +155,7 @@ extension GGLHomeViewController: UICollectionViewDelegate {
 extension GGLHomeViewController: GGLWaterFallFlowLayoutDelegate {
 
     func waterFlowLayout(_ waterFlowLayout: GGLWaterFallFlowLayout, itemHeight indexPath: IndexPath) -> CGFloat {
-        CGFloat(arc4random_uniform(400 - 200) + 200)
+        CGFloat.random(in: 250...350)
     }
 
 }
