@@ -2,3 +2,5 @@ bookmarks.plist
 GenerativeAI-Info.plist
 GouGouLiu.xcworkspace/xcuserdata
 GouGouLiu.xcodeproj/xcuserdata
+Pods
+Podfile.lock
