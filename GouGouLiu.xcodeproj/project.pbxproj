@@ -26,6 +26,7 @@
 		3E453B4A2A6DA78300B30C3C /* GGLPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E453B492A6DA78300B30C3C /* GGLPostViewModel.swift */; };
 		3E453B4C2A6DA96A00B30C3C /* GGLPostAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E453B4B2A6DA96A00B30C3C /* GGLPostAPI.swift */; };
 		3E53B5352A8800930007C560 /* GGLEmptyDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E53B5342A8800930007C560 /* GGLEmptyDataView.swift */; };
+		3E54A4B42BB2B182003895F5 /* GenerativeAI-Info-example.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E54A4B32BB2B182003895F5 /* GenerativeAI-Info-example.plist */; };
 		3E5509332A66900F00653568 /* GGLNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5509322A66900F00653568 /* GGLNetworkManager.swift */; };
 		3E68613D2B8CDBC500B07FDA /* GGLChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68613C2B8CDBC500B07FDA /* GGLChatModel.swift */; };
 		3E68613F2B8CDD8000B07FDA /* GGLChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68613E2B8CDD8000B07FDA /* GGLChatCell.swift */; };
@@ -142,6 +143,7 @@
 		3E453B492A6DA78300B30C3C /* GGLPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPostViewModel.swift; sourceTree = "<group>"; };
 		3E453B4B2A6DA96A00B30C3C /* GGLPostAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPostAPI.swift; sourceTree = "<group>"; };
 		3E53B5342A8800930007C560 /* GGLEmptyDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLEmptyDataView.swift; sourceTree = "<group>"; };
+		3E54A4B32BB2B182003895F5 /* GenerativeAI-Info-example.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GenerativeAI-Info-example.plist"; sourceTree = "<group>"; };
 		3E5509322A66900F00653568 /* GGLNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLNetworkManager.swift; sourceTree = "<group>"; };
 		3E68613C2B8CDBC500B07FDA /* GGLChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatModel.swift; sourceTree = "<group>"; };
 		3E68613E2B8CDD8000B07FDA /* GGLChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatCell.swift; sourceTree = "<group>"; };
@@ -627,6 +629,7 @@
 				3ED90BFC2A2E49E30079B4D3 /* Utilities */,
 				3ED90C0F2A2E5E780079B4D3 /* Support */,
 				3EAD9D192B90C78400AFCF06 /* GenerativeAI-Info.plist */,
+				3E54A4B32BB2B182003895F5 /* GenerativeAI-Info-example.plist */,
 			);
 			path = GouGouLiu;
 			sourceTree = "<group>";
@@ -880,6 +883,7 @@
 				3ED90BF32A2E24420079B4D3 /* LaunchScreen.storyboard in Resources */,
 				3ED90BF02A2E24420079B4D3 /* Assets.xcassets in Resources */,
 				3EAD9D1A2B90C78400AFCF06 /* GenerativeAI-Info.plist in Resources */,
+				3E54A4B42BB2B182003895F5 /* GenerativeAI-Info-example.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
