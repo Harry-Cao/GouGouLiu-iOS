@@ -21,3 +21,7 @@ In this project, I use [cocoapods](https://cocoapods.org) and [swiftpm](https://
 ```
 pod install
 ```
+
+## Google Generative AI
+
+Gemini is plugged into this project. Gemini asks for an API_KEY, and google suggest to put API_KEY to a plist file and don't trace it. So you could see a [example plist](https://github.com/Harry-Cao/GouGouLiu/blob/main/GouGouLiu/GenerativeAI-Info-example.plist) in this project. You need to copy and rename it as **GenerativeAI-Info.plist**, and then replace **API_KEY_VALUE** with your **API_KEY**.
