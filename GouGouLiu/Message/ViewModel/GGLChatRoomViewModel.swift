@@ -90,7 +90,7 @@ final class GGLChatRoomViewModel: ObservableObject {
         guard let systemId = GGLSystemUser(rawValue: messageModel.userId) else { return false }
         responding = true
         switch systemId {
-        case .clientService:
+        case .customerService:
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
                 Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
                     guard let self else { return }
