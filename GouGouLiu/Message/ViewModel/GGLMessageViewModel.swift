@@ -22,6 +22,9 @@ final class GGLMessageViewModel: ObservableObject {
             guard let self,
                   let type = model.type else { return }
             switch type {
+            case .system_logout:
+                AppRouter.shared.popToRoot(animated: true)
+                fallthrough
             case .peer_message:
                 self.updateData()
             }
@@ -35,7 +38,7 @@ final class GGLMessageViewModel: ObservableObject {
     }
 
     func updateData() {
-        let userId = GGLUser.getUserId()
+        let userId = GGLUser.getUserId(showHUD: false)
         if let userId {
             setupSystemMessages(userId: userId)
         }

@@ -20,6 +20,7 @@ struct GGLWebSocketModel: Codable {
 extension GGLWebSocketModel {
     enum MessageType: String, Codable {
         case peer_message
+        case system_logout
     }
     enum ContentType: String, Codable {
         case text

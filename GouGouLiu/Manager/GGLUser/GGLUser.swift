@@ -64,6 +64,12 @@ extension GGLUser {
         })
     }
 
+    static func forceLogout() {
+        current = nil
+        userStatusSubject.onNext(.forceLogout)
+        ProgressHUD.showFailed("You have been forced to logout")
+    }
+
     static func clearAll() {
         guard let userId = GGLUser.getUserId() else { return }
         let _ = networkHelper.requestClearAll(userId: userId).subscribe(onNext: { model in
@@ -97,7 +103,7 @@ extension GGLUser {
     static func getUserId(showHUD: Bool = true) -> String? {
         let userId = UserDefaults.userId
         if userId == nil, showHUD {
-            ProgressHUD.showFailed("请先登录")
+            ProgressHUD.showFailed("Please login")
         }
         return userId
     }
@@ -109,6 +115,7 @@ extension GGLUser {
     enum UserStatus {
         case login(user: GGLUserModel)
         case logout
+        case forceLogout
     }
 
 }

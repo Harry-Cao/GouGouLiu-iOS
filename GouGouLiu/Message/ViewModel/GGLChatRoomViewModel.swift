@@ -36,6 +36,8 @@ final class GGLChatRoomViewModel: ObservableObject {
             switch type {
             case .peer_message:
                 self.scrollToBottom()
+            case .system_logout:
+                break
             }
         }).disposed(by: disposeBag)
     }

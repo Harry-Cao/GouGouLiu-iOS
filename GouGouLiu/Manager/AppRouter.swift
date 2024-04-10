@@ -28,6 +28,14 @@ final class AppRouter {
         return navigator.push(viewController, from: from, animated: animated)
     }
 
+    func pop(animated: Bool) {
+        UIViewController.topMost?.navigationController?.popViewController(animated: animated)
+    }
+
+    func popToRoot(animated: Bool) {
+        UIViewController.topMost?.navigationController?.popToRootViewController(animated: animated)
+    }
+
     @discardableResult
     func present(_ url: URLConvertible, context: Any? = nil, wrap: UINavigationController.Type? = nil, from: UIViewControllerType? = nil, animated: Bool = true, completion: (() -> Void)? = nil) -> UIViewController? {
         return navigator.present(url, context: context, wrap: wrap, from: from, animated: animated, completion: completion)

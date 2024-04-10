@@ -39,6 +39,8 @@ extension GGLDataBase {
                 }
                 insert(chatModel, to: messageModel.messages)
                 recordUnReadIfNeeded(messageModel: messageModel)
+            case .system_logout:
+                break
             }
         }).disposed(by: disposeBag)
     }

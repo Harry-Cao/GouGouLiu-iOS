@@ -28,6 +28,8 @@ final class GGLWebSocketManager {
                 self?.connect(userId: userId)
             case .logout:
                 self?.disconnect()
+            case .forceLogout:
+                break
             }
         }).disposed(by: disposeBag)
     }
@@ -48,7 +50,14 @@ final class GGLWebSocketManager {
     }
 
     private func onReceivedText(_ text: String) {
-        guard let model = GGLTool.jsonStringToModel(jsonString: text, to: GGLWebSocketModel.self) else { return }
+        guard let model = GGLTool.jsonStringToModel(jsonString: text, to: GGLWebSocketModel.self),
+              let type = model.type else { return }
+        switch type {
+        case .peer_message:
+            break
+        case .system_logout:
+            GGLUser.forceLogout()
+        }
         messageSubject.onNext(model)
     }
 }
