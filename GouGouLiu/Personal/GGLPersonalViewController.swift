@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 final class GGLPersonalViewController: GGLBaseHostingController<PersonalContentView> {
 
     init() {
-        super.init(rootView: PersonalContentView())
+        super.init(rootView: PersonalContentView(viewModel: GGLPersonalViewModel()))
     }
 
     @MainActor required dynamic init?(coder aDecoder: NSCoder) {
@@ -19,47 +20,69 @@ final class GGLPersonalViewController: GGLBaseHostingController<PersonalContentV
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = .Personal
     }
 
 }
 
 struct PersonalContentView: View {
-    var settingRows: [SettingRow] = [
-        .debug,
-    ]
+    @ObservedObject var viewModel: GGLPersonalViewModel
+
     var body: some View {
-        List(settingRows) { row in
-            Button {
-                row.action()
-            } label: {
-                Text(row.title)
+        VStack {
+            if let current = viewModel.current {
+                Header(user: current) {
+                    viewModel.pickAvatar()
+                }
+                List(viewModel.settingRows) { row in
+                    Button {
+                        row.action()
+                    } label: {
+                        HStack {
+                            Image(systemName: row.iconName)
+                                .frame(width: 20, height: 20, alignment: .center)
+                                .foregroundColor(row.foregroundColor)
+                            Text(row.title)
+                                .font(.system(size: 16))
+                                .foregroundColor(row.foregroundColor)
+                        }
+                    }
+                }
+                .listStyle(.plain)
+            } else {
+                LoginContentView()
             }
         }
-        .listStyle(.plain)
     }
 }
 
 extension PersonalContentView {
 
-    enum SettingRow: Identifiable {
-        case debug
-
-        var id: UUID {
-            return UUID()
-        }
-        var title: String {
-            switch self {
-            case .debug:
-                return "Debug"
+    struct Header: View {
+        let user: GGLUserModel
+        let onClickPickAvatar: () -> Void
+        var body: some View {
+            HStack {
+                WebImage(url: URL(string: user.avatarUrl ?? ""))
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 84, height: 84, alignment: .center)
+                    .clipShape(.circle)
+                    .padding(.trailing, 8)
+                    .onTapGesture {
+                        onClickPickAvatar()
+                    }
+                VStack(alignment: .leading, content: {
+                    Text(GGLUser.current?.userName ?? "")
+                        .font(Font.system(size: 24, weight: .bold))
+                        .padding(.bottom, 4)
+                    Text("UserId: \(GGLUser.current?.userId ?? "")")
+                        .font(Font.system(.caption))
+                        .foregroundColor(Color.gray.opacity(0.8))
+                })
+                Spacer()
+                Image(systemName: "chevron.right")
             }
-        }
-
-        func action() {
-            switch self {
-            case .debug:
-                AppRouter.shared.push(GGLDebugViewController(rootView: DebugContentView()))
-            }
+            .padding([.leading, .trailing, .bottom])
         }
     }
 

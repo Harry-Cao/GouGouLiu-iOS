@@ -64,6 +64,19 @@ struct LoginContentView: View {
                     .cornerRadius(10.0)
             }
             .disabled(loginDisabled)
+            .padding(.bottom, 20)
+
+            Button(action: {
+                GGLUser.signup(username: self.username, password: self.password, isSuper: false)
+            }) {
+                Text("Sign Up")
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(width: 200, height: 50)
+                    .background(Color.blue)
+                    .cornerRadius(10.0)
+            }
+            .disabled(loginDisabled)
         }
         .padding()
     }

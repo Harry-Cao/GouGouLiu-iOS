@@ -11,6 +11,14 @@ import RxSwift
 
 final class GGLDebugViewController: GGLBaseHostingController<DebugContentView> {
 
+    init() {
+        super.init(rootView: DebugContentView())
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = .Debug
