@@ -30,6 +30,7 @@ final class GGLPersonalViewModel: ObservableObject {
                    model.code == .success,
                    let newValue = current?.copy() as? GGLUserModel {
                     newValue.avatarUrl = model.data?.previewUrl
+                    GGLDataBase.shared.saveOrUpdateUser(newValue)
                     current = newValue
                 }
                 ProgressHUD.showServerMsg(model: model)
