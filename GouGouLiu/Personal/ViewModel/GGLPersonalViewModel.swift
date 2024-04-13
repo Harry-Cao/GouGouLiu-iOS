@@ -10,7 +10,7 @@ import RxSwift
 
 final class GGLPersonalViewModel: ObservableObject {
     @Published var current: GGLUserModel?
-    let settingRows: [SettingRow] = [.myOrders, .logout, .debug]
+    let settingRows: [SettingRow] = [.myPosts, .myOrders, .clearImageCache, .logout, .debug]
     private let disposeBag = DisposeBag()
 
     init() {
@@ -42,31 +42,41 @@ final class GGLPersonalViewModel: ObservableObject {
 extension GGLPersonalViewModel {
 
     enum SettingRow: Identifiable {
-        case debug
-        case logout
+        case myPosts
         case myOrders
+        case clearImageCache
+        case logout
+        case debug
 
         var id: UUID {
             return UUID()
         }
         var iconName: String {
             switch self {
-            case .debug:
-                return "ladybug"
-            case .logout:
-                return "door.right.hand.open"
+            case .myPosts:
+                return "sparkles"
             case .myOrders:
                 return "paperplane"
+            case .clearImageCache:
+                return "xmark.bin"
+            case .logout:
+                return "door.right.hand.open"
+            case .debug:
+                return "ladybug"
             }
         }
         var title: String {
             switch self {
-            case .debug:
-                return "Debug"
+            case .myPosts:
+                return "My posts"
+            case .myOrders:
+                return "My orders"
+            case .clearImageCache:
+                return "Clear image cache"
             case .logout:
                 return "Log out"
-            case .myOrders:
-                return "My Orders"
+            case .debug:
+                return "Debug"
             }
         }
         var foregroundColor: Color {
@@ -80,14 +90,20 @@ extension GGLPersonalViewModel {
 
         func action() {
             switch self {
-            case .debug:
-                AppRouter.shared.push(GGLDebugViewController())
+            case .myPosts, .myOrders:
+                break
+            case .clearImageCache:
+                ProgressHUD.show()
+                SDImageCache.shared.clearMemory()
+                SDImageCache.shared.clearDisk {
+                    ProgressHUD.showSucceed("Cleared")
+                }
             case .logout:
                 UIAlertController.popupConfirmAlert(title: "Confirm to log out?") {
                     GGLUser.logout()
                 }
-            case .myOrders:
-                break
+            case .debug:
+                AppRouter.shared.push(GGLDebugViewController())
             }
         }
     }

@@ -81,6 +81,7 @@ extension GGLUser {
         if let systemUser = GGLSystemUser(rawValue: userId) {
             return GGLUserModel.create(userId: userId, userName: systemUser.name, avatarUrl: systemUser.avatar)
         }
+        // TODO: - too much IO operation, use a cache list to optimize.
         let results = GGLDataBase.shared.objects(GGLUserModel.self).filter({ $0.userId == userId })
         if let target = results.first {
             return target
