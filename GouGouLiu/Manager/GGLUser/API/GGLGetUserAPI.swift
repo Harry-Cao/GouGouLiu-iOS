@@ -26,7 +26,7 @@ struct GGLGetUserAPI: TargetType {
 
     var task: Moya.Task {
         let para: [String: Any] = ["userId": userId]
-        return .requestParameters(parameters: para, encoding: URLEncoding.queryString)
+        return .requestParameters(parameters: para, encoding: URLEncoding.default)
     }
 
     var headers: [String : String]? {

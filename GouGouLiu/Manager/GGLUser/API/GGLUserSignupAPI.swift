@@ -31,7 +31,7 @@ struct GGLUserSignupAPI: TargetType {
         para.updateValue(username, forKey: "username")
         para.updateValue(password, forKey: "password")
         para.updateValue(isSuper, forKey: "isSuper")
-        return .requestParameters(parameters: para, encoding: URLEncoding.queryString)
+        return .requestParameters(parameters: para, encoding: URLEncoding.default)
     }
 
     var headers: [String : String]? {

@@ -21,13 +21,13 @@ struct GGLTopicAPI: TargetType {
     }
 
     var method: Moya.Method {
-        .post
+        .get
     }
 
     var task: Moya.Task {
         var para: [String: Any] = [:]
         para["postId"] = postId
-        return .requestParameters(parameters: para, encoding: URLEncoding.queryString)
+        return .requestParameters(parameters: para, encoding: URLEncoding.default)
     }
 
     var headers: [String : String]? {

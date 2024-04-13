@@ -27,7 +27,7 @@ struct GGLClearAllPostAPI: TargetType {
     var task: Moya.Task {
         var para: [String: Any] = [:]
         para.updateValue(userId, forKey: "userId")
-        return .requestParameters(parameters: para, encoding: URLEncoding.queryString)
+        return .requestParameters(parameters: para, encoding: URLEncoding.default)
     }
 
     var headers: [String : String]? {

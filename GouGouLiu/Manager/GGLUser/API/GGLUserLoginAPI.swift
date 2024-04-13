@@ -31,7 +31,7 @@ struct GGLUserLoginAPI: TargetType {
         para["username"] = username
         para["password"] = password
         para["userId"] = userId
-        return .requestParameters(parameters: para, encoding: URLEncoding.queryString)
+        return .requestParameters(parameters: para, encoding: URLEncoding.default)
     }
 
     var headers: [String : String]? {

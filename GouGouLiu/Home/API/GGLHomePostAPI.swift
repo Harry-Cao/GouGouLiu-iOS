@@ -23,7 +23,7 @@ struct GGLHomePostAPI: TargetType {
     }
 
     var task: Moya.Task {
-        .requestParameters(parameters: [:], encoding: URLEncoding.queryString)
+        .requestParameters(parameters: [:], encoding: URLEncoding.default)
     }
 
     var headers: [String : String]? {
