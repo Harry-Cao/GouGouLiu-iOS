@@ -25,7 +25,7 @@ final class GGLHomeViewModel {
 
     private func fetchHomePostData() -> Observable<GGLMoyaModel<[GGLHomePostModel]>> {
         let api = GGLHomePostAPI()
-        return Observable<GGLMoyaModel<[GGLHomePostModel]>>.ofRequest(api: api, provider: moyaProvider)
+        return moyaProvider.observable.request(api)
     }
 
     lazy var refreshImages: [UIImage] = {

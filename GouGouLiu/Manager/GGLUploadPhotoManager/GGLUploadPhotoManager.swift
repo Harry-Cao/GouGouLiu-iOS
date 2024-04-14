@@ -17,11 +17,10 @@ final class GGLUploadPhotoManager: NSObject, UINavigationControllerDelegate {
 
     static let shared = GGLUploadPhotoManager()
     private var finishPickingMediaBlock: ImageBlock?
-    private let moyaProvider = MoyaProvider<GGLUploadPhotoAPI>()
 
     func uploadPhoto(data: Data, type: ImageType, contactId: String, progressBlock: ProgressBlock? = nil) -> Observable<GGLMoyaModel<GGLUploadPhotoModel>> {
         let api = GGLUploadPhotoAPI(imageData: data, imageType: type.rawValue, contactId: contactId)
-        return Observable<GGLMoyaModel<GGLUploadPhotoModel>>.ofRequest(api: api, provider: moyaProvider, progressBlock: progressBlock)
+        return MoyaProvider<GGLUploadPhotoAPI>().observable.request(api, progressBlock: progressBlock)
     }
 
     func clearAllPhotos() {
@@ -33,7 +32,7 @@ final class GGLUploadPhotoManager: NSObject, UINavigationControllerDelegate {
 
     func requestClearAllPhotos(userId: String)  -> Observable<GGLMoyaModel<[String: String]>> {
         let api = GGLClearAllPhotoAPI(userId: userId)
-        return Observable<GGLMoyaModel<[String: String]>>.ofRequest(api: api, provider: MoyaProvider<GGLClearAllPhotoAPI>())
+        return MoyaProvider<GGLClearAllPhotoAPI>().observable.request(api)
     }
 
     func pickImage(completion: @escaping ImageBlock) {

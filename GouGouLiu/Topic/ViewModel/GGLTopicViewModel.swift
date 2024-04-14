@@ -27,7 +27,7 @@ final class GGLTopicViewModel {
 
     private func requestPostData(postId: String) -> Observable<GGLMoyaModel<GGLHomePostModel>> {
         let api = GGLTopicAPI(postId: postId)
-        return .ofRequest(api: api, provider: moyaProvider)
+        return moyaProvider.observable.request(api)
     }
 
 }

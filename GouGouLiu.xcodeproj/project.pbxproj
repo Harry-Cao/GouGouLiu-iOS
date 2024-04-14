@@ -76,7 +76,6 @@
 		3EB404AD2A5487F00032E899 /* GGLHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB404AC2A5487F00032E899 /* GGLHomeViewModel.swift */; };
 		3EB404B02A54890F0032E899 /* GGLHomePostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB404AF2A54890F0032E899 /* GGLHomePostModel.swift */; };
 		3EB404B32A548B680032E899 /* GGLHomePostAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB404B22A548B680032E899 /* GGLHomePostAPI.swift */; };
-		3EB404B62A548D200032E899 /* Observable+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB404B52A548D200032E899 /* Observable+GGL.swift */; };
 		3ECD36A32A678DCF00092488 /* GGLClearAllPhotoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECD36A22A678DCF00092488 /* GGLClearAllPhotoAPI.swift */; };
 		3ECFA7622A75074D00CB465B /* GGLTopicAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFA7612A75074D00CB465B /* GGLTopicAdapter.swift */; };
 		3ECFA7642A750A3100CB465B /* GGLTopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFA7632A750A3100CB465B /* GGLTopicViewModel.swift */; };
@@ -192,7 +191,6 @@
 		3EB404AC2A5487F00032E899 /* GGLHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLHomeViewModel.swift; sourceTree = "<group>"; };
 		3EB404AF2A54890F0032E899 /* GGLHomePostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLHomePostModel.swift; sourceTree = "<group>"; };
 		3EB404B22A548B680032E899 /* GGLHomePostAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLHomePostAPI.swift; sourceTree = "<group>"; };
-		3EB404B52A548D200032E899 /* Observable+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+GGL.swift"; sourceTree = "<group>"; };
 		3ECD36A22A678DCF00092488 /* GGLClearAllPhotoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLClearAllPhotoAPI.swift; sourceTree = "<group>"; };
 		3ECFA7612A75074D00CB465B /* GGLTopicAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLTopicAdapter.swift; sourceTree = "<group>"; };
 		3ECFA7632A750A3100CB465B /* GGLTopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLTopicViewModel.swift; sourceTree = "<group>"; };
@@ -656,7 +654,6 @@
 				3EF2266D2A2FA4AA00553325 /* UIFont+GGL.swift */,
 				3EF638C52BAA862800E0CFBA /* UIColor+GGL.swift */,
 				3E6B0C312A3087D9002317D6 /* String+GGL.swift */,
-				3EB404B52A548D200032E899 /* Observable+GGL.swift */,
 				3EE073AC2BCC212500E1DE80 /* MoyaProvider */,
 				3E26D10A2A6856CF00803FC1 /* UserDefaults+GGL.swift */,
 				3E3C4B462A69B3B70028710A /* UIAlertController+GGL.swift */,
@@ -1043,7 +1040,6 @@
 				3ED9B5442BA433C300A13D38 /* GGLDataBase+ChatRoom.swift in Sources */,
 				3ED370D02A597CB900639291 /* GGLTool.swift in Sources */,
 				3E0AC6982BA6B44F0075BBD6 /* GGLTabBarController+Message.swift in Sources */,
-				3EB404B62A548D200032E899 /* Observable+GGL.swift in Sources */,
 				3EF638C62BAA862800E0CFBA /* UIColor+GGL.swift in Sources */,
 				3ECFA7682A751C8600CB465B /* GGLTopicPhotosBrowserCell.swift in Sources */,
 				3E3C4B472A69B3B70028710A /* UIAlertController+GGL.swift in Sources */,
