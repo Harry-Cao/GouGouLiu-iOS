@@ -104,6 +104,8 @@
 		3ED9B5412BA37D5000A13D38 /* GGLUserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED9B5402BA37D5000A13D38 /* GGLUserListCell.swift */; };
 		3ED9B5442BA433C300A13D38 /* GGLDataBase+ChatRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED9B5432BA433C300A13D38 /* GGLDataBase+ChatRoom.swift */; };
 		3ED9B5462BA44E3A00A13D38 /* GGLDataBase+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED9B5452BA44E3A00A13D38 /* GGLDataBase+User.swift */; };
+		3EE073A92BCC209900E1DE80 /* MoyaProvider+Concurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE073A82BCC209900E1DE80 /* MoyaProvider+Concurrency.swift */; };
+		3EE073AE2BCC213E00E1DE80 /* MoyaProvider+Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE073AD2BCC213E00E1DE80 /* MoyaProvider+Observable.swift */; };
 		3EF2266E2A2FA4AA00553325 /* UIFont+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF2266D2A2FA4AA00553325 /* UIFont+GGL.swift */; };
 		3EF3CABA2A65014100C46F38 /* GGLDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF3CAB92A65014100C46F38 /* GGLDebugViewController.swift */; };
 		3EF638C62BAA862800E0CFBA /* UIColor+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF638C52BAA862800E0CFBA /* UIColor+GGL.swift */; };
@@ -220,6 +222,8 @@
 		3ED9B5402BA37D5000A13D38 /* GGLUserListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLUserListCell.swift; sourceTree = "<group>"; };
 		3ED9B5432BA433C300A13D38 /* GGLDataBase+ChatRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GGLDataBase+ChatRoom.swift"; sourceTree = "<group>"; };
 		3ED9B5452BA44E3A00A13D38 /* GGLDataBase+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GGLDataBase+User.swift"; sourceTree = "<group>"; };
+		3EE073A82BCC209900E1DE80 /* MoyaProvider+Concurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Concurrency.swift"; sourceTree = "<group>"; };
+		3EE073AD2BCC213E00E1DE80 /* MoyaProvider+Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Observable.swift"; sourceTree = "<group>"; };
 		3EF2266D2A2FA4AA00553325 /* UIFont+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+GGL.swift"; sourceTree = "<group>"; };
 		3EF3CAB92A65014100C46F38 /* GGLDebugViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GGLDebugViewController.swift; sourceTree = "<group>"; };
 		3EF638C52BAA862800E0CFBA /* UIColor+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+GGL.swift"; sourceTree = "<group>"; };
@@ -653,6 +657,7 @@
 				3EF638C52BAA862800E0CFBA /* UIColor+GGL.swift */,
 				3E6B0C312A3087D9002317D6 /* String+GGL.swift */,
 				3EB404B52A548D200032E899 /* Observable+GGL.swift */,
+				3EE073AC2BCC212500E1DE80 /* MoyaProvider */,
 				3E26D10A2A6856CF00803FC1 /* UserDefaults+GGL.swift */,
 				3E3C4B462A69B3B70028710A /* UIAlertController+GGL.swift */,
 				3E77FCA42A66CC7C00699C47 /* NSNotification.Name+GGL.swift */,
@@ -746,6 +751,15 @@
 				3ED9B5402BA37D5000A13D38 /* GGLUserListCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		3EE073AC2BCC212500E1DE80 /* MoyaProvider */ = {
+			isa = PBXGroup;
+			children = (
+				3EE073AD2BCC213E00E1DE80 /* MoyaProvider+Observable.swift */,
+				3EE073A82BCC209900E1DE80 /* MoyaProvider+Concurrency.swift */,
+			);
+			path = MoyaProvider;
 			sourceTree = "<group>";
 		};
 		3EF3CAB82A65012D00C46F38 /* Debug */ = {
@@ -1001,11 +1015,13 @@
 				3EA1F2B92BA1A6B8005F2C6E /* GGLSystemUser.swift in Sources */,
 				3ED370CD2A5974E300639291 /* GGLAPI.swift in Sources */,
 				3EA1F2BE2BA20BDD005F2C6E /* GGLMessageViewModel.swift in Sources */,
+				3EE073A92BCC209900E1DE80 /* MoyaProvider+Concurrency.swift in Sources */,
 				3EA4B3242A65C33E00A592BA /* GGLUploadPhotoModel.swift in Sources */,
 				3ED90BFB2A2E31A90079B4D3 /* GGLTabBarController.swift in Sources */,
 				3ECFA7622A75074D00CB465B /* GGLTopicAdapter.swift in Sources */,
 				3EB404B02A54890F0032E899 /* GGLHomePostModel.swift in Sources */,
 				3EF3CABA2A65014100C46F38 /* GGLDebugViewController.swift in Sources */,
+				3EE073AE2BCC213E00E1DE80 /* MoyaProvider+Observable.swift in Sources */,
 				3E0AC69A2BA6BCCD0075BBD6 /* UITabBarController+GGL.swift in Sources */,
 				3E77FCA52A66CC7C00699C47 /* NSNotification.Name+GGL.swift in Sources */,
 				3E9F11502A6BBEE600A1CC90 /* GGLUserModel.swift in Sources */,
