@@ -34,8 +34,9 @@ final class GGLTopicPhotosBrowserCell: GGLBaseTableViewCell {
         }
     }
 
-    func setup(urlStrings: [String]) {
+    func setup(urlStrings: [String], failToGestures: [UIGestureRecognizer]) {
         browserView.imageUrls = urlStrings
+        browserView.failToGestures = failToGestures
     }
 
 }

@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import Hero
 
 final class GGLTopicViewController: GGLBaseViewController {
 
@@ -20,21 +21,15 @@ final class GGLTopicViewController: GGLBaseViewController {
     private let adapter = GGLTopicAdapter()
     private let topicTableView = GGLBaseTableView()
     private let disposeBag = DisposeBag()
+    private let transitionHelper = GGLTopicTransitionHelper()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupEdgeGesture()
         setupNavigationItem()
         setupUI()
         setupAdapter()
         bindData()
         getData()
-    }
-
-    private func setupEdgeGesture() {
-        let edgeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleEdgePanGesture))
-        edgeGesture.edges = .left
-        view.addGestureRecognizer(edgeGesture)
     }
 
     private func setupNavigationItem() {
@@ -48,16 +43,19 @@ final class GGLTopicViewController: GGLBaseViewController {
         topicTableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        transitionHelper.delegate = self
     }
 
     private func setupAdapter() {
         adapter.tableView = topicTableView
         adapter.photoBrowserCellConfigurator = { [weak self] cell in
-            guard let urlStrings = self?.viewModel.postModel?.postImages else {
-                cell.setup(urlStrings: [self?.viewModel.postModel?.coverImageUrl ?? ""])
+            guard let self else { return }
+            let failToGestures = [transitionHelper.leftGesture, transitionHelper.rightGesture]
+            guard let urlStrings = viewModel.postModel?.postImages else {
+                cell.setup(urlStrings: [viewModel.postModel?.coverImageUrl ?? ""], failToGestures: failToGestures)
                 return
             }
-            cell.setup(urlStrings: urlStrings)
+            cell.setup(urlStrings: urlStrings, failToGestures: failToGestures)
         }
         adapter.contentCellConfigurator = { [weak self] cell in
             cell.setup(title: self?.viewModel.postModel?.postTitle, content: self?.viewModel.postModel?.postContent)
@@ -88,12 +86,20 @@ final class GGLTopicViewController: GGLBaseViewController {
         viewModel.getPostData()
     }
 
-    @objc private func handleEdgePanGesture() {
-        self.dismiss(animated: true)
-    }
-
     @objc private func didTapBackButton() {
         self.dismiss(animated: true)
     }
 
+}
+
+// MARK: - GGLTopicTransitionHelperDelegate
+extension GGLTopicViewController: GGLTopicTransitionHelperDelegate {
+    func transitionHelperPresentViewController() -> UIViewController? {
+        let viewController = GGLPersonalDetailViewController()
+        let navController = GGLBaseNavigationController(rootViewController: viewController)
+        navController.hero.isEnabled = true
+        navController.heroModalAnimationType = .push(direction: .left)
+        navController.modalPresentationStyle = .fullScreen
+        return navController
+    }
 }

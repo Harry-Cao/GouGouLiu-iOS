@@ -20,6 +20,14 @@ final class GGLWebImageBrowser: UIView {
             imageCollectionView.reloadData()
         }
     }
+    var failToGestures: [UIGestureRecognizer]? {
+        didSet {
+            guard let failToGestures else { return }
+            failToGestures.forEach { gestureRecognizer in
+                imageCollectionView.panGestureRecognizer.require(toFail: gestureRecognizer)
+            }
+        }
+    }
 
     private lazy var imageCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
