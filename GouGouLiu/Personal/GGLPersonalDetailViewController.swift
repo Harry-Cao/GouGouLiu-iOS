@@ -9,7 +9,7 @@ import SwiftUI
 import Hero
 
 final class GGLPersonalDetailViewController: GGLBaseHostingController<PersonalDetailContentView> {
-    private lazy var transitionHelper = GGLTopicTransitionHelper()
+    private lazy var transitionHelper = GGLHeroTransitionHelper()
 
     init() {
         super.init(rootView: PersonalDetailContentView())
@@ -43,8 +43,8 @@ final class GGLPersonalDetailViewController: GGLBaseHostingController<PersonalDe
     }
 }
 
-// MARK: - GGLTopicTransitionHelperDelegate
-extension GGLPersonalDetailViewController: GGLTopicTransitionHelperDelegate {}
+// MARK: - GGLHeroTransitionHelperDelegate
+extension GGLPersonalDetailViewController: GGLHeroTransitionHelperDelegate {}
 
 struct PersonalDetailContentView: View {
     var body: some View {

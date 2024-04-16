@@ -21,7 +21,7 @@ final class GGLTopicViewController: GGLBaseViewController {
     private let adapter = GGLTopicAdapter()
     private let topicTableView = GGLBaseTableView()
     private let disposeBag = DisposeBag()
-    private let transitionHelper = GGLTopicTransitionHelper()
+    private let transitionHelper = GGLHeroTransitionHelper()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,8 +92,8 @@ final class GGLTopicViewController: GGLBaseViewController {
 
 }
 
-// MARK: - GGLTopicTransitionHelperDelegate
-extension GGLTopicViewController: GGLTopicTransitionHelperDelegate {
+// MARK: - GGLHeroTransitionHelperDelegate
+extension GGLTopicViewController: GGLHeroTransitionHelperDelegate {
     func transitionHelperPresentViewController() -> UIViewController? {
         let viewController = GGLPersonalDetailViewController()
         let navController = GGLBaseNavigationController(rootViewController: viewController)

@@ -1,5 +1,5 @@
 //
-//  GGLTopicTransitionHelper.swift
+//  GGLHeroTransitionHelper.swift
 //  GouGouLiu
 //
 //  Created by HarryCao on 2024/4/15.
@@ -8,18 +8,18 @@
 import Foundation
 import Hero
 
-protocol GGLTopicTransitionHelperDelegate: AnyObject {
+protocol GGLHeroTransitionHelperDelegate: AnyObject {
     func transitionHelperPresentViewController() -> UIViewController?
 }
 
-extension GGLTopicTransitionHelperDelegate {
+extension GGLHeroTransitionHelperDelegate {
     func transitionHelperPresentViewController() -> UIViewController? {
         return nil
     }
 }
 
-final class GGLTopicTransitionHelper: NSObject {
-    weak var delegate: GGLTopicTransitionHelperDelegate? {
+final class GGLHeroTransitionHelper: NSObject {
+    weak var delegate: GGLHeroTransitionHelperDelegate? {
         didSet {
             addTransitionGesture()
         }
