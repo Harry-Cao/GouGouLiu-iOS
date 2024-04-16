@@ -8,7 +8,7 @@
 import Foundation
 
 struct GGLAPI {
-    static let host = "192.168.0.115:8888"
+    static let host = "f3.ttkt.cc:15791"
     static let baseURL = URL(string: "http://\(GGLAPI.host)")!
 
     static let homePagePost = "/api/home/post"

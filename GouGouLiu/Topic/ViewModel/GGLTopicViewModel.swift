@@ -20,12 +20,12 @@ final class GGLTopicViewModel {
         let _ = requestPostData(postId: postId).subscribe(onNext: { [weak self] model in
             guard let data = model.data,
                   let self = self else { return }
-            self.postModel = data
-            self.updateSubject.onNext(data)
+            postModel?.post = data
+            updateSubject.onNext(postModel)
         })
     }
 
-    private func requestPostData(postId: String) -> Observable<GGLMoyaModel<GGLHomePostModel>> {
+    private func requestPostData(postId: String) -> Observable<GGLMoyaModel<GGLPostModel>> {
         let api = GGLTopicAPI(postId: postId)
         return moyaProvider.observable.request(api)
     }
