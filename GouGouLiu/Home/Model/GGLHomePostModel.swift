@@ -8,15 +8,6 @@
 import Foundation
 
 struct GGLHomePostModel: Codable {
-
-    var id: String?
-    var postId: String?
-    var userName: String?
-    var userAvatar: String?
-    var coverImageUrl: String?
-    var postImages: [String]?
-    var postTitle: String?
-    var postContent: String?
-    var updateTime: String?
-
+    var user: GGLUserModel?
+    var post: GGLPostModel?
 }

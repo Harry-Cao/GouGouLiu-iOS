@@ -16,7 +16,7 @@ final class GGLTopicViewModel {
     var postModel: GGLHomePostModel?
 
     func getPostData() {
-        guard let postId = postModel?.postId else { return }
+        guard let postId = postModel?.post?.postId else { return }
         let _ = requestPostData(postId: postId).subscribe(onNext: { [weak self] model in
             guard let data = model.data,
                   let self = self else { return }

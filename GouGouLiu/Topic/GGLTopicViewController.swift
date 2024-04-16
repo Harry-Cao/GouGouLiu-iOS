@@ -51,17 +51,17 @@ final class GGLTopicViewController: GGLBaseViewController {
         adapter.photoBrowserCellConfigurator = { [weak self] cell in
             guard let self else { return }
             let failToGestures = [transitionHelper.leftGesture, transitionHelper.rightGesture]
-            guard let urlStrings = viewModel.postModel?.postImages else {
-                cell.setup(urlStrings: [viewModel.postModel?.coverImageUrl ?? ""], failToGestures: failToGestures)
+            guard let urlStrings = viewModel.postModel?.post?.photos else {
+                cell.setup(urlStrings: [viewModel.postModel?.post?.coverImageUrl ?? ""], failToGestures: failToGestures)
                 return
             }
             cell.setup(urlStrings: urlStrings, failToGestures: failToGestures)
         }
         adapter.contentCellConfigurator = { [weak self] cell in
-            cell.setup(title: self?.viewModel.postModel?.postTitle, content: self?.viewModel.postModel?.postContent)
+            cell.setup(title: self?.viewModel.postModel?.post?.title, content: self?.viewModel.postModel?.post?.content)
         }
         adapter.photoBrowserCellDidSelectHandler = { [weak self] _, index in
-            guard let urlString = self?.viewModel.postModel?.postImages?[index] else { return }
+            guard let urlString = self?.viewModel.postModel?.post?.photos?[index] else { return }
             self?.downloadImage(urlString: urlString)
         }
     }
