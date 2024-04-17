@@ -95,7 +95,8 @@ final class GGLTopicViewController: GGLBaseViewController {
 // MARK: - GGLHeroTransitionHelperDelegate
 extension GGLTopicViewController: GGLHeroTransitionHelperDelegate {
     func transitionHelperPresentViewController() -> UIViewController? {
-        let viewController = GGLPersonalDetailViewController()
+        guard let user = viewModel.postModel?.user else { return nil }
+        let viewController = GGLPersonalDetailViewController(user: user)
         let navController = GGLBaseNavigationController(rootViewController: viewController)
         navController.hero.isEnabled = true
         navController.heroModalAnimationType = .push(direction: .left)
