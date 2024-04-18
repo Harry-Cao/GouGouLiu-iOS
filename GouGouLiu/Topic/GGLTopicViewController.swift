@@ -7,7 +7,6 @@
 
 import UIKit
 import RxSwift
-import Hero
 
 final class GGLTopicViewController: GGLBaseViewController {
 
@@ -19,6 +18,7 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
     private let viewModel = GGLTopicViewModel()
     private let adapter = GGLTopicAdapter()
+    private let transitionHelper = GGLTopicGestureHelper()
     private let topicTableView = GGLBaseTableView()
     private let disposeBag = DisposeBag()
 
@@ -33,7 +33,6 @@ final class GGLTopicViewController: GGLBaseViewController {
 
     private func setupNavigationItem() {
         navigationItem.title = .Topic
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: .navigation_bar_back, style: .plain, target: self, action: #selector(didTapBackButton))
     }
 
     private func setupUI() {
@@ -49,7 +48,7 @@ final class GGLTopicViewController: GGLBaseViewController {
         adapter.tableView = topicTableView
         adapter.photoBrowserCellConfigurator = { [weak self] cell in
             guard let self else { return }
-            let failToGestures = [transitionHelper.leftGesture, transitionHelper.rightGesture]
+            let failToGestures = [transitionHelper.rightGesture]
             guard let urlStrings = viewModel.postModel?.post?.photos else {
                 cell.setup(urlStrings: [viewModel.postModel?.post?.coverImageUrl ?? ""], failToGestures: failToGestures)
                 return
@@ -89,11 +88,12 @@ final class GGLTopicViewController: GGLBaseViewController {
         self.dismiss(animated: true)
     }
 
-    override func transitionHelperPresentViewController() -> UIViewController? {
+}
+
+// MARK: - GGLTopicGestureHelperDelegate
+extension GGLTopicViewController: GGLTopicGestureHelperDelegate {
+    func transitionHelperPushViewController() -> UIViewController? {
         guard let user = viewModel.postModel?.user else { return nil }
         return GGLPersonalDetailViewController(user: user)
     }
-
-    override func transitionHelperDismissAnimationType() -> HeroDefaultAnimationType { .none }
-
 }

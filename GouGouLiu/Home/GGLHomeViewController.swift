@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Hero
 import RxSwift
 import MJRefresh
 
@@ -114,17 +113,10 @@ extension GGLHomeViewController: UICollectionViewDataSource {
 extension GGLHomeViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let heroId = "\(Date())"
-        let cell = collectionView.cellForItem(at: indexPath)
-        cell?.hero.id = heroId
         let model = viewModel.dataSource[indexPath.item]
         let viewController = GGLTopicViewController()
         viewController.postModel = model
-        let navigationController = GGLBaseNavigationController(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .fullScreen
-        navigationController.hero.isEnabled = true
-        navigationController.view.hero.id = heroId
-        AppRouter.shared.present(navigationController)
+        AppRouter.shared.push(viewController)
     }
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
