@@ -32,7 +32,8 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     private func setupNavigationItem() {
-        navigationItem.title = .Topic
+        setupRightNavigationItems([.image(postModel?.user?.avatarUrl ?? "", #selector(didTapUser)),
+                                   .text(postModel?.user?.userName ?? "", #selector(didTapUser))])
     }
 
     private func setupUI() {
@@ -86,6 +87,12 @@ final class GGLTopicViewController: GGLBaseViewController {
 
     @objc private func didTapBackButton() {
         self.dismiss(animated: true)
+    }
+
+    @objc private func didTapUser() {
+        guard let user = viewModel.postModel?.user else { return }
+        let viewController = GGLPersonalDetailViewController(user: user)
+        AppRouter.shared.push(viewController)
     }
 
 }
