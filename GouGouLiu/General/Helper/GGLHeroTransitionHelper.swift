@@ -10,12 +10,8 @@ import Hero
 
 protocol GGLHeroTransitionHelperDelegate: AnyObject {
     func transitionHelperPresentViewController() -> UIViewController?
-}
-
-extension GGLHeroTransitionHelperDelegate {
-    func transitionHelperPresentViewController() -> UIViewController? {
-        return nil
-    }
+    func transitionHelperDismissAnimationType() -> HeroDefaultAnimationType
+    func transitionHelperPresentAnimationType() -> HeroDefaultAnimationType
 }
 
 final class GGLHeroTransitionHelper: NSObject {
@@ -37,18 +33,23 @@ final class GGLHeroTransitionHelper: NSObject {
 
     private func addTransitionGesture() {
         guard let viewController = delegate as? UIViewController else { return }
-        viewController.view.addGestureRecognizer(leftGesture)
+        if viewController.isPresented {
+            viewController.view.addGestureRecognizer(leftGesture)
+        }
         if let _ = delegate?.transitionHelperPresentViewController() {
             viewController.view.addGestureRecognizer(rightGesture)
         }
     }
 
     @objc private func handleLeftEdgePanGesture(_ recognizer: UIPanGestureRecognizer) {
-        guard let viewController = delegate as? UIViewController,
+        guard let delegate,
+              let viewController = delegate as? UIViewController,
               let view = viewController.view else { return }
         switch recognizer.state {
         case .began:
-            viewController.hero.dismissViewController()
+            guard let navigationController = viewController.navigationController else { return }
+            navigationController.setHeroModalAnimationType(delegate.transitionHelperDismissAnimationType())
+            navigationController.hero.dismissViewController()
         case .changed:
             let translation = recognizer.translation(in: view)
             let progress = translation.x / view.bounds.width
@@ -65,12 +66,15 @@ final class GGLHeroTransitionHelper: NSObject {
     }
 
     @objc private func handleRightEdgePanGesture(_ recognizer: UIScreenEdgePanGestureRecognizer) {
-        guard let viewController = delegate as? UIViewController,
+        guard let delegate,
+              let viewController = delegate as? UIViewController,
               let view = viewController.view else { return }
         switch recognizer.state {
         case .began:
-            guard let toViewController = delegate?.transitionHelperPresentViewController() else { return }
-            viewController.present(toViewController, animated: true)
+            guard let toViewController = delegate.transitionHelperPresentViewController() else { return }
+            let navigationController = GGLBaseNavigationController(rootViewController: toViewController)
+            navigationController.setHeroModalAnimationType(delegate.transitionHelperPresentAnimationType())
+            viewController.present(navigationController, animated: true)
         case .changed:
             let translation = recognizer.translation(in: view)
             let progress = -translation.x / view.bounds.width

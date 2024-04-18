@@ -21,7 +21,6 @@ final class GGLTopicViewController: GGLBaseViewController {
     private let adapter = GGLTopicAdapter()
     private let topicTableView = GGLBaseTableView()
     private let disposeBag = DisposeBag()
-    private let transitionHelper = GGLHeroTransitionHelper()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,17 +89,11 @@ final class GGLTopicViewController: GGLBaseViewController {
         self.dismiss(animated: true)
     }
 
-}
-
-// MARK: - GGLHeroTransitionHelperDelegate
-extension GGLTopicViewController: GGLHeroTransitionHelperDelegate {
-    func transitionHelperPresentViewController() -> UIViewController? {
+    override func transitionHelperPresentViewController() -> UIViewController? {
         guard let user = viewModel.postModel?.user else { return nil }
-        let viewController = GGLPersonalDetailViewController(user: user)
-        let navController = GGLBaseNavigationController(rootViewController: viewController)
-        navController.hero.isEnabled = true
-        navController.heroModalAnimationType = .push(direction: .left)
-        navController.modalPresentationStyle = .fullScreen
-        return navController
+        return GGLPersonalDetailViewController(user: user)
     }
+
+    override func transitionHelperDismissAnimationType() -> HeroDefaultAnimationType { .none }
+
 }

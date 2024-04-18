@@ -30,6 +30,8 @@
 		3E5509332A66900F00653568 /* GGLNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5509322A66900F00653568 /* GGLNetworkManager.swift */; };
 		3E5AC1632BCD1F9E006BD6A9 /* GGLPersonalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5AC1622BCD1F9E006BD6A9 /* GGLPersonalDetailViewController.swift */; };
 		3E5AC1682BCD6010006BD6A9 /* GGLHeroTransitionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5AC1672BCD6010006BD6A9 /* GGLHeroTransitionHelper.swift */; };
+		3E604A932BD0E5510032E7BA /* UIViewController+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E604A922BD0E5510032E7BA /* UIViewController+GGL.swift */; };
+		3E604A952BD0ED690032E7BA /* UIViewController+Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E604A942BD0ED690032E7BA /* UIViewController+Hero.swift */; };
 		3E68613D2B8CDBC500B07FDA /* GGLChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68613C2B8CDBC500B07FDA /* GGLChatModel.swift */; };
 		3E68613F2B8CDD8000B07FDA /* GGLChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68613E2B8CDD8000B07FDA /* GGLChatCell.swift */; };
 		3E6861412B8CE50500B07FDA /* GGLChatMessageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6861402B8CE50500B07FDA /* GGLChatMessageAdapter.swift */; };
@@ -152,6 +154,8 @@
 		3E5509322A66900F00653568 /* GGLNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLNetworkManager.swift; sourceTree = "<group>"; };
 		3E5AC1622BCD1F9E006BD6A9 /* GGLPersonalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPersonalDetailViewController.swift; sourceTree = "<group>"; };
 		3E5AC1672BCD6010006BD6A9 /* GGLHeroTransitionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLHeroTransitionHelper.swift; sourceTree = "<group>"; };
+		3E604A922BD0E5510032E7BA /* UIViewController+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+GGL.swift"; sourceTree = "<group>"; };
+		3E604A942BD0ED690032E7BA /* UIViewController+Hero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Hero.swift"; sourceTree = "<group>"; };
 		3E68613C2B8CDBC500B07FDA /* GGLChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatModel.swift; sourceTree = "<group>"; };
 		3E68613E2B8CDD8000B07FDA /* GGLChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatCell.swift; sourceTree = "<group>"; };
 		3E6861402B8CE50500B07FDA /* GGLChatMessageAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatMessageAdapter.swift; sourceTree = "<group>"; };
@@ -355,6 +359,24 @@
 				3E5AC1672BCD6010006BD6A9 /* GGLHeroTransitionHelper.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		3E604A962BD106DF0032E7BA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3ECFA76C2A751FCB00CB465B /* GGLWebImageBrowser.swift */,
+				3E53B5342A8800930007C560 /* GGLEmptyDataView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3E604A972BD141EC0032E7BA /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3E604A922BD0E5510032E7BA /* UIViewController+GGL.swift */,
+				3E604A942BD0ED690032E7BA /* UIViewController+Hero.swift */,
+			);
+			path = UIViewController;
 			sourceTree = "<group>";
 		};
 		3E6861422B8CE50900B07FDA /* Adapter */ = {
@@ -577,19 +599,10 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		3ECFA7702A7525BD00CB465B /* WebImageBrowser */ = {
-			isa = PBXGroup;
-			children = (
-				3ECFA76C2A751FCB00CB465B /* GGLWebImageBrowser.swift */,
-			);
-			path = WebImageBrowser;
-			sourceTree = "<group>";
-		};
 		3ECFA7732A75312600CB465B /* General */ = {
 			isa = PBXGroup;
 			children = (
-				3ECFA7702A7525BD00CB465B /* WebImageBrowser */,
-				3E53B5342A8800930007C560 /* GGLEmptyDataView.swift */,
+				3E604A962BD106DF0032E7BA /* View */,
 				3E5AC1662BCD5B1A006BD6A9 /* Helper */,
 			);
 			path = General;
@@ -679,6 +692,7 @@
 				3E0AC6992BA6BCCD0075BBD6 /* UITabBarController+GGL.swift */,
 				3EECAE262BD02656003A7CB0 /* AppRouter+GGL.swift */,
 				3ED370CF2A597CB900639291 /* GGLTool.swift */,
+				3E604A972BD141EC0032E7BA /* UIViewController */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -998,6 +1012,7 @@
 				3ED90C052A2E54580079B4D3 /* GGLPersonalViewController.swift in Sources */,
 				3E453B432A6D941B00B30C3C /* GGLPublishOptionViewController.swift in Sources */,
 				3EAD23E42A401C9F000238AC /* GGLChatRoomViewController.swift in Sources */,
+				3E604A952BD0ED690032E7BA /* UIViewController+Hero.swift in Sources */,
 				3EF2266E2A2FA4AA00553325 /* UIFont+GGL.swift in Sources */,
 				3ED90BEB2A2E24410079B4D3 /* GGLHomeViewController.swift in Sources */,
 				3E6861412B8CE50500B07FDA /* GGLChatMessageAdapter.swift in Sources */,
@@ -1028,6 +1043,7 @@
 				3ED072722BC9695000EAE200 /* GGLPersonalViewModel.swift in Sources */,
 				3EA1F2B92BA1A6B8005F2C6E /* GGLSystemUser.swift in Sources */,
 				3ED370CD2A5974E300639291 /* GGLAPI.swift in Sources */,
+				3E604A932BD0E5510032E7BA /* UIViewController+GGL.swift in Sources */,
 				3EA1F2BE2BA20BDD005F2C6E /* GGLMessageViewModel.swift in Sources */,
 				3EE073A92BCC209900E1DE80 /* MoyaProvider+Concurrency.swift in Sources */,
 				3E5AC1632BCD1F9E006BD6A9 /* GGLPersonalDetailViewController.swift in Sources */,
