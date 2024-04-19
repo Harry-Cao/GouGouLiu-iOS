@@ -14,6 +14,8 @@ final class GGLHomeViewController: GGLBaseViewController {
     private let viewModel = GGLHomeViewModel()
     private let disposeBag = DisposeBag()
     private let itemSpacing: CGFloat = 4.0
+    private var showDrawer: Bool = false
+    private let slideView = GGLSlideView()
     private lazy var recommendCollectionView: UICollectionView = {
         let waterFallFlowLayout = GGLWaterFallFlowLayout()
         waterFallFlowLayout.minimumInteritemSpacing = itemSpacing
@@ -30,6 +32,7 @@ final class GGLHomeViewController: GGLBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = .Home
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "increase.quotelevel"), style: .plain, target: self, action: #selector(toggleDrawer))
         setupUI()
         setupRefreshComponent()
         bindData()
@@ -150,6 +153,28 @@ extension GGLHomeViewController: GGLWaterFallFlowLayoutDelegate {
         CGFloat.random(in: 250...350)
     }
 
+}
+
+// MARK: - GGLSlideViewDelegate
+extension GGLHomeViewController: GGLSlideViewDelegate {
+    func onClickRemove() {
+        toggleDrawer()
+    }
+
+    @objc private func toggleDrawer() {
+        showDrawer.toggle()
+        UIView.animate(withDuration: 0.3) {
+            let origin = self.view.bounds.origin
+            let pointX: CGFloat = self.showDrawer ? -GGLSlideView.width : 0
+            self.view.bounds.origin = CGPoint(x: pointX, y: origin.y)
+        }
+        if showDrawer {
+            slideView.showToView(self.view)
+            slideView.delegate = self
+        } else {
+            slideView.remove()
+        }
+    }
 }
 
 
