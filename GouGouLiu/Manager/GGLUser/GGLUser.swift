@@ -37,19 +37,22 @@ extension GGLUser {
     static func login(username: String, password: String) {
         let _ = networkHelper.requestLogin(username: username, password: password).subscribe(onNext: { model in
             if model.code == .success,
-               let user = model.data {
+               let user = model.data?.user,
+               let token = model.data?.token {
                 current = user
+                GGLKeychainHelper.userToken = token
                 userStatusSubject.onNext(.login(user: user))
             }
-            ProgressHUD.showServerMsg(model: model)
         })
     }
 
     static func login(userId: String) {
         let _ = networkHelper.requestLogin(userId: userId).subscribe(onNext: { model in
             if model.code == .success,
-               let user = model.data {
+               let user = model.data?.user,
+               let token = model.data?.token {
                 current = user
+                GGLKeychainHelper.userToken = token
                 userStatusSubject.onNext(.login(user: user))
             }
         })

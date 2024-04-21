@@ -23,7 +23,26 @@ struct GGLAPI {
     static let publishPost = "/api/post/publish"
     static let postClearAll = "/api/post/clearAll"
     static let searchPost = "/api/post/search"
+    static let getChannelId = "/api/chat/getChannelId"
 
     // WebSocket
     static let chatGlobal = "/ws/chat/global/"
+}
+
+extension GGLAPI {
+    enum Path {
+        static let homePagePost = "/api/home/post"
+        static let uploadPhoto = "/api/photo/upload"
+        static let clearAllPhoto = "/api/photo/clearAll"
+        static let getUser = "/api/user"
+        static let userSignup = "/api/user/signup"
+        static let userLogin = "/api/user/login"
+        static let userLogout = "/api/user/logout"
+        static let allUsers = "/api/user/allUsers"
+        static let userClearAll = "/api/user/clearAll"
+        static let publishPost = "/api/post/publish"
+        static let postClearAll = "/api/post/clearAll"
+        static let searchPost = "/api/post/search"
+        static let getChannelId = "/api/chat/getChannelId"
+    }
 }
