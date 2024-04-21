@@ -25,6 +25,8 @@
 		3E453B472A6DA67B00B30C3C /* GGLPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E453B462A6DA67B00B30C3C /* GGLPostViewController.swift */; };
 		3E453B4A2A6DA78300B30C3C /* GGLPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E453B492A6DA78300B30C3C /* GGLPostViewModel.swift */; };
 		3E453B4C2A6DA96A00B30C3C /* GGLPostAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E453B4B2A6DA96A00B30C3C /* GGLPostAPI.swift */; };
+		3E4F31C72BD555390065D2A5 /* GGLWSPeerMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4F31C62BD555390065D2A5 /* GGLWSPeerMessageModel.swift */; };
+		3E4F31C92BD558E10065D2A5 /* GGLWSMessageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4F31C82BD558E10065D2A5 /* GGLWSMessageHelper.swift */; };
 		3E53B5352A8800930007C560 /* GGLEmptyDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E53B5342A8800930007C560 /* GGLEmptyDataView.swift */; };
 		3E54A4B42BB2B182003895F5 /* GenerativeAI-Info-example.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E54A4B32BB2B182003895F5 /* GenerativeAI-Info-example.plist */; };
 		3E5509332A66900F00653568 /* GGLNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5509322A66900F00653568 /* GGLNetworkManager.swift */; };
@@ -159,6 +161,8 @@
 		3E453B462A6DA67B00B30C3C /* GGLPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPostViewController.swift; sourceTree = "<group>"; };
 		3E453B492A6DA78300B30C3C /* GGLPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPostViewModel.swift; sourceTree = "<group>"; };
 		3E453B4B2A6DA96A00B30C3C /* GGLPostAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPostAPI.swift; sourceTree = "<group>"; };
+		3E4F31C62BD555390065D2A5 /* GGLWSPeerMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLWSPeerMessageModel.swift; sourceTree = "<group>"; };
+		3E4F31C82BD558E10065D2A5 /* GGLWSMessageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLWSMessageHelper.swift; sourceTree = "<group>"; };
 		3E53B5342A8800930007C560 /* GGLEmptyDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLEmptyDataView.swift; sourceTree = "<group>"; };
 		3E54A4B32BB2B182003895F5 /* GenerativeAI-Info-example.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GenerativeAI-Info-example.plist"; sourceTree = "<group>"; };
 		3E5509322A66900F00653568 /* GGLNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLNetworkManager.swift; sourceTree = "<group>"; };
@@ -371,6 +375,14 @@
 				3EADA9472A715ACD00F5BB13 /* Model */,
 			);
 			path = Post;
+			sourceTree = "<group>";
+		};
+		3E4F31CA2BD558F80065D2A5 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				3E4F31C82BD558E10065D2A5 /* GGLWSMessageHelper.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		3E5AC1662BCD5B1A006BD6A9 /* Helper */ = {
@@ -828,6 +840,7 @@
 			isa = PBXGroup;
 			children = (
 				3EA1F2B32BA160D0005F2C6E /* GGLWebSocketManager.swift */,
+				3E4F31CA2BD558F80065D2A5 /* Helper */,
 				3ED9B53D2BA34EE200A13D38 /* Model */,
 			);
 			path = GGLWebSocketManager;
@@ -837,6 +850,7 @@
 			isa = PBXGroup;
 			children = (
 				3ED9B53A2BA345E600A13D38 /* GGLWebSocketModel.swift */,
+				3E4F31C62BD555390065D2A5 /* GGLWSPeerMessageModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1151,6 +1165,7 @@
 				3E6D46502A703AA8000AB07C /* UITableView+GGL.swift in Sources */,
 				3EAC31972BD414260022C6A7 /* GGLChatRoomNetworkHelper.swift in Sources */,
 				3ED9B5442BA433C300A13D38 /* GGLDataBase+ChatRoom.swift in Sources */,
+				3E4F31C72BD555390065D2A5 /* GGLWSPeerMessageModel.swift in Sources */,
 				3ED370D02A597CB900639291 /* GGLTool.swift in Sources */,
 				3E0AC6982BA6B44F0075BBD6 /* GGLTabBarController+Message.swift in Sources */,
 				3EF638C62BAA862800E0CFBA /* UIColor+GGL.swift in Sources */,
@@ -1175,6 +1190,7 @@
 				3EA1F2C92BA228E3005F2C6E /* GGLDataBase+Message.swift in Sources */,
 				3ED9B5412BA37D5000A13D38 /* GGLUserListCell.swift in Sources */,
 				3E0AC69C2BA6D0B10075BBD6 /* GGLTabBarBadgeLabel.swift in Sources */,
+				3E4F31C92BD558E10065D2A5 /* GGLWSMessageHelper.swift in Sources */,
 				3E604A9C2BD19C090032E7BA /* UIViewController+NavigationItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

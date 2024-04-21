@@ -50,7 +50,7 @@ final class GGLWebSocketManager {
     }
 
     private func onReceivedText(_ text: String) {
-        guard let model = GGLTool.jsonStringToModel(jsonString: text, to: GGLWebSocketModel.self),
+        guard let model = GGLWSMessageHelper.parse(text: text),
               let type = model.type else { return }
         switch type {
         case .peer_message:
@@ -95,7 +95,7 @@ extension GGLWebSocketManager: WebSocketDelegate {
 extension GGLWebSocketManager {
     func sendPeerText(_ text: String, targetId: String) {
         guard let userId else { return }
-        let model = GGLWebSocketModel(type: .peer_message, senderId: userId, targetId: targetId, contentType: .text, message: text)
+        let model = GGLWSPeerTextModel(text: text, senderId: userId, targetId: targetId)
         if let jsonString = GGLTool.modelToJsonString(model) {
             socket?.write(string: jsonString)
         }
@@ -103,7 +103,7 @@ extension GGLWebSocketManager {
 
     func sendPeerPhoto(_ url: String, targetId: String) {
         guard let userId else { return }
-        let model = GGLWebSocketModel(type: .peer_message, senderId: userId, targetId: targetId, contentType: .photo, photoUrl: url)
+        let model = GGLWSPeerPhotoModel(url: url, senderId: userId, targetId: targetId)
         if let jsonString = GGLTool.modelToJsonString(model) {
             socket?.write(string: jsonString)
         }
