@@ -11,8 +11,7 @@ final class GGLAgoraManager: NSObject {
     static let shared = GGLAgoraManager()
     private var agoraKit: AgoraRtcEngineKit?
 
-    override init() {
-        super.init()
+    func setup() {
         let config = AgoraRtcEngineConfig()
         config.appId = "cc22839681b84eb3b1bec3052c475590"
         agoraKit = AgoraRtcEngineKit.sharedEngine(with: config, delegate: self)

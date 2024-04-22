@@ -12,7 +12,6 @@ struct GGLTool {
         if let data = jsonString.data(using: .utf8) {
             do {
                 let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .iso8601
                 let model = try decoder.decode(T.self, from: data)
                 return model
             } catch {

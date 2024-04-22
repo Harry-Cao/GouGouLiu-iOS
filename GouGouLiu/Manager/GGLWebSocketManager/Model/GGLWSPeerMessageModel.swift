@@ -10,7 +10,7 @@ import Foundation
 class GGLWSPeerMessageModel: GGLWebSocketModel {
     let contentType: ContentType?
 
-    init(contentType: ContentType?, senderId: String?, targetId: String?) {
+    init(contentType: ContentType, senderId: String, targetId: String) {
         self.contentType = contentType
         super.init(type: .peer_message, senderId: senderId, targetId: targetId)
     }
@@ -35,7 +35,7 @@ class GGLWSPeerMessageModel: GGLWebSocketModel {
 final class GGLWSPeerTextModel: GGLWSPeerMessageModel {
     let text: String?
 
-    init(text: String?, senderId: String?, targetId: String?) {
+    init(text: String, senderId: String, targetId: String) {
         self.text = text
         super.init(contentType: .text, senderId: senderId, targetId: targetId)
     }
@@ -60,7 +60,7 @@ final class GGLWSPeerTextModel: GGLWSPeerMessageModel {
 final class GGLWSPeerPhotoModel: GGLWSPeerMessageModel {
     let url: String?
 
-    init(url: String?, senderId: String?, targetId: String?) {
+    init(url: String, senderId: String, targetId: String) {
         self.url = url
         super.init(contentType: .photo, senderId: senderId, targetId: targetId)
     }

@@ -27,6 +27,9 @@
 		3E453B4C2A6DA96A00B30C3C /* GGLPostAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E453B4B2A6DA96A00B30C3C /* GGLPostAPI.swift */; };
 		3E4F31C72BD555390065D2A5 /* GGLWSPeerMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4F31C62BD555390065D2A5 /* GGLWSPeerMessageModel.swift */; };
 		3E4F31C92BD558E10065D2A5 /* GGLWSMessageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4F31C82BD558E10065D2A5 /* GGLWSMessageHelper.swift */; };
+		3E4F31CC2BD588750065D2A5 /* GGLWSRtcMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4F31CB2BD588750065D2A5 /* GGLWSRtcMessageModel.swift */; };
+		3E4F31CE2BD590580065D2A5 /* GGLWebSocketManager+Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4F31CD2BD590580065D2A5 /* GGLWebSocketManager+Chat.swift */; };
+		3E4F31D02BD592320065D2A5 /* GGLWebSocketManager+RTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4F31CF2BD592320065D2A5 /* GGLWebSocketManager+RTC.swift */; };
 		3E53B5352A8800930007C560 /* GGLEmptyDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E53B5342A8800930007C560 /* GGLEmptyDataView.swift */; };
 		3E54A4B42BB2B182003895F5 /* GenerativeAI-Info-example.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E54A4B32BB2B182003895F5 /* GenerativeAI-Info-example.plist */; };
 		3E5509332A66900F00653568 /* GGLNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5509322A66900F00653568 /* GGLNetworkManager.swift */; };
@@ -163,6 +166,9 @@
 		3E453B4B2A6DA96A00B30C3C /* GGLPostAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPostAPI.swift; sourceTree = "<group>"; };
 		3E4F31C62BD555390065D2A5 /* GGLWSPeerMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLWSPeerMessageModel.swift; sourceTree = "<group>"; };
 		3E4F31C82BD558E10065D2A5 /* GGLWSMessageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLWSMessageHelper.swift; sourceTree = "<group>"; };
+		3E4F31CB2BD588750065D2A5 /* GGLWSRtcMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLWSRtcMessageModel.swift; sourceTree = "<group>"; };
+		3E4F31CD2BD590580065D2A5 /* GGLWebSocketManager+Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GGLWebSocketManager+Chat.swift"; sourceTree = "<group>"; };
+		3E4F31CF2BD592320065D2A5 /* GGLWebSocketManager+RTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GGLWebSocketManager+RTC.swift"; sourceTree = "<group>"; };
 		3E53B5342A8800930007C560 /* GGLEmptyDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLEmptyDataView.swift; sourceTree = "<group>"; };
 		3E54A4B32BB2B182003895F5 /* GenerativeAI-Info-example.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GenerativeAI-Info-example.plist"; sourceTree = "<group>"; };
 		3E5509322A66900F00653568 /* GGLNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLNetworkManager.swift; sourceTree = "<group>"; };
@@ -840,6 +846,8 @@
 			isa = PBXGroup;
 			children = (
 				3EA1F2B32BA160D0005F2C6E /* GGLWebSocketManager.swift */,
+				3E4F31CD2BD590580065D2A5 /* GGLWebSocketManager+Chat.swift */,
+				3E4F31CF2BD592320065D2A5 /* GGLWebSocketManager+RTC.swift */,
 				3E4F31CA2BD558F80065D2A5 /* Helper */,
 				3ED9B53D2BA34EE200A13D38 /* Model */,
 			);
@@ -851,6 +859,7 @@
 			children = (
 				3ED9B53A2BA345E600A13D38 /* GGLWebSocketModel.swift */,
 				3E4F31C62BD555390065D2A5 /* GGLWSPeerMessageModel.swift */,
+				3E4F31CB2BD588750065D2A5 /* GGLWSRtcMessageModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1143,10 +1152,13 @@
 				3EE073AE2BCC213E00E1DE80 /* MoyaProvider+Observable.swift in Sources */,
 				3E5AC1682BCD6010006BD6A9 /* GGLHeroTransitionHelper.swift in Sources */,
 				3E0AC69A2BA6BCCD0075BBD6 /* UITabBarController+GGL.swift in Sources */,
+				3E4F31CC2BD588750065D2A5 /* GGLWSRtcMessageModel.swift in Sources */,
 				3E77FCA52A66CC7C00699C47 /* NSNotification.Name+GGL.swift in Sources */,
 				3E9F11502A6BBEE600A1CC90 /* GGLUserModel.swift in Sources */,
+				3E4F31CE2BD590580065D2A5 /* GGLWebSocketManager+Chat.swift in Sources */,
 				3E453B4A2A6DA78300B30C3C /* GGLPostViewModel.swift in Sources */,
 				3E0A078D2A55D8B400D60819 /* GGLPhotoDownloadManager.swift in Sources */,
+				3E4F31D02BD592320065D2A5 /* GGLWebSocketManager+RTC.swift in Sources */,
 				3E6D46482A7031BC000AB07C /* GGLBaseTableViewCell.swift in Sources */,
 				3EADA9462A715AB400F5BB13 /* GGLPostModel.swift in Sources */,
 				3E5509332A66900F00653568 /* GGLNetworkManager.swift in Sources */,

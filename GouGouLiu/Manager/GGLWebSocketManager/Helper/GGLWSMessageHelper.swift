@@ -23,6 +23,8 @@ struct GGLWSMessageHelper {
             }
         case .system_logout:
             return model
+        case .rtc_message:
+            return GGLTool.jsonStringToModel(jsonString: text, to: GGLWSRtcMessageModel.self)
         }
     }
 }

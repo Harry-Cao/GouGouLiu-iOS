@@ -42,7 +42,7 @@ extension GGLDataBase {
                 }
                 insert(chatModel, to: messageModel.messages)
                 recordUnReadIfNeeded(messageModel: messageModel)
-            case .system_logout:
+            case .system_logout, .rtc_message:
                 break
             }
         }).disposed(by: disposeBag)
