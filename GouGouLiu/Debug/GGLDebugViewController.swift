@@ -33,7 +33,11 @@ struct DebugContentView: View {
             Button {
                 row.action()
             } label: {
-                Text(row.title)
+                HStack {
+                    Text(row.title)
+                    Spacer()
+                    Text(row.description)
+                }
             }
         }
         .listStyle(.plain)
@@ -43,6 +47,7 @@ struct DebugContentView: View {
 extension DebugContentView {
 
     enum DebugRow: Identifiable, CaseIterable {
+        case switchHost
         case signup
         case login
         case logout
@@ -79,6 +84,16 @@ extension DebugContentView {
                 return "Clear Image Cache"
             case .allUserList:
                 return "All User List"
+            case .switchHost:
+                return "Switch Host"
+            }
+        }
+        var description: String {
+            switch self {
+            case .switchHost:
+                return UserDefaults.host.rawValue
+            default:
+                return ""
             }
         }
 
@@ -129,6 +144,9 @@ extension DebugContentView {
                 }
             case .allUserList:
                 AppRouter.shared.push(GGLUserListViewController())
+            case .switchHost:
+                UserDefaults.host = GGLTool.toggleEnumCase(UserDefaults.host)
+                ProgressHUD.showSucceed("Host updated: \(UserDefaults.host.rawValue), change wouldn't work until next launch.")
             }
         }
     }

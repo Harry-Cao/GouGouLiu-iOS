@@ -17,7 +17,7 @@ struct GGLUserClearAllAPI: TargetType {
     }
 
     var path: String {
-        GGLAPI.userClearAll
+        GGLAPI.Path.userClearAll
     }
 
     var method: Moya.Method {

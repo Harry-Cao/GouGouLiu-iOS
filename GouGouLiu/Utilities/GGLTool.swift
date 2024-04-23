@@ -57,4 +57,13 @@ struct GGLTool {
             return rootViewController
         }
     }
+
+    static func toggleEnumCase<T>(_ currentCase: T) -> T where T: Equatable, T: CaseIterable {
+        let allCases = Array(T.allCases)
+        guard let currentIndex = allCases.firstIndex(of: currentCase) else {
+            return currentCase
+        }
+        let nextIndex = (currentIndex + 1) % allCases.count
+        return allCases[nextIndex]
+    }
 }

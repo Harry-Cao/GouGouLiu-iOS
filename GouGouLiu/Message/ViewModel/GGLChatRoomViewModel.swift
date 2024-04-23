@@ -54,6 +54,10 @@ final class GGLChatRoomViewModel: ObservableObject {
         GGLDataBase.shared.updateMessageModel(messageModel)
     }
 
+    func switchInputModel() {
+        inputMode = GGLTool.toggleEnumCase(inputMode)
+    }
+
     func sendPhoto() {
         guard let userId = GGLUser.getUserId() else { return }
         GGLUploadPhotoManager.shared.pickImage { [weak self] image in

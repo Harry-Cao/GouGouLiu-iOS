@@ -17,7 +17,7 @@ struct GGLClearAllPostAPI: TargetType {
     }
 
     var path: String {
-        GGLAPI.postClearAll
+        GGLAPI.Path.postClearAll
     }
 
     var method: Moya.Method {

@@ -17,7 +17,7 @@ struct GGLGetUserAPI: TargetType {
     }
 
     var path: String {
-        GGLAPI.getUser
+        GGLAPI.Path.getUser
     }
 
     var method: Moya.Method {

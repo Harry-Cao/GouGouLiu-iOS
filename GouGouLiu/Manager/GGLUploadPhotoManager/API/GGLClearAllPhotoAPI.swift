@@ -17,7 +17,7 @@ struct GGLClearAllPhotoAPI: TargetType {
     }
     
     var path: String {
-        GGLAPI.clearAllPhoto
+        GGLAPI.Path.clearAllPhoto
     }
     
     var method: Moya.Method {

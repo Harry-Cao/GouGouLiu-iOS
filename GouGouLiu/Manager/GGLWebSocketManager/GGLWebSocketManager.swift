@@ -36,7 +36,7 @@ final class GGLWebSocketManager {
     func connect(userId: String) {
         guard let basicAuthCredentials = userId.data(using: .utf8) else { return }
         let base64AuthCredentials = basicAuthCredentials.base64EncodedString()
-        var request = URLRequest(url: URL(string: "ws://\(GGLAPI.host)\(GGLAPI.chatGlobal)?\(base64AuthCredentials)")!)
+        var request = URLRequest(url: URL(string: "ws://\(GGLAPI.host)\(GGLAPI.WS.chatGlobal)?\(base64AuthCredentials)")!)
         request.timeoutInterval = 5
         socket = WebSocket(request: request)
         socket?.delegate = self

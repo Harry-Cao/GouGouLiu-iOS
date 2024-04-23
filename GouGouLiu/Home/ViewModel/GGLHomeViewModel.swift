@@ -20,12 +20,17 @@ final class GGLHomeViewModel {
             guard let data = model.data else { return }
             self?.dataSource = data
             self?.updateSubject.onNext(data)
+        }, onError: { _ in
+            if UserDefaults.host == .intranet {
+                UserDefaults.host = .internet
+                ProgressHUD.showFailed("Host roll back: \(UserDefaults.host.rawValue)")
+            }
         })
     }
 
     private func fetchHomePostData() -> Observable<GGLMoyaModel<[GGLHomePostModel]>> {
         let api = GGLHomePostAPI()
-        return moyaProvider.observable.request(api)
+        return MoyaProvider<GGLHomePostAPI>(session: GGLAlamofireSession.shared).observable.request(api)
     }
 
     lazy var refreshImages: [UIImage] = {

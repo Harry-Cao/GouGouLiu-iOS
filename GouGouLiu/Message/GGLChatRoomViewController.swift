@@ -83,7 +83,7 @@ struct GGLChatRoomContentView: View {
     }
 
     private func onSwitchInputModel() {
-        viewModel.inputMode.toggle()
+        viewModel.switchInputModel()
     }
 
     private func onSendPhoto() {

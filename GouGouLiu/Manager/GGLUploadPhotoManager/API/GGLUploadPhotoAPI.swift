@@ -19,7 +19,7 @@ struct GGLUploadPhotoAPI: TargetType {
     }
     
     var path: String {
-        GGLAPI.uploadPhoto
+        GGLAPI.Path.uploadPhoto
     }
     
     var method: Moya.Method {

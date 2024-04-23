@@ -19,7 +19,7 @@ struct GGLUserSignupAPI: TargetType {
     }
 
     var path: String {
-        GGLAPI.userSignup
+        GGLAPI.Path.userSignup
     }
 
     var method: Moya.Method {

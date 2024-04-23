@@ -15,13 +15,6 @@ enum GGLChatType: String, PersistableEnum {
 enum GGLChatInputMode: CaseIterable {
     case text
     case speech
-
-    mutating func toggle() {
-        let allModes: [GGLChatInputMode] = GGLChatInputMode.allCases
-        let currentIndex = allModes.firstIndex(of: self) ?? 0
-        let nextIndex = currentIndex + 1 < allModes.count ? currentIndex + 1 : 0
-        self = allModes[nextIndex]
-    }
 }
 
 final class GGLChatModel: Object, Identifiable {

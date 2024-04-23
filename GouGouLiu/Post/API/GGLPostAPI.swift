@@ -21,7 +21,7 @@ struct GGLPostAPI: TargetType {
     }
 
     var path: String {
-        GGLAPI.publishPost
+        GGLAPI.Path.publishPost
     }
 
     var method: Moya.Method {

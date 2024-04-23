@@ -17,7 +17,7 @@ struct GGLUserLogoutAPI: TargetType {
     }
 
     var path: String {
-        GGLAPI.userLogout
+        GGLAPI.Path.userLogout
     }
 
     var method: Moya.Method {
