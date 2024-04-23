@@ -11,8 +11,7 @@ import RxSwift
 
 final class GGLWebSocketManager {
     static let shared = GGLWebSocketManager()
-    private var socket: WebSocket?
-    private var userId: String?
+    private(set) var socket: WebSocket?
     private(set) var messageSubject = PublishSubject<GGLWebSocketModel>()
     private let disposeBag = DisposeBag()
 
@@ -35,7 +34,6 @@ final class GGLWebSocketManager {
     }
 
     func connect(userId: String) {
-        self.userId = userId
         guard let basicAuthCredentials = userId.data(using: .utf8) else { return }
         let base64AuthCredentials = basicAuthCredentials.base64EncodedString()
         var request = URLRequest(url: URL(string: "ws://\(GGLAPI.host)\(GGLAPI.chatGlobal)?\(base64AuthCredentials)")!)
@@ -47,18 +45,6 @@ final class GGLWebSocketManager {
 
     func disconnect() {
         socket?.disconnect()
-    }
-
-    private func onReceivedText(_ text: String) {
-        guard let model = GGLTool.jsonStringToModel(jsonString: text, to: GGLWebSocketModel.self),
-              let type = model.type else { return }
-        switch type {
-        case .peer_message:
-            break
-        case .system_logout:
-            GGLUser.forceLogout()
-        }
-        messageSubject.onNext(model)
     }
 }
 
@@ -90,22 +76,25 @@ extension GGLWebSocketManager: WebSocketDelegate {
             break
         }
     }
-}
 
-extension GGLWebSocketManager {
-    func sendPeerText(_ text: String, targetId: String) {
-        guard let userId else { return }
-        let model = GGLWebSocketModel(type: .peer_message, senderId: userId, targetId: targetId, contentType: .text, message: text)
-        if let jsonString = GGLTool.modelToJsonString(model) {
-            socket?.write(string: jsonString)
+    private func onReceivedText(_ text: String) {
+        guard let model = GGLWSMessageHelper.parse(text: text),
+              let type = model.type else { return }
+        switch type {
+        case .peer_message:
+            break
+        case .system_logout:
+            GGLUser.forceLogout()
+        case .rtc_message:
+            guard let rtcMessageModel = model as? GGLWSRtcMessageModel,
+                  let rtcType = rtcMessageModel.rtcType,
+                  let targetId = rtcMessageModel.senderId else { return }
+            if GGLRtcViewModel.shared.stage == .free,
+               rtcMessageModel.rtcAction == .invite {
+                let rtcViewController = GGLRtcViewController(role: .receiver, type: rtcType, channelId: rtcMessageModel.channelId, targetId: targetId)
+                AppRouter.shared.present(rtcViewController)
+            }
         }
-    }
-
-    func sendPeerPhoto(_ url: String, targetId: String) {
-        guard let userId else { return }
-        let model = GGLWebSocketModel(type: .peer_message, senderId: userId, targetId: targetId, contentType: .photo, photoUrl: url)
-        if let jsonString = GGLTool.modelToJsonString(model) {
-            socket?.write(string: jsonString)
-        }
+        messageSubject.onNext(model)
     }
 }

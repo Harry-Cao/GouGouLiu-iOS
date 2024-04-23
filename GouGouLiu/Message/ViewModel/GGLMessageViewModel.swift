@@ -27,6 +27,8 @@ final class GGLMessageViewModel: ObservableObject {
                 fallthrough
             case .peer_message:
                 self.updateData()
+            case .rtc_message:
+                break
             }
         }).disposed(by: disposeBag)
     }

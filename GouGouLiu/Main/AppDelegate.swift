@@ -13,6 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         setupAppearance()
+        GGLAgoraManager.shared.setup()
         GGLNetworkManager.shared.startListening()
         GGLWebSocketManager.shared.startSubscribe()
         GGLDataBase.shared.startSubscribe()

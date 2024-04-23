@@ -16,12 +16,12 @@ final class GGLUserNetworkHelper {
         return MoyaProvider<GGLUserSignupAPI>().observable.request(api)
     }
 
-    func requestLogin(username: String, password: String) -> Observable<GGLMoyaModel<GGLUserModel>> {
+    func requestLogin(username: String, password: String) -> Observable<GGLMoyaModel<GGLLoginModel>> {
         let api = GGLUserLoginAPI(username: username, password: password)
         return MoyaProvider<GGLUserLoginAPI>().observable.request(api)
     }
 
-    func requestLogin(userId: String) -> Observable<GGLMoyaModel<GGLUserModel>> {
+    func requestLogin(userId: String) -> Observable<GGLMoyaModel<GGLLoginModel>> {
         let api = GGLUserLoginAPI(userId: userId)
         return MoyaProvider<GGLUserLoginAPI>().observable.request(api)
     }

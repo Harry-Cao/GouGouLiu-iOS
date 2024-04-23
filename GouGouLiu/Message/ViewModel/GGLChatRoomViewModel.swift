@@ -19,6 +19,7 @@ final class GGLChatRoomViewModel: ObservableObject {
     var sendDisabled: Bool {
         return responding
     }
+    private let networkHelper = GGLChatRoomNetworkHelper()
     private let disposeBag = DisposeBag()
 
     init(messageModel: GGLMessageModel) {
@@ -36,7 +37,7 @@ final class GGLChatRoomViewModel: ObservableObject {
             switch type {
             case .peer_message:
                 self.scrollToBottom()
-            case .system_logout:
+            case .system_logout, .rtc_message:
                 break
             }
         }).disposed(by: disposeBag)
@@ -134,5 +135,17 @@ final class GGLChatRoomViewModel: ObservableObject {
 
     func clearUnRead() {
         GGLDataBase.shared.clearUnRead(messageModel: messageModel)
+    }
+
+    func onClickPhoneCall() {
+        let _ = networkHelper.requestChannelId(senderId: messageModel.ownerId, targetId: messageModel.userId).observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] response in
+            guard let self,
+                  let channelId = response.data?.channelId else { return }
+            AppRouter.shared.present(GGLRtcViewController(role: .sender, type: .voice, channelId: channelId, targetId: messageModel.userId))
+        })
+    }
+
+    func onClickVideoCall() {
+        
     }
 }

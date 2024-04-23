@@ -24,7 +24,6 @@ extension UIViewController {
             button.imageView?.contentMode = .scaleAspectFill
             button.layer.masksToBounds = true
             button.layer.cornerRadius = 12
-            button.isUserInteractionEnabled = action != nil
             if let action {
                 button.addTarget(self, action: action, for: .touchUpInside)
             }
@@ -42,11 +41,22 @@ extension UIViewController {
                 label.addGestureRecognizer(tapGesture)
             }
             return label
+        case .systemImage(let name, let action):
+            let button = UIButton()
+            button.setImage(UIImage(systemName: name), for: .normal)
+            if let action {
+                button.addTarget(self, action: action, for: .touchUpInside)
+            }
+            button.snp.makeConstraints { make in
+                make.size.equalTo(24)
+            }
+            return button
         }
     }
 
     enum GGLNavigationItem {
         case image(_ url: String, _ action: Selector?)
         case text(_ text: String, _ action: Selector?)
+        case systemImage(_ name: String, _action: Selector?)
     }
 }

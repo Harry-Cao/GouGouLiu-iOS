@@ -23,6 +23,7 @@ struct GGLAPI {
     static let publishPost = "/api/post/publish"
     static let postClearAll = "/api/post/clearAll"
     static let searchPost = "/api/post/search"
+    static let getChannelId = "/api/chat/getChannelId"
 
     // WebSocket
     static let chatGlobal = "/ws/chat/global/"

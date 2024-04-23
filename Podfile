@@ -18,5 +18,6 @@ pod 'URLNavigator'
 pod 'Hero'
 pod 'ProgressHUD'
 pod 'MJRefresh'
+pod 'AgoraAudio_iOS'
 
 end

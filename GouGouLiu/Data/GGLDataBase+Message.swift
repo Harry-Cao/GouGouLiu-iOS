@@ -15,16 +15,19 @@ extension GGLDataBase {
                   let type = model.type else { return }
             switch type {
             case .peer_message:
-                guard let contentType = model.contentType,
+                guard let peerMessage = model as? GGLWSPeerMessageModel,
+                      let contentType = peerMessage.contentType,
                       let senderId = model.senderId else { return }
                 var chatModel: GGLChatModel?
                 switch contentType {
                 case .text:
-                    if let text = model.message {
+                    if let textModel = peerMessage as? GGLWSPeerTextModel,
+                       let text = textModel.text {
                         chatModel = GGLChatModel.createText(text, userId: senderId)
                     }
                 case .photo:
-                    if let photoUrl = model.photoUrl {
+                    if let photoModel = peerMessage as? GGLWSPeerPhotoModel,
+                       let photoUrl = photoModel.url {
                         chatModel = GGLChatModel.createPhoto(photoUrl, userId: senderId)
                     }
                 }
@@ -39,7 +42,7 @@ extension GGLDataBase {
                 }
                 insert(chatModel, to: messageModel.messages)
                 recordUnReadIfNeeded(messageModel: messageModel)
-            case .system_logout:
+            case .system_logout, .rtc_message:
                 break
             }
         }).disposed(by: disposeBag)
