@@ -40,8 +40,10 @@ struct GGLRtcContentView: View {
 
     var body: some View {
         ZStack {
-            WebImage(url: URL(string: viewModel.targetUser?.avatarUrl ?? ""))
-                .blur(radius: 20)
+            Image("blur_glass_background")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
             VStack(spacing: 40, content: {
                 WebImage(url: URL(string: viewModel.targetUser?.avatarUrl ?? ""))
                     .resizable()
@@ -96,27 +98,26 @@ extension GGLRtcContentView {
             .foregroundColor(.white)
             .padding()
         }
-    }
 
-    
-    enum ActionType {
-        case confirm
-        case cancel
+        enum ActionType {
+            case confirm
+            case cancel
 
-        var systemImage: String {
-            switch self {
-            case .confirm:
-                return "phone.fill"
-            case .cancel:
-                return "phone.down.fill"
+            var systemImage: String {
+                switch self {
+                case .confirm:
+                    return "phone.fill"
+                case .cancel:
+                    return "phone.down.fill"
+                }
             }
-        }
-        var backgroundColor: Color {
-            switch self {
-            case .confirm:
-                return .green
-            case .cancel:
-                return .red
+            var backgroundColor: Color {
+                switch self {
+                case .confirm:
+                    return .green
+                case .cancel:
+                    return .red
+                }
             }
         }
     }
