@@ -44,13 +44,14 @@ struct GGLRtcContentView: View {
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
-            VStack(spacing: 40, content: {
-                WebImage(url: URL(string: viewModel.targetUser?.avatarUrl ?? ""))
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 100, height: 100, alignment: .center)
-                    .clipShape(.circle)
-                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
+            WebImage(url: URL(string: viewModel.targetUser?.avatarUrl ?? ""))
+                .resizable()
+                .scaledToFill()
+                .frame(width: 120, height: 120, alignment: .center)
+                .clipShape(.circle)
+                .overlay(Circle().stroke(Color.white, lineWidth: 2))
+            VStack {
+                Spacer()
                 switch viewModel.role {
                 case .sender:
                     ActionButton(type: .cancel) {
@@ -73,7 +74,7 @@ struct GGLRtcContentView: View {
                         }
                     }
                 }
-            })
+            }
         }
         .onAppear(perform: {
             viewModel.onAppear()

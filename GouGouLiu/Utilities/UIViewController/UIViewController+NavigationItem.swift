@@ -9,15 +9,11 @@ import Foundation
 
 extension UIViewController {
     func setupRightNavigationItems(_ items: [GGLNavigationItem]) {
-        let stackView = UIStackView()
-        stackView.spacing = 8
-        let views = items.map({ viewFromNavigationItem($0) })
-        views.forEach(stackView.addArrangedSubview)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stackView)
+        navigationItem.rightBarButtonItems = items.map({ barButtonItem(navigationItem: $0) })
     }
 
-    func viewFromNavigationItem(_ item: GGLNavigationItem) -> UIView {
-        switch item {
+    func barButtonItem(navigationItem: GGLNavigationItem) -> UIBarButtonItem {
+        switch navigationItem {
         case .image(let url, let action):
             let button = UIButton()
             button.sd_setImage(with: URL(string: url), for: .normal)
@@ -30,7 +26,7 @@ extension UIViewController {
             button.snp.makeConstraints { make in
                 make.size.equalTo(24)
             }
-            return button
+            return UIBarButtonItem(customView: button)
         case .text(let text, let action):
             let label = UILabel()
             label.text = text
@@ -40,7 +36,7 @@ extension UIViewController {
                 let tapGesture = UITapGestureRecognizer(target: self, action: action)
                 label.addGestureRecognizer(tapGesture)
             }
-            return label
+            return UIBarButtonItem(customView: label)
         case .systemImage(let name, let action):
             let button = UIButton()
             button.setImage(UIImage(systemName: name), for: .normal)
@@ -50,7 +46,7 @@ extension UIViewController {
             button.snp.makeConstraints { make in
                 make.size.equalTo(24)
             }
-            return button
+            return UIBarButtonItem(customView: button)
         }
     }
 

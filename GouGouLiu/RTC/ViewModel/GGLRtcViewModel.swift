@@ -72,6 +72,7 @@ final class GGLRtcViewModel: ObservableObject {
     func onAppear() {
         getUserData()
         if role == .sender {
+            stage = .holding
             GGLWebSocketManager.shared.sendRtcMessage(type: type, action: .invite, channelId: channelId, targetId: targetId)
         }
     }
