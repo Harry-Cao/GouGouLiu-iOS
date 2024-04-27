@@ -17,6 +17,11 @@ final class GGLAgoraManager: NSObject {
         agoraKit = AgoraRtcEngineKit.sharedEngine(with: config, delegate: self)
     }
 
+    func destroy() {
+        agoraKit = nil
+        AgoraRtcEngineKit.destroy()
+    }
+
     func joinChannel(channelId: String) {
         guard let token = GGLKeychainHelper.userToken,
               let uid = GGLUser.getUserId() else { return }
@@ -27,7 +32,22 @@ final class GGLAgoraManager: NSObject {
     }
 
     func leaveChannel() {
+        agoraKit?.stopPreview()
         agoraKit?.leaveChannel()
+    }
+
+    func setupVideoCanvas(localView: UIView, remoteView: UIView) {
+        agoraKit?.enableVideo()
+        agoraKit?.setupLocalVideo(videoCanvas(view: localView))
+        agoraKit?.setupRemoteVideo(videoCanvas(view: remoteView))
+        agoraKit?.startPreview()
+    }
+
+    private func videoCanvas(view: UIView) -> AgoraRtcVideoCanvas {
+        let videoCanvas = AgoraRtcVideoCanvas()
+        videoCanvas.view = view
+        videoCanvas.renderMode = .hidden
+        return videoCanvas
     }
 }
 

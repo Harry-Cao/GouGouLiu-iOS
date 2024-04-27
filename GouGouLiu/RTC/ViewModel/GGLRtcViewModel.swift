@@ -17,12 +17,14 @@ final class GGLRtcViewModel: ObservableObject {
     static let shared = GGLRtcViewModel()
     weak var delegate: GGLRtcViewModelDelegate?
     private(set) var role: Role = .sender
-    private var type: GGLWSRtcMessageModel.RtcType = .voice
+    private(set) var type: GGLWSRtcMessageModel.RtcType = .voice
     private var channelId: String = ""
     private var targetId: String = ""
     private var userDataSubscriber: Disposable?
     @Published var targetUser: GGLUserModel?
     @Published var stage: Stage = .free
+    lazy var localView = UIView()
+    lazy var remoteView = UIView()
 
     func setup(role: Role,
                type: GGLWSRtcMessageModel.RtcType,
@@ -71,14 +73,32 @@ final class GGLRtcViewModel: ObservableObject {
 
     func onAppear() {
         getUserData()
-        if role == .sender {
-            stage = .holding
-            GGLWebSocketManager.shared.sendRtcMessage(type: type, action: .invite, channelId: channelId, targetId: targetId)
-        }
+        sendInvitation()
+        setupAgora()
     }
 
     private func getUserData() {
-        targetUser = GGLUser.getUser(userId: targetId)
+        if let user = GGLUser.getUser(userId: targetId) {
+            targetUser = user
+            userDataSubscriber?.dispose()
+        }
+    }
+
+    private func sendInvitation() {
+        guard role == .sender else { return }
+        stage = .holding
+        GGLWebSocketManager.shared.sendRtcMessage(type: type, action: .invite, channelId: channelId, targetId: targetId)
+    }
+
+    private func setupAgora() {
+        GGLAgoraManager.shared.setup()
+        if type == .video {
+            GGLAgoraManager.shared.setupVideoCanvas(localView: localView, remoteView: remoteView)
+        }
+    }
+
+    func onDisappear() {
+        GGLAgoraManager.shared.destroy()
     }
 
     func onClickCancelButton() {
@@ -119,8 +139,8 @@ extension GGLRtcViewModel {
         case receiver
     }
     enum Stage {
+        case free
         case holding
         case talking
-        case free
     }
 }

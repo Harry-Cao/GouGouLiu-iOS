@@ -96,6 +96,7 @@
 		3EB404AD2A5487F00032E899 /* GGLHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB404AC2A5487F00032E899 /* GGLHomeViewModel.swift */; };
 		3EB404B02A54890F0032E899 /* GGLHomePostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB404AF2A54890F0032E899 /* GGLHomePostModel.swift */; };
 		3EB404B32A548B680032E899 /* GGLHomePostAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB404B22A548B680032E899 /* GGLHomePostAPI.swift */; };
+		3EB800E22BDCD74800F1290C /* GGLRtcContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB800E12BDCD74800F1290C /* GGLRtcContentView.swift */; };
 		3ECD36A32A678DCF00092488 /* GGLClearAllPhotoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECD36A22A678DCF00092488 /* GGLClearAllPhotoAPI.swift */; };
 		3ECFA7622A75074D00CB465B /* GGLTopicAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFA7612A75074D00CB465B /* GGLTopicAdapter.swift */; };
 		3ECFA7642A750A3100CB465B /* GGLTopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFA7632A750A3100CB465B /* GGLTopicViewModel.swift */; };
@@ -232,6 +233,7 @@
 		3EB404AC2A5487F00032E899 /* GGLHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLHomeViewModel.swift; sourceTree = "<group>"; };
 		3EB404AF2A54890F0032E899 /* GGLHomePostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLHomePostModel.swift; sourceTree = "<group>"; };
 		3EB404B22A548B680032E899 /* GGLHomePostAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLHomePostAPI.swift; sourceTree = "<group>"; };
+		3EB800E12BDCD74800F1290C /* GGLRtcContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLRtcContentView.swift; sourceTree = "<group>"; };
 		3ECD36A22A678DCF00092488 /* GGLClearAllPhotoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLClearAllPhotoAPI.swift; sourceTree = "<group>"; };
 		3ECFA7612A75074D00CB465B /* GGLTopicAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLTopicAdapter.swift; sourceTree = "<group>"; };
 		3ECFA7632A750A3100CB465B /* GGLTopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLTopicViewModel.swift; sourceTree = "<group>"; };
@@ -607,6 +609,7 @@
 			children = (
 				3EAC31992BD4348E0022C6A7 /* GGLRtcViewController.swift */,
 				3EAC319E2BD43C230022C6A7 /* ViewModel */,
+				3EB800E32BDCD77F00F1290C /* View */,
 			);
 			path = RTC;
 			sourceTree = "<group>";
@@ -657,6 +660,14 @@
 				3EB404B22A548B680032E899 /* GGLHomePostAPI.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		3EB800E32BDCD77F00F1290C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3EB800E12BDCD74800F1290C /* GGLRtcContentView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		3ECFA7652A751C4E00CB465B /* Adapter */ = {
@@ -1113,6 +1124,7 @@
 				3EAC31952BD413080022C6A7 /* GGLGetChannelIdModel.swift in Sources */,
 				3EF2266E2A2FA4AA00553325 /* UIFont+GGL.swift in Sources */,
 				3ED90BEB2A2E24410079B4D3 /* GGLHomeViewController.swift in Sources */,
+				3EB800E22BDCD74800F1290C /* GGLRtcContentView.swift in Sources */,
 				3E6861412B8CE50500B07FDA /* GGLChatMessageAdapter.swift in Sources */,
 				3EB404AD2A5487F00032E899 /* GGLHomeViewModel.swift in Sources */,
 				3E6B0C322A3087D9002317D6 /* String+GGL.swift in Sources */,

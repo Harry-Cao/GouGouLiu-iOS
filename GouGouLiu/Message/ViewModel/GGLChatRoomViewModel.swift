@@ -19,6 +19,12 @@ final class GGLChatRoomViewModel: ObservableObject {
     var sendDisabled: Bool {
         return responding
     }
+    var isSystemUser: Bool {
+        if let _ = GGLSystemUser(rawValue: messageModel.userId) {
+            return true
+        }
+        return false
+    }
     private let networkHelper = GGLChatRoomNetworkHelper()
     private let disposeBag = DisposeBag()
 
@@ -94,9 +100,9 @@ final class GGLChatRoomViewModel: ObservableObject {
     }
 
     private func handleSystemSending(_ prompt: String) -> Bool {
-        guard let systemId = GGLSystemUser(rawValue: messageModel.userId) else { return false }
+        guard let systemUser = GGLSystemUser(rawValue: messageModel.userId) else { return false }
         responding = true
-        switch systemId {
+        switch systemUser {
         case .customerService:
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
                 Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
@@ -150,6 +156,10 @@ final class GGLChatRoomViewModel: ObservableObject {
     }
 
     func onClickVideoCall() {
-        
+        let _ = networkHelper.requestChannelId(senderId: messageModel.ownerId, targetId: messageModel.userId).observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] response in
+            guard let self,
+                  let channelId = response.data?.channelId else { return }
+            AppRouter.shared.present(GGLRtcViewController(role: .sender, type: .video, channelId: channelId, targetId: messageModel.userId))
+        })
     }
 }
