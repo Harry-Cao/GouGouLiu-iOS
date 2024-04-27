@@ -78,8 +78,8 @@ final class GGLRtcViewModel: ObservableObject {
     }
 
     private func getUserData() {
-        if let user = GGLUser.getUser(userId: targetId) {
-            targetUser = user
+        targetUser = GGLUser.getUser(userId: targetId)
+        if let _ = targetUser {
             userDataSubscriber?.dispose()
         }
     }
