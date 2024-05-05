@@ -53,6 +53,6 @@ extension UIViewController {
     enum GGLNavigationItem {
         case image(_ url: String, _ action: Selector?)
         case text(_ text: String, _ action: Selector?)
-        case systemImage(_ name: String, _action: Selector?)
+        case systemImage(_ name: String, _ action: Selector?)
     }
 }

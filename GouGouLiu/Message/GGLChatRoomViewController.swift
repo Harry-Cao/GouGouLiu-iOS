@@ -23,8 +23,8 @@ final class GGLChatRoomViewController: GGLBaseHostingController<GGLChatRoomConte
         super.viewDidLoad()
         navigationItem.title = GGLUser.getUser(userId: rootView.viewModel.messageModel.userId)?.userName
         if !viewModel.isSystemUser {
-            setupRightNavigationItems([.systemImage("phone", _action: #selector(onClickPhoneCall)),
-                                       .systemImage("video", _action: #selector(onClickVideoCall))])
+            setupRightNavigationItems([.systemImage("phone", #selector(onClickPhoneCall)),
+                                       .systemImage("video", #selector(onClickVideoCall))])
         }
     }
 
