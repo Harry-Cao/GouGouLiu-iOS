@@ -10,7 +10,7 @@ import RxSwift
 
 final class GGLDataBase {
     static let shared = GGLDataBase()
-    private lazy var realm: Realm = {
+    private(set) lazy var realm: Realm = {
         let config = Realm.Configuration(schemaVersion: 0)
         Realm.Configuration.defaultConfiguration = config
         do {
@@ -54,9 +54,5 @@ final class GGLDataBase {
         } catch {
             print(error)
         }
-    }
-
-    func objects<Element: RealmFetchable>(_ type: Element.Type) -> Results<Element> {
-        return realm.objects(Element.self)
     }
 }

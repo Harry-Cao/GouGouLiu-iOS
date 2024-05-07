@@ -9,8 +9,7 @@ import Foundation
 
 extension GGLDataBase {
     func saveOrUpdateUser(_ newValue: GGLUserModel) {
-        let results = objects(GGLUserModel.self).filter({ $0.userId == newValue.userId })
-        if let user = results.first {
+        if let user = realm.object(ofType: GGLUserModel.self, forPrimaryKey: newValue.userId) {
             write {
                 user.userName = newValue.userName
                 user.avatarUrl = newValue.avatarUrl
@@ -19,5 +18,9 @@ extension GGLDataBase {
             add(newValue)
         }
         userUpdateSubject.onNext(newValue)
+    }
+
+    func fetchUser(_ userId: String) -> GGLUserModel? {
+        return GGLDataBase.shared.realm.object(ofType: GGLUserModel.self, forPrimaryKey: userId)
     }
 }

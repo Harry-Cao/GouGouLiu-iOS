@@ -80,13 +80,12 @@ extension GGLUser {
         })
     }
 
-    static func getUser(userId: String) -> GGLUserModel? {
+    static func getUser(userId: String) -> GGLUserModel {
         if let systemUser = GGLSystemUser(rawValue: userId) {
             return GGLUserModel.create(userId: userId, userName: systemUser.name, avatarUrl: systemUser.avatar)
         }
         // TODO: - too much IO operation, use a cache list to optimize.
-        let results = GGLDataBase.shared.objects(GGLUserModel.self).filter({ $0.userId == userId })
-        if let target = results.first {
+        if let target = GGLDataBase.shared.fetchUser(userId) {
             return target
         }
         let userModel = GGLUserModel.create(userId: userId)
@@ -96,7 +95,7 @@ extension GGLUser {
                   let newValue = response.data else { return }
             GGLDataBase.shared.saveOrUpdateUser(newValue)
         })
-        return nil
+        return userModel
     }
 
 }

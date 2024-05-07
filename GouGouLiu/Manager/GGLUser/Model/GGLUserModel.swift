@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 final class GGLUserModel: Object, Codable {
-    @Persisted var userId: String?
+    @Persisted(primaryKey: true) var userId: String?
     @Persisted var userName: String?
     @Persisted var avatarUrl: String?
 
