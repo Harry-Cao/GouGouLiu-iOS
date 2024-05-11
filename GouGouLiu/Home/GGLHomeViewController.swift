@@ -6,15 +6,15 @@
 //
 
 import UIKit
-import RxSwift
+import Combine
 import MJRefresh
 
 final class GGLHomeViewController: GGLBaseViewController {
 
     private let viewModel = GGLHomeViewModel()
-    private let disposeBag = DisposeBag()
-    private let itemSpacing: CGFloat = 4.0
+    private var cancellables = Set<AnyCancellable>()
     private lazy var recommendCollectionView: UICollectionView = {
+        let itemSpacing: CGFloat = 4.0
         let waterFallFlowLayout = GGLWaterFallFlowLayout()
         waterFallFlowLayout.minimumInteritemSpacing = itemSpacing
         waterFallFlowLayout.sectionInset = UIEdgeInsets(top: itemSpacing, left: itemSpacing, bottom: itemSpacing, right: itemSpacing)
@@ -55,12 +55,13 @@ final class GGLHomeViewController: GGLBaseViewController {
     }
 
     private func bindData() {
-        viewModel.updateSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] data in
+        viewModel.dataSource.receive(on: RunLoop.main).sink { [weak self] data in
             self?.recommendCollectionView.mj_header?.endRefreshing()
             self?.recommendCollectionView.reloadData()
-            guard !data.isEmpty else { return }
-            self?.dismissEmptyDataView()
-        }).disposed(by: disposeBag)
+            if data.isEmpty {
+                self?.dismissEmptyDataView()
+            }
+        }.store(in: &cancellables)
     }
 
     private func addObserver() {
@@ -69,7 +70,7 @@ final class GGLHomeViewController: GGLBaseViewController {
 
     @objc private func networkStatusUpdated() {
         // 处理首次启动app网络请求时机问题
-        guard viewModel.dataSource.isEmpty else { return }
+        guard viewModel.dataSource.value.isEmpty else { return }
         switch GGLNetworkManager.shared.networkStatus {
         case .reachable(_):
             refreshData()
@@ -97,12 +98,12 @@ extension GGLHomeViewController: GGLEmptyDataViewDelegate {
 extension GGLHomeViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.dataSource.count
+        return viewModel.dataSource.value.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: GGLHomeRecommendCell = collectionView.dequeueReusableCell(for: indexPath)
-        let model = viewModel.dataSource[indexPath.item]
+        let model = viewModel.dataSource.value[indexPath.item]
         cell.setup(model: model)
         return cell
     }
@@ -113,7 +114,7 @@ extension GGLHomeViewController: UICollectionViewDataSource {
 extension GGLHomeViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let model = viewModel.dataSource[indexPath.item]
+        let model = viewModel.dataSource.value[indexPath.item]
         let viewController = GGLTopicViewController()
         viewController.postModel = model
         AppRouter.shared.push(viewController)

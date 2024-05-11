@@ -9,7 +9,7 @@ target 'GouGouLiu' do
 
 pod 'RxSwift'
 pod 'RxCocoa'
-pod 'Moya'
+pod 'Moya/Combine'
 pod 'SDWebImage'
 pod 'SDWebImageSwiftUI'
 pod 'SnapKit'
