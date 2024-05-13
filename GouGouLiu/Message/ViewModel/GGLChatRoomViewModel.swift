@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import RxSwift
+import Combine
 
 final class GGLChatRoomViewModel: ObservableObject {
     @Published var messageModel: GGLMessageModel
@@ -26,7 +26,7 @@ final class GGLChatRoomViewModel: ObservableObject {
         return false
     }
     private let networkHelper = GGLChatRoomNetworkHelper()
-    private let disposeBag = DisposeBag()
+    private var cancellables = Set<AnyCancellable>()
 
     init(messageModel: GGLMessageModel) {
         self.messageModel = messageModel
@@ -36,7 +36,7 @@ final class GGLChatRoomViewModel: ObservableObject {
     }
 
     private func onReceivedMessage() {
-        GGLWebSocketManager.shared.messageSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] model in
+        GGLWebSocketManager.shared.messageSubject.sink { [weak self] model in
             guard let self,
                   model.senderId == messageModel.userId,
                   let type = model.type else { return }
@@ -46,14 +46,14 @@ final class GGLChatRoomViewModel: ObservableObject {
             case .system_logout, .rtc_message:
                 break
             }
-        }).disposed(by: disposeBag)
+        }.store(in: &cancellables)
     }
 
     private func subscribeUserUpdate() {
-        GGLDataBase.shared.userUpdateSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] user in
+        GGLDataBase.shared.userUpdateSubject.sink { [weak self] user in
             guard let self else { return }
             self.messageModel = self.messageModel
-        }).disposed(by: disposeBag)
+        }.store(in: &cancellables)
     }
 
     private func updateMessageModel() {

@@ -6,17 +6,17 @@
 //
 
 import SwiftUI
-import RxSwift
+import Combine
 
 final class GGLPersonalViewModel: ObservableObject {
     @Published var current: GGLUserModel?
     let settingRows: [SettingRow] = [.myPosts, .myOrders, .clearImageCache, .logout, .debug]
-    private let disposeBag = DisposeBag()
+    private var cancellables = Set<AnyCancellable>()
 
     init() {
-        GGLUser.userStatusSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] _ in
+        GGLUser.userStatusSubject.sink { [weak self] _ in
             self?.current = GGLUser.current
-        }).disposed(by: disposeBag)
+        }.store(in: &cancellables)
     }
 
     func pickAvatar() {

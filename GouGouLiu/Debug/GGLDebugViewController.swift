@@ -7,7 +7,6 @@
 
 import UIKit
 import SwiftUI
-import RxSwift
 
 final class GGLDebugViewController: GGLBaseHostingController<DebugContentView> {
 

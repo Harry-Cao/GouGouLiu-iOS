@@ -6,10 +6,10 @@
 //
 
 import Foundation
-import RxSwift
+import Combine
 
 final class GGLRtcViewController: GGLBaseHostingController<GGLRtcContentView> {
-    private let disposeBag = DisposeBag()
+    private var cancellables = Set<AnyCancellable>()
 
     init(role: GGLRtcViewModel.Role, type: GGLWSRtcMessageModel.RtcType, channelId: String, targetId: String) {
         super.init(rootView: GGLRtcContentView(viewModel: GGLRtcViewModel.shared))
@@ -30,5 +30,5 @@ extension GGLRtcViewController: GGLRtcViewModelDelegate {
         }
     }
 
-    func getDisposeBag() -> DisposeBag { disposeBag }
+    func getCancellables() -> Set<AnyCancellable> { cancellables }
 }

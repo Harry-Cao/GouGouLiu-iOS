@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import RxSwift
 
 final class GGLUserListViewModel: ObservableObject {
     @Published var userModels: [GGLUserModel] = []

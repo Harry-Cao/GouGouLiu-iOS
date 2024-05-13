@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import RxSwift
+import Combine
 
 final class GGLUser {
 
@@ -21,7 +21,7 @@ final class GGLUser {
         }
     }
     static let networkHelper = GGLUserNetworkHelper()
-    static let userStatusSubject = PublishSubject<UserStatus>()
+    static let userStatusSubject = PassthroughSubject<UserStatus, Never>()
 
 }
 
@@ -41,7 +41,7 @@ extension GGLUser {
                let token = model.data?.token {
                 current = user
                 GGLKeychainHelper.userToken = token
-                userStatusSubject.onNext(.login(user: user))
+                userStatusSubject.send(.login(user: user))
             }
         }
     }
@@ -53,7 +53,7 @@ extension GGLUser {
                let token = model.data?.token {
                 current = user
                 GGLKeychainHelper.userToken = token
-                userStatusSubject.onNext(.login(user: user))
+                userStatusSubject.send(.login(user: user))
             }
         }
     }
@@ -62,14 +62,14 @@ extension GGLUser {
         guard let userId = GGLUser.getUserId() else { return }
         networkHelper.requestLogout(userId: userId) { model in
             current = nil
-            userStatusSubject.onNext(.logout)
+            userStatusSubject.send(.logout)
             ProgressHUD.showServerMsg(model: model)
         }
     }
 
     static func forceLogout() {
         current = nil
-        userStatusSubject.onNext(.forceLogout)
+        userStatusSubject.send(.forceLogout)
         ProgressHUD.showFailed("You have been forced to logout")
     }
 

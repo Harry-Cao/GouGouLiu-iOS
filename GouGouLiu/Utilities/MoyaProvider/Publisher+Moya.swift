@@ -13,7 +13,6 @@ extension Publisher {
     func sink(receiveCompletion: ((Subscribers.Completion<Self.Failure>) -> Void)? = nil, receiveValue: @escaping ((Output) -> Void)) -> AnyCancellable {
         return sink(receiveCompletion: { completion in
             receiveCompletion?(completion)
-            ProgressHUD.dismiss()
             guard case let .failure(error) = completion else { return }
             ProgressHUD.showFailed(error.localizedDescription)
         }, receiveValue: receiveValue)
