@@ -7,20 +7,20 @@
 
 import Foundation
 import Starscream
-import RxSwift
+import Combine
 
 final class GGLWebSocketManager {
     static let shared = GGLWebSocketManager()
     private(set) var socket: WebSocket?
-    private(set) var messageSubject = PublishSubject<GGLWebSocketModel>()
-    private let disposeBag = DisposeBag()
+    private(set) var messageSubject = PassthroughSubject<GGLWebSocketModel, Never>()
+    private var cancellables = Set<AnyCancellable>()
 
     func startSubscribe() {
         subscribeUserStatus()
     }
 
     private func subscribeUserStatus() {
-        GGLUser.userStatusSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] status in
+        GGLUser.userStatusSubject.sink { [weak self] status in
             switch status {
             case .login(let user):
                 guard let userId = user.userId else { return }
@@ -30,7 +30,7 @@ final class GGLWebSocketManager {
             case .forceLogout:
                 break
             }
-        }).disposed(by: disposeBag)
+        }.store(in: &cancellables)
     }
 
     func connect(userId: String) {
@@ -95,6 +95,6 @@ extension GGLWebSocketManager: WebSocketDelegate {
                 AppRouter.shared.present(rtcViewController)
             }
         }
-        messageSubject.onNext(model)
+        messageSubject.send(model)
     }
 }

@@ -6,26 +6,26 @@
 //
 
 import SwiftUI
-import RxSwift
+import Combine
 
 final class GGLPersonalViewModel: ObservableObject {
     @Published var current: GGLUserModel?
     let settingRows: [SettingRow] = [.myPosts, .myOrders, .clearImageCache, .logout, .debug]
-    private let disposeBag = DisposeBag()
+    private var cancellables = Set<AnyCancellable>()
 
     init() {
-        GGLUser.userStatusSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] _ in
+        GGLUser.userStatusSubject.sink { [weak self] _ in
             self?.current = GGLUser.current
-        }).disposed(by: disposeBag)
+        }.store(in: &cancellables)
     }
 
     func pickAvatar() {
         guard let userId = GGLUser.getUserId() else { return }
         GGLUploadPhotoManager.shared.pickImage { image in
             guard let data = image?.fixOrientation().jpegData(compressionQuality: 1) else { return }
-            let _ = GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: userId, progressBlock: { progress in
-                ProgressHUD.showServerProgress(progress: progress.progress)
-            }).observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] model in
+            GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: userId) { progress in
+                ProgressHUD.showServerProgress(progress: progress)
+            } completion: { [weak self] model in
                 if let self,
                    model.code == .success,
                    let newValue = current?.copy() as? GGLUserModel {
@@ -34,7 +34,7 @@ final class GGLPersonalViewModel: ObservableObject {
                     current = newValue
                 }
                 ProgressHUD.showServerMsg(model: model)
-            })
+            }
         }
     }
 }

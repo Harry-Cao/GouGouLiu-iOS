@@ -7,7 +7,7 @@
 
 import Foundation
 import Moya
-import RxSwift
+import Combine
 
 extension GGLUploadPhotoManager {
     typealias ImageBlock = (_ image: UIImage?) -> Void
@@ -17,22 +17,35 @@ final class GGLUploadPhotoManager: NSObject, UINavigationControllerDelegate {
 
     static let shared = GGLUploadPhotoManager()
     private var finishPickingMediaBlock: ImageBlock?
+    private let moyaProvider = MoyaProvider<GGLPhotoAPI>()
+    private var cancellables = Set<AnyCancellable>()
 
-    func uploadPhoto(data: Data, type: ImageType, contactId: String, progressBlock: ProgressBlock? = nil) -> Observable<GGLMoyaModel<GGLUploadPhotoModel>> {
-        let api = GGLUploadPhotoAPI(imageData: data, imageType: type.rawValue, contactId: contactId)
-        return MoyaProvider<GGLUploadPhotoAPI>().observable.request(api, progressBlock: progressBlock)
+    func uploadPhoto(data: Data,
+                     type: ImageType,
+                     contactId: String,
+                     progressBlock: ((_ progress: Double) -> Void)? = nil,
+                     completion: @escaping (GGLMoyaModel<GGLUploadPhotoModel>) -> Void) {
+        moyaProvider.requestWithProgressPublisher(.upload(imageData: data, imageType: type.rawValue, contactId: contactId))
+            .mapProgressResponse(GGLMoyaModel<GGLUploadPhotoModel>.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { progressResponse in
+                switch progressResponse {
+                case .onProgress(let progress):
+                    progressBlock?(progress)
+                case .onResponse(let response):
+                    completion(response)
+                }
+            }).store(in: &cancellables)
     }
 
     func clearAllPhotos() {
         guard let userId = GGLUser.getUserId() else { return }
-        let _ = requestClearAllPhotos(userId: userId).subscribe(onNext: { model in
-            ProgressHUD.showServerMsg(model: model)
-        })
-    }
-
-    func requestClearAllPhotos(userId: String)  -> Observable<GGLMoyaModel<[String: String]>> {
-        let api = GGLClearAllPhotoAPI(userId: userId)
-        return MoyaProvider<GGLClearAllPhotoAPI>().observable.request(api)
+        moyaProvider.requestPublisher(.clearAll(userId: userId))
+            .map(GGLMoyaModel<[String: String]>.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { model in
+                ProgressHUD.showServerMsg(model: model)
+            }).store(in: &cancellables)
     }
 
     func pickImage(completion: @escaping ImageBlock) {

@@ -6,12 +6,12 @@
 //
 
 import UIKit
-import RxSwift
+import Combine
 
 final class GGLPostViewController: GGLBaseViewController {
 
     private let viewModel = GGLPostViewModel()
-    private let disposeBag = DisposeBag()
+    private var cancellables = Set<AnyCancellable>()
     private var adapter = GGLPostAdapter()
     private let postTableView = GGLBaseTableView()
     private let publishButton: UIButton = {
@@ -32,12 +32,10 @@ final class GGLPostViewController: GGLBaseViewController {
     }
 
     private func bindData() {
-        viewModel.uploadSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] _ in
+        viewModel.delegate = self
+        viewModel.uploadPhotosSubject.sink { [weak self] _ in
             self?.reloadUploadPhotoCell()
-        }).disposed(by: disposeBag)
-        viewModel.publishSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] _ in
-            self?.navigationController?.popViewController(animated: true)
-        }).disposed(by: disposeBag)
+        }.store(in: &cancellables)
     }
 
     private func setupUI() {
@@ -57,7 +55,8 @@ final class GGLPostViewController: GGLBaseViewController {
     private func setupAdapter() {
         adapter.tableView = postTableView
         adapter.uploadPhotoCellConfigurator = { [weak self] uploadPhotoCell in
-            guard let urlStrings = self?.viewModel.uploadPhotos.compactMap({ $0.previewUrl }) else { return }
+            guard let self else { return }
+            let urlStrings = viewModel.uploadPhotosSubject.value.compactMap({ $0.previewUrl })
             uploadPhotoCell.urlStrings = urlStrings
         }
         adapter.uploadPhotoCellSelectedHandler = { [weak self] urlString in
@@ -78,4 +77,11 @@ final class GGLPostViewController: GGLBaseViewController {
         viewModel.publishPost()
     }
 
+}
+
+// MARK: - GGLPostViewModelDelegate
+extension GGLPostViewController: GGLPostViewModelDelegate {
+    func didPublishPost(post: GGLPostModel?) {
+        navigationController?.popViewController(animated: true)
+    }
 }

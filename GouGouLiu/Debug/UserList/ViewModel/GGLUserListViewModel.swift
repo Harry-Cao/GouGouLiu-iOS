@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
-import RxSwift
 
 final class GGLUserListViewModel: ObservableObject {
     @Published var userModels: [GGLUserModel] = []
+    private let networkHelper = GGLUserNetworkHelper()
 
     init() {
         requestAllUsers()
@@ -17,14 +17,13 @@ final class GGLUserListViewModel: ObservableObject {
 
     private func requestAllUsers() {
         guard let userId = GGLUser.getUserId() else { return }
-        let networkHelper = GGLUserNetworkHelper()
-        let _ = networkHelper.requestAllUsers(userId: userId).observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] response in
-            if response.code == .success,
-               let users = response.data {
+        networkHelper.requestAllUsers(userId: userId) { [weak self] model in
+            if model.code == .success,
+               let users = model.data {
                 self?.userModels = users
             }
-            ProgressHUD.showServerMsg(model: response)
-        })
+            ProgressHUD.showServerMsg(model: model)
+        }
     }
 
     func onClick(model: GGLUserModel) {

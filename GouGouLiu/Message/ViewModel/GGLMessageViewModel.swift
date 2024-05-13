@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-import RxSwift
+import Combine
 
 final class GGLMessageViewModel: ObservableObject {
     @Published var messageModels: [GGLMessageModel] = []
-    private let disposeBag = DisposeBag()
+    private var cancellables = Set<AnyCancellable>()
 
     init() {
         onReceivedMessage()
@@ -18,7 +18,7 @@ final class GGLMessageViewModel: ObservableObject {
     }
 
     private func onReceivedMessage() {
-        GGLWebSocketManager.shared.messageSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] model in
+        GGLWebSocketManager.shared.messageSubject.sink { [weak self] model in
             guard let self,
                   let type = model.type else { return }
             switch type {
@@ -30,13 +30,13 @@ final class GGLMessageViewModel: ObservableObject {
             case .rtc_message:
                 break
             }
-        }).disposed(by: disposeBag)
+        }.store(in: &cancellables)
     }
 
     private func subscribeUserUpdate() {
-        GGLDataBase.shared.userUpdateSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] _ in
+        GGLDataBase.shared.userUpdateSubject.sink { [weak self] _ in
             self?.updateData()
-        }).disposed(by: disposeBag)
+        }.store(in: &cancellables)
     }
 
     func updateData() {

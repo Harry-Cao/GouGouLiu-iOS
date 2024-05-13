@@ -5,11 +5,11 @@
 //  Created by Harry Cao on 3/14/24.
 //
 
-import RxSwift
+import Foundation
 
 extension GGLDataBase {
     func subscribeMessage() {
-        GGLWebSocketManager.shared.messageSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] model in
+        GGLWebSocketManager.shared.messageSubject.sink { [weak self] model in
             guard let self,
                   let ownerId = GGLUser.getUserId(showHUD: false),
                   let type = model.type else { return }
@@ -45,7 +45,7 @@ extension GGLDataBase {
             case .system_logout, .rtc_message:
                 break
             }
-        }).disposed(by: disposeBag)
+        }.store(in: &cancellables)
     }
 
     private func recordUnReadIfNeeded(messageModel: GGLMessageModel) {
@@ -57,14 +57,14 @@ extension GGLDataBase {
         write {
             messageModel.unReadNum += 1
         }
-        messageUnReadSubject.onNext(messageModel)
+        messageUnReadSubject.send(messageModel)
     }
 
     func clearUnRead(messageModel: GGLMessageModel) {
         write {
             messageModel.unReadNum = 0
         }
-        messageUnReadSubject.onNext(messageModel)
+        messageUnReadSubject.send(messageModel)
     }
 
     func fetchMessageModels(ownerId: String?) -> [GGLMessageModel] {
@@ -81,6 +81,6 @@ extension GGLDataBase {
 
     func deleteMessageModel(_ messageModel: GGLMessageModel) {
         delete(messageModel)
-        messageUnReadSubject.onNext(messageModel)
+        messageUnReadSubject.send(messageModel)
     }
 }

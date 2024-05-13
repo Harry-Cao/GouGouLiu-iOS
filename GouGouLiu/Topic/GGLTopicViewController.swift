@@ -6,21 +6,20 @@
 //
 
 import UIKit
-import RxSwift
+import Combine
 
 final class GGLTopicViewController: GGLBaseViewController {
 
     var postModel: GGLHomePostModel? {
         didSet {
-            viewModel.postModel = postModel
-            topicTableView.reloadData()
+            viewModel.postModelSubject.send(postModel)
         }
     }
     private let viewModel = GGLTopicViewModel()
     private let adapter = GGLTopicAdapter()
     private let transitionHelper = GGLTopicGestureHelper()
     private let topicTableView = GGLBaseTableView()
-    private let disposeBag = DisposeBag()
+    private var cancellables = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +36,6 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     private func setupUI() {
-        topicTableView.bounces = false
         [topicTableView].forEach(view.addSubview)
         topicTableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -50,17 +48,17 @@ final class GGLTopicViewController: GGLBaseViewController {
         adapter.photoBrowserCellConfigurator = { [weak self] cell in
             guard let self else { return }
             let failToGestures = [transitionHelper.rightGesture]
-            guard let urlStrings = viewModel.postModel?.post?.photos else {
-                cell.setup(urlStrings: [viewModel.postModel?.post?.coverImageUrl ?? ""], failToGestures: failToGestures)
+            guard let urlStrings = viewModel.postModelSubject.value?.post?.photos else {
+                cell.setup(urlStrings: [viewModel.postModelSubject.value?.post?.coverImageUrl ?? ""], failToGestures: failToGestures)
                 return
             }
             cell.setup(urlStrings: urlStrings, failToGestures: failToGestures)
         }
         adapter.contentCellConfigurator = { [weak self] cell in
-            cell.setup(title: self?.viewModel.postModel?.post?.title, content: self?.viewModel.postModel?.post?.content)
+            cell.setup(title: self?.viewModel.postModelSubject.value?.post?.title, content: self?.viewModel.postModelSubject.value?.post?.content)
         }
         adapter.photoBrowserCellDidSelectHandler = { [weak self] _, index in
-            guard let urlString = self?.viewModel.postModel?.post?.photos?[index] else { return }
+            guard let urlString = self?.viewModel.postModelSubject.value?.post?.photos?[index] else { return }
             self?.downloadImage(urlString: urlString)
         }
     }
@@ -76,9 +74,9 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     private func bindData() {
-        viewModel.updateSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] model in
+        viewModel.postModelSubject.sink { [weak self] model in
             self?.topicTableView.reloadData()
-        }).disposed(by: disposeBag)
+        }.store(in: &cancellables)
     }
 
     private func getData() {
@@ -90,7 +88,7 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     @objc private func didTapUser() {
-        guard let user = viewModel.postModel?.user else { return }
+        guard let user = viewModel.postModelSubject.value?.user else { return }
         let viewController = GGLPersonalDetailViewController(user: user)
         AppRouter.shared.push(viewController)
     }
@@ -100,7 +98,7 @@ final class GGLTopicViewController: GGLBaseViewController {
 // MARK: - GGLTopicGestureHelperDelegate
 extension GGLTopicViewController: GGLTopicGestureHelperDelegate {
     func transitionHelperPushViewController() -> UIViewController? {
-        guard let user = viewModel.postModel?.user else { return nil }
+        guard let user = viewModel.postModelSubject.value?.user else { return nil }
         return GGLPersonalDetailViewController(user: user)
     }
 }

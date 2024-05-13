@@ -17,7 +17,7 @@ extension GGLDataBase {
         } else {
             add(newValue)
         }
-        userUpdateSubject.onNext(newValue)
+        userUpdateSubject.send(newValue)
     }
 
     func fetchUser(_ userId: String) -> GGLUserModel? {

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import RxSwift
+import Combine
 
 final class GGLTabBarController: UITabBarController {
 
@@ -16,7 +16,7 @@ final class GGLTabBarController: UITabBarController {
     private let messageViewController = GGLMessageViewController()
     private let personalViewController = GGLPersonalViewController()
     private(set) lazy var badgeLabel = GGLTabBarBadgeLabel()
-    private(set) var disposeBag = DisposeBag()
+    var cancellables = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -6,11 +6,11 @@
 //
 
 import Foundation
-import RxSwift
+import Combine
 
 protocol GGLRtcViewModelDelegate: AnyObject {
     func needDismiss()
-    func getDisposeBag() -> DisposeBag
+    func getCancellables() -> Set<AnyCancellable>
 }
 
 final class GGLRtcViewModel: ObservableObject {
@@ -20,7 +20,7 @@ final class GGLRtcViewModel: ObservableObject {
     private(set) var type: GGLWSRtcMessageModel.RtcType = .voice
     private var channelId: String = ""
     private var targetId: String = ""
-    private var userDataSubscriber: Disposable?
+    private var userDataSubscriber: AnyCancellable?
     @Published var targetUser: GGLUserModel?
     @Published var stage: Stage = .free
     lazy var localView = UIView()
@@ -40,14 +40,14 @@ final class GGLRtcViewModel: ObservableObject {
     }
 
     private func subscribeData() {
-        userDataSubscriber = GGLDataBase.shared.userUpdateSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] user in
+        userDataSubscriber = GGLDataBase.shared.userUpdateSubject.sink { [weak self] user in
             guard let self,
                   user.userId == targetId else { return }
             targetUser = user
-            userDataSubscriber?.dispose()
-        })
-        if let disposeBag = delegate?.getDisposeBag() {
-            GGLWebSocketManager.shared.messageSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] model in
+            userDataSubscriber?.cancel()
+        }
+        if var cancellables = delegate?.getCancellables() {
+            GGLWebSocketManager.shared.messageSubject.sink { [weak self] model in
                 guard let self,
                       model.type == .rtc_message,
                       let rtcModel = model as? GGLWSRtcMessageModel,
@@ -67,7 +67,7 @@ final class GGLRtcViewModel: ObservableObject {
                     stage = .free
                     delegate?.needDismiss()
                 }
-            }).disposed(by: disposeBag)
+            }.store(in: &cancellables)
         }
     }
 
@@ -80,7 +80,7 @@ final class GGLRtcViewModel: ObservableObject {
     private func getUserData() {
         targetUser = GGLUser.getUser(userId: targetId)
         if let _ = targetUser {
-            userDataSubscriber?.dispose()
+            userDataSubscriber?.cancel()
         }
     }
 

@@ -6,31 +6,27 @@
 //
 
 import UIKit
-import RxSwift
+import Combine
 import Moya
 
 final class GGLHomeViewModel {
 
-    private(set) var dataSource: [GGLHomePostModel] = []
-    private let moyaProvider = MoyaProvider<GGLHomePostAPI>()
-    private(set) var updateSubject: PublishSubject<[GGLHomePostModel]> = PublishSubject<[GGLHomePostModel]>()
+    private(set) var dataSource = CurrentValueSubject<[GGLHomePostModel], Never>([])
+    private let moyaProvider = MoyaProvider<GGLHomePostAPI>(session: GGLAlamofireSession.shared)
+    private var cancellables = Set<AnyCancellable>()
 
     func getHomePostData() {
-        let _ = fetchHomePostData().subscribe(onNext: { [weak self] model in
-            guard let data = model.data else { return }
-            self?.dataSource = data
-            self?.updateSubject.onNext(data)
-        }, onError: { _ in
+        moyaProvider.requestPublisher(GGLHomePostAPI()).map(GGLMoyaModel<[GGLHomePostModel]>.self).sink { completion in
+            guard case let .failure(error) = completion else { return }
+            print(error)
             if UserDefaults.host == .intranet {
                 UserDefaults.host = .internet
                 ProgressHUD.showFailed("Host roll back: \(UserDefaults.host.rawValue)")
             }
-        })
-    }
-
-    private func fetchHomePostData() -> Observable<GGLMoyaModel<[GGLHomePostModel]>> {
-        let api = GGLHomePostAPI()
-        return MoyaProvider<GGLHomePostAPI>(session: GGLAlamofireSession.shared).observable.request(api)
+        } receiveValue: { [weak self] model in
+            guard let data = model.data else { return }
+            self?.dataSource.send(data)
+        }.store(in: &cancellables)
     }
 
     lazy var refreshImages: [UIImage] = {

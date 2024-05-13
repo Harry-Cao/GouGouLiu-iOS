@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import RxSwift
+import Combine
 
 final class GGLUser {
 
@@ -21,7 +21,7 @@ final class GGLUser {
         }
     }
     static let networkHelper = GGLUserNetworkHelper()
-    static let userStatusSubject = PublishSubject<UserStatus>()
+    static let userStatusSubject = PassthroughSubject<UserStatus, Never>()
 
 }
 
@@ -29,55 +29,55 @@ final class GGLUser {
 extension GGLUser {
 
     static func signup(username: String, password: String, isSuper: Bool) {
-        let _ = networkHelper.requestSignup(username: username, password: password, isSuper: isSuper).subscribe(onNext: { model in
+        networkHelper.requestSignup(username: username, password: password, isSuper: isSuper) { model in
             ProgressHUD.showServerMsg(model: model)
-        })
+        }
     }
 
     static func login(username: String, password: String) {
-        let _ = networkHelper.requestLogin(username: username, password: password).subscribe(onNext: { model in
+        networkHelper.requestLogin(username: username, password: password) { model in
             if model.code == .success,
                let user = model.data?.user,
                let token = model.data?.token {
                 current = user
                 GGLKeychainHelper.userToken = token
-                userStatusSubject.onNext(.login(user: user))
+                userStatusSubject.send(.login(user: user))
             }
-        })
+        }
     }
 
     static func login(userId: String) {
-        let _ = networkHelper.requestLogin(userId: userId).subscribe(onNext: { model in
+        networkHelper.requestLogin(userId: userId) { model in
             if model.code == .success,
                let user = model.data?.user,
                let token = model.data?.token {
                 current = user
                 GGLKeychainHelper.userToken = token
-                userStatusSubject.onNext(.login(user: user))
+                userStatusSubject.send(.login(user: user))
             }
-        })
+        }
     }
 
     static func logout() {
         guard let userId = GGLUser.getUserId() else { return }
-        let _ = networkHelper.requestLogout(userId: userId).subscribe(onNext: { model in
+        networkHelper.requestLogout(userId: userId) { model in
             current = nil
-            userStatusSubject.onNext(.logout)
+            userStatusSubject.send(.logout)
             ProgressHUD.showServerMsg(model: model)
-        })
+        }
     }
 
     static func forceLogout() {
         current = nil
-        userStatusSubject.onNext(.forceLogout)
+        userStatusSubject.send(.forceLogout)
         ProgressHUD.showFailed("You have been forced to logout")
     }
 
     static func clearAll() {
         guard let userId = GGLUser.getUserId() else { return }
-        let _ = networkHelper.requestClearAll(userId: userId).subscribe(onNext: { model in
+        networkHelper.requestClearAll(userId: userId) { model in
             ProgressHUD.showServerMsg(model: model)
-        })
+        }
     }
 
     static func getUser(userId: String) -> GGLUserModel {
@@ -90,11 +90,11 @@ extension GGLUser {
         }
         let userModel = GGLUserModel.create(userId: userId)
         GGLDataBase.shared.add(userModel)
-        let _ = networkHelper.requestGetUser(userId: userId).observe(on: MainScheduler.instance).subscribe(onNext: { response in
-            guard response.code == .success,
-                  let newValue = response.data else { return }
+        networkHelper.requestGetUser(userId: userId) { model in
+            guard model.code == .success,
+                  let newValue = model.data else { return }
             GGLDataBase.shared.saveOrUpdateUser(newValue)
-        })
+        }
         return userModel
     }
 

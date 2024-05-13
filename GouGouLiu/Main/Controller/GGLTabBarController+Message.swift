@@ -6,18 +6,17 @@
 //
 
 import Foundation
-import RxSwift
 
 extension GGLTabBarController {
     func subscribe() {
-        GGLDataBase.shared.messageUnReadSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] _ in
+        GGLDataBase.shared.messageUnReadSubject.sink { [weak self] _ in
             guard let self else { return }
             updateUnReadNum()
-        }).disposed(by: disposeBag)
-        GGLUser.userStatusSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] _ in
+        }.store(in: &cancellables)
+        GGLUser.userStatusSubject.sink { [weak self] _ in
             guard let self else { return }
             updateUnReadNum()
-        }).disposed(by: disposeBag)
+        }.store(in: &cancellables)
     }
 
     func updateUnReadNum() {

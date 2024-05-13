@@ -6,7 +6,7 @@
 //
 
 import RealmSwift
-import RxSwift
+import Combine
 
 final class GGLDataBase {
     static let shared = GGLDataBase()
@@ -20,9 +20,10 @@ final class GGLDataBase {
             fatalError("Realm initialize failed.")
         }
     }()
-    private(set) var userUpdateSubject = PublishSubject<GGLUserModel>()
-    private(set) var messageUnReadSubject = PublishSubject<GGLMessageModel>()
-    private(set) var disposeBag = DisposeBag()
+    private(set) var userUpdateSubject = PassthroughSubject<GGLUserModel, Never>()
+    private(set) var messageUnReadSubject = PassthroughSubject<GGLMessageModel, Never>()
+    var cancellables = Set<AnyCancellable>()
+    private(set) lazy var userNetworkHelper = GGLUserNetworkHelper()
 
     func startSubscribe() {
         subscribeMessage()
