@@ -8,20 +8,21 @@
 import Foundation
 import Moya
 
-struct GGLPostAPI: TargetType {
-
-    var userId: String
-    var coverUrl: String
-    var imageUrls: [String]
-    var title: String
-    var content: String?
+enum GGLPostAPI: TargetType {
+    case publish(userId: String, coverUrl: String, imageUrls: [String], title: String, content: String?)
+    case clearAll(userId: String)
 
     var baseURL: URL {
         GGLAPI.baseURL
     }
 
     var path: String {
-        GGLAPI.Path.publishPost
+        switch self {
+        case .publish:
+            return GGLAPI.Path.publishPost
+        case .clearAll:
+            return GGLAPI.Path.postClearAll
+        }
     }
 
     var method: Moya.Method {
@@ -29,13 +30,19 @@ struct GGLPostAPI: TargetType {
     }
 
     var task: Moya.Task {
-        var para: [String: Any] = [:]
-        para["userId"] = userId
-        para["coverUrl"] = coverUrl
-        para["imageUrls"] = imageUrls
-        para["title"] = title
-        para["content"] = content
-        return .requestParameters(parameters: para, encoding: JSONEncoding.default)
+        switch self {
+        case .publish(let userId, let coverUrl, let imageUrls, let title, let content):
+            var para: [String: Any] = [:]
+            para["userId"] = userId
+            para["coverUrl"] = coverUrl
+            para["imageUrls"] = imageUrls
+            para["title"] = title
+            para["content"] = content
+            return .requestParameters(parameters: para, encoding: JSONEncoding.default)
+        case .clearAll(let userId):
+            let para: [String: Any] = ["userId": userId]
+            return .requestParameters(parameters: para, encoding: JSONEncoding.default)
+        }
     }
 
     var headers: [String : String]? {

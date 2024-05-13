@@ -55,7 +55,7 @@ final class GGLHomeViewController: GGLBaseViewController {
     }
 
     private func bindData() {
-        viewModel.dataSource.receive(on: RunLoop.main).sink { [weak self] data in
+        viewModel.dataSource.receive(on: DispatchQueue.main).sink { [weak self] data in
             self?.recommendCollectionView.mj_header?.endRefreshing()
             self?.recommendCollectionView.reloadData()
             if data.isEmpty {

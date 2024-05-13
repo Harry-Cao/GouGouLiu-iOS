@@ -6,44 +6,67 @@
 //
 
 import Foundation
-import RxSwift
+import Combine
 import Moya
 
 final class GGLUserNetworkHelper {
+    private let provider = MoyaProvider<GGLUserAPI>()
+    private var cancellables = Set<AnyCancellable>()
 
-    func requestSignup(username: String, password: String, isSuper: Bool) -> Observable<GGLMoyaModel<GGLUserModel>> {
-        let api = GGLUserSignupAPI(username: username, password: password, isSuper: isSuper)
-        return MoyaProvider<GGLUserSignupAPI>().observable.request(api)
+    func requestSignup(username: String, password: String, isSuper: Bool, completion: @escaping (GGLMoyaModel<GGLUserModel>) -> Void) {
+        provider.requestPublisher(.signUp(username: username, password: password, isSuper: isSuper))
+            .map(GGLMoyaModel<GGLUserModel>.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { completion($0) })
+            .store(in: &cancellables)
     }
 
-    func requestLogin(username: String, password: String) -> Observable<GGLMoyaModel<GGLLoginModel>> {
-        let api = GGLUserLoginAPI(username: username, password: password)
-        return MoyaProvider<GGLUserLoginAPI>().observable.request(api)
+    func requestLogin(username: String, password: String, completion: @escaping (GGLMoyaModel<GGLLoginModel>) -> Void) {
+        provider.requestPublisher(.login_n_pw(username: username, password: password))
+            .map(GGLMoyaModel<GGLLoginModel>.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { completion($0) })
+            .store(in: &cancellables)
     }
 
-    func requestLogin(userId: String) -> Observable<GGLMoyaModel<GGLLoginModel>> {
-        let api = GGLUserLoginAPI(userId: userId)
-        return MoyaProvider<GGLUserLoginAPI>().observable.request(api)
+    func requestLogin(userId: String, completion: @escaping (GGLMoyaModel<GGLLoginModel>) -> Void) {
+        provider.requestPublisher(.login_id(userId: userId))
+            .map(GGLMoyaModel<GGLLoginModel>.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { completion($0) })
+            .store(in: &cancellables)
     }
 
-    func requestLogout(userId: String) -> Observable<GGLMoyaModel<GGLUserModel>> {
-        let api = GGLUserLogoutAPI(userId: userId)
-        return MoyaProvider<GGLUserLogoutAPI>().observable.request(api)
+    func requestLogout(userId: String, completion: @escaping (GGLMoyaModel<GGLUserModel>) -> Void) {
+        provider.requestPublisher(.logout(userId: userId))
+            .map(GGLMoyaModel<GGLUserModel>.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { completion($0) })
+            .store(in: &cancellables)
     }
 
-    func requestClearAll(userId: String) -> Observable<GGLMoyaModel<GGLUserModel>> {
-        let api = GGLUserClearAllAPI(userId: userId)
-        return MoyaProvider<GGLUserClearAllAPI>().observable.request(api)
+    func requestClearAll(userId: String, completion: @escaping (GGLMoyaModel<GGLUserModel>) -> Void) {
+        provider.requestPublisher(.clearAll(userId: userId))
+            .map(GGLMoyaModel<GGLUserModel>.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { completion($0) })
+            .store(in: &cancellables)
     }
 
-    func requestAllUsers(userId: String) -> Observable<GGLMoyaModel<[GGLUserModel]>> {
-        let api = GGLAllUserAPI(userId: userId)
-        return MoyaProvider<GGLAllUserAPI>().observable.request(api)
+    func requestAllUsers(userId: String, completion: @escaping (GGLMoyaModel<[GGLUserModel]>) -> Void) {
+        provider.requestPublisher(.allUsers(userId: userId))
+            .map(GGLMoyaModel<[GGLUserModel]>.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { completion($0) })
+            .store(in: &cancellables)
     }
 
-    func requestGetUser(userId: String) -> Observable<GGLMoyaModel<GGLUserModel>> {
-        let api = GGLGetUserAPI(userId: userId)
-        return MoyaProvider<GGLGetUserAPI>().observable.request(api)
+    func requestGetUser(userId: String, completion: @escaping (GGLMoyaModel<GGLUserModel>) -> Void) {
+        provider.requestPublisher(.getUser(userId: userId))
+            .map(GGLMoyaModel<GGLUserModel>.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { completion($0) })
+            .store(in: &cancellables)
     }
 
 }

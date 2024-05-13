@@ -16,15 +16,12 @@ final class GGLHomeViewModel {
     private var cancellables = Set<AnyCancellable>()
 
     func getHomePostData() {
-        moyaProvider.requestPublisher(GGLHomePostAPI()).map(GGLMoyaModel<[GGLHomePostModel]>.self).sink { [weak self] completion in
-            switch completion {
-            case .failure(_):
-                if UserDefaults.host == .intranet {
-                    UserDefaults.host = .internet
-                    ProgressHUD.showFailed("Host roll back: \(UserDefaults.host.rawValue)")
-                }
-            case .finished:
-                self?.cancellables.removeAll()
+        moyaProvider.requestPublisher(GGLHomePostAPI()).map(GGLMoyaModel<[GGLHomePostModel]>.self).sink { completion in
+            guard case let .failure(error) = completion else { return }
+            print(error)
+            if UserDefaults.host == .intranet {
+                UserDefaults.host = .internet
+                ProgressHUD.showFailed("Host roll back: \(UserDefaults.host.rawValue)")
             }
         } receiveValue: { [weak self] model in
             guard let data = model.data else { return }

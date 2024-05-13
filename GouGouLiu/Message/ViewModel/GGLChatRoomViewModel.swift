@@ -69,19 +69,17 @@ final class GGLChatRoomViewModel: ObservableObject {
         GGLUploadPhotoManager.shared.pickImage { [weak self] image in
             guard let self,
                   let data = image?.fixOrientation().jpegData(compressionQuality: 0) else { return }
-            let _ = GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .chat, contactId: messageModel.ownerId, progressBlock: { progress in
-                ProgressHUD.showServerProgress(progress: progress.progress)
-            }).observe(on: MainScheduler.instance).subscribe(onNext: { model in
+            GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .chat, contactId: messageModel.ownerId) { progress in
+                ProgressHUD.showServerProgress(progress: progress)
+            } completion: { model in
                 ProgressHUD.showServerMsg(model: model)
                 guard model.code == .success,
                       let url = model.data?.previewUrl else { return }
-                let model = GGLChatModel.createPhoto(url, userId: userId)
-                GGLDataBase.shared.insert(model, to: self.messageModel.messages)
+                let photoModel = GGLChatModel.createPhoto(url, userId: userId)
+                GGLDataBase.shared.insert(photoModel, to: self.messageModel.messages)
                 self.scrollToBottom()
                 GGLWebSocketManager.shared.sendPeerPhoto(url, targetId: self.messageModel.userId)
-            }, onError: { error in
-                ProgressHUD.showFailed(error.localizedDescription)
-            })
+            }
         }
     }
 
@@ -148,18 +146,18 @@ final class GGLChatRoomViewModel: ObservableObject {
     }
 
     func onClickPhoneCall() {
-        let _ = networkHelper.requestChannelId(senderId: messageModel.ownerId, targetId: messageModel.userId).observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] response in
+        networkHelper.requestChannelId(senderId: messageModel.ownerId, targetId: messageModel.userId) { [weak self] model in
             guard let self,
-                  let channelId = response.data?.channelId else { return }
+                  let channelId = model.data?.channelId else { return }
             AppRouter.shared.present(GGLRtcViewController(role: .sender, type: .voice, channelId: channelId, targetId: messageModel.userId))
-        })
+        }
     }
 
     func onClickVideoCall() {
-        let _ = networkHelper.requestChannelId(senderId: messageModel.ownerId, targetId: messageModel.userId).observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] response in
+        networkHelper.requestChannelId(senderId: messageModel.ownerId, targetId: messageModel.userId) { [weak self] model in
             guard let self,
-                  let channelId = response.data?.channelId else { return }
+                  let channelId = model.data?.channelId else { return }
             AppRouter.shared.present(GGLRtcViewController(role: .sender, type: .video, channelId: channelId, targetId: messageModel.userId))
-        })
+        }
     }
 }
