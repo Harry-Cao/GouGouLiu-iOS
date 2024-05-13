@@ -6,11 +6,8 @@
 //
 
 import Foundation
-import Combine
 
 final class GGLRtcViewController: GGLBaseHostingController<GGLRtcContentView> {
-    private var cancellables = Set<AnyCancellable>()
-
     init(role: GGLRtcViewModel.Role, type: GGLWSRtcMessageModel.RtcType, channelId: String, targetId: String) {
         super.init(rootView: GGLRtcContentView(viewModel: GGLRtcViewModel.shared))
         self.modalPresentationStyle = .fullScreen
@@ -29,6 +26,4 @@ extension GGLRtcViewController: GGLRtcViewModelDelegate {
             self.dismiss(animated: true)
         }
     }
-
-    func getCancellables() -> Set<AnyCancellable> { cancellables }
 }

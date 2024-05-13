@@ -10,7 +10,6 @@ import Combine
 
 protocol GGLRtcViewModelDelegate: AnyObject {
     func needDismiss()
-    func getCancellables() -> Set<AnyCancellable>
 }
 
 final class GGLRtcViewModel: ObservableObject {
@@ -21,10 +20,35 @@ final class GGLRtcViewModel: ObservableObject {
     private var channelId: String = ""
     private var targetId: String = ""
     private var userDataSubscriber: AnyCancellable?
+    private var cancellables = Set<AnyCancellable>()
     @Published var targetUser: GGLUserModel?
     @Published var stage: Stage = .free
     lazy var localView = UIView()
     lazy var remoteView = UIView()
+
+    init() {
+        GGLWebSocketManager.shared.messageSubject.sink { [weak self] model in
+            guard let self,
+                  model.type == .rtc_message,
+                  let rtcModel = model as? GGLWSRtcMessageModel,
+                  rtcModel.channelId == channelId,
+                  let action = rtcModel.rtcAction else { return }
+            switch action {
+            case .invite:
+                stage = .holding
+            case .accept:
+                GGLAgoraManager.shared.joinChannel(channelId: channelId)
+                stage = .talking
+            case .reject:
+                stage = .free
+                delegate?.needDismiss()
+            case .end:
+                GGLAgoraManager.shared.leaveChannel()
+                stage = .free
+                delegate?.needDismiss()
+            }
+        }.store(in: &cancellables)
+    }
 
     func setup(role: Role,
                type: GGLWSRtcMessageModel.RtcType,
@@ -45,29 +69,6 @@ final class GGLRtcViewModel: ObservableObject {
                   user.userId == targetId else { return }
             targetUser = user
             userDataSubscriber?.cancel()
-        }
-        if var cancellables = delegate?.getCancellables() {
-            GGLWebSocketManager.shared.messageSubject.sink { [weak self] model in
-                guard let self,
-                      model.type == .rtc_message,
-                      let rtcModel = model as? GGLWSRtcMessageModel,
-                      rtcModel.channelId == channelId,
-                      let action = rtcModel.rtcAction else { return }
-                switch action {
-                case .invite:
-                    stage = .holding
-                case .accept:
-                    GGLAgoraManager.shared.joinChannel(channelId: channelId)
-                    stage = .talking
-                case .reject:
-                    stage = .free
-                    delegate?.needDismiss()
-                case .end:
-                    GGLAgoraManager.shared.leaveChannel()
-                    stage = .free
-                    delegate?.needDismiss()
-                }
-            }.store(in: &cancellables)
         }
     }
 
