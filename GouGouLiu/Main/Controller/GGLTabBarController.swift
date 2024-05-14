@@ -15,7 +15,6 @@ final class GGLTabBarController: UITabBarController {
     private let emptyViewController = UIViewController()
     private let messageViewController = GGLMessageViewController()
     private let personalViewController = GGLPersonalViewController()
-    private(set) lazy var badgeLabel = GGLTabBarBadgeLabel()
     var cancellables = Set<AnyCancellable>()
 
     override func viewDidLoad() {

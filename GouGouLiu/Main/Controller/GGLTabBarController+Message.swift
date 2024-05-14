@@ -11,18 +11,17 @@ extension GGLTabBarController {
     func subscribe() {
         GGLDataBase.shared.messageUnReadSubject.sink { [weak self] _ in
             guard let self else { return }
-            updateUnReadNum()
+            updateMessageUnReadNum()
         }.store(in: &cancellables)
         GGLUser.userStatusSubject.sink { [weak self] _ in
             guard let self else { return }
-            updateUnReadNum()
+            updateMessageUnReadNum()
         }.store(in: &cancellables)
     }
 
-    func updateUnReadNum() {
+    private func updateMessageUnReadNum() {
         let num = getUnReadNum()
-        showUnReadNumView(num > 0)
-        badgeLabel.text = String(num)
+        showMessageUnReadNum(num)
     }
 
     private func getUnReadNum() -> Int {
@@ -33,31 +32,15 @@ extension GGLTabBarController {
         }
     }
 
-    private func showUnReadNumView(_ show: Bool) {
-        badgeLabel.isHidden = !show
-        if show {
-            remakeUnReadNumViewConstraints()
-        }
-    }
-
-    private func remakeUnReadNumViewConstraints() {
-        badgeLabel.removeFromSuperview()
-        if let index = viewControllers?.firstIndex(where: {
-            guard let navigationController = $0 as? GGLBaseNavigationController,
-                  let viewController = navigationController.viewControllers.first,
+    private func showMessageUnReadNum(_ unReadNum: Int) {
+        let unReadNumString: String? = unReadNum > 0 ? String(unReadNum) : nil
+        if let navigationController = viewControllers?.first(where: {
+            guard let naVC = $0 as? GGLBaseNavigationController,
+                  let viewController = naVC.viewControllers.first,
                   viewController.isKind(of: GGLMessageViewController.self) else { return false }
             return true
-        }) {
-            let messageItem = tabBarButtons[index]
-            if let itemImageView = messageItem.subviews.first {
-                messageItem.addSubview(badgeLabel)
-                badgeLabel.snp.remakeConstraints {
-                    $0.leading.equalTo(itemImageView.snp.trailing).offset(-4)
-                    $0.top.equalToSuperview()
-                    $0.height.equalTo(16)
-                    $0.width.greaterThanOrEqualTo(16)
-                }
-            }
+        }) as? GGLBaseNavigationController {
+            navigationController.tabBarItem.badgeValue = unReadNumString
         }
     }
 }
