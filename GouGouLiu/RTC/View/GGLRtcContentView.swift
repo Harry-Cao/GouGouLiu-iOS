@@ -22,7 +22,6 @@ struct GGLRtcContentView: View {
                         .ignoresSafeArea()
                 } else {
                     PlaceholderView(user: viewModel.targetUser)
-                        .ignoresSafeArea()
                 }
                 VStack {
                     HStack {
@@ -125,6 +124,7 @@ extension GGLRtcContentView {
                     .scaledToFill()
                     .frame(width: geometry.size.width, height: geometry.size.height)
             })
+            .ignoresSafeArea()
             WebImage(url: URL(string: user?.avatarUrl ?? ""))
                 .resizable()
                 .scaledToFill()
