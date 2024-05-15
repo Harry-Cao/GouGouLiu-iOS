@@ -73,7 +73,6 @@ extension GGLWebSocketManager: WebSocketDelegate {
             print(error as Any)
         case .peerClosed:
             print("peerClosed")
-            break
         }
     }
 

@@ -7,9 +7,14 @@
 
 import AgoraRtcKit
 
+protocol GGLAgoraManagerDelegate: AnyObject {
+    func onRemoteJoined(uid: UInt) -> UIView
+}
+
 final class GGLAgoraManager: NSObject {
     static let shared = GGLAgoraManager()
     private var agoraKit: AgoraRtcEngineKit?
+    weak var delegate: GGLAgoraManagerDelegate?
 
     func setup() {
         let config = AgoraRtcEngineConfig()
@@ -25,10 +30,10 @@ final class GGLAgoraManager: NSObject {
     func joinChannel(channelId: String) {
         guard let token = GGLKeychainHelper.userToken,
               let uid = GGLUser.getUserId() else { return }
-        let option = AgoraRtcChannelMediaOptions()
-        option.channelProfile = .liveBroadcasting
-        option.clientRoleType = .broadcaster
-        agoraKit?.joinChannel(byToken: token, channelId: channelId, userAccount: uid, mediaOptions: option)
+        let options = AgoraRtcChannelMediaOptions()
+        options.channelProfile = .liveBroadcasting
+        options.clientRoleType = .broadcaster
+        agoraKit?.joinChannel(byToken: token, channelId: channelId, userAccount: uid, mediaOptions: options)
     }
 
     func leaveChannel() {
@@ -36,17 +41,18 @@ final class GGLAgoraManager: NSObject {
         agoraKit?.leaveChannel()
     }
 
-    func setupVideoCanvas(localView: UIView, remoteView: UIView) {
+    func setupVideoCanvas(localView: UIView, delegate: GGLAgoraManagerDelegate) {
+        self.delegate = delegate
         agoraKit?.enableVideo()
         agoraKit?.setupLocalVideo(videoCanvas(view: localView))
-        agoraKit?.setupRemoteVideo(videoCanvas(view: remoteView))
         agoraKit?.startPreview()
     }
 
-    private func videoCanvas(view: UIView) -> AgoraRtcVideoCanvas {
+    private func videoCanvas(view: UIView, uid: UInt? = nil) -> AgoraRtcVideoCanvas {
         let videoCanvas = AgoraRtcVideoCanvas()
         videoCanvas.view = view
         videoCanvas.renderMode = .hidden
+        videoCanvas.uid = uid ?? 0
         return videoCanvas
     }
 }
@@ -68,5 +74,10 @@ extension GGLAgoraManager: AgoraRtcEngineDelegate {
         default:
             break
         }
+    }
+
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
+        guard let remoteView = delegate?.onRemoteJoined(uid: uid) else { return }
+        agoraKit?.setupRemoteVideo(videoCanvas(view: remoteView, uid: uid))
     }
 }

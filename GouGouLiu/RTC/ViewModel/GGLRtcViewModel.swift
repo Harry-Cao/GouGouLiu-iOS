@@ -32,6 +32,7 @@ final class GGLRtcViewModel: ObservableObject {
                   model.type == .rtc_message,
                   let rtcModel = model as? GGLWSRtcMessageModel,
                   rtcModel.channelId == channelId,
+                  rtcModel.senderId == targetId,
                   let action = rtcModel.rtcAction else { return }
             switch action {
             case .invite:
@@ -94,7 +95,7 @@ final class GGLRtcViewModel: ObservableObject {
     private func setupAgora() {
         GGLAgoraManager.shared.setup()
         if type == .video {
-            GGLAgoraManager.shared.setupVideoCanvas(localView: localView, remoteView: remoteView)
+            GGLAgoraManager.shared.setupVideoCanvas(localView: localView, delegate: self)
         }
     }
 
@@ -131,6 +132,13 @@ final class GGLRtcViewModel: ObservableObject {
         GGLAgoraManager.shared.joinChannel(channelId: channelId)
         GGLWebSocketManager.shared.sendRtcMessage(type: type, action: .accept, channelId: channelId, targetId: targetId)
         stage = .talking
+    }
+}
+
+// MARK: - GGLAgoraManagerDelegate
+extension GGLRtcViewModel: GGLAgoraManagerDelegate {
+    func onRemoteJoined(uid: UInt) -> UIView {
+        return remoteView
     }
 }
 

@@ -38,15 +38,7 @@ extension UIViewController {
             }
             return UIBarButtonItem(customView: label)
         case .systemImage(let name, let action):
-            let button = UIButton()
-            button.setImage(UIImage(systemName: name), for: .normal)
-            if let action {
-                button.addTarget(self, action: action, for: .touchUpInside)
-            }
-            button.snp.makeConstraints { make in
-                make.size.equalTo(24)
-            }
-            return UIBarButtonItem(customView: button)
+            return UIBarButtonItem(image: UIImage(systemName: name), style: .plain, target: self, action: action)
         }
     }
 

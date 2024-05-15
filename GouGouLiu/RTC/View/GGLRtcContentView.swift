@@ -17,21 +17,20 @@ struct GGLRtcContentView: View {
             case .voice:
                 PlaceholderView(user: viewModel.targetUser)
             case .video:
-                ZStack {
-                    if viewModel.stage == .talking {
-                        UIViewBridge(view: viewModel.remoteView)
-                            .ignoresSafeArea()
-                    } else {
-                        PlaceholderView(user: viewModel.targetUser)
-                    }
-                    VStack {
-                        HStack {
-                            Spacer()
-                            UIViewBridge(view: viewModel.localView)
-                                .frame(width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.height/3)
-                        }
+                if viewModel.stage == .talking {
+                    UIViewBridge(view: viewModel.remoteView)
+                        .ignoresSafeArea()
+                } else {
+                    PlaceholderView(user: viewModel.targetUser)
+                        .ignoresSafeArea()
+                }
+                VStack {
+                    HStack {
                         Spacer()
+                        UIViewBridge(view: viewModel.localView)
+                            .frame(width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.height/3)
                     }
+                    Spacer()
                 }
             }
 
@@ -120,10 +119,12 @@ extension GGLRtcContentView {
         let user: GGLUserModel?
 
         var body: some View {
-            Image("blur_glass_background")
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
+            GeometryReader(content: { geometry in
+                Image("blur_glass_background")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+            })
             WebImage(url: URL(string: user?.avatarUrl ?? ""))
                 .resizable()
                 .scaledToFill()

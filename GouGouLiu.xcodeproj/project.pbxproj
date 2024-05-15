@@ -1352,10 +1352,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GouGouLiu/Support/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "狗狗溜";
+				INFOPLIST_KEY_NSCameraUsageDescription = "for a call or live interactive streaming";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "for a call or live interactive streaming";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need permission for serving you better.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1369,7 +1371,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1386,10 +1388,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GouGouLiu/Support/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "狗狗溜";
+				INFOPLIST_KEY_NSCameraUsageDescription = "for a call or live interactive streaming";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "for a call or live interactive streaming";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need permission for serving you better.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1403,7 +1407,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
