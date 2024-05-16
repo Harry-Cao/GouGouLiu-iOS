@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3E0A078A2A55BAF900D60819 /* GGLOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A07892A55BAF900D60819 /* GGLOrderViewController.swift */; };
+		3E0A078A2A55BAF900D60819 /* GGLDogWalkingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A07892A55BAF900D60819 /* GGLDogWalkingViewController.swift */; };
 		3E0A078D2A55D8B400D60819 /* GGLPhotoDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A078C2A55D8B400D60819 /* GGLPhotoDownloadManager.swift */; };
 		3E0AC6982BA6B44F0075BBD6 /* GGLTabBarController+Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0AC6972BA6B44F0075BBD6 /* GGLTabBarController+Message.swift */; };
 		3E26D1092A68555C00803FC1 /* GGLUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26D1082A68555C00803FC1 /* GGLUser.swift */; };
@@ -122,6 +122,8 @@
 		3EECAE272BD02656003A7CB0 /* AppRouter+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EECAE262BD02656003A7CB0 /* AppRouter+GGL.swift */; };
 		3EF2266E2A2FA4AA00553325 /* UIFont+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF2266D2A2FA4AA00553325 /* UIFont+GGL.swift */; };
 		3EF3CABA2A65014100C46F38 /* GGLDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF3CAB92A65014100C46F38 /* GGLDebugViewController.swift */; };
+		3EF50C362BF64C9B00FA5AA1 /* GGLServiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF50C352BF64C9B00FA5AA1 /* GGLServiceCell.swift */; };
+		3EF50C392BF659A700FA5AA1 /* GGLServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF50C382BF659A700FA5AA1 /* GGLServicesViewController.swift */; };
 		3EF638C62BAA862800E0CFBA /* UIColor+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF638C52BAA862800E0CFBA /* UIColor+GGL.swift */; };
 		3EFE52422B179C8800AF3D0E /* GouGouLiuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFE52412B179C8800AF3D0E /* GouGouLiuTests.swift */; };
 		3EFF955B2A30DBC700E89069 /* GGLMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF955A2A30DBC700E89069 /* GGLMessageViewController.swift */; };
@@ -141,7 +143,7 @@
 
 /* Begin PBXFileReference section */
 		20732876E0B494D5AF100F24 /* Pods-GouGouLiu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GouGouLiu.debug.xcconfig"; path = "Target Support Files/Pods-GouGouLiu/Pods-GouGouLiu.debug.xcconfig"; sourceTree = "<group>"; };
-		3E0A07892A55BAF900D60819 /* GGLOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLOrderViewController.swift; sourceTree = "<group>"; };
+		3E0A07892A55BAF900D60819 /* GGLDogWalkingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLDogWalkingViewController.swift; sourceTree = "<group>"; };
 		3E0A078C2A55D8B400D60819 /* GGLPhotoDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GGLPhotoDownloadManager.swift; sourceTree = "<group>"; };
 		3E0AC6972BA6B44F0075BBD6 /* GGLTabBarController+Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GGLTabBarController+Message.swift"; sourceTree = "<group>"; };
 		3E26D1082A68555C00803FC1 /* GGLUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLUser.swift; sourceTree = "<group>"; };
@@ -254,6 +256,8 @@
 		3EECAE262BD02656003A7CB0 /* AppRouter+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppRouter+GGL.swift"; sourceTree = "<group>"; };
 		3EF2266D2A2FA4AA00553325 /* UIFont+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+GGL.swift"; sourceTree = "<group>"; };
 		3EF3CAB92A65014100C46F38 /* GGLDebugViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GGLDebugViewController.swift; sourceTree = "<group>"; };
+		3EF50C352BF64C9B00FA5AA1 /* GGLServiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLServiceCell.swift; sourceTree = "<group>"; };
+		3EF50C382BF659A700FA5AA1 /* GGLServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLServicesViewController.swift; sourceTree = "<group>"; };
 		3EF638C52BAA862800E0CFBA /* UIColor+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+GGL.swift"; sourceTree = "<group>"; };
 		3EFE523F2B179C8800AF3D0E /* GouGouLiuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GouGouLiuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EFE52412B179C8800AF3D0E /* GouGouLiuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GouGouLiuTests.swift; sourceTree = "<group>"; };
@@ -298,7 +302,7 @@
 		3E0A078B2A55BAFC00D60819 /* Order */ = {
 			isa = PBXGroup;
 			children = (
-				3E0A07892A55BAF900D60819 /* GGLOrderViewController.swift */,
+				3E0A07892A55BAF900D60819 /* GGLDogWalkingViewController.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -742,6 +746,7 @@
 				3EA1F2B52BA163BF005F2C6E /* Login */,
 				3EAC319B2BD434D50022C6A7 /* RTC */,
 				3ED90C002A2E4CFA0079B4D3 /* Home */,
+				3EF50C3A2BF659B300FA5AA1 /* Service */,
 				3E0A078B2A55BAFC00D60819 /* Order */,
 				3EFF95592A30DB9E00E89069 /* Message */,
 				3E453B482A6DA73700B30C3C /* Post */,
@@ -882,6 +887,23 @@
 				3EA1F2C12BA217E4005F2C6E /* UserList */,
 			);
 			path = Debug;
+			sourceTree = "<group>";
+		};
+		3EF50C372BF64CDC00FA5AA1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3EF50C352BF64C9B00FA5AA1 /* GGLServiceCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3EF50C3A2BF659B300FA5AA1 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3EF50C382BF659A700FA5AA1 /* GGLServicesViewController.swift */,
+				3EF50C372BF64CDC00FA5AA1 /* View */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		3EFE52402B179C8800AF3D0E /* GouGouLiuTests */ = {
@@ -1085,6 +1107,7 @@
 				3ED90C0A2A2E5A870079B4D3 /* GGLBaseViewController.swift in Sources */,
 				3E6D46382A7011A5000AB07C /* ProgressHUD+GGL.swift in Sources */,
 				3E68613D2B8CDBC500B07FDA /* GGLChatModel.swift in Sources */,
+				3EF50C392BF659A700FA5AA1 /* GGLServicesViewController.swift in Sources */,
 				3E6A551D2B9816DA00279BD6 /* GGLDataBase.swift in Sources */,
 				3E2DA2742A2F76F9001D9352 /* GGLWaterFallFlowLayout.swift in Sources */,
 				3ECFA7642A750A3100CB465B /* GGLTopicViewModel.swift in Sources */,
@@ -1122,7 +1145,7 @@
 				3ED90BE72A2E24410079B4D3 /* AppDelegate.swift in Sources */,
 				3E6D464E2A703A59000AB07C /* GGLPostUploadPhotoContentCell.swift in Sources */,
 				3E6D464A2A703232000AB07C /* GGLPostInputContentCell.swift in Sources */,
-				3E0A078A2A55BAF900D60819 /* GGLOrderViewController.swift in Sources */,
+				3E0A078A2A55BAF900D60819 /* GGLDogWalkingViewController.swift in Sources */,
 				3E453B472A6DA67B00B30C3C /* GGLPostViewController.swift in Sources */,
 				3EB404B32A548B680032E899 /* GGLHomePostAPI.swift in Sources */,
 				3EA1F2B72BA163DB005F2C6E /* GGLLoginViewController.swift in Sources */,
@@ -1186,6 +1209,7 @@
 				3E6D46432A702ECC000AB07C /* GGLPostUploadPhotoCell.swift in Sources */,
 				3E96F00C2BD2D63500FF94FA /* GGLAgoraManager.swift in Sources */,
 				3EAC319A2BD4348E0022C6A7 /* GGLRtcViewController.swift in Sources */,
+				3EF50C362BF64C9B00FA5AA1 /* GGLServiceCell.swift in Sources */,
 				3ED90C072A2E59F40079B4D3 /* GGLTopicViewController.swift in Sources */,
 				3E6EB82B2A3F565100675A2A /* GGLMessageCell.swift in Sources */,
 				3EA1F2C92BA228E3005F2C6E /* GGLDataBase+Message.swift in Sources */,
