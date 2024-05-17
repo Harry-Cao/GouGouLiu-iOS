@@ -46,8 +46,7 @@ struct GGLWSMessageHelper {
 // MARK: - PeerMessage
 extension GGLWSMessageHelper {
     private static func handlePeerMessage(_ peerMessage: GGLWSPeerMessageModel) {
-        guard let contentType = peerMessage.contentType,
-              let senderId = peerMessage.senderId,
+        guard let senderId = peerMessage.senderId,
               let ownerId = GGLUser.getUserId(showHUD: false),
               let chatModel = GGLWSMessageHelper.chatModelFromPeerMessage(peerMessage) else { return }
         let messageModel = GGLDataBase.shared.getMessageModel(ownerId: ownerId, userId: senderId)
