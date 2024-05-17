@@ -21,6 +21,13 @@ extension GGLDataBase {
     }
 
     func fetchUser(_ userId: String) -> GGLUserModel? {
-        return GGLDataBase.shared.realm.object(ofType: GGLUserModel.self, forPrimaryKey: userId)
+        return realm.object(ofType: GGLUserModel.self, forPrimaryKey: userId)
+    }
+
+    func deleteAllUsers() {
+        write {
+            let allUsers = realm.objects(GGLUserModel.self)
+            realm.delete(allUsers)
+        }
     }
 }

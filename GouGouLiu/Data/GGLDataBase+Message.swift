@@ -68,7 +68,7 @@ extension GGLDataBase {
     }
 
     func fetchMessageModels(ownerId: String?) -> [GGLMessageModel] {
-        return GGLDataBase.shared.realm.objects(GGLMessageModel.self).filter({
+        return realm.objects(GGLMessageModel.self).filter({
             $0.ownerId == ownerId
         }).sorted(by: {
             $0.compareTime > $1.compareTime
@@ -76,7 +76,7 @@ extension GGLDataBase {
     }
 
     func fetchMessageModel(ownerId: String, userId: String) -> GGLMessageModel? {
-        return GGLDataBase.shared.realm.objects(GGLMessageModel.self).filter("ownerId == %@ AND userId == %@", ownerId, userId).first
+        return realm.objects(GGLMessageModel.self).filter("ownerId == %@ AND userId == %@", ownerId, userId).first
     }
 
     func deleteMessageModel(_ messageModel: GGLMessageModel) {

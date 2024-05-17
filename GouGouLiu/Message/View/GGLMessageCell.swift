@@ -33,13 +33,13 @@ struct GGLMessageCell: View {
             }
             VStack(alignment: .leading, spacing: 4, content: {
                 Text(GGLUser.getUser(userId: messageModel.userId).userName ?? "")
-                    .font(.headline)
+                    .font(Font.system(size: 14, weight: .medium))
                     .lineLimit(1)
                 Text(messageModel.displayText)
-                    .font(.subheadline)
+                    .font(Font.system(size: 12, weight: .regular))
                     .foregroundColor(.gray)
                     .offset(x: 2, y: 0)
-                    .lineLimit(2)
+                    .lineLimit(1)
             })
             Spacer()
         })

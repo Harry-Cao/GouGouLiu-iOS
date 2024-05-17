@@ -10,8 +10,9 @@ import Combine
 
 final class GGLDataBase {
     static let shared = GGLDataBase()
+    private let inMemoryIdentifier: String?
     private(set) lazy var realm: Realm = {
-        let config = Realm.Configuration(schemaVersion: 0)
+        let config = Realm.Configuration(inMemoryIdentifier: inMemoryIdentifier, schemaVersion: 0)
         Realm.Configuration.defaultConfiguration = config
         do {
             let realm = try Realm()
@@ -22,8 +23,12 @@ final class GGLDataBase {
     }()
     private(set) var userUpdateSubject = PassthroughSubject<GGLUserModel, Never>()
     private(set) var messageUnReadSubject = PassthroughSubject<GGLMessageModel, Never>()
-    var cancellables = Set<AnyCancellable>()
     private(set) lazy var userNetworkHelper = GGLUserNetworkHelper()
+    var cancellables = Set<AnyCancellable>()
+
+    init(inMemoryIdentifier: String? = nil) {
+        self.inMemoryIdentifier = inMemoryIdentifier
+    }
 
     func startSubscribe() {
         subscribeMessage()
