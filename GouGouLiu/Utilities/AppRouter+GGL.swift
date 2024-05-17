@@ -17,7 +17,7 @@ extension AppRouter {
             messageModel = existMessageModel
         } else {
             let model = GGLMessageModel.create(ownerId: ownerId, userId: userId)
-            GGLDataBase.shared.add(model)
+            GGLDataBase.shared.addMessageModel(model)
             messageModel = model
         }
         GGLDataBase.shared.saveOrUpdateUser(user)

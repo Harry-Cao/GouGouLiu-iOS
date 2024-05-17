@@ -25,7 +25,8 @@ final class GGLChatRoomViewModel: ObservableObject {
         }
         return false
     }
-    private let networkHelper = GGLChatRoomNetworkHelper()
+    private let chatRoomNetworkHelper = GGLChatRoomNetworkHelper()
+    private let userNetworkHelper = GGLUserNetworkHelper()
     private var cancellables = Set<AnyCancellable>()
 
     init(messageModel: GGLMessageModel) {
@@ -57,7 +58,11 @@ final class GGLChatRoomViewModel: ObservableObject {
     }
 
     private func updateMessageModel() {
-        GGLDataBase.shared.updateMessageModel(messageModel)
+        userNetworkHelper.requestGetUser(userId: messageModel.userId) { model in
+            guard model.code == .success,
+                  let newValue = model.data else { return }
+            GGLDataBase.shared.saveOrUpdateUser(newValue)
+        }
     }
 
     func switchInputModel() {
@@ -76,7 +81,7 @@ final class GGLChatRoomViewModel: ObservableObject {
                 guard model.code == .success,
                       let url = model.data?.previewUrl else { return }
                 let photoModel = GGLChatModel.createPhoto(url, userId: userId)
-                GGLDataBase.shared.insert(photoModel, to: self.messageModel.messages)
+                GGLDataBase.shared.insertChatModel(photoModel, to: self.messageModel)
                 self.scrollToBottom()
                 GGLWebSocketManager.shared.sendPeerPhoto(url, targetId: self.messageModel.userId)
             }
@@ -89,7 +94,7 @@ final class GGLChatRoomViewModel: ObservableObject {
         let prompt = inputText
         inputText = ""
         let model = GGLChatModel.createText(prompt, userId: userId)
-        GGLDataBase.shared.insert(model, to: messageModel.messages)
+        GGLDataBase.shared.insertChatModel(model, to: messageModel)
         scrollToBottom()
         respondMessage = ""
         if !handleSystemSending(prompt) {
@@ -134,7 +139,7 @@ final class GGLChatRoomViewModel: ObservableObject {
         responding = false
         let model = GGLChatModel.createText(respondMessage, userId: messageModel.userId)
         scrollToBottom()
-        GGLDataBase.shared.insert(model, to: messageModel.messages)
+        GGLDataBase.shared.insertChatModel(model, to: messageModel)
     }
 
     private func scrollToBottom() {
@@ -146,7 +151,7 @@ final class GGLChatRoomViewModel: ObservableObject {
     }
 
     func onClickPhoneCall() {
-        networkHelper.requestChannelId(senderId: messageModel.ownerId, targetId: messageModel.userId) { [weak self] model in
+        chatRoomNetworkHelper.requestChannelId(senderId: messageModel.ownerId, targetId: messageModel.userId) { [weak self] model in
             guard let self,
                   let channelId = model.data?.channelId else { return }
             AppRouter.shared.present(GGLRtcViewController(role: .sender, type: .voice, channelId: channelId, targetId: messageModel.userId))
@@ -154,7 +159,7 @@ final class GGLChatRoomViewModel: ObservableObject {
     }
 
     func onClickVideoCall() {
-        networkHelper.requestChannelId(senderId: messageModel.ownerId, targetId: messageModel.userId) { [weak self] model in
+        chatRoomNetworkHelper.requestChannelId(senderId: messageModel.ownerId, targetId: messageModel.userId) { [weak self] model in
             guard let self,
                   let channelId = model.data?.channelId else { return }
             AppRouter.shared.present(GGLRtcViewController(role: .sender, type: .video, channelId: channelId, targetId: messageModel.userId))

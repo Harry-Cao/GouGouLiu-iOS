@@ -37,10 +37,10 @@ extension GGLDataBase {
                     messageModel = existMessageModel
                 } else {
                     let model = GGLMessageModel.create(ownerId: ownerId, userId: senderId)
-                    add(model)
+                    addMessageModel(model)
                     messageModel = model
                 }
-                insert(chatModel, to: messageModel.messages)
+                insertChatModel(chatModel, to: messageModel)
                 recordUnReadIfNeeded(messageModel: messageModel)
             case .system_logout, .rtc_message:
                 break
@@ -67,6 +67,18 @@ extension GGLDataBase {
         messageUnReadSubject.send(messageModel)
     }
 
+    func addMessageModel(_ messageModel: GGLMessageModel) {
+        write {
+            realm.add(messageModel)
+        }
+    }
+
+    func insertChatModel(_ chatModel: GGLChatModel, to messageModel: GGLMessageModel) {
+        write {
+            messageModel.messages.insert(chatModel)
+        }
+    }
+
     func fetchMessageModels(ownerId: String?) -> [GGLMessageModel] {
         return realm.objects(GGLMessageModel.self).filter({
             $0.ownerId == ownerId
@@ -80,7 +92,9 @@ extension GGLDataBase {
     }
 
     func deleteMessageModel(_ messageModel: GGLMessageModel) {
-        delete(messageModel)
+        write {
+            realm.delete(messageModel)
+        }
         messageUnReadSubject.send(messageModel)
     }
 }

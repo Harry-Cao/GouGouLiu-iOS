@@ -89,7 +89,7 @@ extension GGLUser {
             return target
         }
         let userModel = GGLUserModel.create(userId: userId)
-        GGLDataBase.shared.add(userModel)
+        GGLDataBase.shared.addUser(userModel)
         networkHelper.requestGetUser(userId: userId) { model in
             guard model.code == .success,
                   let newValue = model.data else { return }

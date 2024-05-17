@@ -15,9 +15,15 @@ extension GGLDataBase {
                 user.avatarUrl = newValue.avatarUrl
             }
         } else {
-            add(newValue)
+            addUser(newValue)
         }
         userUpdateSubject.send(newValue)
+    }
+
+    func addUser(_ userModel: GGLUserModel) {
+        write {
+            realm.add(userModel)
+        }
     }
 
     func fetchUser(_ userId: String) -> GGLUserModel? {

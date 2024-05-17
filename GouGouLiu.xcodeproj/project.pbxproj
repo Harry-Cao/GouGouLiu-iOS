@@ -117,7 +117,6 @@
 		3ED90C112A2E620B0079B4D3 /* GGLBaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED90C102A2E620B0079B4D3 /* GGLBaseNavigationController.swift */; };
 		3ED9B53B2BA345E600A13D38 /* GGLWebSocketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED9B53A2BA345E600A13D38 /* GGLWebSocketModel.swift */; };
 		3ED9B5412BA37D5000A13D38 /* GGLUserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED9B5402BA37D5000A13D38 /* GGLUserListCell.swift */; };
-		3ED9B5442BA433C300A13D38 /* GGLDataBase+ChatRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED9B5432BA433C300A13D38 /* GGLDataBase+ChatRoom.swift */; };
 		3ED9B5462BA44E3A00A13D38 /* GGLDataBase+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED9B5452BA44E3A00A13D38 /* GGLDataBase+User.swift */; };
 		3EE073A92BCC209900E1DE80 /* MoyaProvider+Concurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE073A82BCC209900E1DE80 /* MoyaProvider+Concurrency.swift */; };
 		3EECAE272BD02656003A7CB0 /* AppRouter+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EECAE262BD02656003A7CB0 /* AppRouter+GGL.swift */; };
@@ -252,7 +251,6 @@
 		3ED90C102A2E620B0079B4D3 /* GGLBaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLBaseNavigationController.swift; sourceTree = "<group>"; };
 		3ED9B53A2BA345E600A13D38 /* GGLWebSocketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLWebSocketModel.swift; sourceTree = "<group>"; };
 		3ED9B5402BA37D5000A13D38 /* GGLUserListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLUserListCell.swift; sourceTree = "<group>"; };
-		3ED9B5432BA433C300A13D38 /* GGLDataBase+ChatRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GGLDataBase+ChatRoom.swift"; sourceTree = "<group>"; };
 		3ED9B5452BA44E3A00A13D38 /* GGLDataBase+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GGLDataBase+User.swift"; sourceTree = "<group>"; };
 		3EE073A82BCC209900E1DE80 /* MoyaProvider+Concurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Concurrency.swift"; sourceTree = "<group>"; };
 		3EECAE262BD02656003A7CB0 /* AppRouter+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppRouter+GGL.swift"; sourceTree = "<group>"; };
@@ -433,7 +431,6 @@
 			children = (
 				3E6A551C2B9816DA00279BD6 /* GGLDataBase.swift */,
 				3EA1F2C82BA228E3005F2C6E /* GGLDataBase+Message.swift */,
-				3ED9B5432BA433C300A13D38 /* GGLDataBase+ChatRoom.swift */,
 				3ED9B5452BA44E3A00A13D38 /* GGLDataBase+User.swift */,
 			);
 			path = Data;
@@ -1195,7 +1192,6 @@
 				3E6D463E2A701C2A000AB07C /* GGLPostAdapter.swift in Sources */,
 				3E6D46502A703AA8000AB07C /* UITableView+GGL.swift in Sources */,
 				3EAC31972BD414260022C6A7 /* GGLChatRoomNetworkHelper.swift in Sources */,
-				3ED9B5442BA433C300A13D38 /* GGLDataBase+ChatRoom.swift in Sources */,
 				3E4F31C72BD555390065D2A5 /* GGLWSPeerMessageModel.swift in Sources */,
 				3ED370D02A597CB900639291 /* GGLTool.swift in Sources */,
 				3E0AC6982BA6B44F0075BBD6 /* GGLTabBarController+Message.swift in Sources */,

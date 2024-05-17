@@ -50,9 +50,9 @@ final class GGLMessageViewModel: ObservableObject {
     private func setupSystemMessages(userId: String) {
         GGLSystemUser.allCases.forEach { object in
             guard GGLDataBase.shared.fetchMessageModel(ownerId: userId, userId: object.rawValue) == nil else { return }
-            let messageObject = GGLMessageModel.create(ownerId: userId, userId: object.rawValue)
-            GGLDataBase.shared.add(messageObject)
-            GGLDataBase.shared.insert(GGLChatModel.createText(object.welcomeWords, userId: object.rawValue), to: messageObject.messages)
+            let messageModel = GGLMessageModel.create(ownerId: userId, userId: object.rawValue)
+            GGLDataBase.shared.addMessageModel(messageModel)
+            GGLDataBase.shared.insertChatModel(GGLChatModel.createText(object.welcomeWords, userId: object.rawValue), to: messageModel)
         }
     }
 
