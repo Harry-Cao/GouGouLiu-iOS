@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupAppearance()
         GGLNetworkManager.shared.startListening()
         GGLWebSocketManager.shared.startSubscribe()
-        GGLDataBase.shared.startSubscribe()
         loginWithUserId()
         return true
     }

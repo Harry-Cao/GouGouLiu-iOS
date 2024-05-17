@@ -22,14 +22,9 @@ final class GGLDataBase {
     }()
     private(set) var userUpdateSubject = PassthroughSubject<GGLUserModel, Never>()
     private(set) var messageUnReadSubject = PassthroughSubject<GGLMessageModel, Never>()
-    var cancellables = Set<AnyCancellable>()
 
     init(inMemoryIdentifier: String? = nil) {
         self.inMemoryIdentifier = inMemoryIdentifier
-    }
-
-    func startSubscribe() {
-        subscribeMessage()
     }
 
     func write(_ action: () -> Void) {

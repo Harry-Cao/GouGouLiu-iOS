@@ -48,6 +48,7 @@ final class GGLWebSocketManager {
     }
 }
 
+// MARK: - WebSocketDelegate
 extension GGLWebSocketManager: WebSocketDelegate {
     func didReceive(event: Starscream.WebSocketEvent, client: Starscream.WebSocketClient) {
         switch event {
@@ -77,23 +78,8 @@ extension GGLWebSocketManager: WebSocketDelegate {
     }
 
     private func onReceivedText(_ text: String) {
-        guard let model = GGLWSMessageHelper.parse(text: text),
-              let type = model.type else { return }
-        switch type {
-        case .peer_message:
-            break
-        case .system_logout:
-            GGLUser.forceLogout()
-        case .rtc_message:
-            guard let rtcMessageModel = model as? GGLWSRtcMessageModel,
-                  let rtcType = rtcMessageModel.rtcType,
-                  let targetId = rtcMessageModel.senderId else { return }
-            if GGLRtcViewModel.shared.stage == .free,
-               rtcMessageModel.rtcAction == .invite {
-                let rtcViewController = GGLRtcViewController(role: .receiver, type: rtcType, channelId: rtcMessageModel.channelId, targetId: targetId)
-                AppRouter.shared.present(rtcViewController)
-            }
-        }
+        guard let model = GGLWSMessageHelper.parse(text: text) else { return }
+        GGLWSMessageHelper.handleWebSocketModel(model)
         messageSubject.send(model)
     }
 }
