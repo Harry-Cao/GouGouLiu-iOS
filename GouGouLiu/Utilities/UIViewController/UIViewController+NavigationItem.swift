@@ -5,16 +5,16 @@
 //  Created by HarryCao on 2024/4/19.
 //
 
-import Foundation
+import UIKit
 
 extension UIViewController {
-    func setupRightNavigationItems(_ items: [GGLNavigationItem]) {
-        navigationItem.rightBarButtonItems = items.map({ barButtonItem(navigationItem: $0) })
+    func barButtonItems(items: [GGLNavigationItem]) -> [UIBarButtonItem] {
+        items.map({ barButtonItem(navigationItem: $0) })
     }
 
     func barButtonItem(navigationItem: GGLNavigationItem) -> UIBarButtonItem {
         switch navigationItem {
-        case .image(let url, let action):
+        case .avatar(let url, let action):
             let button = UIButton()
             button.sd_setImage(with: URL(string: url), for: .normal)
             button.imageView?.contentMode = .scaleAspectFill
@@ -37,14 +37,14 @@ extension UIViewController {
                 label.addGestureRecognizer(tapGesture)
             }
             return UIBarButtonItem(customView: label)
-        case .systemImage(let name, let action):
-            return UIBarButtonItem(image: UIImage(systemName: name), style: .plain, target: self, action: action)
+        case .image(let image, let action):
+            return UIBarButtonItem(image: image, style: .plain, target: self, action: action)
         }
     }
 
     enum GGLNavigationItem {
-        case image(_ url: String, _ action: Selector?)
+        case avatar(_ url: String, _ action: Selector?)
         case text(_ text: String, _ action: Selector?)
-        case systemImage(_ name: String, _ action: Selector?)
+        case image(_ image: UIImage?, _ action: Selector?)
     }
 }

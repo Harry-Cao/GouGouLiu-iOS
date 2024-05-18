@@ -32,10 +32,10 @@ struct GGLServiceCell: View {
             .padding(20)
             .background {
                 RoundedRectangle(cornerRadius: 12, style: .circular)
-                    .shadow(color: .black.opacity(0.1), radius: 10)
+                    .shadow(color: .black.opacity(0.2), radius: 10)
             }
         }
-        .foregroundColor(Color(uiColor: .systemBackground))
+        .foregroundColor(Color(uiColor: .secondarySystemBackground))
         .padding(EdgeInsets(top: 0, leading: 20, bottom: 12, trailing: 20))
     }
 }

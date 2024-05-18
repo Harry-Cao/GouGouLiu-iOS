@@ -29,7 +29,7 @@ final class GGLHomeViewController: GGLBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = .Home
+        navigationItem.leftBarButtonItem = barButtonItem(navigationItem: .image(.navigation_bar_logo, #selector(showDebugPage)))
         setupUI()
         setupRefreshComponent()
         bindData()
@@ -81,6 +81,12 @@ final class GGLHomeViewController: GGLBaseViewController {
 
     @objc private func refreshData() {
         recommendCollectionView.mj_header?.beginRefreshing()
+    }
+
+    @objc private func showDebugPage() {
+        #if DEBUG
+        AppRouter.shared.push(GGLDebugViewController())
+        #endif
     }
 
 }

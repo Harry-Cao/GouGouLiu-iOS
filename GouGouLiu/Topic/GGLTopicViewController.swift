@@ -31,8 +31,8 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     private func setupNavigationItem() {
-        setupRightNavigationItems([.image(postModel?.user?.avatarUrl ?? "", #selector(didTapUser)),
-                                   .text(postModel?.user?.userName ?? "", #selector(didTapUser))])
+        navigationItem.rightBarButtonItems = barButtonItems(items: [.avatar(postModel?.user?.avatarUrl ?? "", #selector(didTapUser)),
+                                                                    .text(postModel?.user?.userName ?? "", #selector(didTapUser))])
     }
 
     private func setupUI() {

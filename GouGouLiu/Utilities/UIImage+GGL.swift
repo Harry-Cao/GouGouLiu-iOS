@@ -10,6 +10,7 @@ import UIKit
 extension UIImage {
 
     static var navigation_bar_back: UIImage? { UIImage(named: "navigation_bar_back") }
+    static var navigation_bar_logo: UIImage? { UIImage(named: "gougouliu_logo") }
 
     static var tab_bar_home_normal: UIImage? { UIImage(named: "tab_bar_home_normal") }
     static var tab_bar_home_selected: UIImage? { UIImage(named: "tab_bar_home_selected") }

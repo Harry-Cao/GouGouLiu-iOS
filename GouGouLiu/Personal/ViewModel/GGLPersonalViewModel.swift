@@ -10,7 +10,7 @@ import Combine
 
 final class GGLPersonalViewModel: ObservableObject {
     @Published var current: GGLUserModel?
-    let settingRows: [SettingRow] = [.myPosts, .myOrders, .clearImageCache, .logout, .debug]
+    let settingRows: [SettingRow] = [.myPosts, .myOrders, .clearImageCache, .logout]
     private var cancellables = Set<AnyCancellable>()
 
     init() {
@@ -46,7 +46,6 @@ extension GGLPersonalViewModel {
         case myOrders
         case clearImageCache
         case logout
-        case debug
 
         var id: UUID {
             return UUID()
@@ -61,8 +60,6 @@ extension GGLPersonalViewModel {
                 return "xmark.bin"
             case .logout:
                 return "door.right.hand.open"
-            case .debug:
-                return "ladybug"
             }
         }
         var title: String {
@@ -75,8 +72,6 @@ extension GGLPersonalViewModel {
                 return "Clear image cache"
             case .logout:
                 return "Log out"
-            case .debug:
-                return "Debug"
             }
         }
         var foregroundColor: Color {
@@ -102,8 +97,6 @@ extension GGLPersonalViewModel {
                 UIAlertController.popupConfirmAlert(title: "Confirm to log out?") {
                     GGLUser.logout()
                 }
-            case .debug:
-                AppRouter.shared.push(GGLDebugViewController())
             }
         }
     }
