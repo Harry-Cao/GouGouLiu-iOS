@@ -119,7 +119,7 @@ extension GGLRtcContentView {
 
         var body: some View {
             GeometryReader(content: { geometry in
-                Image("blur_glass_background")
+                Image(.blurGlassBackground)
                     .resizable()
                     .scaledToFill()
                     .frame(width: geometry.size.width, height: geometry.size.height)

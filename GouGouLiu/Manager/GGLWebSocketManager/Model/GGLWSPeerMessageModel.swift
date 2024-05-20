@@ -67,18 +67,18 @@ final class GGLWSPeerPhotoModel: GGLWSPeerMessageModel {
 
     required init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        url = try container.decode(String.self, forKey: .url)
+        url = try container.decode(String.self, forKey: .photoUrl)
         try super.init(from: decoder)
     }
 
     override func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(url, forKey: .url)
+        try container.encode(url, forKey: .photoUrl)
         try super.encode(to: encoder)
     }
 
     private enum CodingKeys: String, CodingKey {
-        case url
+        case photoUrl
     }
 }
 

@@ -120,7 +120,6 @@
 		3ED9B5462BA44E3A00A13D38 /* GGLDataBase+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED9B5452BA44E3A00A13D38 /* GGLDataBase+User.swift */; };
 		3EE073A92BCC209900E1DE80 /* MoyaProvider+Concurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE073A82BCC209900E1DE80 /* MoyaProvider+Concurrency.swift */; };
 		3EECAE272BD02656003A7CB0 /* AppRouter+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EECAE262BD02656003A7CB0 /* AppRouter+GGL.swift */; };
-		3EF2266E2A2FA4AA00553325 /* UIFont+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF2266D2A2FA4AA00553325 /* UIFont+GGL.swift */; };
 		3EF3CABA2A65014100C46F38 /* GGLDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF3CAB92A65014100C46F38 /* GGLDebugViewController.swift */; };
 		3EF50C362BF64C9B00FA5AA1 /* GGLServiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF50C352BF64C9B00FA5AA1 /* GGLServiceCell.swift */; };
 		3EF50C392BF659A700FA5AA1 /* GGLServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF50C382BF659A700FA5AA1 /* GGLServicesViewController.swift */; };
@@ -254,7 +253,6 @@
 		3ED9B5452BA44E3A00A13D38 /* GGLDataBase+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GGLDataBase+User.swift"; sourceTree = "<group>"; };
 		3EE073A82BCC209900E1DE80 /* MoyaProvider+Concurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Concurrency.swift"; sourceTree = "<group>"; };
 		3EECAE262BD02656003A7CB0 /* AppRouter+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppRouter+GGL.swift"; sourceTree = "<group>"; };
-		3EF2266D2A2FA4AA00553325 /* UIFont+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+GGL.swift"; sourceTree = "<group>"; };
 		3EF3CAB92A65014100C46F38 /* GGLDebugViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GGLDebugViewController.swift; sourceTree = "<group>"; };
 		3EF50C352BF64C9B00FA5AA1 /* GGLServiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLServiceCell.swift; sourceTree = "<group>"; };
 		3EF50C382BF659A700FA5AA1 /* GGLServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLServicesViewController.swift; sourceTree = "<group>"; };
@@ -769,7 +767,6 @@
 			children = (
 				3ED370CC2A5974E300639291 /* GGLAPI.swift */,
 				3ED90BFD2A2E4A200079B4D3 /* UIImage+GGL.swift */,
-				3EF2266D2A2FA4AA00553325 /* UIFont+GGL.swift */,
 				3EF638C52BAA862800E0CFBA /* UIColor+GGL.swift */,
 				3E6B0C312A3087D9002317D6 /* String+GGL.swift */,
 				3EA0139B2BF1325A00FAD3F2 /* Publisher+Moya.swift */,
@@ -1123,7 +1120,6 @@
 				3EAD23E42A401C9F000238AC /* GGLChatRoomViewController.swift in Sources */,
 				3E604A952BD0ED690032E7BA /* UIViewController+Hero.swift in Sources */,
 				3EAC31952BD413080022C6A7 /* GGLGetChannelIdModel.swift in Sources */,
-				3EF2266E2A2FA4AA00553325 /* UIFont+GGL.swift in Sources */,
 				3ED90BEB2A2E24410079B4D3 /* GGLHomeViewController.swift in Sources */,
 				3EB800E22BDCD74800F1290C /* GGLRtcContentView.swift in Sources */,
 				3E6861412B8CE50500B07FDA /* GGLChatMessageAdapter.swift in Sources */,

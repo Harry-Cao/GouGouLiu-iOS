@@ -10,8 +10,8 @@ import Hero
 
 final class GGLPublishOptionViewController: GGLBaseViewController {
 
-    private lazy var publishPostButton: UIButton = createButton(title: "发帖子", image: .publish_post)
-    private lazy var publishOrderButton: UIButton = createButton(title: "发订单", image: .publish_order)
+    private lazy var publishPostButton: UIButton = createButton(title: "发帖子", image: UIImage(resource: .publishPost))
+    private lazy var publishOrderButton: UIButton = createButton(title: "发订单", image: UIImage(resource: .publishOrder))
     private let containerView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -20,7 +20,7 @@ final class GGLPublishOptionViewController: GGLBaseViewController {
     }()
     private let foldUpButton: UIButton = {
         let button = UIButton()
-        button.setImage(.tab_bar_fold_up, for: .normal)
+        button.setImage(UIImage(resource: .tabBarFoldUp), for: .normal)
         return button
     }()
 

@@ -32,20 +32,20 @@ final class GGLTabBarController: UITabBarController {
     private func setupViewControllers() {
         let homeNavigationController = setupNavigationController(viewController: homeViewController,
                                                                  title: .Home,
-                                                                 normalImage: .tab_bar_home_normal,
-                                                                 selectedImage: .tab_bar_home_selected)
+                                                                 normalImage: UIImage(resource: .tabBarHomeNormal),
+                                                                 selectedImage: UIImage(resource: .tabBarHomeSelected))
         let serviceNavigationController = setupNavigationController(viewController: serviceViewController,
                                                                  title: .Services,
-                                                                 normalImage: .tab_bar_services_normal,
-                                                                 selectedImage: .tab_bar_services_selected)
+                                                                 normalImage: UIImage(resource: .tabBarServicesNormal),
+                                                                 selectedImage: UIImage(resource: .tabBarServicesSelected))
         let messageNavigationController = setupNavigationController(viewController: messageViewController,
                                                                     title: .Message,
-                                                                    normalImage: .tab_bar_message_normal,
-                                                                    selectedImage: .tab_bar_message_selected)
+                                                                    normalImage: UIImage(resource: .tabBarMessageNormal),
+                                                                    selectedImage: UIImage(resource: .tabBarMessageSelected))
         let personalNavigationController = setupNavigationController(viewController: personalViewController,
                                                                      title: .Personal,
-                                                                     normalImage: .tab_bar_personal_normal,
-                                                                     selectedImage: .tab_bar_personal_selected)
+                                                                     normalImage: UIImage(resource: .tabBarPersonalNormal),
+                                                                     selectedImage: UIImage(resource: .tabBarPersonalSelected))
         let viewControllers: [UIViewController] = [
             homeNavigationController,
             serviceNavigationController,
@@ -71,7 +71,7 @@ final class GGLTabBarController: UITabBarController {
 
     private func setupMiddleButton() {
         let middleButton = UIButton()
-        middleButton.setImage(.tab_bar_extension, for: .normal)
+        middleButton.setImage(UIImage(resource: .tabBarExtension), for: .normal)
         middleButton.backgroundColor = .systemBackground
         middleButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         middleButton.layer.cornerRadius = 40

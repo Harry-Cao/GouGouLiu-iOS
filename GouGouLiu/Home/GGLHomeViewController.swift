@@ -29,7 +29,7 @@ final class GGLHomeViewController: GGLBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = barButtonItem(navigationItem: .image(.navigation_bar_logo, #selector(showDebugPage)))
+        navigationItem.leftBarButtonItem = barButtonItem(navigationItem: .image(UIImage(resource: .gougouliuLogo), #selector(showDebugPage)))
         setupUI()
         setupRefreshComponent()
         bindData()
