@@ -11,18 +11,16 @@ import Moya
 
 final class GGLTopicViewModel {
 
+    @Published var postModel: GGLHomePostModel?
     private let moyaProvider = MoyaProvider<GGLTopicAPI>()
     private var cancellables = Set<AnyCancellable>()
-    private(set) var postModelSubject = CurrentValueSubject<GGLHomePostModel?, Never>(nil)
 
     func getPostData() {
-        guard let postId = postModelSubject.value?.post?.postId else { return }
+        guard let postId = postModel?.post?.postId else { return }
         requestPostData(postId: postId, completion: { [weak self] model in
             guard let data = model.data,
                   let self = self else { return }
-            var postModel = postModelSubject.value
             postModel?.post = data
-            postModelSubject.send(postModel)
         })
     }
 

@@ -11,22 +11,25 @@ import Moya
 
 final class GGLHomeViewModel {
 
-    private(set) var dataSource = CurrentValueSubject<[GGLHomePostModel], Never>([])
+    @Published var dataSource = [GGLHomePostModel]()
     private let moyaProvider = MoyaProvider<GGLHomePostAPI>(session: GGLAlamofireSession.shared)
     private var cancellables = Set<AnyCancellable>()
 
     func getHomePostData() {
-        moyaProvider.requestPublisher(GGLHomePostAPI()).map(GGLMoyaModel<[GGLHomePostModel]>.self).sink { completion in
-            guard case let .failure(error) = completion else { return }
-            print(error)
-            if UserDefaults.host == .intranet {
-                UserDefaults.host = .internet
-                ProgressHUD.showFailed("Host roll back: \(UserDefaults.host.rawValue)")
-            }
-        } receiveValue: { [weak self] model in
-            guard let data = model.data else { return }
-            self?.dataSource.send(data)
-        }.store(in: &cancellables)
+        moyaProvider.requestPublisher(GGLHomePostAPI())
+            .map(GGLMoyaModel<[GGLHomePostModel]>.self)
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                guard case let .failure(error) = completion else { return }
+                print(error)
+                if UserDefaults.host == .intranet {
+                    UserDefaults.host = .internet
+                    ProgressHUD.showFailed("Host roll back: \(UserDefaults.host.rawValue)")
+                }
+            } receiveValue: { [weak self] model in
+                guard let data = model.data else { return }
+                self?.dataSource = data
+            }.store(in: &cancellables)
     }
 
     lazy var refreshImages: [UIImage] = {

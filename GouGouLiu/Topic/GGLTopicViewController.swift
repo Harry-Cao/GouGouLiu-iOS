@@ -12,7 +12,7 @@ final class GGLTopicViewController: GGLBaseViewController {
 
     var postModel: GGLHomePostModel? {
         didSet {
-            viewModel.postModelSubject.send(postModel)
+            viewModel.postModel = postModel
         }
     }
     private let viewModel = GGLTopicViewModel()
@@ -48,17 +48,17 @@ final class GGLTopicViewController: GGLBaseViewController {
         adapter.photoBrowserCellConfigurator = { [weak self] cell in
             guard let self else { return }
             let failToGestures = [transitionHelper.rightGesture]
-            guard let urlStrings = viewModel.postModelSubject.value?.post?.photos else {
-                cell.setup(urlStrings: [viewModel.postModelSubject.value?.post?.coverImageUrl ?? ""], failToGestures: failToGestures)
+            guard let urlStrings = viewModel.postModel?.post?.photos else {
+                cell.setup(urlStrings: [viewModel.postModel?.post?.coverImageUrl ?? ""], failToGestures: failToGestures)
                 return
             }
             cell.setup(urlStrings: urlStrings, failToGestures: failToGestures)
         }
         adapter.contentCellConfigurator = { [weak self] cell in
-            cell.setup(title: self?.viewModel.postModelSubject.value?.post?.title, content: self?.viewModel.postModelSubject.value?.post?.content)
+            cell.setup(title: self?.viewModel.postModel?.post?.title, content: self?.viewModel.postModel?.post?.content)
         }
         adapter.photoBrowserCellDidSelectHandler = { [weak self] _, index in
-            guard let urlString = self?.viewModel.postModelSubject.value?.post?.photos?[index] else { return }
+            guard let urlString = self?.viewModel.postModel?.post?.photos?[index] else { return }
             self?.downloadImage(urlString: urlString)
         }
     }
@@ -74,7 +74,7 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     private func bindData() {
-        viewModel.postModelSubject.sink { [weak self] model in
+        viewModel.$postModel.sink { [weak self] _ in
             self?.topicTableView.reloadData()
         }.store(in: &cancellables)
     }
@@ -88,7 +88,7 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     @objc private func didTapUser() {
-        guard let user = viewModel.postModelSubject.value?.user else { return }
+        guard let user = viewModel.postModel?.user else { return }
         let viewController = GGLPersonalDetailViewController(user: user)
         AppRouter.shared.push(viewController)
     }
@@ -98,7 +98,7 @@ final class GGLTopicViewController: GGLBaseViewController {
 // MARK: - GGLTopicGestureHelperDelegate
 extension GGLTopicViewController: GGLTopicGestureHelperDelegate {
     func transitionHelperPushViewController() -> UIViewController? {
-        guard let user = viewModel.postModelSubject.value?.user else { return nil }
+        guard let user = viewModel.postModel?.user else { return nil }
         return GGLPersonalDetailViewController(user: user)
     }
 }

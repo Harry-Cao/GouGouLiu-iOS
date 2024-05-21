@@ -55,7 +55,7 @@ final class GGLHomeViewController: GGLBaseViewController {
     }
 
     private func bindData() {
-        viewModel.dataSource.receive(on: DispatchQueue.main).sink { [weak self] data in
+        viewModel.$dataSource.sink { [weak self] data in
             self?.recommendCollectionView.mj_header?.endRefreshing()
             self?.recommendCollectionView.reloadData()
             if data.isEmpty {
@@ -70,7 +70,7 @@ final class GGLHomeViewController: GGLBaseViewController {
 
     @objc private func networkStatusUpdated() {
         // 处理首次启动app网络请求时机问题
-        guard viewModel.dataSource.value.isEmpty else { return }
+        guard viewModel.dataSource.isEmpty else { return }
         switch GGLNetworkManager.shared.networkStatus {
         case .reachable(_):
             refreshData()
@@ -104,12 +104,12 @@ extension GGLHomeViewController: GGLEmptyDataViewDelegate {
 extension GGLHomeViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.dataSource.value.count
+        return viewModel.dataSource.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: GGLHomeRecommendCell = collectionView.dequeueReusableCell(for: indexPath)
-        let model = viewModel.dataSource.value[indexPath.item]
+        let model = viewModel.dataSource[indexPath.item]
         cell.setup(model: model)
         return cell
     }
@@ -120,7 +120,7 @@ extension GGLHomeViewController: UICollectionViewDataSource {
 extension GGLHomeViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let model = viewModel.dataSource.value[indexPath.item]
+        let model = viewModel.dataSource[indexPath.item]
         let viewController = GGLTopicViewController()
         viewController.postModel = model
         AppRouter.shared.push(viewController)

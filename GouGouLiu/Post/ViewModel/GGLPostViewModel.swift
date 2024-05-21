@@ -17,7 +17,7 @@ final class GGLPostViewModel {
 
     weak var delegate: GGLPostViewModelDelegate?
     private let networkHelper = GGLPostNetworkHelper()
-    private(set) var uploadPhotosSubject = CurrentValueSubject<[GGLUploadPhotoModel], Never>([])
+    @Published var uploadPhotos = [GGLUploadPhotoModel]()
 
     func uploadPhoto() {
         guard let userId = GGLUser.getUserId() else { return }
@@ -27,9 +27,7 @@ final class GGLPostViewModel {
                 ProgressHUD.showServerProgress(progress: progress)
             } completion: { [weak self] model in
                 if let self, model.code == .success, let photo = model.data {
-                    var uploadPhotos = uploadPhotosSubject.value
                     uploadPhotos.append(photo)
-                    uploadPhotosSubject.send(uploadPhotos)
                 }
                 ProgressHUD.showServerMsg(model: model)
             }
@@ -38,13 +36,13 @@ final class GGLPostViewModel {
 
     func publishPost() {
         guard let userId = GGLUser.getUserId() else { return }
-        guard let coverUrl = uploadPhotosSubject.value.first?.previewUrl else {
+        guard let coverUrl = uploadPhotos.first?.previewUrl else {
             ProgressHUD.showFailed("请上传至少一张图片")
             return
         }
         let title = GGLPostManager.shared.cacheTitle ?? ""
         let content = GGLPostManager.shared.cacheContent
-        networkHelper.requestPublishPost(userId: userId, coverUrl: coverUrl, imageUrls: uploadPhotosSubject.value.compactMap({ $0.originalUrl }), title: title, content: content) { [weak self] model in
+        networkHelper.requestPublishPost(userId: userId, coverUrl: coverUrl, imageUrls: uploadPhotos.compactMap({ $0.originalUrl }), title: title, content: content) { [weak self] model in
             if model.code == .success {
                 self?.delegate?.didPublishPost(post: model.data)
             }

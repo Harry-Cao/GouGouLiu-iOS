@@ -33,7 +33,7 @@ final class GGLPostViewController: GGLBaseViewController {
 
     private func bindData() {
         viewModel.delegate = self
-        viewModel.uploadPhotosSubject.sink { [weak self] _ in
+        viewModel.$uploadPhotos.receive(on: DispatchQueue.main).sink { [weak self] output in
             self?.reloadUploadPhotoCell()
         }.store(in: &cancellables)
     }
@@ -56,7 +56,7 @@ final class GGLPostViewController: GGLBaseViewController {
         adapter.tableView = postTableView
         adapter.uploadPhotoCellConfigurator = { [weak self] uploadPhotoCell in
             guard let self else { return }
-            let urlStrings = viewModel.uploadPhotosSubject.value.compactMap({ $0.previewUrl })
+            let urlStrings = viewModel.uploadPhotos.compactMap({ $0.previewUrl })
             uploadPhotoCell.urlStrings = urlStrings
         }
         adapter.uploadPhotoCellSelectedHandler = { [weak self] urlString in
