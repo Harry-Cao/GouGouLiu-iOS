@@ -17,7 +17,7 @@ final class GGLUserNetworkHelper {
         provider.requestPublisher(.signUp(username: username, password: password, isSuper: isSuper))
             .map(GGLMoyaModel<GGLUserModel>.self)
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { completion($0) })
+            .sinkWithDefaultErrorHandle(receiveValue: { completion($0) })
             .store(in: &cancellables)
     }
 
@@ -25,7 +25,7 @@ final class GGLUserNetworkHelper {
         provider.requestPublisher(.login_n_pw(username: username, password: password))
             .map(GGLMoyaModel<GGLLoginModel>.self)
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { completion($0) })
+            .sinkWithDefaultErrorHandle(receiveValue: { completion($0) })
             .store(in: &cancellables)
     }
 
@@ -33,7 +33,7 @@ final class GGLUserNetworkHelper {
         provider.requestPublisher(.login_id(userId: userId))
             .map(GGLMoyaModel<GGLLoginModel>.self)
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { completion($0) })
+            .sinkWithDefaultErrorHandle(receiveValue: { completion($0) })
             .store(in: &cancellables)
     }
 
@@ -41,7 +41,7 @@ final class GGLUserNetworkHelper {
         provider.requestPublisher(.logout(userId: userId))
             .map(GGLMoyaModel<GGLUserModel>.self)
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { completion($0) })
+            .sinkWithDefaultErrorHandle(receiveValue: { completion($0) })
             .store(in: &cancellables)
     }
 
@@ -49,7 +49,7 @@ final class GGLUserNetworkHelper {
         provider.requestPublisher(.clearAll(userId: userId))
             .map(GGLMoyaModel<GGLUserModel>.self)
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { completion($0) })
+            .sinkWithDefaultErrorHandle(receiveValue: { completion($0) })
             .store(in: &cancellables)
     }
 
@@ -57,7 +57,7 @@ final class GGLUserNetworkHelper {
         provider.requestPublisher(.allUsers(userId: userId))
             .map(GGLMoyaModel<[GGLUserModel]>.self)
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { completion($0) })
+            .sinkWithDefaultErrorHandle(receiveValue: { completion($0) })
             .store(in: &cancellables)
     }
 
@@ -65,7 +65,7 @@ final class GGLUserNetworkHelper {
         provider.requestPublisher(.getUser(userId: userId))
             .map(GGLMoyaModel<GGLUserModel>.self)
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { completion($0) })
+            .sinkWithDefaultErrorHandle(receiveValue: { completion($0) })
             .store(in: &cancellables)
     }
 

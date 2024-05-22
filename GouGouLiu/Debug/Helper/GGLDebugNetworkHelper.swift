@@ -18,7 +18,7 @@ class GGLDebugNetworkHelper {
         moyaProvider.requestPublisher(.clearAll(userId: userId))
             .map(GGLMoyaModel<GGLPostModel>.self)
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { completion($0) })
+            .sinkWithDefaultErrorHandle(receiveValue: { completion($0) })
             .store(in: &cancellables)
     }
 }

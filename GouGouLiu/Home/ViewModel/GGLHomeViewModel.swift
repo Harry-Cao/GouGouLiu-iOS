@@ -12,6 +12,7 @@ import Moya
 final class GGLHomeViewModel {
 
     @Published var dataSource = [GGLHomePostModel]()
+    let requestCompletion = PassthroughSubject<Subscribers.Completion<MoyaError>, Never>()
     private let moyaProvider = MoyaProvider<GGLHomePostAPI>(session: GGLAlamofireSession.shared)
     private var cancellables = Set<AnyCancellable>()
 
@@ -19,13 +20,8 @@ final class GGLHomeViewModel {
         moyaProvider.requestPublisher(GGLHomePostAPI())
             .map(GGLMoyaModel<[GGLHomePostModel]>.self)
             .receive(on: DispatchQueue.main)
-            .sink { completion in
-                guard case let .failure(error) = completion else { return }
-                print(error)
-                if UserDefaults.host == .intranet {
-                    UserDefaults.host = .internet
-                    ProgressHUD.showFailed("Host roll back: \(UserDefaults.host.rawValue)")
-                }
+            .sinkWithDefaultErrorHandle { [weak self] completion in
+                self?.requestCompletion.send(completion)
             } receiveValue: { [weak self] model in
                 guard let data = model.data else { return }
                 self?.dataSource = data

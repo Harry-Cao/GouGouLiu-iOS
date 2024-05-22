@@ -28,7 +28,7 @@ final class GGLUploadPhotoManager: NSObject, UINavigationControllerDelegate {
         moyaProvider.requestWithProgressPublisher(.upload(imageData: data, imageType: type.rawValue, contactId: contactId))
             .mapProgressResponse(GGLMoyaModel<GGLUploadPhotoModel>.self)
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { progressResponse in
+            .sinkWithDefaultErrorHandle(receiveValue: { progressResponse in
                 switch progressResponse {
                 case .onProgress(let progress):
                     progressBlock?(progress)
@@ -43,7 +43,7 @@ final class GGLUploadPhotoManager: NSObject, UINavigationControllerDelegate {
         moyaProvider.requestPublisher(.clearAll(userId: userId))
             .map(GGLMoyaModel<[String: String]>.self)
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { model in
+            .sinkWithDefaultErrorHandle(receiveValue: { model in
                 ProgressHUD.showServerMsg(model: model)
             }).store(in: &cancellables)
     }

@@ -26,7 +26,8 @@ final class GGLDebugViewController: GGLBaseHostingController<DebugContentView> {
 }
 
 struct DebugContentView: View {
-    var menuRows = DebugRow.allCases
+    let menuRows = DebugRow.allCases
+
     var body: some View {
         List(menuRows) { row in
             Button {

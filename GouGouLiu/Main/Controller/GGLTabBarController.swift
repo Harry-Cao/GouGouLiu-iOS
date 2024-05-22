@@ -15,7 +15,7 @@ final class GGLTabBarController: UITabBarController {
     private let emptyViewController = UIViewController()
     private let messageViewController = GGLMessageViewController()
     private let personalViewController = GGLPersonalViewController()
-    var cancellables = Set<AnyCancellable>()
+    private(set) var cancellables = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +82,17 @@ final class GGLTabBarController: UITabBarController {
             make.leading.bottom.trailing.equalToSuperview()
         }
         middleButton.addTarget(self, action: #selector(didTapMiddleButton(sender:)), for: .touchUpInside)
+    }
+
+    private func subscribe() {
+        GGLDataBase.shared.messageUnReadSubject.sink { [weak self] _ in
+            guard let self else { return }
+            updateMessageUnReadNum()
+        }.store(in: &cancellables)
+        GGLUser.userStatusSubject.sink { [weak self] _ in
+            guard let self else { return }
+            updateMessageUnReadNum()
+        }.store(in: &cancellables)
     }
 
     @objc private func didTapMiddleButton(sender: UIButton) {

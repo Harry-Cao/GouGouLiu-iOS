@@ -8,18 +8,7 @@
 import Foundation
 
 extension GGLTabBarController {
-    func subscribe() {
-        GGLDataBase.shared.messageUnReadSubject.sink { [weak self] _ in
-            guard let self else { return }
-            updateMessageUnReadNum()
-        }.store(in: &cancellables)
-        GGLUser.userStatusSubject.sink { [weak self] _ in
-            guard let self else { return }
-            updateMessageUnReadNum()
-        }.store(in: &cancellables)
-    }
-
-    private func updateMessageUnReadNum() {
+    func updateMessageUnReadNum() {
         let num = getUnReadNum()
         showMessageUnReadNum(num)
     }

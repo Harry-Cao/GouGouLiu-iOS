@@ -33,7 +33,7 @@ final class GGLHomeViewController: GGLBaseViewController {
         setupUI()
         setupRefreshComponent()
         bindData()
-        addObserver()
+        onNetworkStatus()
     }
 
     private func setupUI() {
@@ -56,27 +56,33 @@ final class GGLHomeViewController: GGLBaseViewController {
 
     private func bindData() {
         viewModel.$dataSource.sink { [weak self] data in
-            self?.recommendCollectionView.mj_header?.endRefreshing()
-            self?.recommendCollectionView.reloadData()
-            if data.isEmpty {
-                self?.dismissEmptyDataView()
+            guard let self else { return }
+            recommendCollectionView.mj_header?.endRefreshing()
+            recommendCollectionView.reloadData()
+        }.store(in: &cancellables)
+        viewModel.requestCompletion.sink { [weak self] completion in
+            guard let self else { return }
+            switch completion {
+            case .finished:
+                dismissEmptyDataView()
+            case .failure:
+                showEmptyDataView(target: self)
             }
         }.store(in: &cancellables)
     }
 
-    private func addObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(networkStatusUpdated), name: .networkStatusUpdated, object: nil)
-    }
-
-    @objc private func networkStatusUpdated() {
-        // 处理首次启动app网络请求时机问题
-        guard viewModel.dataSource.isEmpty else { return }
-        switch GGLNetworkManager.shared.networkStatus {
-        case .reachable(_):
-            refreshData()
-        default:
-            showEmptyDataView(target: self)
-        }
+    private func onNetworkStatus() {
+        GGLNetworkManager.shared.$networkStatus.sink { [weak self] status in
+            // 处理首次启动app网络请求时机问题
+            guard let self,
+                  viewModel.dataSource.isEmpty else { return }
+            switch status {
+            case .reachable:
+                refreshData()
+            default:
+                break
+            }
+        }.store(in: &cancellables)
     }
 
     @objc private func refreshData() {

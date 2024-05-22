@@ -16,7 +16,7 @@ class GGLChatRoomNetworkHelper {
         provider.requestPublisher(GGLChatRoomAPI(senderId: senderId, targetId: targetId))
             .map(GGLMoyaModel<GGLGetChannelIdModel>.self)
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { completion($0) })
+            .sinkWithDefaultErrorHandle(receiveValue: { completion($0) })
             .store(in: &cancellables)
     }
 }

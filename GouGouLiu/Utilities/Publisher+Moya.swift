@@ -10,7 +10,7 @@ import Combine
 import Moya
 
 extension Publisher {
-    func sink(receiveCompletion: ((Subscribers.Completion<Self.Failure>) -> Void)? = nil, receiveValue: @escaping ((Output) -> Void)) -> AnyCancellable {
+    func sinkWithDefaultErrorHandle(receiveCompletion: ((Subscribers.Completion<Self.Failure>) -> Void)? = nil, receiveValue: @escaping ((Output) -> Void)) -> AnyCancellable {
         return sink(receiveCompletion: { completion in
             receiveCompletion?(completion)
             guard case let .failure(error) = completion else { return }

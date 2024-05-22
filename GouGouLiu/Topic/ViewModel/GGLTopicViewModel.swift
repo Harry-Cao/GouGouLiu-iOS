@@ -28,7 +28,7 @@ final class GGLTopicViewModel {
         moyaProvider.requestPublisher(GGLTopicAPI(postId: postId))
             .map(GGLMoyaModel<GGLPostModel>.self)
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { completion($0) })
+            .sinkWithDefaultErrorHandle(receiveValue: { completion($0) })
             .store(in: &cancellables)
     }
 
