@@ -57,15 +57,16 @@ final class GGLHomeViewController: GGLBaseViewController {
     private func bindData() {
         viewModel.$dataSource.sink { [weak self] data in
             guard let self else { return }
-            recommendCollectionView.mj_header?.endRefreshing()
             recommendCollectionView.reloadData()
         }.store(in: &cancellables)
         viewModel.requestCompletion.sink { [weak self] completion in
             guard let self else { return }
+            recommendCollectionView.mj_header?.endRefreshing()
             switch completion {
             case .finished:
                 dismissEmptyDataView()
             case .failure:
+                guard viewModel.dataSource.isEmpty else { return }
                 showEmptyDataView(target: self)
             }
         }.store(in: &cancellables)
