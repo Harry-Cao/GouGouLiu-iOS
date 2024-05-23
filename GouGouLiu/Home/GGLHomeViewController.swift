@@ -21,6 +21,7 @@ final class GGLHomeViewController: GGLBaseViewController {
         waterFallFlowLayout.delegate = self
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: waterFallFlowLayout)
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(GGLHomeRecommendCell.self, forCellWithReuseIdentifier: "\(GGLHomeRecommendCell.self)")
@@ -133,13 +134,14 @@ extension GGLHomeViewController: UICollectionViewDelegate {
         AppRouter.shared.push(viewController)
     }
 
+    /*
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         // TODO: - 处理对其他界面navigationBar的影响
-//        if velocity.y > 1 {
-//            hideNavigationBar()
-//        } else if velocity.y < -1 {
-//            showNavigationBar()
-//        }
+        if velocity.y > 1 {
+            hideNavigationBar()
+        } else if velocity.y < -1 {
+            showNavigationBar()
+        }
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -154,6 +156,7 @@ extension GGLHomeViewController: UICollectionViewDelegate {
     private func hideNavigationBar() {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
+     */
 
 }
 
