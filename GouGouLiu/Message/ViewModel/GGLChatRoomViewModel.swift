@@ -9,12 +9,12 @@ import SwiftUI
 import Combine
 
 final class GGLChatRoomViewModel: ObservableObject {
-    @Published var messageModel: GGLMessageModel
-    @Published var scrollToBottomFlag = false
-    @Published var inputMode: GGLChatInputMode = .text
+    @Published private(set) var messageModel: GGLMessageModel
+    @Published private(set) var scrollToBottomFlag = false
+    @Published private(set) var inputMode: GGLChatInputMode = .text
     @Published var inputText: String = ""
-    @Published var responding: Bool = false
-    @Published var respondMessage: String = ""
+    @Published private(set) var responding: Bool = false
+    @Published private(set) var respondMessage: String = ""
     let respondId = UUID()
     var sendDisabled: Bool {
         return responding

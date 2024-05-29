@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 final class GGLMessageViewModel: ObservableObject {
-    @Published var messageModels: [GGLMessageModel] = []
+    @Published private(set) var messageModels: [GGLMessageModel] = []
     private var cancellables = Set<AnyCancellable>()
 
     init() {

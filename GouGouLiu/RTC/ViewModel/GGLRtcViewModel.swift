@@ -21,8 +21,8 @@ final class GGLRtcViewModel: ObservableObject {
     private var targetId: String = ""
     private var userDataSubscriber: AnyCancellable?
     private var cancellables = Set<AnyCancellable>()
-    @Published var targetUser: GGLUserModel?
-    @Published var stage: Stage = .free
+    @Published private(set) var targetUser: GGLUserModel?
+    @Published private(set) var stage: Stage = .free
     lazy var localView = UIView()
     lazy var remoteView = UIView()
 

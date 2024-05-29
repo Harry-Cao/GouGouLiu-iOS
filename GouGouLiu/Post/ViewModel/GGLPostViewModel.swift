@@ -17,7 +17,7 @@ final class GGLPostViewModel {
 
     weak var delegate: GGLPostViewModelDelegate?
     private let networkHelper = GGLPostNetworkHelper()
-    @Published var uploadPhotos = [GGLUploadPhotoModel]()
+    @Published private(set) var uploadPhotos = [GGLUploadPhotoModel]()
 
     func uploadPhoto() {
         guard let userId = GGLUser.getUserId() else { return }

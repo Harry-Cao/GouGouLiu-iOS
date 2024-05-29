@@ -10,8 +10,7 @@ import Combine
 import Moya
 
 final class GGLHomeViewModel {
-
-    @Published var dataSource = [GGLHomePostModel]()
+    @Published private(set) var dataSource = [GGLHomePostModel]()
     let requestCompletion = PassthroughSubject<Subscribers.Completion<MoyaError>, Never>()
     private let moyaProvider = MoyaProvider<GGLHomePostAPI>(session: GGLAlamofireSession.shared)
     private var cancellables = Set<AnyCancellable>()
@@ -38,5 +37,4 @@ final class GGLHomeViewModel {
         }
         return images
     }()
-
 }

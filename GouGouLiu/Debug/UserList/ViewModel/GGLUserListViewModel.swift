@@ -8,7 +8,7 @@
 import SwiftUI
 
 final class GGLUserListViewModel: ObservableObject {
-    @Published var userModels: [GGLUserModel] = []
+    @Published private(set) var userModels: [GGLUserModel] = []
     private let networkHelper = GGLUserNetworkHelper()
 
     init() {

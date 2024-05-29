@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 final class GGLPersonalViewModel: ObservableObject {
-    @Published var current: GGLUserModel?
+    @Published private(set) var current: GGLUserModel?
     let settingRows: [SettingRow] = [.myPosts, .myOrders, .clearImageCache, .logout]
     private var cancellables = Set<AnyCancellable>()
 
