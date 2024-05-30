@@ -17,7 +17,7 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
     private let viewModel = GGLTopicViewModel()
     private let adapter = GGLTopicAdapter()
-    private let transitionHelper = GGLTopicGestureHelper()
+    private let transitionHelper = GGLHeroTransitionHelper()
     private let topicTableView = GGLBaseTableView()
     private var cancellables = Set<AnyCancellable>()
 
@@ -31,6 +31,7 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     private func setupNavigationItem() {
+        navigationItem.leftBarButtonItem = barButtonItem(navigationItem: .image(UIImage(resource: .navigationBarBack), #selector(didTapBackButton)))
         navigationItem.rightBarButtonItems = barButtonItems(items: [.avatar(postModel?.user?.avatarUrl ?? "", #selector(didTapUser)),
                                                                     .text(postModel?.user?.userName ?? "", #selector(didTapUser))])
     }
@@ -47,7 +48,7 @@ final class GGLTopicViewController: GGLBaseViewController {
         adapter.tableView = topicTableView
         adapter.photoBrowserCellConfigurator = { [weak self] cell in
             guard let self else { return }
-            let failToGestures = [transitionHelper.rightGesture]
+            let failToGestures = [transitionHelper.leftGesture]
             guard let urlStrings = viewModel.postModel?.post?.photos else {
                 cell.setup(urlStrings: [viewModel.postModel?.post?.coverImageUrl ?? ""], failToGestures: failToGestures)
                 return
@@ -96,10 +97,5 @@ final class GGLTopicViewController: GGLBaseViewController {
 
 }
 
-// MARK: - GGLTopicGestureHelperDelegate
-extension GGLTopicViewController: GGLTopicGestureHelperDelegate {
-    func transitionHelperPushViewController() -> UIViewController? {
-        guard let user = viewModel.postModel?.user else { return nil }
-        return GGLPersonalDetailViewController(user: user)
-    }
-}
+// MARK: - GGLHeroTransitionHelperDelegate
+extension GGLTopicViewController: GGLHeroTransitionHelperDelegate {}

@@ -14,6 +14,12 @@ protocol GGLHeroTransitionHelperDelegate: AnyObject {
     func transitionHelperPresentAnimationType() -> HeroDefaultAnimationType
 }
 
+extension GGLHeroTransitionHelperDelegate {
+    func transitionHelperPresentViewController() -> UIViewController? { nil }
+    func transitionHelperDismissAnimationType() -> HeroDefaultAnimationType { .auto }
+    func transitionHelperPresentAnimationType() -> HeroDefaultAnimationType { .auto }
+}
+
 final class GGLHeroTransitionHelper: NSObject {
     weak var delegate: GGLHeroTransitionHelperDelegate? {
         didSet {

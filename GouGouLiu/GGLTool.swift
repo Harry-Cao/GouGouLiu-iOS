@@ -44,7 +44,7 @@ struct GGLTool {
         return self.topViewControllerWithRootViewController(root)
     }
 
-    static func topViewControllerWithRootViewController(_ rootViewController: UIViewController) -> UIViewController {
+    private static func topViewControllerWithRootViewController(_ rootViewController: UIViewController) -> UIViewController {
         if let tabViewController = rootViewController as? UITabBarController,
             let selected = tabViewController.selectedViewController {
             return self.topViewControllerWithRootViewController(selected)

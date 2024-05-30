@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class GGLBaseHostingController<Content>: UIHostingController<Content> where Content: View {
+class GGLBaseHostingController<Content>: UIHostingController<Content>, UIGestureRecognizerDelegate where Content: View {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +17,11 @@ class GGLBaseHostingController<Content>: UIHostingController<Content> where Cont
     private func setupBaseUI() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         view.backgroundColor = .systemBackground
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
 
 }

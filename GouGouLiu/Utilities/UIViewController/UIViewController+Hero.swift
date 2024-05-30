@@ -10,7 +10,7 @@ import Hero
 
 extension UIViewController {
     func setHeroModalAnimationType(_ type: HeroDefaultAnimationType) {
-        self.hero.isEnabled = true
+        self.isHeroEnabled = true
         self.heroModalAnimationType = type
         self.modalPresentationStyle = .fullScreen
     }

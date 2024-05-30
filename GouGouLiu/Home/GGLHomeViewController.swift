@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import MJRefresh
+import Hero
 
 final class GGLHomeViewController: GGLBaseViewController {
 
@@ -30,6 +31,7 @@ final class GGLHomeViewController: GGLBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        isHeroEnabled = true
         navigationItem.leftBarButtonItem = barButtonItem(navigationItem: .image(UIImage(resource: .gougouliuLogo), #selector(showDebugPage)))
         setupUI()
         setupRefreshComponent()
@@ -129,9 +131,15 @@ extension GGLHomeViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = viewModel.dataSource[indexPath.item]
+        let heroID = String(indexPath.item)
+        let cell = collectionView.cellForItem(at: indexPath) as? GGLHomeRecommendCell
+        cell?.heroID = heroID
         let viewController = GGLTopicViewController()
         viewController.postModel = model
-        AppRouter.shared.push(viewController)
+        let navigationController = GGLBaseNavigationController(rootViewController: viewController)
+        navigationController.setHeroModalAnimationType(.auto)
+        navigationController.view.heroID = heroID
+        AppRouter.shared.present(navigationController)
     }
 
     /*
