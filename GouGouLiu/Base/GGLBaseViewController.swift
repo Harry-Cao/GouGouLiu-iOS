@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GGLBaseViewController: UIViewController, UIGestureRecognizerDelegate {
+class GGLBaseViewController: UIViewController {
 
     private lazy var emptyDataView = GGLEmptyDataView()
 
@@ -19,11 +19,6 @@ class GGLBaseViewController: UIViewController, UIGestureRecognizerDelegate {
     private func setupBaseUI() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         view.backgroundColor = .systemBackground
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
 
 }
