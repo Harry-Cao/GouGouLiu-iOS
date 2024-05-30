@@ -131,7 +131,7 @@ extension GGLHomeViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = viewModel.dataSource[indexPath.item]
-        let heroID = String(indexPath.item)
+        let heroID = String(Date().timeIntervalSince1970)
         let cell = collectionView.cellForItem(at: indexPath) as? GGLHomeRecommendCell
         cell?.heroID = heroID
         let viewController = GGLTopicViewController()
