@@ -80,7 +80,8 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     private func getData() {
-        viewModel.getPostData()
+        // TODO: - get data for getting posts' comments and more information
+//        viewModel.getPostData()
     }
 
     @objc private func didTapBackButton() {
