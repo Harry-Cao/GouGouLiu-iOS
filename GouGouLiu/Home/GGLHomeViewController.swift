@@ -139,7 +139,9 @@ extension GGLHomeViewController: UICollectionViewDelegate {
         let navigationController = GGLBaseNavigationController(rootViewController: viewController)
         navigationController.setHeroModalAnimationType(.auto)
         navigationController.view.heroID = heroID
-        AppRouter.shared.present(navigationController)
+        AppRouter.shared.present(navigationController) {
+            navigationController.isHeroEnabled = false
+        }
     }
 
     /*

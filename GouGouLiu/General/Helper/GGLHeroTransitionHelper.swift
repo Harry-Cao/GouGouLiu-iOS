@@ -50,10 +50,10 @@ final class GGLHeroTransitionHelper: NSObject {
     @objc private func handleLeftEdgePanGesture(_ recognizer: UIPanGestureRecognizer) {
         guard let delegate,
               let viewController = delegate as? UIViewController,
+              let navigationController = viewController.navigationController,
               let view = viewController.view else { return }
         switch recognizer.state {
         case .began:
-            guard let navigationController = viewController.navigationController else { return }
             navigationController.setHeroModalAnimationType(delegate.transitionHelperDismissAnimationType())
             navigationController.hero.dismissViewController()
         case .changed:
@@ -66,8 +66,9 @@ final class GGLHeroTransitionHelper: NSObject {
             } else {
                 Hero.shared.cancel()
             }
+            fallthrough
         default:
-            break
+            navigationController.isHeroEnabled = false
         }
     }
 
