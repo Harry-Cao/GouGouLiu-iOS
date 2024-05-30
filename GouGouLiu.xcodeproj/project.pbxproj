@@ -677,6 +677,8 @@
 			children = (
 				3E604A962BD106DF0032E7BA /* View */,
 				3E5AC1662BCD5B1A006BD6A9 /* Helper */,
+				3ED370CF2A597CB900639291 /* GGLTool.swift */,
+				3E7D5DB22BD839B50030FEAC /* GGLAlamofireSession.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -741,8 +743,6 @@
 				3ED370CE2A597C4300639291 /* Manager */,
 				3E6A55692B9A2B2700279BD6 /* Data */,
 				3ECFA7732A75312600CB465B /* General */,
-				3ED370CF2A597CB900639291 /* GGLTool.swift */,
-				3E7D5DB22BD839B50030FEAC /* GGLAlamofireSession.swift */,
 				3ED90C0B2A2E5AB30079B4D3 /* Base */,
 				3ED90BFC2A2E49E30079B4D3 /* Utilities */,
 				3ED90C0F2A2E5E780079B4D3 /* Support */,
