@@ -86,7 +86,7 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     @objc private func didTapBackButton() {
-        self.dismiss(animated: true)
+        transitionHelper.dismiss()
     }
 
     @objc private func didTapUser() {

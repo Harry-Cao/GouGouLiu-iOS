@@ -96,4 +96,12 @@ final class GGLHeroTransitionHelper: NSObject {
             break
         }
     }
+
+    func dismiss() {
+        guard let delegate,
+              let viewController = delegate as? UIViewController,
+              let navigationController = viewController.navigationController else { return }
+        navigationController.setHeroModalAnimationType(delegate.transitionHelperDismissAnimationType())
+        navigationController.hero.dismissViewController()
+    }
 }
