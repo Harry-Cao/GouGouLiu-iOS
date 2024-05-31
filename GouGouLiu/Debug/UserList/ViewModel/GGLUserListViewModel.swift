@@ -22,7 +22,6 @@ final class GGLUserListViewModel: ObservableObject {
                let users = model.data {
                 self?.userModels = users
             }
-            ProgressHUD.showServerMsg(model: model)
         }
     }
 

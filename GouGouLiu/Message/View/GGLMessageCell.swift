@@ -26,7 +26,7 @@ struct GGLMessageCell: View {
                             .frame(width: 20, height: 20)
                         Text(String(messageModel.unReadNum))
                             .font(.caption)
-                            .foregroundColor(.white)
+                            .foregroundStyle(.white)
                     }
                     .offset(x: 20, y: -20)
                 }
@@ -37,7 +37,7 @@ struct GGLMessageCell: View {
                     .lineLimit(1)
                 Text(messageModel.displayText)
                     .font(Font.system(size: 12, weight: .regular))
-                    .foregroundColor(.gray)
+                    .foregroundStyle(.gray)
                     .offset(x: 2, y: 0)
                     .lineLimit(1)
             })

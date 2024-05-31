@@ -58,7 +58,7 @@ struct LoginContentView: View {
                 GGLUser.login(username: self.username, password: self.password)
             }) {
                 Text("Login")
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .padding()
                     .frame(width: 200, height: 50)
                     .background(Color.blue)
@@ -71,7 +71,7 @@ struct LoginContentView: View {
                 GGLUser.signup(username: self.username, password: self.password, isSuper: false)
             }) {
                 Text("Sign Up")
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .padding()
                     .frame(width: 200, height: 50)
                     .background(Color.blue)

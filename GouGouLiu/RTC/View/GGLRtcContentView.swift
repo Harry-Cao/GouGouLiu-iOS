@@ -84,7 +84,7 @@ extension GGLRtcContentView {
                     .background(type.backgroundColor)
                     .clipShape(.circle)
             })
-            .foregroundColor(.white)
+            .foregroundStyle(.white)
             .padding()
         }
 

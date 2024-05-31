@@ -61,7 +61,7 @@ final class GGLPostViewController: GGLBaseViewController {
         }
         adapter.uploadPhotoCellSelectedHandler = { [weak self] urlString in
             if let urlString {
-                ProgressHUD.show("该功能暂不支持\n\(urlString)", icon: .message)
+                ProgressHUD.show(urlString, icon: .message)
             } else {
                 self?.viewModel.uploadPhoto()
             }
