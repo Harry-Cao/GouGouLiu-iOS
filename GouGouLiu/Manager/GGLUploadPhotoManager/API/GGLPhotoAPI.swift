@@ -9,7 +9,7 @@ import Foundation
 import Moya
 
 enum GGLPhotoAPI: TargetType {
-    case upload(imageData: Data?, imageType: Int?, contactId: String?)
+    case upload(imageData: Data?, imageType: UInt?, contactId: String?)
     case clearAll(userId: String)
 
     var baseURL: URL {

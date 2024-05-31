@@ -24,9 +24,9 @@ final class GGLUploadPhotoManager: NSObject, UINavigationControllerDelegate {
                      type: ImageType,
                      contactId: String,
                      progressBlock: ((_ progress: Double) -> Void)? = nil,
-                     completion: @escaping (GGLMoyaModel<GGLUploadPhotoModel>) -> Void) {
+                     completion: @escaping (GGLMoyaModel<GGLPhotoModel>) -> Void) {
         moyaProvider.requestWithProgressPublisher(.upload(imageData: data, imageType: type.rawValue, contactId: contactId))
-            .mapProgressResponse(GGLMoyaModel<GGLUploadPhotoModel>.self)
+            .mapProgressResponse(GGLMoyaModel<GGLPhotoModel>.self)
             .receive(on: DispatchQueue.main)
             .sinkWithDefaultErrorHandle(receiveValue: { progressResponse in
                 switch progressResponse {
@@ -74,7 +74,7 @@ extension GGLUploadPhotoManager: UIImagePickerControllerDelegate {
 
 extension GGLUploadPhotoManager {
 
-    enum ImageType: Int {
+    enum ImageType: UInt {
         case avatar
         case post
         case chat

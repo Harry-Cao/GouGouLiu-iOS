@@ -17,6 +17,7 @@ final class GGLTopicViewController: GGLBaseViewController {
         }
     }
     var photoBrowserCellHeroID: String?
+    var coverImage: UIImage?
     private let viewModel = GGLTopicViewModel()
     private let adapter = GGLTopicAdapter()
     private let transitionHelper = GGLHeroTransitionHelper()
@@ -50,19 +51,15 @@ final class GGLTopicViewController: GGLBaseViewController {
         adapter.tableView = topicTableView
         adapter.photoBrowserCellConfigurator = { [weak self] cell in
             guard let self else { return }
-            let failToGestures = [transitionHelper.leftGesture]
-            guard let urlStrings = viewModel.postModel?.post?.photos else {
-                cell.setup(urlStrings: [viewModel.postModel?.post?.coverImageUrl ?? ""], failToGestures: failToGestures)
-                return
-            }
             cell.heroID = photoBrowserCellHeroID
-            cell.setup(urlStrings: urlStrings, failToGestures: failToGestures)
+            let imageModels = viewModel.postModel?.post?.photos?.map({ GGLWebImageModel(imageUrl: $0.originalUrl, placeholderUrl: $0.previewUrl) }) ?? [GGLWebImageModel(placeholderImage: coverImage)]
+            cell.setup(imageModels: imageModels, failToGestures: [transitionHelper.leftGesture])
         }
         adapter.contentCellConfigurator = { [weak self] cell in
             cell.setup(title: self?.viewModel.postModel?.post?.title, content: self?.viewModel.postModel?.post?.content)
         }
         adapter.photoBrowserCellDidSelectHandler = { [weak self] _, index in
-            guard let urlString = self?.viewModel.postModel?.post?.photos?[index] else { return }
+            guard let urlString = self?.viewModel.postModel?.post?.photos?[index].originalUrl else { return }
             self?.downloadImage(urlString: urlString)
         }
     }
@@ -84,8 +81,7 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     private func getData() {
-        // TODO: - get data for getting posts' comments and more information
-//        viewModel.getPostData()
+        viewModel.getPostData()
     }
 
     @objc private func didTapBackButton() {
