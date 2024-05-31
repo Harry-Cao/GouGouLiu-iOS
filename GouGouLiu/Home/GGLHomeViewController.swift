@@ -132,10 +132,13 @@ extension GGLHomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = viewModel.dataSource[indexPath.item]
         let heroID = String(Date().timeIntervalSince1970)
+        let coverHeroID = "\(heroID)-cover"
         let cell = collectionView.cellForItem(at: indexPath) as? GGLHomeRecommendCell
         cell?.heroID = heroID
+        cell?.imageView.heroID = coverHeroID
         let viewController = GGLTopicViewController()
         viewController.postModel = model
+        viewController.photoBrowserCellHeroID = coverHeroID
         let navigationController = GGLBaseNavigationController(rootViewController: viewController)
         navigationController.setHeroModalAnimationType(.auto)
         navigationController.view.heroID = heroID

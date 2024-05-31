@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import Hero
 
 final class GGLTopicViewController: GGLBaseViewController {
 
@@ -15,6 +16,7 @@ final class GGLTopicViewController: GGLBaseViewController {
             viewModel.postModel = postModel
         }
     }
+    var photoBrowserCellHeroID: String?
     private let viewModel = GGLTopicViewModel()
     private let adapter = GGLTopicAdapter()
     private let transitionHelper = GGLHeroTransitionHelper()
@@ -53,6 +55,7 @@ final class GGLTopicViewController: GGLBaseViewController {
                 cell.setup(urlStrings: [viewModel.postModel?.post?.coverImageUrl ?? ""], failToGestures: failToGestures)
                 return
             }
+            cell.heroID = photoBrowserCellHeroID
             cell.setup(urlStrings: urlStrings, failToGestures: failToGestures)
         }
         adapter.contentCellConfigurator = { [weak self] cell in
