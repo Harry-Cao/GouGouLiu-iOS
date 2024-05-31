@@ -139,6 +139,7 @@ extension GGLHomeViewController: UICollectionViewDelegate {
         let viewController = GGLTopicViewController()
         viewController.postModel = model
         viewController.photoBrowserCellHeroID = coverHeroID
+        viewController.coverImage = cell?.imageView.image
         let navigationController = GGLBaseNavigationController(rootViewController: viewController)
         navigationController.setHeroModalAnimationType(.auto)
         navigationController.view.heroID = heroID

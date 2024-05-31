@@ -17,7 +17,7 @@ final class GGLPostViewModel {
 
     weak var delegate: GGLPostViewModelDelegate?
     private let networkHelper = GGLPostNetworkHelper()
-    @Published private(set) var uploadPhotos = [GGLUploadPhotoModel]()
+    @Published private(set) var uploadPhotos = [GGLPhotoModel]()
 
     func uploadPhoto() {
         guard let userId = GGLUser.getUserId() else { return }
@@ -42,7 +42,7 @@ final class GGLPostViewModel {
         }
         let title = GGLPostManager.shared.cacheTitle ?? ""
         let content = GGLPostManager.shared.cacheContent
-        networkHelper.requestPublishPost(userId: userId, coverUrl: coverUrl, imageUrls: uploadPhotos.compactMap({ $0.originalUrl }), title: title, content: content) { [weak self] model in
+        networkHelper.requestPublishPost(userId: userId, coverUrl: coverUrl, photoIDs: uploadPhotos.compactMap({ $0.id }), title: title, content: content) { [weak self] model in
             if model.code == .success {
                 self?.delegate?.didPublishPost(post: model.data)
             }

@@ -8,12 +8,13 @@
 import Foundation
 
 struct GGLPostModel: Codable {
-    var postId: String?
-    var userId: String?
-    var coverImageUrl: String?
-    var photos: [String]?
-    var title: String?
-    var content: String?
-    var createTime: String?
-    var updateTime: String?
+    let postId: String?
+    let userId: String?
+    let coverImageUrl: String?
+    let photoIds: [UInt]?
+    let photos: [GGLPhotoModel]?
+    let title: String?
+    let content: String?
+    let createTime: String?
+    let updateTime: String?
 }

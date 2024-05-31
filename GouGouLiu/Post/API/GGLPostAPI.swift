@@ -9,7 +9,7 @@ import Foundation
 import Moya
 
 enum GGLPostAPI: TargetType {
-    case publish(userId: String, coverUrl: String, imageUrls: [String], title: String, content: String?)
+    case publish(userId: String, coverUrl: String, photoIDs: [UInt], title: String, content: String?)
     case clearAll(userId: String)
 
     var baseURL: URL {
@@ -31,11 +31,11 @@ enum GGLPostAPI: TargetType {
 
     var task: Moya.Task {
         switch self {
-        case .publish(let userId, let coverUrl, let imageUrls, let title, let content):
+        case .publish(let userId, let coverUrl, let photoIDs, let title, let content):
             var para: [String: Any] = [:]
             para["userId"] = userId
             para["coverUrl"] = coverUrl
-            para["imageUrls"] = imageUrls
+            para["photoIds"] = photoIDs
             para["title"] = title
             para["content"] = content
             return .requestParameters(parameters: para, encoding: JSONEncoding.default)
