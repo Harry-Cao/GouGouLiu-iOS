@@ -140,14 +140,15 @@ final class GGLWebImageBrowserCell: UICollectionViewCell {
     }
 
     func setup(imageModel: GGLWebImageModel) {
-        previewImageView.sd_setImage(with: URL(string: imageModel.placeholderUrl ?? ""), placeholderImage: imageModel.placeholderImage)
-        originalImageView.sd_setImage(with: URL(string: imageModel.imageUrl ?? ""))
+        let previewUrl = imageModel.placeholderImage == nil ? imageModel.previewUrl : ""
+        previewImageView.sd_setImage(with: URL(string: previewUrl ?? ""))
+        originalImageView.sd_setImage(with: URL(string: imageModel.imageUrl ?? ""), placeholderImage: imageModel.placeholderImage)
     }
 
 }
 
 struct GGLWebImageModel {
     var imageUrl: String? = nil
-    var placeholderUrl: String? = nil
+    var previewUrl: String? = nil
     var placeholderImage: UIImage? = nil
 }

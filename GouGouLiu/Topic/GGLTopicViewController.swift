@@ -52,7 +52,7 @@ final class GGLTopicViewController: GGLBaseViewController {
         adapter.photoBrowserCellConfigurator = { [weak self] cell in
             guard let self else { return }
             cell.heroID = photoBrowserCellHeroID
-            let imageModels = viewModel.postModel?.post?.photos?.map({ GGLWebImageModel(imageUrl: $0.originalUrl, placeholderUrl: $0.previewUrl) }) ?? [GGLWebImageModel(placeholderImage: coverImage)]
+            let imageModels = viewModel.postModel?.post?.photos?.map({ GGLWebImageModel(imageUrl: $0.originalUrl, previewUrl: $0.previewUrl) }) ?? [GGLWebImageModel(placeholderImage: coverImage)]
             cell.setup(imageModels: imageModels, failToGestures: [transitionHelper.leftGesture])
         }
         adapter.contentCellConfigurator = { [weak self] cell in
