@@ -30,7 +30,7 @@ final class GGLPhotoDownloadManager {
             completedBlock?(true, nil)
             return
         }
-        GGLAlbumManager.shared.getAlbum(title: .app_name) { album in
+        GGLAlbumHelper.getAlbum(title: .app_name) { album in
             self.urlModels = urls.map({ PhotoDownloadModel(urlString: $0) })
             urls.enumerated().forEach { (index, urlString) in
                 let workItem = DispatchWorkItem {
@@ -41,7 +41,7 @@ final class GGLPhotoDownloadManager {
                         if finished,
                            let cachePath = SDImageCache.shared.cachePath(forKey: imageUrl?.absoluteString),
                            let fileUrl = URL(string: cachePath) {
-                            GGLAlbumManager.shared.saveImage(fileUrl: fileUrl, toAlbum: album) { success in
+                            GGLAlbumHelper.saveImage(fileUrl: fileUrl, toAlbum: album) { success in
                                 let urlModel = self.urlModels[index]
                                 urlModel.isSaved = success
                                 queueProgressBlock?(index, urls.count, success)

@@ -1,5 +1,5 @@
 //
-//  GGLAlbumManager.swift
+//  GGLAlbumHelper.swift
 //  GouGouLiu
 //
 //  Created by HarryCao on 2024/6/1.
@@ -8,12 +8,10 @@
 import Foundation
 import Photos
 
-final class GGLAlbumManager {
-    static let shared = GGLAlbumManager()
+final class GGLAlbumHelper {
+    private static var customNameForPhoto: String { "GGL_\(Date().timeIntervalSince1970)" }
 
-    private var customNameForPhoto: String { "GGL_\(Date().timeIntervalSince1970)" }
-
-    func getAlbum(title: String, completion: @escaping (PHAssetCollection?) -> Void) {
+    static func getAlbum(title: String, completion: @escaping (PHAssetCollection?) -> Void) {
         if let album = fetchAlbum(title: title) {
             completion(album)
         } else {
@@ -23,14 +21,14 @@ final class GGLAlbumManager {
         }
     }
 
-    private func fetchAlbum(title: String) -> PHAssetCollection? {
+    private static func fetchAlbum(title: String) -> PHAssetCollection? {
         let fetchOptions = PHFetchOptions()
         fetchOptions.predicate = NSPredicate(format: "title = %@", title)
         let collection = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
         return collection.firstObject
     }
 
-    private func createAlbum(title: String, completion: @escaping (PHAssetCollection?) -> Void) {
+    private static func createAlbum(title: String, completion: @escaping (PHAssetCollection?) -> Void) {
         var albumPlaceholder: PHObjectPlaceholder?
         PHPhotoLibrary.shared().performChanges {
             let createAlbumRequest = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: title)
@@ -46,13 +44,12 @@ final class GGLAlbumManager {
     }
 
     /// Support naming the photo
-    func saveImage(fileUrl: URL, toAlbum album: PHAssetCollection? = nil, completion: ((Bool) -> Void)? = nil) {
-        PHPhotoLibrary.shared().performChanges { [weak self] in
-            guard let self = self else { return }
+    static func saveImage(fileUrl: URL, toAlbum album: PHAssetCollection? = nil, completion: ((Bool) -> Void)? = nil) {
+        PHPhotoLibrary.shared().performChanges {
             let assetChangeRequest = PHAssetCreationRequest.forAsset()
             assetChangeRequest.creationDate = Date()
             let option = PHAssetResourceCreationOptions()
-            option.originalFilename = self.customNameForPhoto
+            option.originalFilename = customNameForPhoto
             assetChangeRequest.addResource(with: .photo, fileURL: fileUrl, options: option)
             if let album = album, album.assetCollectionType == .album {
                 let placeHolder = assetChangeRequest.placeholderForCreatedAsset
@@ -65,7 +62,7 @@ final class GGLAlbumManager {
     }
 
     /// Could not name the photo
-    func saveImage(image: UIImage, toAlbum album: PHAssetCollection? = nil, completion: ((Bool) -> Void)? = nil) {
+    static func saveImage(image: UIImage, toAlbum album: PHAssetCollection? = nil, completion: ((Bool) -> Void)? = nil) {
         PHPhotoLibrary.shared().performChanges {
             let assetChangeRequest: PHAssetChangeRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
             assetChangeRequest.creationDate = Date()
