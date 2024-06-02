@@ -97,4 +97,12 @@ final class GGLTopicViewController: GGLBaseViewController {
 }
 
 // MARK: - GGLHeroTransitionHelperDelegate
-extension GGLTopicViewController: GGLHeroTransitionHelperDelegate {}
+extension GGLTopicViewController: GGLHeroTransitionHelperDelegate {
+    func transitionHelperNeedRightEdgeGesture() -> Bool {
+        false
+    }
+
+    func transitionHelperGestureViewController() -> UIViewController? {
+        return navigationController
+    }
+}
