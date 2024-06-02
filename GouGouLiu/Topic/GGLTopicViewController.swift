@@ -53,7 +53,7 @@ final class GGLTopicViewController: GGLBaseViewController {
             guard let self else { return }
             cell.heroID = photoBrowserCellHeroID
             let imageModels = viewModel.postModel?.post?.photos?.map({ GGLWebImageModel(imageUrl: $0.originalUrl, previewUrl: $0.previewUrl) }) ?? [GGLWebImageModel(placeholderImage: coverImage)]
-            cell.setup(imageModels: imageModels, failToGestures: [transitionHelper.leftGesture])
+            cell.setup(imageModels: imageModels, failToGestures: [transitionHelper.dismissGesture])
         }
         adapter.contentCellConfigurator = { [weak self] cell in
             cell.setup(title: self?.viewModel.postModel?.post?.title, content: self?.viewModel.postModel?.post?.content)
@@ -98,9 +98,9 @@ final class GGLTopicViewController: GGLBaseViewController {
 
 // MARK: - GGLHeroTransitionHelperDelegate
 extension GGLTopicViewController: GGLHeroTransitionHelperDelegate {
-    func transitionHelperNeedRightEdgeGesture() -> Bool {
-        false
-    }
+    func transitionHelperNeedDismissGesture() -> Bool { true }
+
+    func transitionHelperNeedPresentGesture() -> Bool { false }
 
     func transitionHelperGestureViewController() -> UIViewController? {
         return navigationController

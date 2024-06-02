@@ -11,7 +11,8 @@ import Hero
 protocol GGLHeroTransitionHelperDelegate: AnyObject {
     // Required
     func transitionHelperGestureViewController() -> UIViewController?
-    func transitionHelperNeedRightEdgeGesture() -> Bool
+    func transitionHelperNeedDismissGesture() -> Bool
+    func transitionHelperNeedPresentGesture() -> Bool
     // Optional
     func transitionHelperPresentViewController() -> UIViewController?
     func transitionHelperDismissAnimationType() -> HeroDefaultAnimationType
@@ -30,13 +31,13 @@ final class GGLHeroTransitionHelper: NSObject {
             addTransitionGesture()
         }
     }
-    private(set) lazy var leftGesture: UIScreenEdgePanGestureRecognizer = {
-        let gesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleLeftEdgePanGesture))
+    private(set) lazy var dismissGesture: UIScreenEdgePanGestureRecognizer = {
+        let gesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleDismissPanGesture))
         gesture.edges = .left
         return gesture
     }()
-    private(set) lazy var rightGesture: UIScreenEdgePanGestureRecognizer = {
-        let gesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleRightEdgePanGesture))
+    private(set) lazy var presentGesture: UIScreenEdgePanGestureRecognizer = {
+        let gesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handlePresentPanGesture))
         gesture.edges = .right
         return gesture
     }()
@@ -45,15 +46,15 @@ final class GGLHeroTransitionHelper: NSObject {
 
     private func addTransitionGesture() {
         guard let viewController = delegate?.transitionHelperGestureViewController() else { return }
-        if viewController.isPresented {
-            viewController.view.addGestureRecognizer(leftGesture)
+        if delegate?.transitionHelperNeedDismissGesture() == true {
+            viewController.view.addGestureRecognizer(dismissGesture)
         }
-        if delegate?.transitionHelperNeedRightEdgeGesture() == true {
-            viewController.view.addGestureRecognizer(rightGesture)
+        if delegate?.transitionHelperNeedPresentGesture() == true {
+            viewController.view.addGestureRecognizer(presentGesture)
         }
     }
 
-    @objc private func handleLeftEdgePanGesture(_ recognizer: UIPanGestureRecognizer) {
+    @objc private func handleDismissPanGesture(_ recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .began:
             guard let gestureViewController = delegate?.transitionHelperGestureViewController(),
@@ -80,7 +81,7 @@ final class GGLHeroTransitionHelper: NSObject {
         }
     }
 
-    @objc private func handleRightEdgePanGesture(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+    @objc private func handlePresentPanGesture(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         switch recognizer.state {
         case .began:
             guard let toViewController = delegate?.transitionHelperPresentViewController(),
