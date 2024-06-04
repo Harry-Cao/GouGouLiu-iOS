@@ -9,11 +9,11 @@ import UIKit
 
 protocol GGLWebImageBrowserDelegate: AnyObject {
     func imageBrowserView(_ imageBrowserView: GGLWebImageBrowser, didSelectItemAt index: Int)
+    func imageBrowserView(_ imageBrowserView: GGLWebImageBrowser, sizeForItemAt indexPath: IndexPath) -> CGSize
 }
 
 final class GGLWebImageBrowser: UIView {
 
-    private var configuration = GGLWebImageBrowserConfiguration()
     weak var delegate: GGLWebImageBrowserDelegate?
     var imageModels: [GGLWebImageModel] = [] {
         didSet {
@@ -46,12 +46,6 @@ final class GGLWebImageBrowser: UIView {
         setupUI()
     }
 
-    init(configuration: GGLWebImageBrowserConfiguration) {
-        super.init(frame: .zero)
-        self.configuration = configuration
-        setupUI()
-    }
-
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -60,7 +54,6 @@ final class GGLWebImageBrowser: UIView {
         [imageCollectionView].forEach(addSubview)
         imageCollectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            make.height.equalTo(configuration.imageHeight)
         }
     }
 
@@ -90,19 +83,12 @@ extension GGLWebImageBrowser: UICollectionViewDataSource, UICollectionViewDelega
 extension GGLWebImageBrowser: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: configuration.imageWidth, height: configuration.imageHeight)
+        return delegate?.imageBrowserView(self, sizeForItemAt: indexPath) ?? .zero
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-
-}
-
-final class GGLWebImageBrowserConfiguration {
-
-    var imageWidth: CGFloat = mainWindow.bounds.width
-    var imageHeight: CGFloat = mainWindow.bounds.width
 
 }
 

@@ -799,8 +799,8 @@
 			isa = PBXGroup;
 			children = (
 				3ED90C062A2E59F40079B4D3 /* GGLTopicViewController.swift */,
-				3ECFA7652A751C4E00CB465B /* Adapter */,
 				3ECFA7662A751C5400CB465B /* ViewModel */,
+				3ECFA7652A751C4E00CB465B /* Adapter */,
 				3ECFA76B2A751CD600CB465B /* View */,
 				3EB0DE182A8BE9B800ED00D8 /* API */,
 			);
