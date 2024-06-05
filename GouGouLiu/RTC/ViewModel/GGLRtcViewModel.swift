@@ -29,7 +29,6 @@ final class GGLRtcViewModel: ObservableObject {
     init() {
         GGLWebSocketManager.shared.messageSubject.sink { [weak self] model in
             guard let self,
-                  model.type == .peer_message,
                   model.senderId == targetId,
                   let rtcModel = model.content as? GGLWSRtcModel,
                   rtcModel.channelId == channelId,
