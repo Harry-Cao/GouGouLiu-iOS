@@ -8,66 +8,44 @@
 import Foundation
 
 struct GGLWSMessageHelper {
-    static func parse(text: String) -> GGLWebSocketModel? {
-        guard let model = GGLTool.jsonStringToModel(jsonString: text, to: GGLWebSocketModel.self),
-              let type = model.type else { return nil }
-        switch type {
-        case .peer_message:
-            guard let peerMessage = GGLTool.jsonStringToModel(jsonString: text, to: GGLWSPeerMessageModel.self),
-                  let contentType = peerMessage.contentType else { return nil }
-            switch contentType {
-            case .text:
-                return GGLTool.jsonStringToModel(jsonString: text, to: GGLWSPeerTextModel.self)
-            case .photo:
-                return GGLTool.jsonStringToModel(jsonString: text, to: GGLWSPeerPhotoModel.self)
-            }
-        case .system_logout:
-            return model
-        case .rtc_message:
-            return GGLTool.jsonStringToModel(jsonString: text, to: GGLWSRtcMessageModel.self)
-        }
-    }
-
     static func handleWebSocketModel(_ model: GGLWebSocketModel) {
-        guard let type = model.type else { return }
-        switch type {
-        case .peer_message:
-            guard let peerMessage = model as? GGLWSPeerMessageModel else { return }
-            handlePeerMessage(peerMessage)
+        guard let contentType = model.content?.type else { return }
+        switch contentType {
+        case .peer_chat:
+            handlePeerChatMessage(model)
+        case .peer_rtc:
+            handlePeerRTCMessage(model)
         case .system_logout:
             GGLUser.forceLogout()
-        case .rtc_message:
-            guard let rtcMessageModel = model as? GGLWSRtcMessageModel else { return }
-            handleRTCMessage(rtcMessageModel)
         }
     }
 }
 
 // MARK: - PeerMessage
 extension GGLWSMessageHelper {
-    private static func handlePeerMessage(_ peerMessage: GGLWSPeerMessageModel) {
-        guard let senderId = peerMessage.senderId,
+    private static func handlePeerChatMessage(_ model: GGLWebSocketModel) {
+        guard let senderId = model.senderId,
               let ownerId = GGLUser.getUserId(showHUD: false),
-              let chatModel = GGLWSMessageHelper.chatModelFromPeerMessage(peerMessage) else { return }
+              let chatModel = GGLWSMessageHelper.chatModelFromPeerMessage(model) else { return }
         let messageModel = GGLDataBase.shared.getMessageModel(ownerId: ownerId, userId: senderId)
         GGLDataBase.shared.insertChatModel(chatModel, to: messageModel)
         messageModelAddUnReadIfNeeded(messageModel: messageModel)
     }
 
-    private static func chatModelFromPeerMessage(_ peerMessage: GGLWSPeerMessageModel) -> GGLChatModel? {
-        guard let contentType = peerMessage.contentType,
-              let senderId = peerMessage.senderId else { return nil }
-        switch contentType {
-        case .text:
-            if let textModel = peerMessage as? GGLWSPeerTextModel,
-               let text = textModel.text {
-                return GGLChatModel.createText(text, userId: senderId)
+    private static func chatModelFromPeerMessage(_ model: GGLWebSocketModel) -> GGLChatModel? {
+        guard let content = model.content,
+              let senderId = model.senderId else { return nil }
+        switch content {
+        case (let textModel as GGLWSChatTextModel):
+            if let text = textModel.text {
+                return GGLChatModel.createText(text, userId: senderId, createTime: model.createTime)
             }
-        case .photo:
-            if let photoModel = peerMessage as? GGLWSPeerPhotoModel,
-               let photoUrl = photoModel.url {
-                return GGLChatModel.createPhoto(photoUrl, userId: senderId)
+        case (let photoModel as GGLWSChatPhotoModel):
+            if let photoUrl = photoModel.url {
+                return GGLChatModel.createPhoto(photoUrl, userId: senderId, createTime: model.createTime)
             }
+        default:
+            break
         }
         return nil
     }
@@ -84,12 +62,15 @@ extension GGLWSMessageHelper {
 
 // MARK: - RTCMessage
 extension GGLWSMessageHelper {
-    static func handleRTCMessage(_ rtcMessage: GGLWSRtcMessageModel) {
-        guard let rtcType = rtcMessage.rtcType,
-              let targetId = rtcMessage.senderId else { return }
+    static func handlePeerRTCMessage(_ model: GGLWebSocketModel) {
+        guard let targetId = model.senderId,
+              let content = model.content as? GGLWSRtcModel,
+              !model.isOffline,
+              let channelId = content.channelId,
+              let rtcType = content.rtcType else { return }
         if GGLRtcViewModel.shared.stage == .free,
-           rtcMessage.rtcAction == .invite {
-            let rtcViewController = GGLRtcViewController(role: .receiver, type: rtcType, channelId: rtcMessage.channelId, targetId: targetId)
+           content.rtcAction == .invite {
+            let rtcViewController = GGLRtcViewController(role: .receiver, type: rtcType, channelId: channelId, targetId: targetId)
             AppRouter.shared.present(rtcViewController)
         }
     }

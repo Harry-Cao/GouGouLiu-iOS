@@ -16,7 +16,7 @@ final class GGLRtcViewModel: ObservableObject {
     static let shared = GGLRtcViewModel()
     weak var delegate: GGLRtcViewModelDelegate?
     private(set) var role: Role = .sender
-    private(set) var type: GGLWSRtcMessageModel.RtcType = .voice
+    private(set) var type: GGLWSRtcModel.RtcType = .voice
     private var channelId: String = ""
     private var targetId: String = ""
     private var userDataSubscriber: AnyCancellable?
@@ -29,10 +29,10 @@ final class GGLRtcViewModel: ObservableObject {
     init() {
         GGLWebSocketManager.shared.messageSubject.sink { [weak self] model in
             guard let self,
-                  model.type == .rtc_message,
-                  let rtcModel = model as? GGLWSRtcMessageModel,
+                  model.type == .peer_message,
+                  model.senderId == targetId,
+                  let rtcModel = model.content as? GGLWSRtcModel,
                   rtcModel.channelId == channelId,
-                  rtcModel.senderId == targetId,
                   let action = rtcModel.rtcAction else { return }
             switch action {
             case .invite:
@@ -52,7 +52,7 @@ final class GGLRtcViewModel: ObservableObject {
     }
 
     func setup(role: Role,
-               type: GGLWSRtcMessageModel.RtcType,
+               type: GGLWSRtcModel.RtcType,
                channelId: String,
                targetId: String,
                delegate: GGLRtcViewModelDelegate?) {

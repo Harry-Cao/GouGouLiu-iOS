@@ -8,17 +8,19 @@
 import Foundation
 
 extension GGLWebSocketManager {
-    func sendPeerText(_ text: String, targetId: String) {
+    func sendChatText(_ text: String, targetId: String) {
         guard let userId = GGLUser.getUserId(showHUD: false) else { return }
-        let model = GGLWSPeerTextModel(text: text, senderId: userId, targetId: targetId)
+        let content = GGLWSChatTextModel(text: text)
+        let model = GGLWebSocketModel(type: .peer_message, senderId: userId, targetId: targetId, content: content)
         if let jsonString = GGLTool.modelToJsonString(model) {
             socket?.write(string: jsonString)
         }
     }
 
-    func sendPeerPhoto(_ url: String, targetId: String) {
+    func sendChatPhoto(_ url: String, targetId: String) {
         guard let userId = GGLUser.getUserId(showHUD: false) else { return }
-        let model = GGLWSPeerPhotoModel(url: url, senderId: userId, targetId: targetId)
+        let content = GGLWSChatPhotoModel(url: url)
+        let model = GGLWebSocketModel(type: .peer_message, senderId: userId, targetId: targetId, content: content)
         if let jsonString = GGLTool.modelToJsonString(model) {
             socket?.write(string: jsonString)
         }

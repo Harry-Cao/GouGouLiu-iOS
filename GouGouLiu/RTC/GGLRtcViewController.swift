@@ -8,7 +8,7 @@
 import Foundation
 
 final class GGLRtcViewController: GGLBaseHostingController<GGLRtcContentView> {
-    init(role: GGLRtcViewModel.Role, type: GGLWSRtcMessageModel.RtcType, channelId: String, targetId: String) {
+    init(role: GGLRtcViewModel.Role, type: GGLWSRtcModel.RtcType, channelId: String, targetId: String) {
         super.init(rootView: GGLRtcContentView(viewModel: GGLRtcViewModel.shared))
         self.modalPresentationStyle = .fullScreen
         GGLRtcViewModel.shared.setup(role: role, type: type, channelId: channelId, targetId: targetId, delegate: self)
