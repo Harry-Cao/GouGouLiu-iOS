@@ -78,7 +78,7 @@ extension GGLWebSocketManager: WebSocketDelegate {
     }
 
     private func onReceivedText(_ text: String) {
-        guard let model = GGLWSMessageHelper.parse(text: text) else { return }
+        guard let model = GGLTool.jsonStringToModel(jsonString: text, to: GGLWebSocketModel.self) else { return }
         GGLWSMessageHelper.handleWebSocketModel(model)
         messageSubject.send(model)
     }

@@ -40,11 +40,11 @@ final class GGLChatRoomViewModel: ObservableObject {
         GGLWebSocketManager.shared.messageSubject.sink { [weak self] model in
             guard let self,
                   model.senderId == messageModel.userId,
-                  let type = model.type else { return }
-            switch type {
-            case .peer_message:
-                self.scrollToBottom()
-            case .system_logout, .rtc_message:
+                  let contentType = model.content?.type else { return }
+            switch contentType {
+            case .peer_chat:
+                scrollToBottom()
+            case .peer_rtc, .system_logout:
                 break
             }
         }.store(in: &cancellables)
@@ -83,7 +83,7 @@ final class GGLChatRoomViewModel: ObservableObject {
                 let photoModel = GGLChatModel.createPhoto(url, userId: userId)
                 GGLDataBase.shared.insertChatModel(photoModel, to: self.messageModel)
                 self.scrollToBottom()
-                GGLWebSocketManager.shared.sendPeerPhoto(url, targetId: self.messageModel.userId)
+                GGLWebSocketManager.shared.sendChatPhoto(url, targetId: self.messageModel.userId)
             }
         }
     }
@@ -98,7 +98,7 @@ final class GGLChatRoomViewModel: ObservableObject {
         scrollToBottom()
         respondMessage = ""
         if !handleSystemSending(prompt) {
-            GGLWebSocketManager.shared.sendPeerText(prompt, targetId: messageModel.userId)
+            GGLWebSocketManager.shared.sendChatText(prompt, targetId: messageModel.userId)
         }
     }
 

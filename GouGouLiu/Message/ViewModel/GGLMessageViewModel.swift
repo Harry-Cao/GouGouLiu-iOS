@@ -20,14 +20,14 @@ final class GGLMessageViewModel: ObservableObject {
     private func onReceivedMessage() {
         GGLWebSocketManager.shared.messageSubject.sink { [weak self] model in
             guard let self,
-                  let type = model.type else { return }
-            switch type {
+                  let contentType = model.content?.type else { return }
+            switch contentType {
             case .system_logout:
                 AppRouter.shared.popToRoot(animated: true)
                 fallthrough
-            case .peer_message:
+            case .peer_chat:
                 self.updateData()
-            case .rtc_message:
+            case .peer_rtc:
                 break
             }
         }.store(in: &cancellables)
