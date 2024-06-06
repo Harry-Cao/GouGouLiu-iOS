@@ -19,9 +19,9 @@
 		3E453B472A6DA67B00B30C3C /* GGLPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E453B462A6DA67B00B30C3C /* GGLPostViewController.swift */; };
 		3E453B4A2A6DA78300B30C3C /* GGLPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E453B492A6DA78300B30C3C /* GGLPostViewModel.swift */; };
 		3E453B4C2A6DA96A00B30C3C /* GGLPostAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E453B4B2A6DA96A00B30C3C /* GGLPostAPI.swift */; };
-		3E4F31C72BD555390065D2A5 /* GGLWSPeerMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4F31C62BD555390065D2A5 /* GGLWSPeerMessageModel.swift */; };
+		3E4F31C72BD555390065D2A5 /* GGLWSChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4F31C62BD555390065D2A5 /* GGLWSChatModel.swift */; };
 		3E4F31C92BD558E10065D2A5 /* GGLWSMessageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4F31C82BD558E10065D2A5 /* GGLWSMessageHelper.swift */; };
-		3E4F31CC2BD588750065D2A5 /* GGLWSRtcMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4F31CB2BD588750065D2A5 /* GGLWSRtcMessageModel.swift */; };
+		3E4F31CC2BD588750065D2A5 /* GGLWSRtcModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4F31CB2BD588750065D2A5 /* GGLWSRtcModel.swift */; };
 		3E4F31CE2BD590580065D2A5 /* GGLWebSocketManager+Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4F31CD2BD590580065D2A5 /* GGLWebSocketManager+Chat.swift */; };
 		3E4F31D02BD592320065D2A5 /* GGLWebSocketManager+RTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4F31CF2BD592320065D2A5 /* GGLWebSocketManager+RTC.swift */; };
 		3E53B5352A8800930007C560 /* GGLEmptyDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E53B5342A8800930007C560 /* GGLEmptyDataView.swift */; };
@@ -68,6 +68,7 @@
 		3EA013992BF127F600FAD3F2 /* GGLPostNetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA013982BF127F600FAD3F2 /* GGLPostNetworkHelper.swift */; };
 		3EA0139C2BF1325A00FAD3F2 /* Publisher+Moya.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0139B2BF1325A00FAD3F2 /* Publisher+Moya.swift */; };
 		3EA013A12BF142FF00FAD3F2 /* GGLDebugNetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA013A02BF142FF00FAD3F2 /* GGLDebugNetworkHelper.swift */; };
+		3EA14CE02C105E830032CA78 /* GGLWSContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA14CDF2C105E830032CA78 /* GGLWSContentModel.swift */; };
 		3EA1F2B22BA160AB005F2C6E /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 3EA1F2B12BA160AB005F2C6E /* Starscream */; };
 		3EA1F2B42BA160D0005F2C6E /* GGLWebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA1F2B32BA160D0005F2C6E /* GGLWebSocketManager.swift */; };
 		3EA1F2B72BA163DB005F2C6E /* GGLLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA1F2B62BA163DB005F2C6E /* GGLLoginViewController.swift */; };
@@ -153,9 +154,9 @@
 		3E453B462A6DA67B00B30C3C /* GGLPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPostViewController.swift; sourceTree = "<group>"; };
 		3E453B492A6DA78300B30C3C /* GGLPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPostViewModel.swift; sourceTree = "<group>"; };
 		3E453B4B2A6DA96A00B30C3C /* GGLPostAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPostAPI.swift; sourceTree = "<group>"; };
-		3E4F31C62BD555390065D2A5 /* GGLWSPeerMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLWSPeerMessageModel.swift; sourceTree = "<group>"; };
+		3E4F31C62BD555390065D2A5 /* GGLWSChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLWSChatModel.swift; sourceTree = "<group>"; };
 		3E4F31C82BD558E10065D2A5 /* GGLWSMessageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLWSMessageHelper.swift; sourceTree = "<group>"; };
-		3E4F31CB2BD588750065D2A5 /* GGLWSRtcMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLWSRtcMessageModel.swift; sourceTree = "<group>"; };
+		3E4F31CB2BD588750065D2A5 /* GGLWSRtcModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLWSRtcModel.swift; sourceTree = "<group>"; };
 		3E4F31CD2BD590580065D2A5 /* GGLWebSocketManager+Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GGLWebSocketManager+Chat.swift"; sourceTree = "<group>"; };
 		3E4F31CF2BD592320065D2A5 /* GGLWebSocketManager+RTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GGLWebSocketManager+RTC.swift"; sourceTree = "<group>"; };
 		3E53B5342A8800930007C560 /* GGLEmptyDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLEmptyDataView.swift; sourceTree = "<group>"; };
@@ -199,6 +200,7 @@
 		3EA013982BF127F600FAD3F2 /* GGLPostNetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPostNetworkHelper.swift; sourceTree = "<group>"; };
 		3EA0139B2BF1325A00FAD3F2 /* Publisher+Moya.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Moya.swift"; sourceTree = "<group>"; };
 		3EA013A02BF142FF00FAD3F2 /* GGLDebugNetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GGLDebugNetworkHelper.swift; sourceTree = "<group>"; };
+		3EA14CDF2C105E830032CA78 /* GGLWSContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLWSContentModel.swift; sourceTree = "<group>"; };
 		3EA1F2B32BA160D0005F2C6E /* GGLWebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLWebSocketManager.swift; sourceTree = "<group>"; };
 		3EA1F2B62BA163DB005F2C6E /* GGLLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLLoginViewController.swift; sourceTree = "<group>"; };
 		3EA1F2B82BA1A6B8005F2C6E /* GGLSystemUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLSystemUser.swift; sourceTree = "<group>"; };
@@ -802,8 +804,8 @@
 			isa = PBXGroup;
 			children = (
 				3ED90C062A2E59F40079B4D3 /* GGLTopicViewController.swift */,
-				3ECFA7652A751C4E00CB465B /* Adapter */,
 				3ECFA7662A751C5400CB465B /* ViewModel */,
+				3ECFA7652A751C4E00CB465B /* Adapter */,
 				3ECFA76B2A751CD600CB465B /* View */,
 				3EB0DE182A8BE9B800ED00D8 /* API */,
 			);
@@ -850,8 +852,9 @@
 			isa = PBXGroup;
 			children = (
 				3ED9B53A2BA345E600A13D38 /* GGLWebSocketModel.swift */,
-				3E4F31C62BD555390065D2A5 /* GGLWSPeerMessageModel.swift */,
-				3E4F31CB2BD588750065D2A5 /* GGLWSRtcMessageModel.swift */,
+				3EA14CDF2C105E830032CA78 /* GGLWSContentModel.swift */,
+				3E4F31C62BD555390065D2A5 /* GGLWSChatModel.swift */,
+				3E4F31CB2BD588750065D2A5 /* GGLWSRtcModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1150,12 +1153,13 @@
 				3EF3CABA2A65014100C46F38 /* GGLDebugViewController.swift in Sources */,
 				3EB4D4522BF218350085EFC0 /* GGLPhotoAPI.swift in Sources */,
 				3E5AC1682BCD6010006BD6A9 /* GGLHeroTransitionHelper.swift in Sources */,
-				3E4F31CC2BD588750065D2A5 /* GGLWSRtcMessageModel.swift in Sources */,
+				3E4F31CC2BD588750065D2A5 /* GGLWSRtcModel.swift in Sources */,
 				3EA013952BF0AB6200FAD3F2 /* GGLUserAPI.swift in Sources */,
 				3E9F11502A6BBEE600A1CC90 /* GGLUserModel.swift in Sources */,
 				3E4F31CE2BD590580065D2A5 /* GGLWebSocketManager+Chat.swift in Sources */,
 				3E453B4A2A6DA78300B30C3C /* GGLPostViewModel.swift in Sources */,
 				3E0A078D2A55D8B400D60819 /* GGLPhotoDownloadManager.swift in Sources */,
+				3EA14CE02C105E830032CA78 /* GGLWSContentModel.swift in Sources */,
 				3E4F31D02BD592320065D2A5 /* GGLWebSocketManager+RTC.swift in Sources */,
 				3E6D46482A7031BC000AB07C /* GGLBaseTableViewCell.swift in Sources */,
 				3EADA9462A715AB400F5BB13 /* GGLPostModel.swift in Sources */,
@@ -1175,7 +1179,7 @@
 				3E6D463E2A701C2A000AB07C /* GGLPostAdapter.swift in Sources */,
 				3E6D46502A703AA8000AB07C /* UITableView+GGL.swift in Sources */,
 				3EAC31972BD414260022C6A7 /* GGLChatRoomNetworkHelper.swift in Sources */,
-				3E4F31C72BD555390065D2A5 /* GGLWSPeerMessageModel.swift in Sources */,
+				3E4F31C72BD555390065D2A5 /* GGLWSChatModel.swift in Sources */,
 				3ED370D02A597CB900639291 /* GGLTool.swift in Sources */,
 				3E0AC6982BA6B44F0075BBD6 /* GGLTabBarController+Message.swift in Sources */,
 				3EF638C62BAA862800E0CFBA /* UIColor+GGL.swift in Sources */,

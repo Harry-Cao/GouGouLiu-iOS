@@ -11,9 +11,9 @@ import MJRefresh
 import Hero
 
 final class GGLHomeViewController: GGLBaseViewController {
-
     private let viewModel = GGLHomeViewModel()
     private var cancellables = Set<AnyCancellable>()
+    private lazy var emptyDataView = GGLEmptyDataView()
     private lazy var recommendCollectionView: UICollectionView = {
         let itemSpacing: CGFloat = 4.0
         let waterFallFlowLayout = GGLWaterFallFlowLayout()
@@ -98,21 +98,32 @@ final class GGLHomeViewController: GGLBaseViewController {
         AppRouter.shared.push(GGLDebugViewController())
         #endif
     }
+}
 
+extension GGLHomeViewController {
+    func showEmptyDataView(target: GGLEmptyDataViewDelegate) {
+        emptyDataView.delegate = target
+        view.addSubview(emptyDataView)
+        emptyDataView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+
+    func dismissEmptyDataView() {
+        emptyDataView.delegate = nil
+        emptyDataView.removeFromSuperview()
+    }
 }
 
 // MARK: - GGLEmptyDataViewDelegate
 extension GGLHomeViewController: GGLEmptyDataViewDelegate {
-
     func didTapRefresh() {
         refreshData()
     }
-
 }
 
 // MARK: - UICollectionViewDataSource
 extension GGLHomeViewController: UICollectionViewDataSource {
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.dataSource.count
     }
@@ -123,12 +134,10 @@ extension GGLHomeViewController: UICollectionViewDataSource {
         cell.setup(model: model)
         return cell
     }
-
 }
 
 // MARK: - UICollectionViewDelegate
 extension GGLHomeViewController: UICollectionViewDelegate {
-
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = viewModel.dataSource[indexPath.item]
         let heroID = String(Date().timeIntervalSince1970)
@@ -136,10 +145,7 @@ extension GGLHomeViewController: UICollectionViewDelegate {
         let cell = collectionView.cellForItem(at: indexPath) as? GGLHomeRecommendCell
         cell?.heroID = heroID
         cell?.imageView.heroID = coverHeroID
-        let viewController = GGLTopicViewController()
-        viewController.postModel = model
-        viewController.photoBrowserCellHeroID = coverHeroID
-        viewController.coverImage = cell?.imageView.image
+        let viewController = GGLTopicViewController(postModel: model, coverImage: cell?.imageView.image, photoBrowserCellHeroID: coverHeroID)
         let navigationController = GGLBaseNavigationController(rootViewController: viewController)
         navigationController.setHeroModalAnimationType(.auto)
         navigationController.view.heroID = heroID
@@ -147,40 +153,13 @@ extension GGLHomeViewController: UICollectionViewDelegate {
             navigationController.isHeroEnabled = false
         }
     }
-
-    /*
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        // TODO: - 处理对其他界面navigationBar的影响
-        if velocity.y > 1 {
-            hideNavigationBar()
-        } else if velocity.y < -1 {
-            showNavigationBar()
-        }
-    }
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView.contentOffset.y < 5 else { return }
-        showNavigationBar()
-    }
-
-    private func showNavigationBar() {
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-
-    private func hideNavigationBar() {
-        navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-     */
-
 }
 
 // MARK: - GGLWaterFallFlowLayout
 extension GGLHomeViewController: GGLWaterFallFlowLayoutDelegate {
-
     func waterFlowLayout(_ waterFlowLayout: GGLWaterFallFlowLayout, itemHeight indexPath: IndexPath) -> CGFloat {
         CGFloat.random(in: 250...350)
     }
-
 }
 
 

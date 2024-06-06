@@ -11,18 +11,22 @@ import Hero
 
 final class GGLTopicViewController: GGLBaseViewController {
 
-    var postModel: GGLHomePostModel? {
-        didSet {
-            viewModel.postModel = postModel
-        }
-    }
-    var photoBrowserCellHeroID: String?
-    var coverImage: UIImage?
-    private let viewModel = GGLTopicViewModel()
+    private let photoBrowserCellHeroID: String?
+    private let viewModel: GGLTopicViewModel
     private let adapter = GGLTopicAdapter()
     private let transitionHelper = GGLHeroTransitionHelper()
     private let topicTableView = GGLBaseTableView()
     private var cancellables = Set<AnyCancellable>()
+
+    init(postModel: GGLHomePostModel, coverImage: UIImage?, photoBrowserCellHeroID: String?) {
+        self.photoBrowserCellHeroID = photoBrowserCellHeroID
+        self.viewModel = GGLTopicViewModel(postModel: postModel, coverImage: coverImage)
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,8 +39,7 @@ final class GGLTopicViewController: GGLBaseViewController {
 
     private func setupNavigationItem() {
         navigationItem.leftBarButtonItem = barButtonItem(navigationItem: .image(UIImage(resource: .navigationBarBack), #selector(didTapBackButton)))
-        navigationItem.rightBarButtonItems = barButtonItems(items: [.avatar(postModel?.user?.avatarUrl ?? "", #selector(didTapUser)),
-                                                                    .text(postModel?.user?.userName ?? "", #selector(didTapUser))])
+        navigationItem.rightBarButtonItems = barButtonItems(items: [.avatar(viewModel.postModel.user?.avatarUrl ?? "", #selector(didTapUser)), .text(viewModel.postModel.user?.userName ?? "", #selector(didTapUser))])
     }
 
     private func setupUI() {
@@ -52,15 +55,11 @@ final class GGLTopicViewController: GGLBaseViewController {
         adapter.photoBrowserCellConfigurator = { [weak self] cell in
             guard let self else { return }
             cell.heroID = photoBrowserCellHeroID
-            let imageModels = viewModel.postModel?.post?.photos?.map({ GGLWebImageModel(imageUrl: $0.originalUrl, previewUrl: $0.previewUrl) }) ?? [GGLWebImageModel(placeholderImage: coverImage)]
-            cell.setup(imageModels: imageModels, failToGestures: [transitionHelper.leftGesture])
+            cell.browserView.delegate = self
+            cell.setup(imageModels: viewModel.imageModels, failToGestures: [transitionHelper.dismissGesture], height: viewModel.browserCellHeight)
         }
         adapter.contentCellConfigurator = { [weak self] cell in
-            cell.setup(title: self?.viewModel.postModel?.post?.title, content: self?.viewModel.postModel?.post?.content)
-        }
-        adapter.photoBrowserCellDidSelectHandler = { [weak self] _, index in
-            guard let urlString = self?.viewModel.postModel?.post?.photos?[index].originalUrl else { return }
-            self?.downloadImage(urlString: urlString)
+            cell.setup(title: self?.viewModel.postModel.post?.title, content: self?.viewModel.postModel.post?.content)
         }
     }
 
@@ -89,12 +88,32 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     @objc private func didTapUser() {
-        guard let user = viewModel.postModel?.user else { return }
+        guard let user = viewModel.postModel.user else { return }
         let viewController = GGLPersonalDetailViewController(user: user)
         AppRouter.shared.push(viewController)
     }
 
 }
 
+// MARK: - GGLWebImageBrowserDelegate
+extension GGLTopicViewController: GGLWebImageBrowserDelegate {
+    func imageBrowserView(_ imageBrowserView: GGLWebImageBrowser, didSelectItemAt index: Int) {
+        guard let urlString = viewModel.postModel.post?.photos?[index].originalUrl else { return }
+        downloadImage(urlString: urlString)
+    }
+
+    func imageBrowserView(_ imageBrowserView: GGLWebImageBrowser, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: mainWindow.bounds.width, height: viewModel.browserCellHeight)
+    }
+}
+
 // MARK: - GGLHeroTransitionHelperDelegate
-extension GGLTopicViewController: GGLHeroTransitionHelperDelegate {}
+extension GGLTopicViewController: GGLHeroTransitionHelperDelegate {
+    func transitionHelperNeedDismissGesture() -> Bool { true }
+
+    func transitionHelperNeedPresentGesture() -> Bool { false }
+
+    func transitionHelperGestureViewController() -> UIViewController? {
+        return navigationController
+    }
+}

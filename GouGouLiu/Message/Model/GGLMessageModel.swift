@@ -9,13 +9,13 @@ import RealmSwift
 
 final class GGLMessageModel: Object, Identifiable {
     @Persisted var id = UUID()
-    @Persisted var createTime = Date()
+    @Persisted var createTime = Date.now.timeIntervalSince1970
     @Persisted var ownerId: String
     @Persisted var userId: String
     @Persisted var messages: MutableSet<GGLChatModel>
     @Persisted var unReadNum: Int
 
-    var compareTime: Date {
+    var compareTime: TimeInterval {
         if let lastMessage = messages.last {
             return lastMessage.createTime
         }
