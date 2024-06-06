@@ -8,6 +8,7 @@ extension GGLPhotoDownloadManager {
 
 final class GGLPhotoDownloadManager {
     static let shared = GGLPhotoDownloadManager()
+    private let albumTitle: String = .app_name
     private var downloadMissions = [DownloadMission]()
     private var progressBlock: SDImageLoaderProgressBlock?
     private var queueProgressBlock: GGLPhotoDownloadQueueProgressBlock?
@@ -40,7 +41,7 @@ final class GGLPhotoDownloadManager {
         do {
             mission.status = .downloading
             let fileUrl = try await downloadImage(url: mission.urlString, progress: progressBlock)
-            let album = try await GGLAlbumHelper.getAlbum(title: .app_name)
+            let album = try await GGLAlbumHelper.getAlbum(title: albumTitle)
             try await GGLAlbumHelper.saveImage(fileUrl: fileUrl, toAlbum: album)
             mission.status = .success
         } catch {
