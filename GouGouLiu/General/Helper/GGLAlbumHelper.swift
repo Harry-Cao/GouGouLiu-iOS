@@ -11,13 +11,11 @@ import Photos
 final class GGLAlbumHelper {
     private static var customNameForPhoto: String { "GGL_\(Date().timeIntervalSince1970)" }
 
-    static func getAlbum(title: String, completion: @escaping (PHAssetCollection?) -> Void) {
+    static func getAlbum(title: String) async throws -> PHAssetCollection? {
         if let album = fetchAlbum(title: title) {
-            completion(album)
+            return album
         } else {
-            createAlbum(title: title) { album in
-                completion(album)
-            }
+            return try await createAlbum(title: title)
         }
     }
 
@@ -28,24 +26,22 @@ final class GGLAlbumHelper {
         return collection.firstObject
     }
 
-    private static func createAlbum(title: String, completion: @escaping (PHAssetCollection?) -> Void) {
+    private static func createAlbum(title: String) async throws -> PHAssetCollection? {
         var albumPlaceholder: PHObjectPlaceholder?
-        PHPhotoLibrary.shared().performChanges {
+        try await PHPhotoLibrary.shared().performChanges {
             let createAlbumRequest = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: title)
             albumPlaceholder = createAlbumRequest.placeholderForCreatedAssetCollection
-        } completionHandler: { _, _ in
-            if let placeholder = albumPlaceholder {
-                let fetchResult = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [placeholder.localIdentifier], options: nil)
-                completion(fetchResult.firstObject)
-            } else {
-                completion(nil)
-            }
         }
+        if let placeholder = albumPlaceholder {
+            let fetchResult = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [placeholder.localIdentifier], options: nil)
+            return fetchResult.firstObject
+        }
+        return nil
     }
 
     /// Support naming the photo
-    static func saveImage(fileUrl: URL, toAlbum album: PHAssetCollection? = nil, completion: ((Bool) -> Void)? = nil) {
-        PHPhotoLibrary.shared().performChanges {
+    static func saveImage(fileUrl: URL, toAlbum album: PHAssetCollection? = nil) async throws {
+        try await PHPhotoLibrary.shared().performChanges {
             let assetChangeRequest = PHAssetCreationRequest.forAsset()
             assetChangeRequest.creationDate = Date()
             let option = PHAssetResourceCreationOptions()
@@ -56,14 +52,12 @@ final class GGLAlbumHelper {
                 let albumChangeRequest = PHAssetCollectionChangeRequest(for: album)
                 albumChangeRequest?.addAssets([placeHolder] as NSFastEnumeration)
             }
-        } completionHandler: { success, _ in
-            completion?(success)
         }
     }
 
     /// Could not name the photo
-    static func saveImage(image: UIImage, toAlbum album: PHAssetCollection? = nil, completion: ((Bool) -> Void)? = nil) {
-        PHPhotoLibrary.shared().performChanges {
+    static func saveImage(image: UIImage, toAlbum album: PHAssetCollection? = nil, completion: ((Bool) -> Void)? = nil) async throws {
+        try await PHPhotoLibrary.shared().performChanges {
             let assetChangeRequest: PHAssetChangeRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
             assetChangeRequest.creationDate = Date()
             if let album = album, album.assetCollectionType == .album {
@@ -71,8 +65,6 @@ final class GGLAlbumHelper {
                 let albumChangeRequest = PHAssetCollectionChangeRequest(for: album)
                 albumChangeRequest?.addAssets([placeHolder] as NSFastEnumeration)
             }
-        } completionHandler: { success, _ in
-            completion?(success)
         }
     }
 }

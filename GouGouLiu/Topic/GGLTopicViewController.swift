@@ -65,7 +65,7 @@ final class GGLTopicViewController: GGLBaseViewController {
 
     private func downloadImage(urlString: String) {
         UIAlertController.popupConfirmAlert(title: "确认下载图片？") {
-            GGLPhotoDownloadManager.shared.downloadPhotosToAlbum(urls: [urlString], progress:  { receivedSize, expectedSize in
+            GGLPhotoDownloadManager.shared.downloadPhotosToAlbum(urls: [urlString], progress:  { receivedSize, expectedSize, _ in
                 ProgressHUD.showProgress(CGFloat(receivedSize)/CGFloat(expectedSize))
             }, completed:  { allSuccess, failUrlStrings in
                 ProgressHUD.showSucceed()
