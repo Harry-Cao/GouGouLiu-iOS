@@ -7,7 +7,6 @@ extension GGLPhotoDownloadManager {
 }
 
 final class GGLPhotoDownloadManager {
-
     static let shared = GGLPhotoDownloadManager()
     private var downloadMissions = [DownloadMission]()
     private var progressBlock: SDImageLoaderProgressBlock?
@@ -22,6 +21,7 @@ final class GGLPhotoDownloadManager {
                                progress progressBlock: SDImageLoaderProgressBlock? = nil,
                                queueProgress queueProgressBlock: GGLPhotoDownloadQueueProgressBlock? = nil,
                                completed completedBlock: GGLPhotoDownloadCompletedBlock? = nil) {
+        SDWebImageDownloader.shared.cancelAllDownloads()
         self.downloadMissions = urls.map({ DownloadMission(urlString: $0) })
         self.progressBlock = progressBlock
         self.queueProgressBlock = queueProgressBlock
@@ -39,21 +39,21 @@ final class GGLPhotoDownloadManager {
         let mission = downloadMissions[missionIndex]
         do {
             mission.status = .downloading
-            let fileUrl = try await downloadImage(url: URL(string: mission.urlString), progress: progressBlock)
+            let fileUrl = try await downloadImage(url: mission.urlString, progress: progressBlock)
             let album = try await GGLAlbumHelper.getAlbum(title: .app_name)
             try await GGLAlbumHelper.saveImage(fileUrl: fileUrl, toAlbum: album)
             mission.status = .success
         } catch {
             mission.status = .failed
         }
-        queueProgressBlock?(missionIndex, downloadMissions.count, true)
+        queueProgressBlock?(missionIndex, downloadMissions.count, mission.status == .success)
         await startNextMission()
     }
 
-    private func downloadImage(url: URL?, progress: SDImageLoaderProgressBlock?) async throws -> URL {
+    private func downloadImage(url: String, progress: SDImageLoaderProgressBlock?) async throws -> URL {
         return try await withCheckedThrowingContinuation { continuation in
-            SDWebImageManager.shared.loadImage(with: url, progress: progress) { _, _, error, _, _, imageUrl in
-                if let cachePath = SDImageCache.shared.cachePath(forKey: imageUrl?.absoluteString),
+            SDWebImageManager.shared.loadImage(with: URL(string: url), progress: progress) { _, _, error, _, _, _ in
+                if let cachePath = SDImageCache.shared.cachePath(forKey: url),
                    let fileUrl = URL(string: cachePath) {
                     continuation.resume(returning: fileUrl)
                 } else {
@@ -79,7 +79,6 @@ final class GGLPhotoDownloadManager {
         let failUrlStrings = self.failUrlStrings
         completedBlock?(failUrlStrings.isEmpty, failUrlStrings)
     }
-
 }
 
 extension GGLPhotoDownloadManager {
