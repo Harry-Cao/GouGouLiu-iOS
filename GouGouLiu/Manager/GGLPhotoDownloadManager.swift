@@ -1,100 +1,73 @@
-import UIKit
-import Photos
+import Foundation
+import SDWebImage
 
 extension GGLPhotoDownloadManager {
-    typealias GGLPhotoDownloadProgressBlock = (_ receivedSize: Int, _ expectedSize: Int) -> Void
     typealias GGLPhotoDownloadQueueProgressBlock = (_ index: Int, _ total: Int, _ success: Bool) -> Void
     typealias GGLPhotoDownloadCompletedBlock = (_ allSuccess: Bool, _ failUrlStrings: [String]?) -> Void
 }
 
 final class GGLPhotoDownloadManager {
-
-    static let shared: GGLPhotoDownloadManager = GGLPhotoDownloadManager()
+    static let shared = GGLPhotoDownloadManager()
     private let albumTitle: String = .app_name
-    private var urlModels: [PhotoDownloadModel] = []
-    private var workItems: [DispatchWorkItem] = []
-    private var isPause: Bool = false
+    private var downloadMissions = [DownloadMission]()
+    private var progressBlock: SDImageLoaderProgressBlock?
+    private var queueProgressBlock: GGLPhotoDownloadQueueProgressBlock?
     private var completedBlock: GGLPhotoDownloadCompletedBlock?
+    private var isPause: Bool = false
     private var failUrlStrings: [String] {
-        return urlModels.compactMap({ $0.isSaved ? nil : $0.urlString })
+        return downloadMissions.compactMap({ $0.status != .success ? $0.urlString : nil })
     }
-    private var customNameForPhoto: String { "GGL_\(Date().timeIntervalSince1970)" }
 
     func downloadPhotosToAlbum(urls: [String],
-                               progress progressBlock: GGLPhotoDownloadProgressBlock? = nil,
+                               progress progressBlock: SDImageLoaderProgressBlock? = nil,
                                queueProgress queueProgressBlock: GGLPhotoDownloadQueueProgressBlock? = nil,
                                completed completedBlock: GGLPhotoDownloadCompletedBlock? = nil) {
+        SDWebImageDownloader.shared.cancelAllDownloads()
+        self.downloadMissions = urls.map({ DownloadMission(urlString: $0) })
+        self.progressBlock = progressBlock
+        self.queueProgressBlock = queueProgressBlock
         self.completedBlock = completedBlock
-        workItems.removeAll()
-        guard !urls.isEmpty else {
-            DispatchQueue.main.async {
-                completedBlock?(true, nil)
-            }
+        startDownloading()
+    }
+
+    private func startNextMission() async {
+        guard !isPause else { return }
+        guard let missionIndex = downloadMissions.firstIndex(where: { $0.status == .waiting }) else {
+            let failUrlStrings = self.failUrlStrings
+            completedBlock?(failUrlStrings.isEmpty, failUrlStrings)
             return
         }
-        createAlbum(albumTitle: albumTitle) { [weak self] album in
-            guard let album = album, let self = self else {
-                completedBlock?(false, urls)
-                return
-            }
+        let mission = downloadMissions[missionIndex]
+        do {
+            mission.status = .downloading
+            let fileUrl = try await downloadImage(url: mission.urlString, progress: progressBlock)
+            let album = try await GGLAlbumHelper.getAlbum(title: albumTitle)
+            try await GGLAlbumHelper.saveImage(fileUrl: fileUrl, toAlbum: album)
+            mission.status = .success
+        } catch {
+            mission.status = .failed
+        }
+        queueProgressBlock?(missionIndex, downloadMissions.count, mission.status == .success)
+        await startNextMission()
+    }
 
-            DispatchQueue.global().async {
-                self.urlModels = urls.map({ PhotoDownloadModel(urlString: $0) })
-                urls.enumerated().forEach { (index, urlString) in
-
-                    let workItem = DispatchWorkItem {
-                        let url = URL(string: urlString)
-                        SDWebImageManager.shared.loadImage(with: url) { receivedSize, expectedSize, _ in
-                            progressBlock?(receivedSize, expectedSize)
-                        } completed: { _, _, _, _, finished, imageUrl in
-                            self.workItems.removeFirst()
-                            if finished,
-                               let cachePath = SDImageCache.shared.cachePath(forKey: imageUrl?.absoluteString),
-                               let fileUrl = URL(string: cachePath) {
-                                self.saveImageToAlbum(imageUrl: fileUrl, toAlbum: album) { success in
-                                    let urlModel = self.urlModels[index]
-                                    urlModel.isSaved = success
-                                    if self.workItems.isEmpty {
-                                        let failUrlStrings = self.failUrlStrings
-                                        completedBlock?(failUrlStrings.isEmpty, failUrlStrings)
-                                    } else {
-                                        queueProgressBlock?(index, urls.count, success)
-                                        self.runNextWorkItem()
-                                    }
-                                }
-                            } else {
-                                DispatchQueue.main.async {
-                                    if self.workItems.isEmpty {
-                                        let failUrlStrings = self.failUrlStrings
-                                        completedBlock?(failUrlStrings.isEmpty, failUrlStrings)
-                                    } else {
-                                        queueProgressBlock?(index, urls.count, false)
-                                        self.runNextWorkItem()
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-
-                    self.workItems.append(workItem)
+    private func downloadImage(url: String, progress: SDImageLoaderProgressBlock?) async throws -> URL {
+        return try await withCheckedThrowingContinuation { continuation in
+            SDWebImageManager.shared.loadImage(with: URL(string: url), progress: progress) { _, _, error, _, _, _ in
+                if let cachePath = SDImageCache.shared.cachePath(forKey: url),
+                   let fileUrl = URL(string: cachePath) {
+                    continuation.resume(returning: fileUrl)
+                } else {
+                    continuation.resume(throwing: error ?? DownloadError.unknown)
                 }
-                self.startDownloading()
             }
         }
     }
 
-    private func runNextWorkItem() {
-        guard !self.isPause else { return }
-        if let workItem = self.workItems.first {
-            DispatchQueue.global().sync(execute: workItem)
-        }
-    }
-
-    private func startDownloading() {
+    func startDownloading() {
         isPause = false
-        if let workItem = workItems.first {
-            DispatchQueue.global().sync(execute: workItem)
+        Task {
+            await startNextMission()
         }
     }
 
@@ -102,97 +75,31 @@ final class GGLPhotoDownloadManager {
         isPause = true
     }
 
-    func resumeDownloading() {
-        startDownloading()
-    }
-
     func cancelDownloading() {
         SDWebImageDownloader.shared.cancelAllDownloads()
         let failUrlStrings = self.failUrlStrings
         completedBlock?(failUrlStrings.isEmpty, failUrlStrings)
     }
-
-    private func createAlbum(albumTitle: String, completion: @escaping (PHAssetCollection?) -> Void) {
-        fetchAlbum(albumTitle: albumTitle) { album in
-            if let album = album {
-                completion(album)
-            } else {
-                PHPhotoLibrary.shared().performChanges {
-                    PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: albumTitle)
-                } completionHandler: { _, _ in
-                    self.fetchAlbum(albumTitle: albumTitle) { album in
-                        completion(album)
-                    }
-                }
-            }
-        }
-    }
-
-    private func fetchAlbum(albumTitle: String, completion: @escaping (PHAssetCollection?) -> Void) {
-        DispatchQueue.global().async {
-            let fetchResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: nil)
-            var album: PHAssetCollection?
-            fetchResult.enumerateObjects { collection, _, stop in
-                if let title = collection.localizedTitle, title == albumTitle {
-                    album = collection
-                    stop.initialize(to: true)
-                }
-            }
-            DispatchQueue.main.async {
-                completion(album)
-            }
-        }
-    }
-
-    private func saveImageToAlbum(imageUrl: URL, toAlbum album: PHAssetCollection? = nil, completion: ((Bool) -> Void)? = nil) {
-        PHPhotoLibrary.shared().performChanges { [weak self] in
-            guard let self = self else { return }
-            let assetChangeRequest = PHAssetCreationRequest.forAsset()
-            assetChangeRequest.creationDate = Date()
-            let option = PHAssetResourceCreationOptions()
-            option.originalFilename = self.customNameForPhoto
-            assetChangeRequest.addResource(with: .photo, fileURL: imageUrl, options: option)
-            if let album = album, album.assetCollectionType == .album {
-                let placeHolder = assetChangeRequest.placeholderForCreatedAsset
-                let albumChangeRequest = PHAssetCollectionChangeRequest(for: album)
-                albumChangeRequest?.addAssets([placeHolder] as NSFastEnumeration)
-            }
-        } completionHandler: { success, _ in
-            DispatchQueue.main.async {
-                completion?(success)
-            }
-        }
-    }
-
-    private func saveImageToAlbum(image: UIImage, toAlbum album: PHAssetCollection? = nil, completion: ((Bool) -> Void)? = nil) {
-        PHPhotoLibrary.shared().performChanges {
-            let assetChangeRequest: PHAssetChangeRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
-            assetChangeRequest.creationDate = Date()
-            if let album = album, album.assetCollectionType == .album {
-                let placeHolder = assetChangeRequest.placeholderForCreatedAsset
-                let albumChangeRequest = PHAssetCollectionChangeRequest(for: album)
-                albumChangeRequest?.addAssets([placeHolder] as NSFastEnumeration)
-            }
-        } completionHandler: { success, _ in
-            DispatchQueue.main.async {
-                completion?(success)
-            }
-        }
-    }
-
 }
 
 extension GGLPhotoDownloadManager {
-
-    final class PhotoDownloadModel {
-
-        var urlString: String
-        var isSaved: Bool = false
+    final class DownloadMission {
+        let urlString: String
+        var status: MissionStatus = .waiting
 
         init(urlString: String) {
             self.urlString = urlString
         }
-
     }
 
+    enum MissionStatus {
+        case waiting
+        case downloading
+        case failed
+        case success
+    }
+
+    enum DownloadError: Error {
+        case unknown
+    }
 }
