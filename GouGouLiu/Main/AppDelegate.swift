@@ -70,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func loginWithUserId() {
-        guard let userId = GGLUser.getUserId(showHUD: false) else { return }
+        guard let userId = UserDefaults.userId else { return }
         GGLUser.login(userId: userId)
     }
 

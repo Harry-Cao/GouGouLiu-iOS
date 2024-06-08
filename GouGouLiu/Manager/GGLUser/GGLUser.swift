@@ -104,7 +104,7 @@ extension GGLUser {
 extension GGLUser {
 
     static func getUserId(showHUD: Bool = true) -> String? {
-        let userId = UserDefaults.userId
+        let userId = current?.userId
         if userId == nil, showHUD {
             ProgressHUD.showFailed("Please login")
         }
