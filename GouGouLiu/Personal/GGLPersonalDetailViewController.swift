@@ -39,6 +39,7 @@ struct PersonalDetailContentView: View {
                     .scaledToFit()
                     .frame(width: 48, height: 48, alignment: .center)
             }
+            .disabled(user.userId == GGLUser.current?.userId)
         }
     }
 }

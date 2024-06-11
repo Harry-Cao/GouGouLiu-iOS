@@ -6,17 +6,16 @@
 //
 
 import UIKit
-import RxSwift
+import Combine
 
 final class GGLTabBarController: UITabBarController {
 
     private let homeViewController = GGLHomeViewController()
-    private let orderViewController = GGLOrderViewController()
+    private let serviceViewController = GGLServicesViewController()
     private let emptyViewController = UIViewController()
     private let messageViewController = GGLMessageViewController()
     private let personalViewController = GGLPersonalViewController()
-    private(set) lazy var badgeLabel = GGLTabBarBadgeLabel()
-    private(set) var disposeBag = DisposeBag()
+    private(set) var cancellables = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,23 +32,23 @@ final class GGLTabBarController: UITabBarController {
     private func setupViewControllers() {
         let homeNavigationController = setupNavigationController(viewController: homeViewController,
                                                                  title: .Home,
-                                                                 normalImage: .tab_bar_home_normal,
-                                                                 selectedImage: .tab_bar_home_selected)
-        let orderNavigationController = setupNavigationController(viewController: orderViewController,
-                                                                 title: .Order,
-                                                                 normalImage: .tab_bar_order_normal,
-                                                                 selectedImage: .tab_bar_order_selected)
+                                                                 normalImage: UIImage(resource: .tabBarHomeNormal),
+                                                                 selectedImage: UIImage(resource: .tabBarHomeSelected))
+        let serviceNavigationController = setupNavigationController(viewController: serviceViewController,
+                                                                 title: .Services,
+                                                                 normalImage: UIImage(resource: .tabBarServicesNormal),
+                                                                 selectedImage: UIImage(resource: .tabBarServicesSelected))
         let messageNavigationController = setupNavigationController(viewController: messageViewController,
                                                                     title: .Message,
-                                                                    normalImage: .tab_bar_message_normal,
-                                                                    selectedImage: .tab_bar_message_selected)
+                                                                    normalImage: UIImage(resource: .tabBarMessageNormal),
+                                                                    selectedImage: UIImage(resource: .tabBarMessageSelected))
         let personalNavigationController = setupNavigationController(viewController: personalViewController,
                                                                      title: .Personal,
-                                                                     normalImage: .tab_bar_personal_normal,
-                                                                     selectedImage: .tab_bar_personal_selected)
+                                                                     normalImage: UIImage(resource: .tabBarPersonalNormal),
+                                                                     selectedImage: UIImage(resource: .tabBarPersonalSelected))
         let viewControllers: [UIViewController] = [
             homeNavigationController,
-            orderNavigationController,
+            serviceNavigationController,
             emptyViewController,
             messageNavigationController,
             personalNavigationController
@@ -72,7 +71,7 @@ final class GGLTabBarController: UITabBarController {
 
     private func setupMiddleButton() {
         let middleButton = UIButton()
-        middleButton.setImage(.tab_bar_extension, for: .normal)
+        middleButton.setImage(UIImage(resource: .tabBarExtension), for: .normal)
         middleButton.backgroundColor = .systemBackground
         middleButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         middleButton.layer.cornerRadius = 40
@@ -83,6 +82,17 @@ final class GGLTabBarController: UITabBarController {
             make.leading.bottom.trailing.equalToSuperview()
         }
         middleButton.addTarget(self, action: #selector(didTapMiddleButton(sender:)), for: .touchUpInside)
+    }
+
+    private func subscribe() {
+        GGLDataBase.shared.messageUnReadSubject.sink { [weak self] _ in
+            guard let self else { return }
+            updateMessageUnReadNum()
+        }.store(in: &cancellables)
+        GGLUser.userStatusSubject.sink { [weak self] _ in
+            guard let self else { return }
+            updateMessageUnReadNum()
+        }.store(in: &cancellables)
     }
 
     @objc private func didTapMiddleButton(sender: UIButton) {

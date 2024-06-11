@@ -6,21 +6,27 @@
 //
 
 import UIKit
-import RxSwift
+import Combine
+import Hero
 
 final class GGLTopicViewController: GGLBaseViewController {
 
-    var postModel: GGLHomePostModel? {
-        didSet {
-            viewModel.postModel = postModel
-            topicTableView.reloadData()
-        }
-    }
-    private let viewModel = GGLTopicViewModel()
+    private let photoBrowserCellHeroID: String?
+    private let viewModel: GGLTopicViewModel
     private let adapter = GGLTopicAdapter()
-    private let transitionHelper = GGLTopicGestureHelper()
+    private let transitionHelper = GGLHeroTransitionHelper()
     private let topicTableView = GGLBaseTableView()
-    private let disposeBag = DisposeBag()
+    private var cancellables = Set<AnyCancellable>()
+
+    init(postModel: GGLHomePostModel, coverImage: UIImage?, photoBrowserCellHeroID: String?) {
+        self.photoBrowserCellHeroID = photoBrowserCellHeroID
+        self.viewModel = GGLTopicViewModel(postModel: postModel, coverImage: coverImage)
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,12 +38,11 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     private func setupNavigationItem() {
-        setupRightNavigationItems([.image(postModel?.user?.avatarUrl ?? "", #selector(didTapUser)),
-                                   .text(postModel?.user?.userName ?? "", #selector(didTapUser))])
+        navigationItem.leftBarButtonItem = barButtonItem(navigationItem: .image(UIImage(resource: .navigationBarBack), #selector(didTapBackButton)))
+        navigationItem.rightBarButtonItems = barButtonItems(items: [.avatar(viewModel.postModel.user?.avatarUrl ?? "", #selector(didTapUser)), .text(viewModel.postModel.user?.userName ?? "", #selector(didTapUser))])
     }
 
     private func setupUI() {
-        topicTableView.bounces = false
         [topicTableView].forEach(view.addSubview)
         topicTableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -49,25 +54,18 @@ final class GGLTopicViewController: GGLBaseViewController {
         adapter.tableView = topicTableView
         adapter.photoBrowserCellConfigurator = { [weak self] cell in
             guard let self else { return }
-            let failToGestures = [transitionHelper.rightGesture]
-            guard let urlStrings = viewModel.postModel?.post?.photos else {
-                cell.setup(urlStrings: [viewModel.postModel?.post?.coverImageUrl ?? ""], failToGestures: failToGestures)
-                return
-            }
-            cell.setup(urlStrings: urlStrings, failToGestures: failToGestures)
+            cell.heroID = photoBrowserCellHeroID
+            cell.browserView.delegate = self
+            cell.setup(imageModels: viewModel.imageModels, failToGestures: [transitionHelper.dismissGesture], height: viewModel.browserCellHeight)
         }
         adapter.contentCellConfigurator = { [weak self] cell in
-            cell.setup(title: self?.viewModel.postModel?.post?.title, content: self?.viewModel.postModel?.post?.content)
-        }
-        adapter.photoBrowserCellDidSelectHandler = { [weak self] _, index in
-            guard let urlString = self?.viewModel.postModel?.post?.photos?[index] else { return }
-            self?.downloadImage(urlString: urlString)
+            cell.setup(title: self?.viewModel.postModel.post?.title, content: self?.viewModel.postModel.post?.content)
         }
     }
 
     private func downloadImage(urlString: String) {
         UIAlertController.popupConfirmAlert(title: "确认下载图片？") {
-            GGLPhotoDownloadManager.shared.downloadPhotosToAlbum(urls: [urlString], progress:  { receivedSize, expectedSize in
+            GGLPhotoDownloadManager.shared.downloadPhotosToAlbum(urls: [urlString], progress:  { receivedSize, expectedSize, _ in
                 ProgressHUD.showProgress(CGFloat(receivedSize)/CGFloat(expectedSize))
             }, completed:  { allSuccess, failUrlStrings in
                 ProgressHUD.showSucceed()
@@ -76,9 +74,9 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     private func bindData() {
-        viewModel.updateSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] model in
+        viewModel.$postModel.sink { [weak self] _ in
             self?.topicTableView.reloadData()
-        }).disposed(by: disposeBag)
+        }.store(in: &cancellables)
     }
 
     private func getData() {
@@ -86,21 +84,36 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     @objc private func didTapBackButton() {
-        self.dismiss(animated: true)
+        transitionHelper.dismiss()
     }
 
     @objc private func didTapUser() {
-        guard let user = viewModel.postModel?.user else { return }
+        guard let user = viewModel.postModel.user else { return }
         let viewController = GGLPersonalDetailViewController(user: user)
         AppRouter.shared.push(viewController)
     }
 
 }
 
-// MARK: - GGLTopicGestureHelperDelegate
-extension GGLTopicViewController: GGLTopicGestureHelperDelegate {
-    func transitionHelperPushViewController() -> UIViewController? {
-        guard let user = viewModel.postModel?.user else { return nil }
-        return GGLPersonalDetailViewController(user: user)
+// MARK: - GGLWebImageBrowserDelegate
+extension GGLTopicViewController: GGLWebImageBrowserDelegate {
+    func imageBrowserView(_ imageBrowserView: GGLWebImageBrowser, didSelectItemAt index: Int) {
+        guard let urlString = viewModel.postModel.post?.photos?[index].originalUrl else { return }
+        downloadImage(urlString: urlString)
+    }
+
+    func imageBrowserView(_ imageBrowserView: GGLWebImageBrowser, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: mainWindow.bounds.width, height: viewModel.browserCellHeight)
+    }
+}
+
+// MARK: - GGLHeroTransitionHelperDelegate
+extension GGLTopicViewController: GGLHeroTransitionHelperDelegate {
+    func transitionHelperNeedDismissGesture() -> Bool { true }
+
+    func transitionHelperNeedPresentGesture() -> Bool { false }
+
+    func transitionHelperGestureViewController() -> UIViewController? {
+        return navigationController
     }
 }

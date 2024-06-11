@@ -22,7 +22,7 @@ struct GGLChatCell: View {
             ForEach(components, id: \.self) { type in
                 switch type {
                 case .avatar:
-                    WebImage(url: URL(string: GGLUser.getUser(userId: model.userId)?.avatarUrl ?? ""))
+                    WebImage(url: URL(string: GGLUser.getUser(userId: model.userId).avatarUrl ?? ""))
                         .resizable()
                         .scaledToFill()
                         .frame(width: 48, height: 48, alignment: .center)
@@ -34,7 +34,7 @@ struct GGLChatCell: View {
                             .padding()
                             .background {
                                 RoundedRectangle(cornerRadius: 8, style: .circular)
-                                    .foregroundColor(Color.gray.opacity(0.2))
+                                    .foregroundStyle(.gray.opacity(0.2))
                             }
                     case .photo:
                         WebImage(url: URL(string: model.photoUrl))

@@ -9,13 +9,7 @@ import Foundation
 
 final class GGLTopicPhotosBrowserCell: GGLBaseTableViewCell {
 
-    private let imageHeight: CGFloat = 4032/3024 * mainWindow.bounds.width
-    private(set) lazy var browserView: GGLWebImageBrowser = {
-        let configuration = GGLWebImageBrowserConfiguration()
-        configuration.imageHeight = imageHeight
-        let browser = GGLWebImageBrowser(configuration: configuration)
-        return browser
-    }()
+    private(set) var browserView = GGLWebImageBrowser()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -30,13 +24,17 @@ final class GGLTopicPhotosBrowserCell: GGLBaseTableViewCell {
         [browserView].forEach(contentView.addSubview)
         browserView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            make.height.equalTo(imageHeight)
         }
     }
 
-    func setup(urlStrings: [String], failToGestures: [UIGestureRecognizer]) {
-        browserView.imageUrls = urlStrings
+    func setup(imageModels: [GGLWebImageModel], failToGestures: [UIGestureRecognizer], height: CGFloat) {
+        browserView.imageModels = imageModels
         browserView.failToGestures = failToGestures
+        if browserView.bounds.height != height {
+            browserView.snp.makeConstraints { make in
+                make.height.equalTo(height)
+            }
+        }
     }
 
 }

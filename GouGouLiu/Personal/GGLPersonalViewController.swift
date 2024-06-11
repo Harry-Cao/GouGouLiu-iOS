@@ -40,10 +40,10 @@ struct PersonalContentView: View {
                         HStack {
                             Image(systemName: row.iconName)
                                 .frame(width: 20, height: 20, alignment: .center)
-                                .foregroundColor(row.foregroundColor)
+                                .foregroundStyle(row.foregroundColor)
                             Text(row.title)
                                 .font(.system(size: 16))
-                                .foregroundColor(row.foregroundColor)
+                                .foregroundStyle(row.foregroundColor)
                         }
                     }
                 }
@@ -76,8 +76,8 @@ extension PersonalContentView {
                         .font(Font.system(size: 24, weight: .bold))
                         .padding(.bottom, 4)
                     Text("UserId: \(GGLUser.current?.userId ?? "")")
-                        .font(Font.system(.caption))
-                        .foregroundColor(Color.gray.opacity(0.8))
+                        .font(.caption)
+                        .foregroundStyle(.gray.opacity(0.8))
                 })
                 Spacer()
                 Image(systemName: "chevron.right")

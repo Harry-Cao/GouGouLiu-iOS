@@ -9,13 +9,13 @@ import UIKit
 
 protocol GGLWebImageBrowserDelegate: AnyObject {
     func imageBrowserView(_ imageBrowserView: GGLWebImageBrowser, didSelectItemAt index: Int)
+    func imageBrowserView(_ imageBrowserView: GGLWebImageBrowser, sizeForItemAt indexPath: IndexPath) -> CGSize
 }
 
 final class GGLWebImageBrowser: UIView {
 
-    private var configuration = GGLWebImageBrowserConfiguration()
     weak var delegate: GGLWebImageBrowserDelegate?
-    var imageUrls: [String] = [] {
+    var imageModels: [GGLWebImageModel] = [] {
         didSet {
             imageCollectionView.reloadData()
         }
@@ -46,12 +46,6 @@ final class GGLWebImageBrowser: UIView {
         setupUI()
     }
 
-    init(configuration: GGLWebImageBrowserConfiguration) {
-        super.init(frame: .zero)
-        self.configuration = configuration
-        setupUI()
-    }
-
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -60,7 +54,6 @@ final class GGLWebImageBrowser: UIView {
         [imageCollectionView].forEach(addSubview)
         imageCollectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            make.height.equalTo(configuration.imageHeight)
         }
     }
 
@@ -70,13 +63,13 @@ final class GGLWebImageBrowser: UIView {
 extension GGLWebImageBrowser: UICollectionViewDataSource, UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageUrls.count
+        return imageModels.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: GGLWebImageBrowserCell = collectionView.dequeueReusableCell(for: indexPath)
-        let urlString = imageUrls[indexPath.item]
-        cell.setup(urlString: urlString)
+        let imageModel = imageModels[indexPath.item]
+        cell.setup(imageModel: imageModel)
         return cell
     }
 
@@ -90,7 +83,7 @@ extension GGLWebImageBrowser: UICollectionViewDataSource, UICollectionViewDelega
 extension GGLWebImageBrowser: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: configuration.imageWidth, height: configuration.imageHeight)
+        return delegate?.imageBrowserView(self, sizeForItemAt: indexPath) ?? .zero
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -99,17 +92,15 @@ extension GGLWebImageBrowser: UICollectionViewDelegateFlowLayout {
 
 }
 
-final class GGLWebImageBrowserConfiguration {
-
-    var imageWidth: CGFloat = mainWindow.bounds.width
-    var imageHeight: CGFloat = mainWindow.bounds.width
-
-}
-
 // MARK: - GGLWebImageBrowserCell
 final class GGLWebImageBrowserCell: UICollectionViewCell {
 
-    private let imageView: UIImageView = {
+    private let previewImageView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
+    private let originalImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
         return view
@@ -125,15 +116,25 @@ final class GGLWebImageBrowserCell: UICollectionViewCell {
     }
 
     private func setupUI() {
-        addSubview(imageView)
-        imageView.snp.makeConstraints { make in
+        [previewImageView, originalImageView].forEach(addSubview)
+        previewImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        originalImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
 
-    func setup(urlString: String) {
-        let url = URL(string: urlString)
-        imageView.sd_setImage(with: url)
+    func setup(imageModel: GGLWebImageModel) {
+        let previewUrl = imageModel.placeholderImage == nil ? imageModel.previewUrl : ""
+        previewImageView.sd_setImage(with: URL(string: previewUrl ?? ""))
+        originalImageView.sd_setImage(with: URL(string: imageModel.imageUrl ?? ""), placeholderImage: imageModel.placeholderImage)
     }
 
+}
+
+struct GGLWebImageModel {
+    var imageUrl: String? = nil
+    var previewUrl: String? = nil
+    var placeholderImage: UIImage? = nil
 }

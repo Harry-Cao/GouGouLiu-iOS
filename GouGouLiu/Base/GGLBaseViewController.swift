@@ -9,8 +9,6 @@ import UIKit
 
 class GGLBaseViewController: UIViewController {
 
-    private lazy var emptyDataView = GGLEmptyDataView()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBaseUI()
@@ -19,24 +17,6 @@ class GGLBaseViewController: UIViewController {
     private func setupBaseUI() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         view.backgroundColor = .systemBackground
-    }
-
-}
-
-// MARK: - Empty Data View
-extension GGLBaseViewController {
-
-    func showEmptyDataView(target: GGLEmptyDataViewDelegate) {
-        emptyDataView.delegate = target
-        view.addSubview(emptyDataView)
-        emptyDataView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-    }
-
-    func dismissEmptyDataView() {
-        emptyDataView.delegate = nil
-        emptyDataView.removeFromSuperview()
     }
 
 }

@@ -6,30 +6,31 @@
 //
 
 import UIKit
-import RxSwift
+import Combine
 import Moya
+
+protocol GGLPostViewModelDelegate: AnyObject {
+    func didPublishPost(post: GGLPostModel?)
+}
 
 final class GGLPostViewModel {
 
-    var uploadPhotos = [GGLUploadPhotoModel]()
-    private(set) var uploadSubject = PublishSubject<Any?>()
-    private(set) var publishSubject = PublishSubject<Any?>()
+    weak var delegate: GGLPostViewModelDelegate?
+    private let networkHelper = GGLPostNetworkHelper()
+    @Published private(set) var uploadPhotos = [GGLPhotoModel]()
 
     func uploadPhoto() {
         guard let userId = GGLUser.getUserId() else { return }
         GGLUploadPhotoManager.shared.pickImage { image in
             guard let data = image?.fixOrientation().jpegData(compressionQuality: 1) else { return }
-            let _ = GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .post, contactId: userId, progressBlock: { progress in
-                ProgressHUD.showServerProgress(progress: progress.progress)
-            }).subscribe(onNext: { [weak self] model in
-                if model.code == .success, let photo = model.data {
-                    self?.uploadPhotos.append(photo)
-                    self?.uploadSubject.onNext(nil)
+            GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .post, contactId: userId) { progress in
+                ProgressHUD.showServerProgress(progress: progress)
+            } completion: { [weak self] model in
+                if let self, model.code == .success, let photo = model.data {
+                    uploadPhotos.append(photo)
                 }
                 ProgressHUD.showServerMsg(model: model)
-            }, onError: { error in
-                ProgressHUD.showFailed(error.localizedDescription)
-            })
+            }
         }
     }
 
@@ -41,22 +42,12 @@ final class GGLPostViewModel {
         }
         let title = GGLPostManager.shared.cacheTitle ?? ""
         let content = GGLPostManager.shared.cacheContent
-        let _ = requestPublishPost(userId: userId, coverUrl: coverUrl, imageUrls: uploadPhotos.compactMap({ $0.originalUrl }), title: title, content: content).subscribe(onNext: { [weak self] model in
+        networkHelper.requestPublishPost(userId: userId, coverUrl: coverUrl, photoIDs: uploadPhotos.compactMap({ $0.id }), title: title, content: content) { [weak self] model in
             if model.code == .success {
-                self?.publishSubject.onNext(nil)
+                self?.delegate?.didPublishPost(post: model.data)
             }
             ProgressHUD.showServerMsg(model: model)
-        })
-    }
-
-    private func requestPublishPost(userId: String, coverUrl: String, imageUrls: [String], title: String, content: String?) -> Observable<GGLMoyaModel<GGLPostModel>> {
-        let api = GGLPostAPI(userId: userId, coverUrl: coverUrl, imageUrls: imageUrls, title: title, content: content)
-        return MoyaProvider<GGLPostAPI>().observable.request(api)
-    }
-
-    func clearAllPost(userId: String) -> Observable<GGLMoyaModel<GGLPostModel>> {
-        let api = GGLClearAllPostAPI(userId: userId)
-        return MoyaProvider<GGLClearAllPostAPI>().observable.request(api)
+        }
     }
 
 }

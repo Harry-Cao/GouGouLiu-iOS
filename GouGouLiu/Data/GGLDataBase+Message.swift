@@ -5,67 +5,47 @@
 //  Created by Harry Cao on 3/14/24.
 //
 
-import RxSwift
+import Foundation
 
 extension GGLDataBase {
-    func subscribeMessage() {
-        GGLWebSocketManager.shared.messageSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] model in
-            guard let self,
-                  let ownerId = GGLUser.getUserId(showHUD: false),
-                  let type = model.type else { return }
-            switch type {
-            case .peer_message:
-                guard let contentType = model.contentType,
-                      let senderId = model.senderId else { return }
-                var chatModel: GGLChatModel?
-                switch contentType {
-                case .text:
-                    if let text = model.message {
-                        chatModel = GGLChatModel.createText(text, userId: senderId)
-                    }
-                case .photo:
-                    if let photoUrl = model.photoUrl {
-                        chatModel = GGLChatModel.createPhoto(photoUrl, userId: senderId)
-                    }
-                }
-                guard let chatModel else { return }
-                let messageModel: GGLMessageModel
-                if let existMessageModel = fetchMessageModel(ownerId: ownerId, userId: senderId) {
-                    messageModel = existMessageModel
-                } else {
-                    let model = GGLMessageModel.create(ownerId: ownerId, userId: senderId)
-                    add(model)
-                    messageModel = model
-                }
-                insert(chatModel, to: messageModel.messages)
-                recordUnReadIfNeeded(messageModel: messageModel)
-            case .system_logout:
-                break
-            }
-        }).disposed(by: disposeBag)
+    func getMessageModel(ownerId: String, userId: String) -> GGLMessageModel {
+        if let existMessageModel = fetchMessageModel(ownerId: ownerId, userId: userId) {
+            return existMessageModel
+        } else {
+            let model = GGLMessageModel.create(ownerId: ownerId, userId: userId)
+            addMessageModel(model)
+            return model
+        }
     }
 
-    private func recordUnReadIfNeeded(messageModel: GGLMessageModel) {
-        if let topViewController = GGLTool.topViewController,
-           let chatRoomViewController = topViewController as? GGLChatRoomViewController,
-           chatRoomViewController.rootView.viewModel.messageModel.userId == messageModel.userId {
-            return
-        }
+    func addUnRead(messageModel: GGLMessageModel) {
         write {
             messageModel.unReadNum += 1
         }
-        messageUnReadSubject.onNext(messageModel)
+        messageUnReadSubject.send(messageModel)
     }
 
     func clearUnRead(messageModel: GGLMessageModel) {
         write {
             messageModel.unReadNum = 0
         }
-        messageUnReadSubject.onNext(messageModel)
+        messageUnReadSubject.send(messageModel)
+    }
+
+    func addMessageModel(_ messageModel: GGLMessageModel) {
+        write {
+            realm.add(messageModel)
+        }
+    }
+
+    func insertChatModel(_ chatModel: GGLChatModel, to messageModel: GGLMessageModel) {
+        write {
+            messageModel.messages.insert(chatModel)
+        }
     }
 
     func fetchMessageModels(ownerId: String?) -> [GGLMessageModel] {
-        return GGLDataBase.shared.objects(GGLMessageModel.self).filter({
+        return realm.objects(GGLMessageModel.self).filter({
             $0.ownerId == ownerId
         }).sorted(by: {
             $0.compareTime > $1.compareTime
@@ -73,11 +53,13 @@ extension GGLDataBase {
     }
 
     func fetchMessageModel(ownerId: String, userId: String) -> GGLMessageModel? {
-        return GGLDataBase.shared.objects(GGLMessageModel.self).filter("ownerId == %@ AND userId == %@", ownerId, userId).first
+        return realm.objects(GGLMessageModel.self).filter("ownerId == %@ AND userId == %@", ownerId, userId).first
     }
 
     func deleteMessageModel(_ messageModel: GGLMessageModel) {
-        delete(messageModel)
-        messageUnReadSubject.onNext(messageModel)
+        write {
+            realm.delete(messageModel)
+        }
+        messageUnReadSubject.send(messageModel)
     }
 }

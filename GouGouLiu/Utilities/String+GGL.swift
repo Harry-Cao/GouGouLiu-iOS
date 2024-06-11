@@ -11,10 +11,10 @@ import Moya
 extension String {
 
     static let app_name = "狗狗溜"
-    static let app_English_name = "Walk Walk"
+    static let app_english_name = "Walk Walk"
 
     static let Home: String = "Home"
-    static let Order: String = "Order"
+    static let Services: String = "Services"
     static let Post: String = "Post"
     static let Message: String = "Message"
     static let Personal: String = "Personal"

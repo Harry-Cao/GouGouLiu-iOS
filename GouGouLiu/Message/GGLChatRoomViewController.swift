@@ -9,8 +9,9 @@ import SwiftUI
 
 final class GGLChatRoomViewController: GGLBaseHostingController<GGLChatRoomContentView> {
 
+    private let viewModel: GGLChatRoomViewModel
     init(messageModel: GGLMessageModel) {
-        let viewModel = GGLChatRoomViewModel(messageModel: messageModel)
+        viewModel = GGLChatRoomViewModel(messageModel: messageModel)
         super.init(rootView: GGLChatRoomContentView(viewModel: viewModel))
     }
 
@@ -20,7 +21,19 @@ final class GGLChatRoomViewController: GGLBaseHostingController<GGLChatRoomConte
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = GGLUser.getUser(userId: rootView.viewModel.messageModel.userId)?.userName
+        navigationItem.title = GGLUser.getUser(userId: rootView.viewModel.messageModel.userId).userName
+        if !viewModel.isSystemUser {
+            navigationItem.rightBarButtonItems = barButtonItems(items: [.image(UIImage(systemName: "phone"), #selector(onClickPhoneCall)),
+                                                                        .image(UIImage(systemName: "video"), #selector(onClickVideoCall))])
+        }
+    }
+
+    @objc private func onClickPhoneCall() {
+        viewModel.onClickPhoneCall()
+    }
+
+    @objc private func onClickVideoCall() {
+        viewModel.onClickVideoCall()
     }
 
 }
@@ -72,7 +85,7 @@ struct GGLChatRoomContentView: View {
     }
 
     private func onSwitchInputModel() {
-        viewModel.inputMode.toggle()
+        viewModel.switchInputModel()
     }
 
     private func onSendPhoto() {

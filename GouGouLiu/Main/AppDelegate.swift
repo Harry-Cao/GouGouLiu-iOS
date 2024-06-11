@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupAppearance()
         GGLNetworkManager.shared.startListening()
         GGLWebSocketManager.shared.startSubscribe()
-        GGLDataBase.shared.startSubscribe()
         loginWithUserId()
         return true
     }
@@ -49,12 +48,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // UINavigationBar
         let navBarAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label,
-                                NSAttributedString.Key.font: UIFont.navigation_bar_title]
+                                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .semibold)]
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithOpaqueBackground()
         navigationBarAppearance.backgroundColor = .systemBackground
         navigationBarAppearance.titleTextAttributes = navBarAttributes
-        navigationBarAppearance.setBackIndicatorImage(.navigation_bar_back, transitionMaskImage: .navigation_bar_back)
+        let navigationBarBack = UIImage(resource: .navigationBarBack)
+        navigationBarAppearance.setBackIndicatorImage(navigationBarBack, transitionMaskImage: navigationBarBack)
         /// 将navigationBar的底部分割线设为透明
         navigationBarAppearance.shadowColor = .clear
         UINavigationBar.appearance().standardAppearance = navigationBarAppearance
@@ -70,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func loginWithUserId() {
-        guard let userId = GGLUser.getUserId(showHUD: false) else { return }
+        guard let userId = UserDefaults.userId else { return }
         GGLUser.login(userId: userId)
     }
 

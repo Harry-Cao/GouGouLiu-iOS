@@ -6,23 +6,25 @@
 //
 
 import UIKit
-import RxSwift
+import Combine
 import MJRefresh
+import Hero
 
 final class GGLHomeViewController: GGLBaseViewController {
-
     private let viewModel = GGLHomeViewModel()
-    private let disposeBag = DisposeBag()
-    private let itemSpacing: CGFloat = 4.0
     private var showDrawer: Bool = false
     private let slideView = GGLSlideView()
+    private var cancellables = Set<AnyCancellable>()
+    private lazy var emptyDataView = GGLEmptyDataView()
     private lazy var recommendCollectionView: UICollectionView = {
+        let itemSpacing: CGFloat = 4.0
         let waterFallFlowLayout = GGLWaterFallFlowLayout()
         waterFallFlowLayout.minimumInteritemSpacing = itemSpacing
         waterFallFlowLayout.sectionInset = UIEdgeInsets(top: itemSpacing, left: itemSpacing, bottom: itemSpacing, right: itemSpacing)
         waterFallFlowLayout.delegate = self
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: waterFallFlowLayout)
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(GGLHomeRecommendCell.self, forCellWithReuseIdentifier: "\(GGLHomeRecommendCell.self)")
@@ -31,12 +33,13 @@ final class GGLHomeViewController: GGLBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = .Home
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "increase.quotelevel"), style: .plain, target: self, action: #selector(toggleDrawer))
+        isHeroEnabled = true
+        navigationItem.leftBarButtonItem = barButtonItem(navigationItem: .image(UIImage(resource: .gougouliuLogo), #selector(showDebugPage)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "increase.quotelevel"), style: .plain, target: self, action: #selector(toggleDrawer))
         setupUI()
         setupRefreshComponent()
         bindData()
-        addObserver()
+        onNetworkStatus()
     }
 
     private func setupUI() {
@@ -58,47 +61,72 @@ final class GGLHomeViewController: GGLBaseViewController {
     }
 
     private func bindData() {
-        viewModel.updateSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] data in
-            self?.recommendCollectionView.mj_header?.endRefreshing()
-            self?.recommendCollectionView.reloadData()
-            guard !data.isEmpty else { return }
-            self?.dismissEmptyDataView()
-        }).disposed(by: disposeBag)
+        viewModel.$dataSource.sink { [weak self] data in
+            guard let self else { return }
+            recommendCollectionView.reloadData()
+        }.store(in: &cancellables)
+        viewModel.requestCompletion.sink { [weak self] completion in
+            guard let self else { return }
+            recommendCollectionView.mj_header?.endRefreshing()
+            switch completion {
+            case .finished:
+                dismissEmptyDataView()
+            case .failure:
+                guard viewModel.dataSource.isEmpty else { return }
+                showEmptyDataView(target: self)
+            }
+        }.store(in: &cancellables)
     }
 
-    private func addObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(networkStatusUpdated), name: .networkStatusUpdated, object: nil)
-    }
-
-    @objc private func networkStatusUpdated() {
-        // 处理首次启动app网络请求时机问题
-        guard viewModel.dataSource.isEmpty else { return }
-        switch GGLNetworkManager.shared.networkStatus {
-        case .reachable(_):
-            refreshData()
-        default:
-            showEmptyDataView(target: self)
-        }
+    private func onNetworkStatus() {
+        GGLNetworkManager.shared.$networkStatus.sink { [weak self] status in
+            // 处理首次启动app网络请求时机问题
+            guard let self,
+                  viewModel.dataSource.isEmpty else { return }
+            switch status {
+            case .reachable:
+                refreshData()
+            default:
+                break
+            }
+        }.store(in: &cancellables)
     }
 
     @objc private func refreshData() {
         recommendCollectionView.mj_header?.beginRefreshing()
     }
 
+    @objc private func showDebugPage() {
+        #if DEBUG
+        AppRouter.shared.push(GGLDebugViewController())
+        #endif
+    }
+}
+
+extension GGLHomeViewController {
+    func showEmptyDataView(target: GGLEmptyDataViewDelegate) {
+        emptyDataView.delegate = target
+        view.addSubview(emptyDataView)
+        emptyDataView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+
+    func dismissEmptyDataView() {
+        emptyDataView.delegate = nil
+        emptyDataView.removeFromSuperview()
+    }
 }
 
 // MARK: - GGLEmptyDataViewDelegate
 extension GGLHomeViewController: GGLEmptyDataViewDelegate {
-
     func didTapRefresh() {
         refreshData()
     }
-
 }
 
 // MARK: - UICollectionViewDataSource
 extension GGLHomeViewController: UICollectionViewDataSource {
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.dataSource.count
     }
@@ -109,50 +137,32 @@ extension GGLHomeViewController: UICollectionViewDataSource {
         cell.setup(model: model)
         return cell
     }
-
 }
 
 // MARK: - UICollectionViewDelegate
 extension GGLHomeViewController: UICollectionViewDelegate {
-
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = viewModel.dataSource[indexPath.item]
-        let viewController = GGLTopicViewController()
-        viewController.postModel = model
-        AppRouter.shared.push(viewController)
+        let heroID = String(Date().timeIntervalSince1970)
+        let coverHeroID = "\(heroID)-cover"
+        let cell = collectionView.cellForItem(at: indexPath) as? GGLHomeRecommendCell
+        cell?.heroID = heroID
+        cell?.imageView.heroID = coverHeroID
+        let viewController = GGLTopicViewController(postModel: model, coverImage: cell?.imageView.image, photoBrowserCellHeroID: coverHeroID)
+        let navigationController = GGLBaseNavigationController(rootViewController: viewController)
+        navigationController.setHeroModalAnimationType(.auto)
+        navigationController.view.heroID = heroID
+        AppRouter.shared.present(navigationController) {
+            navigationController.isHeroEnabled = false
+        }
     }
-
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        // TODO: - 处理对其他界面navigationBar的影响
-//        if velocity.y > 1 {
-//            hideNavigationBar()
-//        } else if velocity.y < -1 {
-//            showNavigationBar()
-//        }
-    }
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView.contentOffset.y < 5 else { return }
-        showNavigationBar()
-    }
-
-    private func showNavigationBar() {
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-
-    private func hideNavigationBar() {
-        navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-
 }
 
 // MARK: - GGLWaterFallFlowLayout
 extension GGLHomeViewController: GGLWaterFallFlowLayoutDelegate {
-
     func waterFlowLayout(_ waterFlowLayout: GGLWaterFallFlowLayout, itemHeight indexPath: IndexPath) -> CGFloat {
         CGFloat.random(in: 250...350)
     }
-
 }
 
 // MARK: - GGLSlideViewDelegate

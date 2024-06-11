@@ -6,26 +6,25 @@
 //
 
 import UIKit
-import RxSwift
+import Combine
 import Moya
 
 final class GGLHomeViewModel {
-
-    private(set) var dataSource: [GGLHomePostModel] = []
-    private let moyaProvider = MoyaProvider<GGLHomePostAPI>()
-    private(set) var updateSubject: PublishSubject<[GGLHomePostModel]> = PublishSubject<[GGLHomePostModel]>()
+    @Published private(set) var dataSource = [GGLHomePostModel]()
+    let requestCompletion = PassthroughSubject<Subscribers.Completion<MoyaError>, Never>()
+    private let moyaProvider = MoyaProvider<GGLHomePostAPI>(session: GGLAlamofireSession.shared)
+    private var cancellables = Set<AnyCancellable>()
 
     func getHomePostData() {
-        let _ = fetchHomePostData().subscribe(onNext: { [weak self] model in
-            guard let data = model.data else { return }
-            self?.dataSource = data
-            self?.updateSubject.onNext(data)
-        })
-    }
-
-    private func fetchHomePostData() -> Observable<GGLMoyaModel<[GGLHomePostModel]>> {
-        let api = GGLHomePostAPI()
-        return moyaProvider.observable.request(api)
+        moyaProvider.requestPublisher(GGLHomePostAPI())
+            .map(GGLMoyaModel<[GGLHomePostModel]>.self)
+            .receive(on: DispatchQueue.main)
+            .sinkWithDefaultErrorHandle { [weak self] completion in
+                self?.requestCompletion.send(completion)
+            } receiveValue: { [weak self] model in
+                guard let data = model.data else { return }
+                self?.dataSource = data
+            }.store(in: &cancellables)
     }
 
     lazy var refreshImages: [UIImage] = {
@@ -38,5 +37,4 @@ final class GGLHomeViewModel {
         }
         return images
     }()
-
 }

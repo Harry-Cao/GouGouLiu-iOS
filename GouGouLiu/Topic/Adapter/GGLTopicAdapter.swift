@@ -9,7 +9,7 @@ import Foundation
 
 final class GGLTopicAdapter: NSObject {
 
-    let cellTypes: [TopicCellType] = [.photos, .content]
+    private let cellTypes: [TopicCellType] = [.photos, .content]
     weak var tableView: UITableView? {
         didSet {
             tableView?.dataSource = self
@@ -20,7 +20,6 @@ final class GGLTopicAdapter: NSObject {
     }
     var photoBrowserCellConfigurator: ((_ photoBrowserCell: GGLTopicPhotosBrowserCell)->Void)?
     var contentCellConfigurator: ((_ contentCell: GGLTopicContentCell)->Void)?
-    var photoBrowserCellDidSelectHandler: ((_ browser: GGLWebImageBrowser, _ index: Int)->Void)?
 
 }
 
@@ -37,7 +36,6 @@ extension GGLTopicAdapter: UITableViewDataSource, UITableViewDelegate {
         case .photos:
             let photoBrowserCell: GGLTopicPhotosBrowserCell = tableView.dequeueReusableCell(for: indexPath)
             photoBrowserCellConfigurator?(photoBrowserCell)
-            photoBrowserCell.browserView.delegate = self
             return photoBrowserCell
         case .content:
             let contentCell: GGLTopicContentCell = tableView.dequeueReusableCell(for: indexPath)
@@ -48,15 +46,6 @@ extension GGLTopicAdapter: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
-    }
-
-}
-
-// MARK: - GGLWebImageBrowserDelegate
-extension GGLTopicAdapter: GGLWebImageBrowserDelegate {
-
-    func imageBrowserView(_ imageBrowserView: GGLWebImageBrowser, didSelectItemAt index: Int) {
-        photoBrowserCellDidSelectHandler?(imageBrowserView, index)
     }
 
 }

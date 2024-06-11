@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
-import RxSwift
+import Combine
 
 final class GGLLoginViewController: GGLBaseHostingController<LoginContentView> {
+    private var cancellables = Set<AnyCancellable>()
     init() {
         super.init(rootView: LoginContentView())
         onLoginSuccess()
@@ -19,14 +20,14 @@ final class GGLLoginViewController: GGLBaseHostingController<LoginContentView> {
     }
 
     private func onLoginSuccess() {
-        let _ = GGLUser.userStatusSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] status in
+        GGLUser.userStatusSubject.sink { [weak self] status in
             switch status {
             case .login:
                 self?.dismiss(animated: true)
             default:
                 break
             }
-        })
+        }.store(in: &cancellables)
     }
 }
 
@@ -57,7 +58,7 @@ struct LoginContentView: View {
                 GGLUser.login(username: self.username, password: self.password)
             }) {
                 Text("Login")
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .padding()
                     .frame(width: 200, height: 50)
                     .background(Color.blue)
@@ -70,7 +71,7 @@ struct LoginContentView: View {
                 GGLUser.signup(username: self.username, password: self.password, isSuper: false)
             }) {
                 Text("Sign Up")
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .padding()
                     .frame(width: 200, height: 50)
                     .background(Color.blue)

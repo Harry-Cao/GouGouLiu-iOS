@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-import RxSwift
+import Combine
 
 final class GGLMessageViewModel: ObservableObject {
-    @Published var messageModels: [GGLMessageModel] = []
-    private let disposeBag = DisposeBag()
+    @Published private(set) var messageModels: [GGLMessageModel] = []
+    private var cancellables = Set<AnyCancellable>()
 
     init() {
         onReceivedMessage()
@@ -18,23 +18,25 @@ final class GGLMessageViewModel: ObservableObject {
     }
 
     private func onReceivedMessage() {
-        GGLWebSocketManager.shared.messageSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] model in
+        GGLWebSocketManager.shared.messageSubject.sink { [weak self] model in
             guard let self,
-                  let type = model.type else { return }
-            switch type {
+                  let contentType = model.content?.type else { return }
+            switch contentType {
             case .system_logout:
                 AppRouter.shared.popToRoot(animated: true)
                 fallthrough
-            case .peer_message:
+            case .peer_chat:
                 self.updateData()
+            case .peer_rtc:
+                break
             }
-        }).disposed(by: disposeBag)
+        }.store(in: &cancellables)
     }
 
     private func subscribeUserUpdate() {
-        GGLDataBase.shared.userUpdateSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] _ in
+        GGLDataBase.shared.userUpdateSubject.sink { [weak self] _ in
             self?.updateData()
-        }).disposed(by: disposeBag)
+        }.store(in: &cancellables)
     }
 
     func updateData() {
@@ -48,9 +50,9 @@ final class GGLMessageViewModel: ObservableObject {
     private func setupSystemMessages(userId: String) {
         GGLSystemUser.allCases.forEach { object in
             guard GGLDataBase.shared.fetchMessageModel(ownerId: userId, userId: object.rawValue) == nil else { return }
-            let messageObject = GGLMessageModel.create(ownerId: userId, userId: object.rawValue)
-            GGLDataBase.shared.add(messageObject)
-            GGLDataBase.shared.insert(GGLChatModel.createText(object.welcomeWords, userId: object.rawValue), to: messageObject.messages)
+            let messageModel = GGLMessageModel.create(ownerId: userId, userId: object.rawValue)
+            GGLDataBase.shared.addMessageModel(messageModel)
+            GGLDataBase.shared.insertChatModel(GGLChatModel.createText(object.welcomeWords, userId: object.rawValue), to: messageModel)
         }
     }
 

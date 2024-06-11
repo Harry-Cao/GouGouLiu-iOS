@@ -14,7 +14,7 @@ struct GGLMessageCell: View {
     var body: some View {
         HStack(alignment: .center, spacing: 12, content: {
             ZStack {
-                WebImage(url: URL(string: GGLUser.getUser(userId: messageModel.userId)?.avatarUrl ?? ""))
+                WebImage(url: URL(string: GGLUser.getUser(userId: messageModel.userId).avatarUrl ?? ""))
                     .resizable()
                     .scaledToFill()
                     .frame(width: 48, height: 48, alignment: .center)
@@ -26,20 +26,20 @@ struct GGLMessageCell: View {
                             .frame(width: 20, height: 20)
                         Text(String(messageModel.unReadNum))
                             .font(.caption)
-                            .foregroundColor(.white)
+                            .foregroundStyle(.white)
                     }
                     .offset(x: 20, y: -20)
                 }
             }
             VStack(alignment: .leading, spacing: 4, content: {
-                Text(GGLUser.getUser(userId: messageModel.userId)?.userName ?? "")
-                    .font(.headline)
+                Text(GGLUser.getUser(userId: messageModel.userId).userName ?? "")
+                    .font(Font.system(size: 14, weight: .medium))
                     .lineLimit(1)
                 Text(messageModel.displayText)
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
+                    .font(Font.system(size: 12, weight: .regular))
+                    .foregroundStyle(.gray)
                     .offset(x: 2, y: 0)
-                    .lineLimit(2)
+                    .lineLimit(1)
             })
             Spacer()
         })

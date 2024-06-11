@@ -17,7 +17,7 @@ final class GGLEmptyDataView: UIView {
 
     private let emptyDataImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = .icon_empty_data
+        imageView.image = UIImage(resource: .emptyData).withTintColor(.label)
         return imageView
     }()
     private let refreshButton: UIButton = {

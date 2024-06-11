@@ -6,57 +6,34 @@
 //
 
 import RealmSwift
-import RxSwift
+import Combine
 
 final class GGLDataBase {
     static let shared = GGLDataBase()
-    private lazy var realm: Realm = {
-        let config = Realm.Configuration(schemaVersion: 0)
+    private let inMemoryIdentifier: String?
+    private(set) lazy var realm: Realm = {
+        let config = Realm.Configuration(inMemoryIdentifier: inMemoryIdentifier, schemaVersion: 0)
         Realm.Configuration.defaultConfiguration = config
         do {
-            let realm = try Realm()
-            return realm
+            return try Realm()
         } catch {
             fatalError("Realm initialize failed.")
         }
     }()
-    private(set) var userUpdateSubject = PublishSubject<GGLUserModel>()
-    private(set) var messageUnReadSubject = PublishSubject<GGLMessageModel>()
-    private(set) var disposeBag = DisposeBag()
+    private(set) var userUpdateSubject = PassthroughSubject<GGLUserModel, Never>()
+    private(set) var messageUnReadSubject = PassthroughSubject<GGLMessageModel, Never>()
 
-    func startSubscribe() {
-        subscribeMessage()
-    }
-
-    func add(_ object: Object) {
-        write {
-            realm.add(object)
-        }
-    }
-
-    func delete(_ object: Object) {
-        write {
-            realm.delete(object)
-        }
-    }
-
-    func insert<T>(_ object: T, to set: MutableSet<T>) {
-        write {
-            set.insert(object)
-        }
+    init(inMemoryIdentifier: String? = nil) {
+        self.inMemoryIdentifier = inMemoryIdentifier
     }
 
     func write(_ action: () -> Void) {
         do {
-            try realm.write({
+            try realm.write {
                 action()
-            })
+            }
         } catch {
             print(error)
         }
-    }
-
-    func objects<Element: RealmFetchable>(_ type: Element.Type) -> Results<Element> {
-        return realm.objects(Element.self)
     }
 }

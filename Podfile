@@ -7,9 +7,7 @@ target 'GouGouLiu' do
 
   # Pods for GouGouLiu
 
-pod 'RxSwift'
-pod 'RxCocoa'
-pod 'Moya'
+pod 'Moya/Combine'
 pod 'SDWebImage'
 pod 'SDWebImageSwiftUI'
 pod 'SnapKit'
@@ -18,5 +16,6 @@ pod 'URLNavigator'
 pod 'Hero'
 pod 'ProgressHUD'
 pod 'MJRefresh'
+pod 'AgoraRtcEngine_iOS'
 
 end

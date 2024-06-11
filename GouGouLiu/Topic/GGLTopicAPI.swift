@@ -17,7 +17,7 @@ struct GGLTopicAPI: TargetType {
     }
 
     var path: String {
-        GGLAPI.searchPost
+        GGLAPI.Path.searchPost
     }
 
     var method: Moya.Method {

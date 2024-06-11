@@ -17,6 +17,15 @@ extension UserDefaults {
         }
     }
 
+    static var host: GGLAPI.Host {
+        get {
+            guard let rawValue = UserDefaults.standard.string(forKey: "UserDefaults_host") else { return GGLAPI.Host.internet }
+            return GGLAPI.Host(rawValue: rawValue) ?? GGLAPI.Host.internet
+        } set {
+            UserDefaults.standard.set(newValue.rawValue, forKey: "UserDefaults_host")
+        }
+    }
+
 }
 
 extension UserDefaults {

@@ -34,7 +34,7 @@ final class GGLPostUploadPhotoContentCell: UICollectionViewCell {
 
     func setupEmpty() {
         photoImageView.contentMode = .center
-        photoImageView.image = .icon_add
+        photoImageView.image = UIImage(resource: .iconAdd)
     }
 
     func setup(urlString: String) {

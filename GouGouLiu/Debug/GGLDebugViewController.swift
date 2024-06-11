@@ -7,7 +7,6 @@
 
 import UIKit
 import SwiftUI
-import RxSwift
 
 final class GGLDebugViewController: GGLBaseHostingController<DebugContentView> {
 
@@ -27,13 +26,18 @@ final class GGLDebugViewController: GGLBaseHostingController<DebugContentView> {
 }
 
 struct DebugContentView: View {
-    var menuRows = DebugRow.allCases
+    let menuRows = DebugRow.allCases
+
     var body: some View {
         List(menuRows) { row in
             Button {
                 row.action()
             } label: {
-                Text(row.title)
+                HStack {
+                    Text(row.title)
+                    Spacer()
+                    Text(row.description)
+                }
             }
         }
         .listStyle(.plain)
@@ -43,6 +47,7 @@ struct DebugContentView: View {
 extension DebugContentView {
 
     enum DebugRow: Identifiable, CaseIterable {
+        case switchHost
         case signup
         case login
         case logout
@@ -79,6 +84,16 @@ extension DebugContentView {
                 return "Clear Image Cache"
             case .allUserList:
                 return "All User List"
+            case .switchHost:
+                return "Switch Host"
+            }
+        }
+        var description: String {
+            switch self {
+            case .switchHost:
+                return UserDefaults.host.rawValue
+            default:
+                return ""
             }
         }
 
@@ -88,16 +103,14 @@ extension DebugContentView {
                 guard let userId = GGLUser.getUserId() else { return }
                 GGLUploadPhotoManager.shared.pickImage { image in
                     guard let data = image?.fixOrientation().jpegData(compressionQuality: 1) else { return }
-                    let _ = GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: userId, progressBlock: { progress in
-                        ProgressHUD.showServerProgress(progress: progress.progress)
-                    }).subscribe(onNext: { model in
+                    GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: userId) { progress in
+                        ProgressHUD.showServerProgress(progress: progress)
+                    } completion: { model in
                         if model.code == .success {
                             UIPasteboard.general.string = model.data?.originalUrl
                         }
                         ProgressHUD.showServerMsg(model: model)
-                    }, onError: { error in
-                        ProgressHUD.showFailed(error.localizedDescription)
-                    })
+                    }
                 }
             case .clearAllPhoto:
                 GGLUploadPhotoManager.shared.clearAllPhotos()
@@ -117,10 +130,9 @@ extension DebugContentView {
                 GGLUser.clearAll()
             case .clearAllPost:
                 guard let userId = GGLUser.getUserId() else { return }
-                let postViewModel = GGLPostViewModel()
-                let _ = postViewModel.clearAllPost(userId: userId).subscribe(onNext: { model in
+                GGLDebugNetworkHelper.shared.clearAllPost(userId: userId) { model in
                     ProgressHUD.showServerMsg(model: model)
-                })
+                }
             case .clearImageCache:
                 ProgressHUD.show()
                 SDImageCache.shared.clearMemory()
@@ -129,6 +141,9 @@ extension DebugContentView {
                 }
             case .allUserList:
                 AppRouter.shared.push(GGLUserListViewController())
+            case .switchHost:
+                UserDefaults.host = GGLTool.toggleEnumCase(UserDefaults.host)
+                ProgressHUD.showSucceed("Host updated: \(UserDefaults.host.rawValue), change wouldn't work until next launch.")
             }
         }
     }

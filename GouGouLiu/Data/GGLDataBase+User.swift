@@ -9,15 +9,31 @@ import Foundation
 
 extension GGLDataBase {
     func saveOrUpdateUser(_ newValue: GGLUserModel) {
-        let results = objects(GGLUserModel.self).filter({ $0.userId == newValue.userId })
-        if let user = results.first {
+        if let user = realm.object(ofType: GGLUserModel.self, forPrimaryKey: newValue.userId) {
             write {
                 user.userName = newValue.userName
                 user.avatarUrl = newValue.avatarUrl
             }
         } else {
-            add(newValue)
+            addUser(newValue)
         }
-        userUpdateSubject.onNext(newValue)
+        userUpdateSubject.send(newValue)
+    }
+
+    func addUser(_ userModel: GGLUserModel) {
+        write {
+            realm.add(userModel)
+        }
+    }
+
+    func fetchUser(_ userId: String) -> GGLUserModel? {
+        return realm.object(ofType: GGLUserModel.self, forPrimaryKey: userId)
+    }
+
+    func deleteAllUsers() {
+        write {
+            let allUsers = realm.objects(GGLUserModel.self)
+            realm.delete(allUsers)
+        }
     }
 }

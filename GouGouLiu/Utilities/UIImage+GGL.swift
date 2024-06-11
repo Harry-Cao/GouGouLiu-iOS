@@ -9,28 +9,6 @@ import UIKit
 
 extension UIImage {
 
-    static var navigation_bar_back: UIImage? { UIImage(named: "navigation_bar_back") }
-
-    static var tab_bar_home_normal: UIImage? { UIImage(named: "tab_bar_home_normal") }
-    static var tab_bar_home_selected: UIImage? { UIImage(named: "tab_bar_home_selected") }
-    static var tab_bar_order_normal: UIImage? { UIImage(named: "tab_bar_order_normal") }
-    static var tab_bar_order_selected: UIImage? { UIImage(named: "tab_bar_order_selected") }
-    static var tab_bar_message_normal: UIImage? { UIImage(named: "tab_bar_message_normal") }
-    static var tab_bar_message_selected: UIImage? { UIImage(named: "tab_bar_message_selected") }
-    static var tab_bar_personal_normal: UIImage? { UIImage(named: "tab_bar_personal_normal") }
-    static var tab_bar_personal_selected: UIImage? { UIImage(named: "tab_bar_personal_selected") }
-    static var tab_bar_extension: UIImage? { UIImage(named: "tab_bar_extension") }
-    static var tab_bar_fold_up: UIImage? { UIImage(named: "tab_bar_fold_up") }
-
-    static var icon_add: UIImage? { UIImage(named: "icon_add") }
-    static var icon_empty_data: UIImage? { UIImage(named: "empty_data")?.withTintColor(.label) }
-    static var publish_order: UIImage? { UIImage(named: "publish_order") }
-    static var publish_post: UIImage? { UIImage(named: "publish_post") }
-    
-}
-
-extension UIImage {
-
     func fixOrientation() -> UIImage {
         if imageOrientation == .up {
             // 如果图片方向已经正确，直接返回原图

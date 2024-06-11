@@ -7,21 +7,20 @@
 
 import Foundation
 import Starscream
-import RxSwift
+import Combine
 
 final class GGLWebSocketManager {
     static let shared = GGLWebSocketManager()
-    private var socket: WebSocket?
-    private var userId: String?
-    private(set) var messageSubject = PublishSubject<GGLWebSocketModel>()
-    private let disposeBag = DisposeBag()
+    private(set) var socket: WebSocket?
+    private(set) var messageSubject = PassthroughSubject<GGLWebSocketModel, Never>()
+    private var cancellables = Set<AnyCancellable>()
 
     func startSubscribe() {
         subscribeUserStatus()
     }
 
     private func subscribeUserStatus() {
-        GGLUser.userStatusSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] status in
+        GGLUser.userStatusSubject.sink { [weak self] status in
             switch status {
             case .login(let user):
                 guard let userId = user.userId else { return }
@@ -31,14 +30,13 @@ final class GGLWebSocketManager {
             case .forceLogout:
                 break
             }
-        }).disposed(by: disposeBag)
+        }.store(in: &cancellables)
     }
 
     func connect(userId: String) {
-        self.userId = userId
         guard let basicAuthCredentials = userId.data(using: .utf8) else { return }
         let base64AuthCredentials = basicAuthCredentials.base64EncodedString()
-        var request = URLRequest(url: URL(string: "ws://\(GGLAPI.host)\(GGLAPI.chatGlobal)?\(base64AuthCredentials)")!)
+        var request = URLRequest(url: URL(string: "ws://\(GGLAPI.host)\(GGLAPI.WS.chatGlobal)?\(base64AuthCredentials)")!)
         request.timeoutInterval = 5
         socket = WebSocket(request: request)
         socket?.delegate = self
@@ -48,20 +46,9 @@ final class GGLWebSocketManager {
     func disconnect() {
         socket?.disconnect()
     }
-
-    private func onReceivedText(_ text: String) {
-        guard let model = GGLTool.jsonStringToModel(jsonString: text, to: GGLWebSocketModel.self),
-              let type = model.type else { return }
-        switch type {
-        case .peer_message:
-            break
-        case .system_logout:
-            GGLUser.forceLogout()
-        }
-        messageSubject.onNext(model)
-    }
 }
 
+// MARK: - WebSocketDelegate
 extension GGLWebSocketManager: WebSocketDelegate {
     func didReceive(event: Starscream.WebSocketEvent, client: Starscream.WebSocketClient) {
         switch event {
@@ -87,25 +74,12 @@ extension GGLWebSocketManager: WebSocketDelegate {
             print(error as Any)
         case .peerClosed:
             print("peerClosed")
-            break
-        }
-    }
-}
-
-extension GGLWebSocketManager {
-    func sendPeerText(_ text: String, targetId: String) {
-        guard let userId else { return }
-        let model = GGLWebSocketModel(type: .peer_message, senderId: userId, targetId: targetId, contentType: .text, message: text)
-        if let jsonString = GGLTool.modelToJsonString(model) {
-            socket?.write(string: jsonString)
         }
     }
 
-    func sendPeerPhoto(_ url: String, targetId: String) {
-        guard let userId else { return }
-        let model = GGLWebSocketModel(type: .peer_message, senderId: userId, targetId: targetId, contentType: .photo, photoUrl: url)
-        if let jsonString = GGLTool.modelToJsonString(model) {
-            socket?.write(string: jsonString)
-        }
+    private func onReceivedText(_ text: String) {
+        guard let model = GGLTool.jsonStringToModel(jsonString: text, to: GGLWebSocketModel.self) else { return }
+        GGLWSMessageHelper.handleWebSocketModel(model)
+        messageSubject.send(model)
     }
 }
