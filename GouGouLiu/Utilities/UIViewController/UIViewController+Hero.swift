@@ -12,6 +12,6 @@ extension UIViewController {
     func setHeroModalAnimationType(_ type: HeroDefaultAnimationType) {
         self.isHeroEnabled = true
         self.heroModalAnimationType = type
-        self.modalPresentationStyle = .custom
+        self.modalPresentationStyle = .overFullScreen
     }
 }

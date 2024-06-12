@@ -14,6 +14,7 @@ final class GGLHomeViewController: GGLBaseViewController {
     private let viewModel = GGLHomeViewModel()
     private var cancellables = Set<AnyCancellable>()
     private lazy var emptyDataView = GGLEmptyDataView()
+    private lazy var drawerTransition = GGLDrawerTransition()
     private lazy var recommendCollectionView: UICollectionView = {
         let itemSpacing: CGFloat = 4.0
         let waterFallFlowLayout = GGLWaterFallFlowLayout()
@@ -33,6 +34,7 @@ final class GGLHomeViewController: GGLBaseViewController {
         super.viewDidLoad()
         isHeroEnabled = true
         navigationItem.leftBarButtonItem = barButtonItem(navigationItem: .image(UIImage(resource: .gougouliuLogo), #selector(showDebugPage)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .plain, target: self, action: #selector(openDrawer))
         setupUI()
         setupRefreshComponent()
         bindData()
@@ -97,6 +99,16 @@ final class GGLHomeViewController: GGLBaseViewController {
         #if DEBUG
         AppRouter.shared.push(GGLDebugViewController())
         #endif
+    }
+}
+
+extension GGLHomeViewController {
+    @objc private func openDrawer() {
+        let drawerViewController = GGLDrawerViewController()
+        let navigationController = GGLBaseNavigationController(rootViewController: drawerViewController)
+        navigationController.transitioningDelegate = drawerTransition
+        navigationController.modalPresentationStyle = .custom
+        AppRouter.shared.present(navigationController)
     }
 }
 
