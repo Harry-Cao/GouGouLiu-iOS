@@ -14,7 +14,7 @@ final class GGLDrawerViewController: GGLBaseViewController {
         let containerView = UIView()
         containerView.backgroundColor = .systemBackground
         let button = UIButton()
-        button.backgroundColor = .systemYellow
+        button.backgroundColor = .theme_color
         button.setTitle("DEBUG", for: .normal)
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         view.addSubview(containerView)
