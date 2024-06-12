@@ -10,7 +10,7 @@ import Foundation
 final class GGLDrawerPresentAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     private weak var dimmingView: UIView?
 
-    init(dimmingView: UIView?) {
+    init(dimmingView: UIView) {
         self.dimmingView = dimmingView
     }
 

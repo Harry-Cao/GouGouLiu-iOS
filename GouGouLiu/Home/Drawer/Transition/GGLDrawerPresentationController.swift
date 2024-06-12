@@ -8,26 +8,22 @@
 import Foundation
 
 final class GGLDrawerPresentationController: UIPresentationController {
-    private(set) lazy var dimmingView: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .black.withAlphaComponent(0.5)
-        button.alpha = 0
-        button.addTarget(self, action: #selector(dismissPresentedViewController), for: .touchUpInside)
-        return button
-    }()
+    private weak var dimmingView: UIView?
+
+    init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?, dimmingView: UIView) {
+        super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
+        self.dimmingView = dimmingView
+    }
 
     override func presentationTransitionWillBegin() {
         super.presentationTransitionWillBegin()
-        guard let containerView = containerView else { return }
+        guard let containerView = containerView,
+              let dimmingView = dimmingView else { return }
         containerView.insertSubview(dimmingView, at: 0)
     }
 
     override func containerViewWillLayoutSubviews() {
         super.containerViewWillLayoutSubviews()
-        dimmingView.frame = containerView?.bounds ?? .zero
-    }
-
-    @objc private func dismissPresentedViewController() {
-        presentedViewController.dismiss(animated: true)
+        dimmingView?.frame = containerView?.bounds ?? .zero
     }
 }
