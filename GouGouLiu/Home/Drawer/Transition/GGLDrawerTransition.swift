@@ -12,7 +12,6 @@ final class GGLDrawerTransition: NSObject {
     private lazy var dimmingView: UIButton = {
         let button = UIButton()
         button.backgroundColor = .black.withAlphaComponent(0.5)
-        button.alpha = 0
         button.addTarget(self, action: #selector(dismissPresentedViewController), for: .touchUpInside)
         return button
     }()
