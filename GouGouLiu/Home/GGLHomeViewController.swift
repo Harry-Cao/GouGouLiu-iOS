@@ -103,6 +103,16 @@ final class GGLHomeViewController: GGLBaseViewController {
 }
 
 extension GGLHomeViewController {
+    @objc private func openDrawer() {
+        let drawerViewController = GGLDrawerViewController()
+        let navigationController = GGLBaseNavigationController(rootViewController: drawerViewController)
+        navigationController.transitioningDelegate = drawerTransition
+        navigationController.modalPresentationStyle = .custom
+        AppRouter.shared.present(navigationController)
+    }
+}
+
+extension GGLHomeViewController {
     func showEmptyDataView(target: GGLEmptyDataViewDelegate) {
         emptyDataView.delegate = target
         view.addSubview(emptyDataView)
@@ -161,17 +171,6 @@ extension GGLHomeViewController: UICollectionViewDelegate {
 extension GGLHomeViewController: GGLWaterFallFlowLayoutDelegate {
     func waterFlowLayout(_ waterFlowLayout: GGLWaterFallFlowLayout, itemHeight indexPath: IndexPath) -> CGFloat {
         CGFloat.random(in: 250...350)
-    }
-}
-
-// MARK: - GGLDrawerViewController
-extension GGLHomeViewController {
-    @objc private func openDrawer() {
-        let drawerViewController = GGLDrawerViewController()
-        let navigationController = GGLBaseNavigationController(rootViewController: drawerViewController)
-        navigationController.transitioningDelegate = drawerTransition
-        navigationController.modalPresentationStyle = .custom
-        AppRouter.shared.present(navigationController)
     }
 }
 
