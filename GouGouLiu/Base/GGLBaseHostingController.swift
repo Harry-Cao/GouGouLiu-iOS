@@ -19,4 +19,9 @@ class GGLBaseHostingController<Content>: UIHostingController<Content> where Cont
         view.backgroundColor = .systemBackground
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+
 }

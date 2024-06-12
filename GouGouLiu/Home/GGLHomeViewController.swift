@@ -12,10 +12,9 @@ import Hero
 
 final class GGLHomeViewController: GGLBaseViewController {
     private let viewModel = GGLHomeViewModel()
-    private var showDrawer: Bool = false
-    private let slideView = GGLSlideView()
     private var cancellables = Set<AnyCancellable>()
     private lazy var emptyDataView = GGLEmptyDataView()
+    private lazy var drawerTransition = GGLDrawerTransition()
     private lazy var recommendCollectionView: UICollectionView = {
         let itemSpacing: CGFloat = 4.0
         let waterFallFlowLayout = GGLWaterFallFlowLayout()
@@ -35,7 +34,7 @@ final class GGLHomeViewController: GGLBaseViewController {
         super.viewDidLoad()
         isHeroEnabled = true
         navigationItem.leftBarButtonItem = barButtonItem(navigationItem: .image(UIImage(resource: .gougouliuLogo), #selector(showDebugPage)))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "increase.quotelevel"), style: .plain, target: self, action: #selector(toggleDrawer))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .plain, target: self, action: #selector(openDrawer))
         setupUI()
         setupRefreshComponent()
         bindData()
@@ -165,25 +164,14 @@ extension GGLHomeViewController: GGLWaterFallFlowLayoutDelegate {
     }
 }
 
-// MARK: - GGLSlideViewDelegate
-extension GGLHomeViewController: GGLSlideViewDelegate {
-    func onClickRemove() {
-        toggleDrawer()
-    }
-
-    @objc private func toggleDrawer() {
-        showDrawer.toggle()
-        UIView.animate(withDuration: 0.3) {
-            let origin = self.view.bounds.origin
-            let pointX: CGFloat = self.showDrawer ? -GGLSlideView.width : 0
-            self.view.bounds.origin = CGPoint(x: pointX, y: origin.y)
-        }
-        if showDrawer {
-            slideView.showToView(self.view)
-            slideView.delegate = self
-        } else {
-            slideView.remove()
-        }
+// MARK: - GGLDrawerViewController
+extension GGLHomeViewController {
+    @objc private func openDrawer() {
+        let drawerViewController = GGLDrawerViewController()
+        let navigationController = GGLBaseNavigationController(rootViewController: drawerViewController)
+        navigationController.transitioningDelegate = drawerTransition
+        navigationController.modalPresentationStyle = .custom
+        AppRouter.shared.present(navigationController)
     }
 }
 
