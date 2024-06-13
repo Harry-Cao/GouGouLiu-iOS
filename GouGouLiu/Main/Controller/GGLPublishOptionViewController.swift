@@ -70,7 +70,7 @@ final class GGLPublishOptionViewController: GGLBaseViewController {
 
     @objc private func didTapPublishPost() {
         dismiss(animated: true) {
-            AppRouter.shared.push(GGLPostViewController())
+            AppRouter.shared.push(GGLPublishViewController())
         }
     }
 

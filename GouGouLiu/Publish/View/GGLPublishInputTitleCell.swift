@@ -1,5 +1,5 @@
 //
-//  GGLPostInputTitleCell.swift
+//  GGLPublishInputTitleCell.swift
 //  GouGouLiu
 //
 //  Created by Harry Cao on 7/26/23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class GGLPostInputTitleCell: GGLBaseTableViewCell {
+final class GGLPublishInputTitleCell: GGLBaseTableViewCell {
 
     private lazy var inputTestField: UITextField = {
         let textField = UITextField()
@@ -46,7 +46,7 @@ final class GGLPostInputTitleCell: GGLBaseTableViewCell {
     }
 
     @objc private func inputDidChanged(textField: UITextField) {
-        GGLPostManager.shared.cacheTitle = textField.text
+        GGLPublishManager.shared.cacheTitle = textField.text
     }
 
 }

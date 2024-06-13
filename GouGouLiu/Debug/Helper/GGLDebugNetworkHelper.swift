@@ -11,7 +11,7 @@ import Moya
 
 class GGLDebugNetworkHelper {
     static let shared = GGLDebugNetworkHelper()
-    private let moyaProvider = MoyaProvider<GGLPostAPI>()
+    private let moyaProvider = MoyaProvider<GGLPublishAPI>()
     private var cancellables = Set<AnyCancellable>()
 
     func clearAllPost(userId: String, completion: @escaping (GGLMoyaModel<GGLPostModel>) -> Void) {

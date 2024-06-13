@@ -1,5 +1,5 @@
 //
-//  GGLPostAdapter.swift
+//  GGLPublishAdapter.swift
 //  GouGouLiu
 //
 //  Created by Harry Cao on 7/25/23.
@@ -7,25 +7,25 @@
 
 import UIKit
 
-final class GGLPostAdapter: NSObject {
+final class GGLPublishAdapter: NSObject {
 
     let cellTypes: [PostCellType] = [.uploadPhoto, .inputTitle, .inputContent]
     weak var tableView: UITableView? {
         didSet {
             tableView?.dataSource = self
             tableView?.delegate = self
-            tableView?.register(GGLPostUploadPhotoCell.self, forCellReuseIdentifier: "\(GGLPostUploadPhotoCell.self)")
-            tableView?.register(GGLPostInputTitleCell.self, forCellReuseIdentifier: "\(GGLPostInputTitleCell.self)")
-            tableView?.register(GGLPostInputContentCell.self, forCellReuseIdentifier: "\(GGLPostInputContentCell.self)")
+            tableView?.register(GGLPublishUploadPhotoCell.self, forCellReuseIdentifier: "\(GGLPublishUploadPhotoCell.self)")
+            tableView?.register(GGLPublishInputTitleCell.self, forCellReuseIdentifier: "\(GGLPublishInputTitleCell.self)")
+            tableView?.register(GGLPublishInputContentCell.self, forCellReuseIdentifier: "\(GGLPublishInputContentCell.self)")
         }
     }
-    var uploadPhotoCellConfigurator: ((_ uploadPhotoCell: GGLPostUploadPhotoCell) -> Void)?
+    var uploadPhotoCellConfigurator: ((_ uploadPhotoCell: GGLPublishUploadPhotoCell) -> Void)?
     var uploadPhotoCellSelectedHandler: ((_ urlString: String?) -> Void)?
 
 }
 
 // MARK: - UITableViewDataSource
-extension GGLPostAdapter: UITableViewDataSource, UITableViewDelegate {
+extension GGLPublishAdapter: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cellTypes.count
@@ -35,15 +35,15 @@ extension GGLPostAdapter: UITableViewDataSource, UITableViewDelegate {
         let cellType = cellTypes[indexPath.row]
         switch cellType {
         case .uploadPhoto:
-            let uploadPhotoCell: GGLPostUploadPhotoCell = tableView.dequeueReusableCell(for: indexPath)
+            let uploadPhotoCell: GGLPublishUploadPhotoCell = tableView.dequeueReusableCell(for: indexPath)
             uploadPhotoCell.delegate = self
             uploadPhotoCellConfigurator?(uploadPhotoCell)
             return uploadPhotoCell
         case .inputTitle:
-            let inputTitleCell: GGLPostInputTitleCell = tableView.dequeueReusableCell(for: indexPath)
+            let inputTitleCell: GGLPublishInputTitleCell = tableView.dequeueReusableCell(for: indexPath)
             return inputTitleCell
         case .inputContent:
-            let inputContentCell: GGLPostInputContentCell = tableView.dequeueReusableCell(for: indexPath)
+            let inputContentCell: GGLPublishInputContentCell = tableView.dequeueReusableCell(for: indexPath)
             return inputContentCell
         }
     }
@@ -54,8 +54,8 @@ extension GGLPostAdapter: UITableViewDataSource, UITableViewDelegate {
 
 }
 
-// MARK: - GGLPostUploadPhotoCellDelegate
-extension GGLPostAdapter: GGLPostUploadPhotoCellDelegate {
+// MARK: - GGLPublishUploadPhotoCellDelegate
+extension GGLPublishAdapter: GGLPublishUploadPhotoCellDelegate {
 
     func didSelectItem(urlString: String?) {
         uploadPhotoCellSelectedHandler?(urlString)
@@ -63,7 +63,7 @@ extension GGLPostAdapter: GGLPostUploadPhotoCellDelegate {
 
 }
 
-extension GGLPostAdapter {
+extension GGLPublishAdapter {
 
     enum PostCellType {
         case uploadPhoto

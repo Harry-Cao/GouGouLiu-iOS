@@ -1,5 +1,5 @@
 //
-//  GGLPostViewController.swift
+//  GGLPublishViewController.swift
 //  GouGouLiu
 //
 //  Created by Harry Cao on 7/24/23.
@@ -8,11 +8,11 @@
 import UIKit
 import Combine
 
-final class GGLPostViewController: GGLBaseViewController {
+final class GGLPublishViewController: GGLBaseViewController {
 
-    private let viewModel = GGLPostViewModel()
+    private let viewModel = GGLPublishViewModel()
     private var cancellables = Set<AnyCancellable>()
-    private var adapter = GGLPostAdapter()
+    private var adapter = GGLPublishAdapter()
     private let postTableView = GGLBaseTableView()
     private let publishButton: UIButton = {
         let button = UIButton()
@@ -79,8 +79,8 @@ final class GGLPostViewController: GGLBaseViewController {
 
 }
 
-// MARK: - GGLPostViewModelDelegate
-extension GGLPostViewController: GGLPostViewModelDelegate {
+// MARK: - GGLPublishViewModelDelegate
+extension GGLPublishViewController: GGLPublishViewModelDelegate {
     func didPublishPost(post: GGLPostModel?) {
         navigationController?.popViewController(animated: true)
     }

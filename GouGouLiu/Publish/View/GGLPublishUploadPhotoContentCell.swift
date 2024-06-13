@@ -1,5 +1,5 @@
 //
-//  GGLPostUploadPhotoContentCell.swift
+//  GGLPublishUploadPhotoContentCell.swift
 //  GouGouLiu
 //
 //  Created by Harry Cao on 7/26/23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class GGLPostUploadPhotoContentCell: UICollectionViewCell {
+final class GGLPublishUploadPhotoContentCell: UICollectionViewCell {
 
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()

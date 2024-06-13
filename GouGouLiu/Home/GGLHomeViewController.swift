@@ -152,7 +152,7 @@ extension GGLHomeViewController: UICollectionViewDataSource {
 extension GGLHomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = viewModel.dataSource[indexPath.item]
-        let heroID = String(Date().timeIntervalSince1970)
+        let heroID = model.post?.postId ?? String(Date().timeIntervalSince1970)
         let coverHeroID = "\(heroID)-cover"
         let cell = collectionView.cellForItem(at: indexPath) as? GGLHomeRecommendCell
         cell?.heroID = heroID

@@ -1,5 +1,5 @@
 //
-//  GGLPostUploadPhotoCell.swift
+//  GGLPublishUploadPhotoCell.swift
 //  GouGouLiu
 //
 //  Created by Harry Cao on 7/26/23.
@@ -7,15 +7,15 @@
 
 import UIKit
 
-protocol GGLPostUploadPhotoCellDelegate: AnyObject {
+protocol GGLPublishUploadPhotoCellDelegate: AnyObject {
     func didSelectItem(urlString: String?)
 }
 
-final class GGLPostUploadPhotoCell: GGLBaseTableViewCell {
+final class GGLPublishUploadPhotoCell: GGLBaseTableViewCell {
 
     private let itemSize: CGFloat = 128.0
 
-    weak var delegate: GGLPostUploadPhotoCellDelegate?
+    weak var delegate: GGLPublishUploadPhotoCellDelegate?
     var urlStrings: [String] = [] {
         didSet {
             uploadPhotoCollectionView.reloadData()
@@ -30,7 +30,7 @@ final class GGLPostUploadPhotoCell: GGLBaseTableViewCell {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(GGLPostUploadPhotoContentCell.self, forCellWithReuseIdentifier: "\(GGLPostUploadPhotoContentCell.self)")
+        collectionView.register(GGLPublishUploadPhotoContentCell.self, forCellWithReuseIdentifier: "\(GGLPublishUploadPhotoContentCell.self)")
         return collectionView
     }()
 
@@ -54,14 +54,14 @@ final class GGLPostUploadPhotoCell: GGLBaseTableViewCell {
 }
 
 // MARK: - UICollectionViewDataSource
-extension GGLPostUploadPhotoCell: UICollectionViewDataSource, UICollectionViewDelegate {
+extension GGLPublishUploadPhotoCell: UICollectionViewDataSource, UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return urlStrings.count + 1
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: GGLPostUploadPhotoContentCell = collectionView.dequeueReusableCell(for: indexPath)
+        let cell: GGLPublishUploadPhotoContentCell = collectionView.dequeueReusableCell(for: indexPath)
         if indexPath.item < urlStrings.count {
             let urlString = urlStrings[indexPath.item]
             cell.setup(urlString: urlString)
@@ -82,7 +82,7 @@ extension GGLPostUploadPhotoCell: UICollectionViewDataSource, UICollectionViewDe
 }
 
 // MARK: - UICollectionViewFlowLayout
-extension GGLPostUploadPhotoCell: UICollectionViewDelegateFlowLayout {
+extension GGLPublishUploadPhotoCell: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: itemSize, height: itemSize)

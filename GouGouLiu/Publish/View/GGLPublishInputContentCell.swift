@@ -1,5 +1,5 @@
 //
-//  GGLPostInputContentCell.swift
+//  GGLPublishInputContentCell.swift
 //  GouGouLiu
 //
 //  Created by Harry Cao on 7/26/23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class GGLPostInputContentCell: GGLBaseTableViewCell {
+final class GGLPublishInputContentCell: GGLBaseTableViewCell {
 
     private lazy var inputTextView: UITextView = {
         let textView = UITextView()
@@ -38,10 +38,10 @@ final class GGLPostInputContentCell: GGLBaseTableViewCell {
 
 }
 
-extension GGLPostInputContentCell: UITextViewDelegate {
+extension GGLPublishInputContentCell: UITextViewDelegate {
 
     func textViewDidChange(_ textView: UITextView) {
-        GGLPostManager.shared.cacheContent = textView.text
+        GGLPublishManager.shared.cacheContent = textView.text
     }
 
 }

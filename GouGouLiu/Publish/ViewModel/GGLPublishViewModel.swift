@@ -1,5 +1,5 @@
 //
-//  GGLPostViewModel.swift
+//  GGLPublishViewModel.swift
 //  GouGouLiu
 //
 //  Created by Harry Cao on 7/24/23.
@@ -9,14 +9,14 @@ import UIKit
 import Combine
 import Moya
 
-protocol GGLPostViewModelDelegate: AnyObject {
+protocol GGLPublishViewModelDelegate: AnyObject {
     func didPublishPost(post: GGLPostModel?)
 }
 
-final class GGLPostViewModel {
+final class GGLPublishViewModel {
 
-    weak var delegate: GGLPostViewModelDelegate?
-    private let networkHelper = GGLPostNetworkHelper()
+    weak var delegate: GGLPublishViewModelDelegate?
+    private let networkHelper = GGLPublishNetworkHelper()
     @Published private(set) var uploadPhotos = [GGLPhotoModel]()
 
     func uploadPhoto() {
@@ -40,8 +40,8 @@ final class GGLPostViewModel {
             ProgressHUD.showFailed("请上传至少一张图片")
             return
         }
-        let title = GGLPostManager.shared.cacheTitle ?? ""
-        let content = GGLPostManager.shared.cacheContent
+        let title = GGLPublishManager.shared.cacheTitle ?? ""
+        let content = GGLPublishManager.shared.cacheContent
         networkHelper.requestPublishPost(userId: userId, coverUrl: coverUrl, photoIDs: uploadPhotos.compactMap({ $0.id }), title: title, content: content) { [weak self] model in
             if model.code == .success {
                 self?.delegate?.didPublishPost(post: model.data)
