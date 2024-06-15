@@ -99,6 +99,13 @@
 		3EB404B32A548B680032E899 /* GGLHomePostAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB404B22A548B680032E899 /* GGLHomePostAPI.swift */; };
 		3EB4D4522BF218350085EFC0 /* GGLPhotoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB4D4512BF218350085EFC0 /* GGLPhotoAPI.swift */; };
 		3EB800E22BDCD74800F1290C /* GGLRtcContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB800E12BDCD74800F1290C /* GGLRtcContentView.swift */; };
+		3EBD183E2C1C4958005918EA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBD183D2C1C4958005918EA /* WidgetKit.framework */; };
+		3EBD18402C1C4958005918EA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBD183F2C1C4958005918EA /* SwiftUI.framework */; };
+		3EBD18432C1C4958005918EA /* PhoneCallBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD18422C1C4958005918EA /* PhoneCallBundle.swift */; };
+		3EBD18452C1C4958005918EA /* PhoneCallLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD18442C1C4958005918EA /* PhoneCallLiveActivity.swift */; };
+		3EBD18472C1C4958005918EA /* PhoneCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD18462C1C4958005918EA /* PhoneCall.swift */; };
+		3EBD18492C1C4959005918EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EBD18482C1C4959005918EA /* Assets.xcassets */; };
+		3EBD184D2C1C4959005918EA /* PhoneCallExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3EBD183C2C1C4958005918EA /* PhoneCallExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3ECFA7622A75074D00CB465B /* GGLTopicAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFA7612A75074D00CB465B /* GGLTopicAdapter.swift */; };
 		3ECFA7642A750A3100CB465B /* GGLTopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFA7632A750A3100CB465B /* GGLTopicViewModel.swift */; };
 		3ECFA7682A751C8600CB465B /* GGLTopicPhotosBrowserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFA7672A751C8600CB465B /* GGLTopicPhotosBrowserCell.swift */; };
@@ -136,6 +143,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3EBD184B2C1C4959005918EA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3ED90BDB2A2E24410079B4D3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3EBD183B2C1C4958005918EA;
+			remoteInfo = PhoneCallExtension;
+		};
 		3EFE52432B179C8800AF3D0E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3ED90BDB2A2E24410079B4D3 /* Project object */;
@@ -144,6 +158,20 @@
 			remoteInfo = GouGouLiu;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3EBD184E2C1C4959005918EA /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				3EBD184D2C1C4959005918EA /* PhoneCallExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		20732876E0B494D5AF100F24 /* Pods-GouGouLiu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GouGouLiu.debug.xcconfig"; path = "Target Support Files/Pods-GouGouLiu/Pods-GouGouLiu.debug.xcconfig"; sourceTree = "<group>"; };
@@ -235,6 +263,14 @@
 		3EB404B22A548B680032E899 /* GGLHomePostAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLHomePostAPI.swift; sourceTree = "<group>"; };
 		3EB4D4512BF218350085EFC0 /* GGLPhotoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPhotoAPI.swift; sourceTree = "<group>"; };
 		3EB800E12BDCD74800F1290C /* GGLRtcContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLRtcContentView.swift; sourceTree = "<group>"; };
+		3EBD183C2C1C4958005918EA /* PhoneCallExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PhoneCallExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EBD183D2C1C4958005918EA /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		3EBD183F2C1C4958005918EA /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		3EBD18422C1C4958005918EA /* PhoneCallBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCallBundle.swift; sourceTree = "<group>"; };
+		3EBD18442C1C4958005918EA /* PhoneCallLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCallLiveActivity.swift; sourceTree = "<group>"; };
+		3EBD18462C1C4958005918EA /* PhoneCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCall.swift; sourceTree = "<group>"; };
+		3EBD18482C1C4959005918EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3EBD184A2C1C4959005918EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3ECFA7612A75074D00CB465B /* GGLTopicAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLTopicAdapter.swift; sourceTree = "<group>"; };
 		3ECFA7632A750A3100CB465B /* GGLTopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLTopicViewModel.swift; sourceTree = "<group>"; };
 		3ECFA7672A751C8600CB465B /* GGLTopicPhotosBrowserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLTopicPhotosBrowserCell.swift; sourceTree = "<group>"; };
@@ -276,6 +312,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3EBD18392C1C4958005918EA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EBD18402C1C4958005918EA /* SwiftUI.framework in Frameworks */,
+				3EBD183E2C1C4958005918EA /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3ED90BE02A2E24410079B4D3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -682,6 +727,18 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		3EBD18412C1C4958005918EA /* PhoneCall */ = {
+			isa = PBXGroup;
+			children = (
+				3EBD18422C1C4958005918EA /* PhoneCallBundle.swift */,
+				3EBD18442C1C4958005918EA /* PhoneCallLiveActivity.swift */,
+				3EBD18462C1C4958005918EA /* PhoneCall.swift */,
+				3EBD18482C1C4959005918EA /* Assets.xcassets */,
+				3EBD184A2C1C4959005918EA /* Info.plist */,
+			);
+			path = PhoneCall;
+			sourceTree = "<group>";
+		};
 		3ECFA7652A751C4E00CB465B /* Adapter */ = {
 			isa = PBXGroup;
 			children = (
@@ -746,6 +803,7 @@
 			children = (
 				3ED90BE52A2E24410079B4D3 /* GouGouLiu */,
 				3EFE52402B179C8800AF3D0E /* GouGouLiuTests */,
+				3EBD18412C1C4958005918EA /* PhoneCall */,
 				3ED90BE42A2E24410079B4D3 /* Products */,
 				07BF59E56E0A7A83E577D050 /* Pods */,
 				9784F76E01C5AE95F2A539B8 /* Frameworks */,
@@ -757,6 +815,7 @@
 			children = (
 				3ED90BE32A2E24410079B4D3 /* GouGouLiu.app */,
 				3EFE523F2B179C8800AF3D0E /* GouGouLiuTests.xctest */,
+				3EBD183C2C1C4958005918EA /* PhoneCallExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -963,6 +1022,8 @@
 			isa = PBXGroup;
 			children = (
 				997C3F54446B81575D166583 /* Pods_GouGouLiu.framework */,
+				3EBD183D2C1C4958005918EA /* WidgetKit.framework */,
+				3EBD183F2C1C4958005918EA /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -970,6 +1031,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3EBD183B2C1C4958005918EA /* PhoneCallExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3EBD18512C1C4959005918EA /* Build configuration list for PBXNativeTarget "PhoneCallExtension" */;
+			buildPhases = (
+				3EBD18382C1C4958005918EA /* Sources */,
+				3EBD18392C1C4958005918EA /* Frameworks */,
+				3EBD183A2C1C4958005918EA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PhoneCallExtension;
+			productName = PhoneCallExtension;
+			productReference = 3EBD183C2C1C4958005918EA /* PhoneCallExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		3ED90BE22A2E24410079B4D3 /* GouGouLiu */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3ED90BF72A2E24420079B4D3 /* Build configuration list for PBXNativeTarget "GouGouLiu" */;
@@ -979,10 +1057,12 @@
 				3ED90BE02A2E24410079B4D3 /* Frameworks */,
 				3ED90BE12A2E24410079B4D3 /* Resources */,
 				3C64236BEDD1772869D03754 /* [CP] Embed Pods Frameworks */,
+				3EBD184E2C1C4959005918EA /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3EBD184C2C1C4959005918EA /* PBXTargetDependency */,
 			);
 			name = GouGouLiu;
 			packageProductDependencies = (
@@ -1020,9 +1100,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
+					3EBD183B2C1C4958005918EA = {
+						CreatedOnToolsVersion = 15.3;
+					};
 					3ED90BE22A2E24410079B4D3 = {
 						CreatedOnToolsVersion = 14.2;
 					};
@@ -1052,11 +1135,20 @@
 			targets = (
 				3ED90BE22A2E24410079B4D3 /* GouGouLiu */,
 				3EFE523E2B179C8800AF3D0E /* GouGouLiuTests */,
+				3EBD183B2C1C4958005918EA /* PhoneCallExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3EBD183A2C1C4958005918EA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EBD18492C1C4959005918EA /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3ED90BE12A2E24410079B4D3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1120,6 +1212,16 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3EBD18382C1C4958005918EA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EBD18432C1C4958005918EA /* PhoneCallBundle.swift in Sources */,
+				3EBD18472C1C4958005918EA /* PhoneCall.swift in Sources */,
+				3EBD18452C1C4958005918EA /* PhoneCallLiveActivity.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3ED90BDF2A2E24410079B4D3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1254,6 +1356,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3EBD184C2C1C4959005918EA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3EBD183B2C1C4958005918EA /* PhoneCallExtension */;
+			targetProxy = 3EBD184B2C1C4959005918EA /* PBXContainerItemProxy */;
+		};
 		3EFE52442B179C8800AF3D0E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3ED90BE22A2E24410079B4D3 /* GouGouLiu */;
@@ -1273,6 +1380,71 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3EBD184F2C1C4959005918EA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZXBN93R862;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PhoneCall/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PhoneCall;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = cysDevelop.GouGouLiu.PhoneCall;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3EBD18502C1C4959005918EA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZXBN93R862;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PhoneCall/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PhoneCall;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = cysDevelop.GouGouLiu.PhoneCall;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		3ED90BF52A2E24420079B4D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1391,6 +1563,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 20732876E0B494D5AF100F24 /* Pods-GouGouLiu.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -1428,6 +1601,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EFC02D02FD232B01697F298E /* Pods-GouGouLiu.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -1517,6 +1691,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3EBD18512C1C4959005918EA /* Build configuration list for PBXNativeTarget "PhoneCallExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3EBD184F2C1C4959005918EA /* Debug */,
+				3EBD18502C1C4959005918EA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3ED90BDE2A2E24410079B4D3 /* Build configuration list for PBXProject "GouGouLiu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
