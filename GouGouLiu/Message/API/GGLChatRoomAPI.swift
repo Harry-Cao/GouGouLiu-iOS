@@ -27,7 +27,7 @@ struct GGLChatRoomAPI: TargetType {
         var para: [String: Any] = [:]
         para.updateValue(senderId, forKey: "senderId")
         para.updateValue(targetId, forKey: "targetId")
-        return .requestParameters(parameters: para, encoding: URLEncoding.default)
+        return .requestParameters(parameters: para, encoding: JSONEncoding.default)
     }
     
     var headers: [String : String]? {

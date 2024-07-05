@@ -57,22 +57,22 @@ enum GGLUserAPI: TargetType {
         switch self {
         case .signUp(let username, let password, let isSuper):
             let para: [String: Any] = ["username": username, "password": password, "isSuper": isSuper]
-            return .requestParameters(parameters: para, encoding: URLEncoding.default)
+            return .requestParameters(parameters: para, encoding: JSONEncoding.default)
         case .login_n_pw(let username, let password):
             let para: [String: Any] = ["username": username, "password": password]
-            return .requestParameters(parameters: para, encoding: URLEncoding.default)
+            return .requestParameters(parameters: para, encoding: JSONEncoding.default)
         case .login_id(let userId):
             let para: [String: Any] = ["userId": userId]
-            return .requestParameters(parameters: para, encoding: URLEncoding.default)
+            return .requestParameters(parameters: para, encoding: JSONEncoding.default)
         case .logout(let userId):
             let para: [String: Any] = ["userId": userId]
-            return .requestParameters(parameters: para, encoding: URLEncoding.default)
+            return .requestParameters(parameters: para, encoding: JSONEncoding.default)
         case .clearAll(let userId):
             let para: [String: Any] = ["userId": userId]
-            return .requestParameters(parameters: para, encoding: URLEncoding.default)
+            return .requestParameters(parameters: para, encoding: JSONEncoding.default)
         case .allUsers(let userId):
             let para: [String: Any] = ["userId": userId]
-            return .requestParameters(parameters: para, encoding: URLEncoding.default)
+            return .requestParameters(parameters: para, encoding: JSONEncoding.default)
         case .getUser(let userId):
             let para: [String: Any] = ["userId": userId]
             return .requestParameters(parameters: para, encoding: URLEncoding.default)

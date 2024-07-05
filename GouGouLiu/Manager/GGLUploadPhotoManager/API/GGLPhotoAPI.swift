@@ -51,7 +51,7 @@ enum GGLPhotoAPI: TargetType {
             return .uploadMultipart(data)
         case .clearAll(let userId):
             let para: [String: Any] = ["userId": userId]
-            return .requestParameters(parameters: para, encoding: URLEncoding.default)
+            return .requestParameters(parameters: para, encoding: JSONEncoding.default)
         }
     }
 
