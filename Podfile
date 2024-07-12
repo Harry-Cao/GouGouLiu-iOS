@@ -7,15 +7,15 @@ target 'GouGouLiu' do
 
   # Pods for GouGouLiu
 
-pod 'Moya/Combine'
-pod 'SDWebImage'
-pod 'SDWebImageSwiftUI'
-pod 'SnapKit'
-pod 'Alamofire'
-pod 'URLNavigator'
-pod 'Hero'
-pod 'ProgressHUD'
-pod 'MJRefresh'
-pod 'AgoraRtcEngine_iOS'
+pod 'Moya/Combine', '~> 15.0.0'
+pod 'SDWebImage', '~> 5.16.0'
+pod 'SDWebImageSwiftUI', '~> 2.2.3'
+pod 'SnapKit', '~> 5.6.0'
+pod 'Alamofire', '~> 5.7.1'
+pod 'URLNavigator', '~> 2.4.1'
+pod 'Hero', '~> 1.6.2'
+pod 'ProgressHUD', '~> 13.6.2'
+pod 'MJRefresh', '~> 3.7.5'
+pod 'AgoraRtcEngine_iOS', '~> 4.3.0'
 
 end
