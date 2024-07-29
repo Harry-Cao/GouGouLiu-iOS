@@ -59,7 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearance.shadowColor = .clear
         UINavigationBar.appearance().standardAppearance = navigationBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
-        UINavigationBar.appearance().isTranslucent = false
         /// navigationBar上其他控件的颜色，例如返回按钮
         UINavigationBar.appearance().tintColor = .label
 
