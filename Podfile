@@ -17,5 +17,7 @@ pod 'Hero', '~> 1.6.2'
 pod 'ProgressHUD', '~> 13.6.2'
 pod 'MJRefresh', '~> 3.7.5'
 pod 'AgoraRtcEngine_iOS', '~> 4.3.0'
+pod 'RealmSwift', '~> 10'
+pod 'Starscream', '~> 4.0.8'
 
 end

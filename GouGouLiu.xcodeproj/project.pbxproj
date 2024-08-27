@@ -43,8 +43,6 @@
 		3E68614D2B8E280900B07FDA /* GGLChatRoomInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68614C2B8E280900B07FDA /* GGLChatRoomInputView.swift */; };
 		3E6861542B8F778A00B07FDA /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = 3E6861532B8F778A00B07FDA /* GoogleGenerativeAI */; };
 		3E6861562B8F77E000B07FDA /* GGLGoogleAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6861552B8F77E000B07FDA /* GGLGoogleAI.swift */; };
-		3E6A55192B95D85000279BD6 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 3E6A55182B95D85000279BD6 /* Realm */; };
-		3E6A551B2B95D85000279BD6 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3E6A551A2B95D85000279BD6 /* RealmSwift */; };
 		3E6A551D2B9816DA00279BD6 /* GGLDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6A551C2B9816DA00279BD6 /* GGLDataBase.swift */; };
 		3E6AA87C2BF76A1400CCE4B3 /* GGLDataBaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6AA87B2BF76A1400CCE4B3 /* GGLDataBaseTests.swift */; };
 		3E6B0C322A3087D9002317D6 /* String+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6B0C312A3087D9002317D6 /* String+GGL.swift */; };
@@ -74,7 +72,6 @@
 		3EA0139C2BF1325A00FAD3F2 /* Publisher+Moya.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0139B2BF1325A00FAD3F2 /* Publisher+Moya.swift */; };
 		3EA013A12BF142FF00FAD3F2 /* GGLDebugNetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA013A02BF142FF00FAD3F2 /* GGLDebugNetworkHelper.swift */; };
 		3EA14CE02C105E830032CA78 /* GGLWSContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA14CDF2C105E830032CA78 /* GGLWSContentModel.swift */; };
-		3EA1F2B22BA160AB005F2C6E /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 3EA1F2B12BA160AB005F2C6E /* Starscream */; };
 		3EA1F2B42BA160D0005F2C6E /* GGLWebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA1F2B32BA160D0005F2C6E /* GGLWebSocketManager.swift */; };
 		3EA1F2B72BA163DB005F2C6E /* GGLLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA1F2B62BA163DB005F2C6E /* GGLLoginViewController.swift */; };
 		3EA1F2B92BA1A6B8005F2C6E /* GGLSystemUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA1F2B82BA1A6B8005F2C6E /* GGLSystemUser.swift */; };
@@ -280,10 +277,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E6A551B2B95D85000279BD6 /* RealmSwift in Frameworks */,
-				3E6A55192B95D85000279BD6 /* Realm in Frameworks */,
 				93F1242499CE7D731BC833A8 /* Pods_GouGouLiu.framework in Frameworks */,
-				3EA1F2B22BA160AB005F2C6E /* Starscream in Frameworks */,
 				3E6861542B8F778A00B07FDA /* GoogleGenerativeAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -987,9 +981,6 @@
 			name = GouGouLiu;
 			packageProductDependencies = (
 				3E6861532B8F778A00B07FDA /* GoogleGenerativeAI */,
-				3E6A55182B95D85000279BD6 /* Realm */,
-				3E6A551A2B95D85000279BD6 /* RealmSwift */,
-				3EA1F2B12BA160AB005F2C6E /* Starscream */,
 			);
 			productName = GouGouLiu;
 			productReference = 3ED90BE32A2E24410079B4D3 /* GouGouLiu.app */;
@@ -1043,8 +1034,6 @@
 			mainGroup = 3ED90BDA2A2E24410079B4D3;
 			packageReferences = (
 				3E6861522B8F778A00B07FDA /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
-				3E6A55172B95D85000279BD6 /* XCRemoteSwiftPackageReference "realm-swift" */,
-				3EA1F2B02BA160AB005F2C6E /* XCRemoteSwiftPackageReference "Starscream" */,
 			);
 			productRefGroup = 3ED90BE42A2E24410079B4D3 /* Products */;
 			projectDirPath = "";
@@ -1555,22 +1544,6 @@
 				minimumVersion = 0.4.8;
 			};
 		};
-		3E6A55172B95D85000279BD6 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-swift.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		3EA1F2B02BA160AB005F2C6E /* XCRemoteSwiftPackageReference "Starscream" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/daltoniam/Starscream.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.8;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1578,21 +1551,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3E6861522B8F778A00B07FDA /* XCRemoteSwiftPackageReference "generative-ai-swift" */;
 			productName = GoogleGenerativeAI;
-		};
-		3E6A55182B95D85000279BD6 /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3E6A55172B95D85000279BD6 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = Realm;
-		};
-		3E6A551A2B95D85000279BD6 /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3E6A55172B95D85000279BD6 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = RealmSwift;
-		};
-		3EA1F2B12BA160AB005F2C6E /* Starscream */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3EA1F2B02BA160AB005F2C6E /* XCRemoteSwiftPackageReference "Starscream" */;
-			productName = Starscream;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
