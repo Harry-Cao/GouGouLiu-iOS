@@ -74,7 +74,7 @@ extension ServiceContentView {
         func action() {
             switch self {
             case .dogWalking:
-                AppRouter.shared.push(GGLDogWalkingViewController())
+                break
             case .training:
                 break
             }

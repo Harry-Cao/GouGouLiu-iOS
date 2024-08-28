@@ -76,7 +76,7 @@ final class GGLPublishOptionViewController: GGLBaseViewController {
 
     @objc private func didTapPublishOrder() {
         dismiss(animated: true) {
-            
+            AppRouter.shared.push(GGLServicesViewController())
         }
     }
 

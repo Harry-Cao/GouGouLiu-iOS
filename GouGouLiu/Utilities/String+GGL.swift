@@ -14,7 +14,7 @@ extension String {
     static let app_english_name = "Walk Walk"
 
     static let Home: String = "Home"
-    static let Services: String = "Services"
+    static let Order: String = "Order"
     static let Post: String = "Post"
     static let Message: String = "Message"
     static let Personal: String = "Personal"

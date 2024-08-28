@@ -11,7 +11,7 @@ import Combine
 final class GGLTabBarController: UITabBarController {
 
     private let homeViewController = GGLHomeViewController()
-    private let serviceViewController = GGLServicesViewController()
+    private let orderViewController = GGLOrderViewController()
     private let emptyViewController = UIViewController()
     private let messageViewController = GGLMessageViewController()
     private let personalViewController = GGLPersonalViewController()
@@ -34,10 +34,10 @@ final class GGLTabBarController: UITabBarController {
                                                                  title: .Home,
                                                                  normalImage: UIImage(resource: .tabBarHomeNormal),
                                                                  selectedImage: UIImage(resource: .tabBarHomeSelected))
-        let serviceNavigationController = setupNavigationController(viewController: serviceViewController,
-                                                                 title: .Services,
-                                                                 normalImage: UIImage(resource: .tabBarServicesNormal),
-                                                                 selectedImage: UIImage(resource: .tabBarServicesSelected))
+        let serviceNavigationController = setupNavigationController(viewController: orderViewController,
+                                                                 title: .Order,
+                                                                 normalImage: UIImage(resource: .tabBarOrderNormal),
+                                                                 selectedImage: UIImage(resource: .tabBarOrderSelected))
         let messageNavigationController = setupNavigationController(viewController: messageViewController,
                                                                     title: .Message,
                                                                     normalImage: UIImage(resource: .tabBarMessageNormal),
