@@ -11,16 +11,18 @@ import MJRefresh
 import Hero
 
 final class GGLHomeViewController: GGLBaseViewController {
+    private let itemSpacing: CGFloat = 4.0
     private let viewModel = GGLHomeViewModel()
     private var cancellables = Set<AnyCancellable>()
     private lazy var emptyDataView = GGLEmptyDataView()
     private lazy var drawerTransition = GGLDrawerTransition()
+    private lazy var waterFallFlowLayout: GGLWaterFallFlowLayout = {
+        let layout = GGLWaterFallFlowLayout()
+        layout.minimumInteritemSpacing = itemSpacing
+        layout.delegate = self
+        return layout
+    }()
     private lazy var recommendCollectionView: UICollectionView = {
-        let itemSpacing: CGFloat = 4.0
-        let waterFallFlowLayout = GGLWaterFallFlowLayout()
-        waterFallFlowLayout.minimumInteritemSpacing = itemSpacing
-        waterFallFlowLayout.sectionInset = UIEdgeInsets(top: itemSpacing, left: itemSpacing, bottom: itemSpacing, right: itemSpacing)
-        waterFallFlowLayout.delegate = self
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: waterFallFlowLayout)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
@@ -39,6 +41,11 @@ final class GGLHomeViewController: GGLBaseViewController {
         setupRefreshComponent()
         bindData()
         onNetworkStatus()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        resetLayout()
     }
 
     private func setupUI() {
@@ -89,6 +96,14 @@ final class GGLHomeViewController: GGLBaseViewController {
                 break
             }
         }.store(in: &cancellables)
+    }
+
+    private func resetLayout() {
+        waterFallFlowLayout.sectionInset = UIEdgeInsets(top: itemSpacing,
+                                                        left: itemSpacing + mainWindow.safeAreaInsets.left,
+                                                        bottom: itemSpacing,
+                                                        right: itemSpacing + mainWindow.safeAreaInsets.right)
+        waterFallFlowLayout.reset()
     }
 
     @objc private func refreshData() {

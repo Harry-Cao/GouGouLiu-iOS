@@ -27,7 +27,7 @@ final class GGLOrderViewModel {
     }
 
     var itemWidth: CGFloat {
-        let screenWidth = mainWindow.bounds.width
+        let screenWidth = mainWindow.bounds.width - mainWindow.safeAreaInsets.left - mainWindow.safeAreaInsets.right
         let itemCount = CGFloat(itemCount(screenWidth: screenWidth))
         return (screenWidth + itemSpacing - insetWidth - itemSpacing * itemCount) / itemCount
     }

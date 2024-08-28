@@ -29,7 +29,7 @@ final class GGLWaterFallFlowLayout: UICollectionViewLayout {
     
     fileprivate var maxHeight: CGFloat = 0
 
-    private func reset() {
+    func reset() {
         layoutAttributeArray = []
         yArray = Array(repeating: self.sectionInset.top, count: cols)
         maxHeight = 0

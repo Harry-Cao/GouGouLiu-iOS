@@ -13,12 +13,14 @@ final class GGLOrderViewController: GGLBaseViewController {
     private let viewModel = GGLOrderViewModel()
     private var cancellables = Set<AnyCancellable>()
 
-    private lazy var orderCollectionView: UICollectionView = {
+    private let flowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 0
-        layout.sectionInset = viewModel.sectionInset
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        return layout
+    }()
+    private lazy var orderCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(GGLOrderCell.self, forCellWithReuseIdentifier: "\(GGLOrderCell.self)")
@@ -35,7 +37,10 @@ final class GGLOrderViewController: GGLBaseViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        orderCollectionView.reloadData()
+        flowLayout.sectionInset = UIEdgeInsets(top: viewModel.sectionInset.top,
+                                               left: viewModel.sectionInset.left + mainWindow.safeAreaInsets.left,
+                                               bottom: viewModel.sectionInset.bottom,
+                                               right: viewModel.sectionInset.right + mainWindow.safeAreaInsets.right)
     }
 
     private func setupUI() {
@@ -61,9 +66,7 @@ extension GGLOrderViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let model = viewModel.dataSource[indexPath.row]
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(GGLOrderCell.self)", for: indexPath) as? GGLOrderCell else {
-            fatalError("OrderTableView could not get GGLOrderCell at indexPath \(indexPath)")
-        }
+        let cell: GGLOrderCell = collectionView.dequeueReusableCell(for: indexPath)
         cell.setup(model: model)
         return cell
     }
