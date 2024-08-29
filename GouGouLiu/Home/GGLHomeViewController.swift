@@ -103,8 +103,6 @@ final class GGLHomeViewController: GGLBaseViewController {
                                                         left: itemSpacing + mainWindow.safeAreaInsets.left,
                                                         bottom: itemSpacing,
                                                         right: itemSpacing + mainWindow.safeAreaInsets.right)
-        waterFallFlowLayout.reset()
-        waterFallFlowLayout.prepare()
     }
 
     @objc private func refreshData() {

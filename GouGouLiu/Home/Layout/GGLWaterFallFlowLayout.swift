@@ -29,7 +29,7 @@ final class GGLWaterFallFlowLayout: UICollectionViewLayout {
     
     fileprivate var maxHeight: CGFloat = 0
 
-    func reset() {
+    private func reset() {
         layoutAttributeArray = []
         yArray = Array(repeating: self.sectionInset.top, count: cols)
         maxHeight = 0
@@ -42,6 +42,7 @@ final class GGLWaterFallFlowLayout: UICollectionViewLayout {
 
     override func prepare() {
         super.prepare()
+        reset()
         guard let collectionView else { return }
         // 计算每个 Cell 的宽度
         let itemWidth = (collectionView.bounds.width - sectionInset.left - sectionInset.right - minimumInteritemSpacing * CGFloat(cols - 1)) / CGFloat(cols)
@@ -49,11 +50,7 @@ final class GGLWaterFallFlowLayout: UICollectionViewLayout {
         let itemCount = collectionView.numberOfItems(inSection: 0)
         // 最小高度索引
         var minHeightIndex = 0
-        guard itemCount > 0 else { return }
-        // 缓存数量大于实际数量，页面可能发生重新加载，清除缓存
-        if layoutAttributeArray.count > itemCount {
-            reset()
-        }
+        guard itemCount > 0, itemCount > layoutAttributeArray.count else { return }
         // 遍历 item 计算并缓存属性
         for i in layoutAttributeArray.count ..< itemCount {
             let indexPath = IndexPath(item: i, section: 0)
