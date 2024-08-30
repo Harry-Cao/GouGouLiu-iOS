@@ -8,10 +8,12 @@
 import Foundation
 import Starscream
 import Combine
+import OSLog
 
 final class GGLWebSocketManager {
     static let shared = GGLWebSocketManager()
     private(set) var socket: WebSocket?
+    @Published private(set) var connectStatus: WebSocketConnectStatus = .disconnected
     private(set) var messageSubject = PassthroughSubject<GGLWebSocketModel, Never>()
     private var cancellables = Set<AnyCancellable>()
 
@@ -41,6 +43,7 @@ final class GGLWebSocketManager {
         socket = WebSocket(request: request)
         socket?.delegate = self
         socket?.connect()
+        connectStatus = .connecting
     }
 
     func disconnect() {
@@ -52,28 +55,21 @@ final class GGLWebSocketManager {
 extension GGLWebSocketManager: WebSocketDelegate {
     func didReceive(event: Starscream.WebSocketEvent, client: Starscream.WebSocketClient) {
         switch event {
-        case .connected(let headers):
-            print("websocket is connected: \(headers)")
-        case .disconnected(let reason, let code):
-            print("websocket is disconnected: \(reason) with code: \(code)")
+        case .connected(_):
+            connectStatus = .connected
         case .text(let string):
             onReceivedText(string)
         case .binary(let data):
-            print("Received data: \(data.count)")
-        case .ping(_):
-            break
-        case .pong(_):
-            break
+            Logger().debug("Received data: \(data.count)")
         case .viabilityChanged(_):
             break
         case .reconnectSuggested(_):
+            Logger().debug("reconnectSuggested")
             break
-        case .cancelled:
-            print("cancelled")
-        case .error(let error):
-            print(error as Any)
-        case .peerClosed:
-            print("peerClosed")
+        case .disconnected(_, _), .cancelled, .error(_), .peerClosed:
+            connectStatus = .disconnected
+        default:
+            break
         }
     }
 
@@ -81,5 +77,24 @@ extension GGLWebSocketManager: WebSocketDelegate {
         guard let model = GGLTool.jsonStringToModel(jsonString: text, to: GGLWebSocketModel.self) else { return }
         GGLWSMessageHelper.handleWebSocketModel(model)
         messageSubject.send(model)
+    }
+}
+
+extension GGLWebSocketManager {
+    enum WebSocketConnectStatus {
+        case disconnected
+        case connecting
+        case connected
+
+        var navigationTitle: String? {
+            switch self {
+            case .disconnected:
+                return "disconnected"
+            case .connecting:
+                return "connecting..."
+            case .connected:
+                return nil
+            }
+        }
     }
 }

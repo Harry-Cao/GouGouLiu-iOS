@@ -8,9 +8,11 @@
 import SwiftUI
 
 final class GGLMessageViewController: GGLBaseHostingController<MessageContentView> {
+    private let viewModel: GGLMessageViewModel
 
     init() {
-        super.init(rootView: MessageContentView(viewModel: GGLMessageViewModel()))
+        viewModel = GGLMessageViewModel()
+        super.init(rootView: MessageContentView(viewModel: viewModel))
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -19,9 +21,15 @@ final class GGLMessageViewController: GGLBaseHostingController<MessageContentVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = .Message
+        bindData()
     }
 
+    private func bindData() {
+        viewModel.$navigationTitle
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.title, on: navigationItem)
+            .store(in: &viewModel.cancellables)
+    }
 }
 
 struct MessageContentView: View {

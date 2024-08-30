@@ -8,8 +8,8 @@
 import SwiftUI
 
 final class GGLChatRoomViewController: GGLBaseHostingController<GGLChatRoomContentView> {
-
     private let viewModel: GGLChatRoomViewModel
+
     init(messageModel: GGLMessageModel) {
         viewModel = GGLChatRoomViewModel(messageModel: messageModel)
         super.init(rootView: GGLChatRoomContentView(viewModel: viewModel))
@@ -35,7 +35,6 @@ final class GGLChatRoomViewController: GGLBaseHostingController<GGLChatRoomConte
     @objc private func onClickVideoCall() {
         viewModel.onClickVideoCall()
     }
-
 }
 
 struct GGLChatRoomContentView: View {

@@ -10,11 +10,13 @@ import Combine
 
 final class GGLMessageViewModel: ObservableObject {
     @Published private(set) var messageModels: [GGLMessageModel] = []
-    private var cancellables = Set<AnyCancellable>()
+    @Published private(set) var navigationTitle: String? = .Message
+    var cancellables = Set<AnyCancellable>()
 
     init() {
         onReceivedMessage()
         subscribeUserUpdate()
+        subscribeWebSocketStatus()
     }
 
     private func onReceivedMessage() {
@@ -37,6 +39,17 @@ final class GGLMessageViewModel: ObservableObject {
         GGLDataBase.shared.userUpdateSubject.sink { [weak self] _ in
             self?.updateData()
         }.store(in: &cancellables)
+    }
+
+    private func subscribeWebSocketStatus() {
+        GGLWebSocketManager.shared.$connectStatus
+            .sink { [weak self] status in
+                guard let self, let _ = GGLUser.current else {
+                    self?.navigationTitle = .Message
+                    return
+                }
+                navigationTitle = status.navigationTitle ?? .Message
+            }.store(in: &cancellables)
     }
 
     func updateData() {
