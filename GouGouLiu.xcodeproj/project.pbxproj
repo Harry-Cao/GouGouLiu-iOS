@@ -65,6 +65,8 @@
 		3E8CECF62C19AA3E006098F4 /* GGLDrawerPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8CECF52C19AA3E006098F4 /* GGLDrawerPresentationController.swift */; };
 		3E90E2E02A652CD500A6EA70 /* GGLUploadPhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E90E2DF2A652CD500A6EA70 /* GGLUploadPhotoManager.swift */; };
 		3E965CE02C8393B40056779F /* GenerativeAI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E965CDF2C8393B40056779F /* GenerativeAI-Info.plist */; };
+		3E965CE22C84C10C0056779F /* GGLMyPetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E965CE12C84C10C0056779F /* GGLMyPetsViewController.swift */; };
+		3E965CE82C84C5D60056779F /* GGLMyPetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E965CE72C84C5D60056779F /* GGLMyPetsViewModel.swift */; };
 		3E96F00C2BD2D63500FF94FA /* GGLAgoraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E96F00B2BD2D63500FF94FA /* GGLAgoraManager.swift */; };
 		3E9F11502A6BBEE600A1CC90 /* GGLUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9F114F2A6BBEE600A1CC90 /* GGLUserModel.swift */; };
 		3E9F11552A6C179200A1CC90 /* GGLMoyaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9F11542A6C179200A1CC90 /* GGLMoyaModel.swift */; };
@@ -129,7 +131,7 @@
 		3EFF955B2A30DBC700E89069 /* GGLMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF955A2A30DBC700E89069 /* GGLMessageViewController.swift */; };
 		3EFF955D2A30DD1300E89069 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFF955C2A30DD1300E89069 /* AppRouter.swift */; };
 		7B87D5462C7DD1A000787D5C /* GGLOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B87D5452C7DD1A000787D5C /* GGLOrderModel.swift */; };
-		7B87D5492C7DD7C900787D5C /* GGLDogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B87D5482C7DD7C900787D5C /* GGLDogModel.swift */; };
+		7B87D5492C7DD7C900787D5C /* GGLPetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B87D5482C7DD7C900787D5C /* GGLPetModel.swift */; };
 		7B87D54B2C7DD95600787D5C /* GGLOrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B87D54A2C7DD95600787D5C /* GGLOrderViewModel.swift */; };
 		7B87D54E2C7DDAA200787D5C /* GGLOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B87D54D2C7DDAA200787D5C /* GGLOrderCell.swift */; };
 		7B87D5512C7F036800787D5C /* GGLOrderViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B87D5502C7F036800787D5C /* GGLOrderViewModelTests.swift */; };
@@ -205,6 +207,8 @@
 		3E8CECF52C19AA3E006098F4 /* GGLDrawerPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GGLDrawerPresentationController.swift; sourceTree = "<group>"; };
 		3E90E2DF2A652CD500A6EA70 /* GGLUploadPhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLUploadPhotoManager.swift; sourceTree = "<group>"; };
 		3E965CDF2C8393B40056779F /* GenerativeAI-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GenerativeAI-Info.plist"; sourceTree = "<group>"; };
+		3E965CE12C84C10C0056779F /* GGLMyPetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLMyPetsViewController.swift; sourceTree = "<group>"; };
+		3E965CE72C84C5D60056779F /* GGLMyPetsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GGLMyPetsViewModel.swift; sourceTree = "<group>"; };
 		3E96F00B2BD2D63500FF94FA /* GGLAgoraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLAgoraManager.swift; sourceTree = "<group>"; };
 		3E9F114F2A6BBEE600A1CC90 /* GGLUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLUserModel.swift; sourceTree = "<group>"; };
 		3E9F11542A6C179200A1CC90 /* GGLMoyaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLMoyaModel.swift; sourceTree = "<group>"; };
@@ -272,7 +276,7 @@
 		3EFF955A2A30DBC700E89069 /* GGLMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLMessageViewController.swift; sourceTree = "<group>"; };
 		3EFF955C2A30DD1300E89069 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		7B87D5452C7DD1A000787D5C /* GGLOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLOrderModel.swift; sourceTree = "<group>"; };
-		7B87D5482C7DD7C900787D5C /* GGLDogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLDogModel.swift; sourceTree = "<group>"; };
+		7B87D5482C7DD7C900787D5C /* GGLPetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPetModel.swift; sourceTree = "<group>"; };
 		7B87D54A2C7DD95600787D5C /* GGLOrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLOrderViewModel.swift; sourceTree = "<group>"; };
 		7B87D54D2C7DDAA200787D5C /* GGLOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLOrderCell.swift; sourceTree = "<group>"; };
 		7B87D5502C7F036800787D5C /* GGLOrderViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLOrderViewModelTests.swift; sourceTree = "<group>"; };
@@ -537,6 +541,32 @@
 			path = GGLUploadPhotoManager;
 			sourceTree = "<group>";
 		};
+		3E965CE32C84C11C0056779F /* MyPets */ = {
+			isa = PBXGroup;
+			children = (
+				3E965CE12C84C10C0056779F /* GGLMyPetsViewController.swift */,
+				3E965CE62C84C5B50056779F /* ViewModel */,
+				3E965CE92C84C79F0056779F /* Model */,
+			);
+			path = MyPets;
+			sourceTree = "<group>";
+		};
+		3E965CE62C84C5B50056779F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3E965CE72C84C5D60056779F /* GGLMyPetsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3E965CE92C84C79F0056779F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7B87D5482C7DD7C900787D5C /* GGLPetModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3E9F11512A6BC05C00A1CC90 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -778,6 +808,7 @@
 				3EFF95592A30DB9E00E89069 /* Message */,
 				3E453B482A6DA73700B30C3C /* Publish */,
 				3ED90C032A2E543A0079B4D3 /* Personal */,
+				3E965CE32C84C11C0056779F /* MyPets */,
 				3ED90C082A2E5A1E0079B4D3 /* Topic */,
 				3EF3CAB82A65012D00C46F38 /* Debug */,
 				3ED370CE2A597C4300639291 /* Manager */,
@@ -968,7 +999,6 @@
 			isa = PBXGroup;
 			children = (
 				7B87D5452C7DD1A000787D5C /* GGLOrderModel.swift */,
-				7B87D5482C7DD7C900787D5C /* GGLDogModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1172,6 +1202,7 @@
 				3EF50C392BF659A700FA5AA1 /* GGLServicesViewController.swift in Sources */,
 				3E6A551D2B9816DA00279BD6 /* GGLDataBase.swift in Sources */,
 				3E2DA2742A2F76F9001D9352 /* GGLWaterFallFlowLayout.swift in Sources */,
+				3E965CE22C84C10C0056779F /* GGLMyPetsViewController.swift in Sources */,
 				3ECFA7642A750A3100CB465B /* GGLTopicViewModel.swift in Sources */,
 				3EA1F2C32BA217FC005F2C6E /* GGLUserListViewModel.swift in Sources */,
 				3EADA9492A71896700F5BB13 /* GGLPublishManager.swift in Sources */,
@@ -1244,7 +1275,7 @@
 				3E5509332A66900F00653568 /* GGLNetworkManager.swift in Sources */,
 				3E1123382C18C301005C2EF9 /* GGLDrawerViewController.swift in Sources */,
 				3EA013A12BF142FF00FAD3F2 /* GGLDebugNetworkHelper.swift in Sources */,
-				7B87D5492C7DD7C900787D5C /* GGLDogModel.swift in Sources */,
+				7B87D5492C7DD7C900787D5C /* GGLPetModel.swift in Sources */,
 				3EAC31922BD40D710022C6A7 /* GGLChatRoomAPI.swift in Sources */,
 				3EECAE272BD02656003A7CB0 /* AppRouter+GGL.swift in Sources */,
 				3E6EB8252A3F54FE00675A2A /* GGLMessageModel.swift in Sources */,
@@ -1270,6 +1301,7 @@
 				3EFF955D2A30DD1300E89069 /* AppRouter.swift in Sources */,
 				3E68614D2B8E280900B07FDA /* GGLChatRoomInputView.swift in Sources */,
 				3ECFA76A2A751CD100CB465B /* GGLTopicContentCell.swift in Sources */,
+				3E965CE82C84C5D60056779F /* GGLMyPetsViewModel.swift in Sources */,
 				3ED90BE92A2E24410079B4D3 /* SceneDelegate.swift in Sources */,
 				3ED9B53B2BA345E600A13D38 /* GGLWebSocketModel.swift in Sources */,
 				3ED90C0E2A2E5E490079B4D3 /* GGLGlobalImport.swift in Sources */,

@@ -70,9 +70,9 @@ final class GGLOrderCell: UICollectionViewCell {
     }
 
     func setup(model: GGLOrderModel) {
-        let avatarUrl = model.dogs?.first?.avatarUrl ?? ""
+        let avatarUrl = model.pets?.first?.avatarUrl ?? ""
         avatarImageView.sd_setImage(with: URL(string: avatarUrl))
-        infoLabel.text = model.dogs?.first?.name
+        infoLabel.text = model.pets?.first?.name
         requirementLabel.text = model.requirements
     }
 }

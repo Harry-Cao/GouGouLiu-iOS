@@ -10,7 +10,7 @@ import Combine
 
 final class GGLPersonalViewModel: ObservableObject {
     @Published private(set) var current: GGLUserModel?
-    let settingRows: [SettingRow] = [.myPosts, .myOrders, .clearImageCache, .logout]
+    let settingRows: [SettingRow] = [.myPets, .myPosts, .myOrders, .clearImageCache, .logout]
     private var cancellables = Set<AnyCancellable>()
 
     init() {
@@ -42,6 +42,7 @@ final class GGLPersonalViewModel: ObservableObject {
 extension GGLPersonalViewModel {
 
     enum SettingRow: Identifiable {
+        case myPets
         case myPosts
         case myOrders
         case clearImageCache
@@ -52,6 +53,8 @@ extension GGLPersonalViewModel {
         }
         var iconName: String {
             switch self {
+            case .myPets:
+                return "pawprint"
             case .myPosts:
                 return "sparkles"
             case .myOrders:
@@ -63,7 +66,8 @@ extension GGLPersonalViewModel {
             }
         }
         var title: String {
-            switch self {
+            switch self {case .myPets:
+                return "My pets"
             case .myPosts:
                 return "My posts"
             case .myOrders:
@@ -85,6 +89,8 @@ extension GGLPersonalViewModel {
 
         func action() {
             switch self {
+            case .myPets:
+                AppRouter.shared.push(GGLMyPetsViewController())
             case .myPosts, .myOrders:
                 break
             case .clearImageCache:

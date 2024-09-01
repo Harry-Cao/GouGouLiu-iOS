@@ -10,13 +10,13 @@ import Foundation
 final class GGLOrderModel: Codable {
     var type: OrderType?
     var isRealTime: Bool = false
-    var dogs: [GGLDogModel]?
+    var pets: [GGLPetModel]?
     var requirements: String?
 
-    init(type: OrderType? = nil, isRealTime: Bool, dogs: [GGLDogModel]? = nil, requirements: String? = nil) {
+    init(type: OrderType? = nil, isRealTime: Bool, pets: [GGLPetModel]? = nil, requirements: String? = nil) {
         self.type = type
         self.isRealTime = isRealTime
-        self.dogs = dogs
+        self.pets = pets
         self.requirements = requirements
     }
 }
