@@ -83,7 +83,7 @@ extension GGLPersonalViewModel {
             case .logout:
                 Color.red
             default:
-                Color(uiColor: .label)
+                Color(.label)
             }
         }
 

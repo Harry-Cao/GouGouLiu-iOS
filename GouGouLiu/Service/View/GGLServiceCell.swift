@@ -19,14 +19,14 @@ struct GGLServiceCell: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 36, height: 36)
-                    .foregroundStyle(Color(uiColor: .theme_color))
+                    .foregroundStyle(Color(.theme_color))
                 VStack(alignment: .leading, spacing: 4) {
                     Text(item.title)
                         .font(Font.system(size: 18, weight: .medium))
                     Text(item.description)
                         .font(Font.system(size: 14, weight: .thin))
                 }
-                .foregroundStyle(Color(uiColor: .label))
+                .foregroundStyle(Color(.label))
                 Spacer()
             }
             .padding(20)
@@ -35,7 +35,7 @@ struct GGLServiceCell: View {
                     .shadow(color: .black.opacity(0.2), radius: 10)
             }
         }
-        .foregroundStyle(Color(uiColor: .secondarySystemBackground))
+        .foregroundStyle(Color(.secondarySystemBackground))
         .padding(EdgeInsets(top: 0, leading: 20, bottom: 12, trailing: 20))
     }
 }

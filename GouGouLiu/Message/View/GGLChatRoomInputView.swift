@@ -44,7 +44,7 @@ struct GGLChatRoomInputView: View {
                     .frame(width: 24, height: 24)
                     .imageScale(.large)
             }
-            .foregroundStyle(Color(uiColor: .label))
+            .foregroundStyle(Color(.label))
             .padding([.leading, .top, .bottom])
             .padding(.trailing, 4)
             Button {
@@ -56,14 +56,14 @@ struct GGLChatRoomInputView: View {
                     .frame(width: 24, height: 24)
                     .imageScale(.large)
             }
-            .foregroundStyle(Color(uiColor: .label))
+            .foregroundStyle(Color(.label))
             .padding(.trailing, 4)
             switch inputMode {
             case .text:
                 TextEditor(text: $inputText)
                     .disableAutocorrection(true)
                     .disabled(sendDisabled)
-                    .foregroundStyle(Color(uiColor: .label))
+                    .foregroundStyle(Color(.label))
                     .cornerRadius(18)
                     .frame(height: 36)
                 Button {
@@ -75,14 +75,14 @@ struct GGLChatRoomInputView: View {
                         .frame(width: 24, height: 24)
                         .imageScale(.large)
                 }
-                .foregroundStyle(Color(uiColor: .label))
+                .foregroundStyle(Color(.label))
                 .disabled(isSendDisabled)
                 .padding([.top, .bottom, .trailing])
             case .speech:
                 HStack {
                     Spacer()
                     Text("按住说话")
-                        .foregroundStyle(Color(uiColor: .label))
+                        .foregroundStyle(Color(.label))
                     Spacer()
                 }
                 .padding()

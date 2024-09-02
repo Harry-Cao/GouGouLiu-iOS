@@ -5,7 +5,6 @@
 //  Created by HarryCao on 2024/9/1.
 //
 
-import UIKit
 import SwiftUI
 
 final class GGLMyPetsViewController: GGLBaseHostingController<MyPetsContentView> {
@@ -23,16 +22,24 @@ final class GGLMyPetsViewController: GGLBaseHostingController<MyPetsContentView>
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "My Pets"
+        navigationItem.rightBarButtonItem = barButtonItem(navigationItem: .image(UIImage(systemName: "plus"), #selector(onClickAddPet)))
+    }
+
+    @objc private func onClickAddPet() {
+        AppRouter.shared.push(GGLAddPetViewController())
     }
 }
 
 struct MyPetsContentView: View {
     @ObservedObject var viewModel: GGLMyPetsViewModel
+
     var body: some View {
-        LazyVStack {
-            ForEach(viewModel.myPets, id: \.id) { pet in
-                Text(pet.name ?? "")
-            }
+        ScrollView {
+            LazyVStack(spacing: 0, content: {
+                ForEach(viewModel.myPets, id: \.id) { pet in
+                    GGLPetCard(pet: pet)
+                }
+            })
         }
         .onAppear(perform: {
             viewModel.requestData()
