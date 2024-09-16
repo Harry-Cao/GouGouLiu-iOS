@@ -23,13 +23,22 @@ final class GGLPersonalHeaderView: UIView {
         view.backgroundColor = .lightGray
         return view
     }()
-    private let container: UIView = {
+    private let container = UIView()
+    private let gradientLayer: CAGradientLayer = {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = CGRect(origin: CGPoint(x: 0, y: -100), size: CGSize(width: UIScreen.main.bounds.width, height: 142))
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+        return gradientLayer
+    }()
+    private let whitePannel: UIView = {
         let view = UIView()
-        view.backgroundColor = .secondarySystemBackground
+        view.backgroundColor = .systemBackground
         return view
     }()
     private let avatarButton: UIButton = {
         let view = UIButton()
+        view.imageView?.contentMode = .scaleAspectFill
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 42
         view.layer.borderWidth = 2
@@ -53,32 +62,45 @@ final class GGLPersonalHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateGradientViewColor()
+    }
+
     private func setupUI() {
         [coverImageView, container].forEach(addSubview)
-        [avatarButton, nameLabel, userIdLabel].forEach(container.addSubview)
+        [whitePannel, avatarButton, nameLabel, userIdLabel].forEach(container.addSubview)
         coverImageView.snp.makeConstraints { make in
             make.leading.top.trailing.equalToSuperview()
         }
         container.snp.makeConstraints { make in
             make.leading.bottom.trailing.equalToSuperview()
+            make.top.equalTo(avatarButton)
+        }
+        whitePannel.snp.makeConstraints { make in
+            make.leading.bottom.trailing.equalToSuperview()
             make.top.equalTo(coverImageView.snp.bottom)
-            make.height.equalTo(100)
+            make.height.equalTo(64)
         }
         avatarButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.size.equalTo(84)
-            make.centerY.equalTo(container.snp.top)
+            make.centerY.equalTo(whitePannel.snp.top)
         }
         nameLabel.snp.makeConstraints { make in
-            make.leading.greaterThanOrEqualTo(avatarButton).offset(8)
-            make.centerX.greaterThanOrEqualTo(avatarButton)
-            make.top.equalTo(avatarButton.snp.bottom).offset(12)
+            make.leading.equalTo(avatarButton.snp.trailing).offset(8)
+            make.top.equalTo(avatarButton).offset(12)
         }
         userIdLabel.snp.makeConstraints { make in
             make.leading.equalTo(avatarButton.snp.trailing).offset(8)
-            make.bottom.equalTo(avatarButton).inset(8)
+            make.top.equalTo(nameLabel.snp.bottom).offset(12)
         }
         avatarButton.addTarget(self, action: #selector(didTapAvatar), for: .touchUpInside)
+        container.layer.insertSublayer(gradientLayer, at: 0)
+    }
+
+    private func updateGradientViewColor() {
+        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.systemBackground.cgColor]
     }
 
     @objc private func didTapAvatar() {
