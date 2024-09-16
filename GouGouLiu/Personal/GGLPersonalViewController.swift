@@ -5,85 +5,108 @@
 //  Created by Harry Cao on 2023/6/6.
 //
 
-import SwiftUI
-import SDWebImageSwiftUI
+import UIKit
+import Combine
 
-final class GGLPersonalViewController: GGLBaseHostingController<PersonalContentView> {
-
-    init() {
-        super.init(rootView: PersonalContentView(viewModel: GGLPersonalViewModel()))
-    }
-
-    @MainActor required dynamic init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+final class GGLPersonalViewController: GGLBaseViewController {
+    private let viewModel = GGLPersonalViewModel()
+    private var cancellables = Set<AnyCancellable>()
+    private lazy var personalTableView: UITableView = {
+        let emptyView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: .zero, height: GGLPersonalHeaderView.normalHeight)))
+        let tableView = UITableView()
+        tableView.contentInsetAdjustmentBehavior = .never
+        tableView.tableHeaderView = emptyView
+        tableView.showsVerticalScrollIndicator = false
+        tableView.showsHorizontalScrollIndicator = false
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(GGLPersonalRowCell.self, forCellReuseIdentifier: "\(GGLPersonalRowCell.self)")
+        return tableView
+    }()
+    private lazy var headerView: GGLPersonalHeaderView = {
+        let view = GGLPersonalHeaderView()
+        view.delegate = self
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        bindData()
+        setupUI()
     }
 
-}
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
 
-struct PersonalContentView: View {
-    @ObservedObject var viewModel: GGLPersonalViewModel
+    private func bindData() {
+        viewModel.$current
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] user in
+                guard let self else { return }
+                headerView.setup(user: user)
+            }.store(in: &cancellables)
+        viewModel.$settingRows
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self else { return }
+                personalTableView.reloadData()
+            }.store(in: &cancellables)
+    }
 
-    var body: some View {
-        VStack {
-            if let current = viewModel.current {
-                Header(user: current) {
-                    viewModel.pickAvatar()
-                }
-                List(viewModel.settingRows) { row in
-                    Button {
-                        row.action()
-                    } label: {
-                        HStack {
-                            Image(systemName: row.iconName)
-                                .frame(width: 20, height: 20, alignment: .center)
-                                .foregroundStyle(row.foregroundColor)
-                            Text(row.title)
-                                .font(.system(size: 16))
-                                .foregroundStyle(row.foregroundColor)
-                        }
-                    }
-                }
-                .listStyle(.plain)
-            } else {
-                LoginContentView()
-            }
+    private func setupUI() {
+        view.addSubview(personalTableView)
+        personalTableView.addSubview(headerView)
+        personalTableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        headerView.snp.makeConstraints { make in
+            make.leading.top.trailing.equalTo(view)
+            make.height.equalTo(GGLPersonalHeaderView.normalHeight)
         }
     }
 }
 
-extension PersonalContentView {
+// MARK: - UITableViewDataSource
+extension GGLPersonalViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.settingRows.count
+    }
 
-    struct Header: View {
-        let user: GGLUserModel
-        let onClickPickAvatar: () -> Void
-        var body: some View {
-            HStack {
-                WebImage(url: URL(string: user.avatarUrl ?? ""))
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 84, height: 84, alignment: .center)
-                    .clipShape(.circle)
-                    .padding(.trailing, 8)
-                    .onTapGesture {
-                        onClickPickAvatar()
-                    }
-                VStack(alignment: .leading, content: {
-                    Text(GGLUser.current?.userName ?? "")
-                        .font(Font.system(size: 24, weight: .bold))
-                        .padding(.bottom, 4)
-                    Text("UserId: \(GGLUser.current?.userId ?? "")")
-                        .font(.caption)
-                        .foregroundStyle(.gray.opacity(0.8))
-                })
-                Spacer()
-                Image(systemName: "chevron.right")
-            }
-            .padding([.leading, .trailing, .bottom])
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let row = viewModel.settingRows[indexPath.row]
+        let cell: GGLPersonalRowCell = tableView.dequeueReusableCell(for: indexPath)
+        cell.setup(row: row)
+        return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension GGLPersonalViewController: UITableViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        updateHeaderView(scrollView: scrollView)
+    }
+
+    private func updateHeaderView(scrollView: UIScrollView) {
+        let contentOffsetY = min(0, -scrollView.contentOffset.y)
+        let headerHeight = max(GGLPersonalHeaderView.normalHeight, GGLPersonalHeaderView.normalHeight - scrollView.contentOffset.y)
+        headerView.snp.updateConstraints { make in
+            make.top.equalTo(view).offset(contentOffsetY)
+            make.height.equalTo(headerHeight)
         }
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let row = viewModel.settingRows[indexPath.row]
+        row.action()
+    }
+}
+
+// MARK: - GGLPersonalHeaderViewDelegate
+extension GGLPersonalViewController: GGLPersonalHeaderViewDelegate {
+    func didTapAvatar() {
+        viewModel.pickAvatar()
+    }
 }

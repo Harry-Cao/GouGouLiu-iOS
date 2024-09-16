@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 final class GGLHomeRecommendCell: UICollectionViewCell {
 
@@ -94,7 +95,7 @@ final class GGLHomeRecommendCell: UICollectionViewCell {
             titleLabel.isHidden = true
         }
         let avatarUrl = URL(string: model.user?.avatarUrl ?? "")
-        avatarImageView.sd_setImage(with: avatarUrl)
+        avatarImageView.sd_setImage(with: avatarUrl, placeholderImage: UIImage(resource: .defaultAvatar))
         nameLabel.text = model.user?.userName
     }
 

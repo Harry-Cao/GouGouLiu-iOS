@@ -5,22 +5,28 @@
 //  Created by HarryCao on 2024/4/12.
 //
 
-import SwiftUI
+import UIKit
 import Combine
 
 final class GGLPersonalViewModel: ObservableObject {
     @Published private(set) var current: GGLUserModel?
-    let settingRows: [SettingRow] = [.myPets, .myPosts, .myOrders, .clearImageCache, .logout]
+    @Published private(set) var settingRows: [SettingRow] = [.login]
     private var cancellables = Set<AnyCancellable>()
 
     init() {
         GGLUser.userStatusSubject.sink { [weak self] _ in
-            self?.current = GGLUser.current
+            guard let self else { return }
+            current = GGLUser.current
+            if let _ = GGLUser.current {
+                settingRows = [.myPets, .myPosts, .myOrders, .clearImageCache, .logout]
+            } else {
+                settingRows = [.login]
+            }
         }.store(in: &cancellables)
     }
 
     func pickAvatar() {
-        guard let userId = GGLUser.getUserId() else { return }
+        guard let userId = GGLUser.getUserId(showHUD: false) else { return }
         GGLUploadPhotoManager.shared.pickImage { image in
             guard let data = image?.fixOrientation().jpegData(compressionQuality: 1) else { return }
             GGLUploadPhotoManager.shared.uploadPhoto(data: data, type: .avatar, contactId: userId) { progress in
@@ -47,6 +53,7 @@ extension GGLPersonalViewModel {
         case myOrders
         case clearImageCache
         case logout
+        case login
 
         var id: UUID {
             return UUID()
@@ -63,6 +70,8 @@ extension GGLPersonalViewModel {
                 return "xmark.bin"
             case .logout:
                 return "door.right.hand.open"
+            case .login:
+                return "rectangle.portrait.and.arrow.right"
             }
         }
         var title: String {
@@ -76,14 +85,16 @@ extension GGLPersonalViewModel {
                 return "Clear image cache"
             case .logout:
                 return "Log out"
+            case .login:
+                return "Log in"
             }
         }
-        var foregroundColor: Color {
+        var foregroundColor: UIColor {
             switch self {
             case .logout:
-                Color.red
+                return .red
             default:
-                Color(.label)
+                return .label
             }
         }
 
@@ -103,6 +114,8 @@ extension GGLPersonalViewModel {
                 UIAlertController.popupConfirmAlert(title: "Confirm to log out?") {
                     GGLUser.logout()
                 }
+            case .login:
+                AppRouter.shared.present(GGLLoginViewController())
             }
         }
     }

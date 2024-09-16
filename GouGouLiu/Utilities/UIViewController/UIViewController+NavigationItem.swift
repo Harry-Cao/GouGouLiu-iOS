@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 extension UIViewController {
     func barButtonItems(items: [GGLNavigationItem]) -> [UIBarButtonItem] {
@@ -16,7 +17,7 @@ extension UIViewController {
         switch navigationItem {
         case .avatar(let url, let action):
             let button = UIButton()
-            button.sd_setImage(with: URL(string: url), for: .normal)
+            button.sd_setImage(with: URL(string: url), for: .normal, placeholderImage: UIImage(resource: .defaultAvatar))
             button.imageView?.contentMode = .scaleAspectFill
             button.layer.masksToBounds = true
             button.layer.cornerRadius = 12
