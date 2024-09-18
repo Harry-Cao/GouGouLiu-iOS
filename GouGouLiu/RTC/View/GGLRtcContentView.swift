@@ -27,7 +27,7 @@ struct GGLRtcContentView: View {
                     HStack {
                         Spacer()
                         UIViewBridge(view: viewModel.localView)
-                            .frame(width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.height/3)
+                            .frame(width: mainWindow.bounds.width/3, height: mainWindow.bounds.height/3)
                     }
                     Spacer()
                 }

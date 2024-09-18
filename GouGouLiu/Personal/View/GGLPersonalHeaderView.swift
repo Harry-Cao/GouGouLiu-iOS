@@ -16,6 +16,7 @@ protocol GGLPersonalHeaderViewDelegate: AnyObject {
 final class GGLPersonalHeaderView: UIView {
     weak var delegate: GGLPersonalHeaderViewDelegate?
     static let normalHeight: CGFloat = 400.0
+    private let avatarSize = CGSize(width: 84, height: 84)
     private let coverImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
@@ -24,9 +25,11 @@ final class GGLPersonalHeaderView: UIView {
         return view
     }()
     private let container = UIView()
-    private let gradientLayer: CAGradientLayer = {
+    private lazy var gradientLayer: CAGradientLayer = {
+        let gradientLayerOffset: CGFloat = 100
         let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = CGRect(origin: CGPoint(x: 0, y: -100), size: CGSize(width: UIScreen.main.bounds.width, height: 142))
+        gradientLayer.frame = CGRect(origin: CGPoint(x: .zero, y: -gradientLayerOffset),
+                                     size: CGSize(width: mainWindow.bounds.width, height: gradientLayerOffset + avatarSize.height/2))
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
         return gradientLayer
@@ -84,7 +87,7 @@ final class GGLPersonalHeaderView: UIView {
         }
         avatarButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
-            make.size.equalTo(84)
+            make.size.equalTo(avatarSize)
             make.centerY.equalTo(whitePanel.snp.top)
         }
         nameLabel.snp.makeConstraints { make in
