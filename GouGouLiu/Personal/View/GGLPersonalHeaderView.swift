@@ -31,7 +31,7 @@ final class GGLPersonalHeaderView: UIView {
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
         return gradientLayer
     }()
-    private let whitePannel: UIView = {
+    private let whitePanel: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBackground
         return view
@@ -69,7 +69,7 @@ final class GGLPersonalHeaderView: UIView {
 
     private func setupUI() {
         [coverImageView, container].forEach(addSubview)
-        [whitePannel, avatarButton, nameLabel, userIdLabel].forEach(container.addSubview)
+        [whitePanel, avatarButton, nameLabel, userIdLabel].forEach(container.addSubview)
         coverImageView.snp.makeConstraints { make in
             make.leading.top.trailing.equalToSuperview()
         }
@@ -77,7 +77,7 @@ final class GGLPersonalHeaderView: UIView {
             make.leading.bottom.trailing.equalToSuperview()
             make.top.equalTo(avatarButton)
         }
-        whitePannel.snp.makeConstraints { make in
+        whitePanel.snp.makeConstraints { make in
             make.leading.bottom.trailing.equalToSuperview()
             make.top.equalTo(coverImageView.snp.bottom)
             make.height.equalTo(64)
@@ -85,7 +85,7 @@ final class GGLPersonalHeaderView: UIView {
         avatarButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.size.equalTo(84)
-            make.centerY.equalTo(whitePannel.snp.top)
+            make.centerY.equalTo(whitePanel.snp.top)
         }
         nameLabel.snp.makeConstraints { make in
             make.leading.equalTo(avatarButton.snp.trailing).offset(8)
