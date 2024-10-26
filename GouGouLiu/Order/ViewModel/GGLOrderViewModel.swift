@@ -16,16 +16,6 @@ final class GGLOrderViewModel {
         sectionInset.left + sectionInset.right
     }
 
-    func mockData() {
-        let dog = GGLPetModel(.dog)
-        dog.name = "Cotton"
-        dog.avatarUrl = "http://f3.ttkt.cc:12873/GGLServer/media/global/customer_service.jpeg"
-        let mockModel = GGLOrderModel(type: .walkingDog, isRealTime: false, pets: [dog], requirements: "Please walk my dog at least two hours.")
-        for _ in 0...100 {
-            dataSource.append(mockModel)
-        }
-    }
-
     var itemWidth: CGFloat {
         let screenWidth = mainWindow.bounds.width - mainWindow.safeAreaInsets.left - mainWindow.safeAreaInsets.right
         let itemCount = CGFloat(itemCount(screenWidth: screenWidth))

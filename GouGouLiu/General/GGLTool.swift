@@ -23,7 +23,7 @@ struct GGLTool {
         return nil
     }
 
-    static func modelToJsonString<T: Encodable>(_ model: T) -> String? {
+    static func modelToJsonString(_ model: Encodable) -> String? {
         do {
             let jsonData = try JSONEncoder().encode(model)
             if let jsonString = String(data: jsonData, encoding: .utf8) {
@@ -33,6 +33,18 @@ struct GGLTool {
             }
         } catch {
             print("Error encoding JSON: \(error.localizedDescription)")
+        }
+        return nil
+    }
+
+    static func modelToDictionary(_ model: Encodable) -> [String: Any]? {
+        do {
+            let jsonData = try JSONEncoder().encode(model)
+            if let dictionary = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? [String: Any] {
+                return dictionary
+            }
+        } catch {
+            print("Error converting model to dictionary")
         }
         return nil
     }

@@ -11,13 +11,13 @@ extension UIAlertController {
 
     static func popupAccountInfoInputAlert(title: String? = nil, message: String? = nil, completion: @escaping (_ username: String?, _ password: String?, _ isSuper: Bool?)->Void) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "确定", style: .default) { _ in
+        let confirmAction = UIAlertAction(title: "Confirm", style: .default) { _ in
             let username = alertController.textFields?.first?.text
             let password = alertController.textFields?[1].text
             let isSuper = alertController.textFields?[2].text == "t"
             completion(username, password, isSuper)
         }
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)
         alertController.addTextField { textField in
@@ -44,10 +44,10 @@ extension UIAlertController {
 
     static func popupConfirmAlert(title: String? = nil, completion: (()->Void)? = nil) {
         let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "确定", style: .default) { _ in
+        let confirmAction = UIAlertAction(title: "Confirm", style: .default) { _ in
             completion?()
         }
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         [confirmAction, cancelAction].forEach(alertController.addAction)
         AppRouter.shared.present(alertController)
     }
