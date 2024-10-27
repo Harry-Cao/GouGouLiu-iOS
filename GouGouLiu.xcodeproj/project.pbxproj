@@ -39,7 +39,6 @@
 		3E669E162CC4FE4100E1E67E /* GGLPetAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E669E152CC4FE4100E1E67E /* GGLPetAPI.swift */; };
 		3E669E192CC56CB500E1E67E /* GGLPetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E669E182CC56CB500E1E67E /* GGLPetRequest.swift */; };
 		3E669E1B2CC56FB000E1E67E /* GGLPetNetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E669E1A2CC56FB000E1E67E /* GGLPetNetworkHelper.swift */; };
-		3E669E1F2CC57FBC00E1E67E /* GGLPetNetworkHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E669E1E2CC57FBC00E1E67E /* GGLPetNetworkHelperTests.swift */; };
 		3E68613D2B8CDBC500B07FDA /* GGLChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68613C2B8CDBC500B07FDA /* GGLChatModel.swift */; };
 		3E68613F2B8CDD8000B07FDA /* GGLChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68613E2B8CDD8000B07FDA /* GGLChatCell.swift */; };
 		3E6861412B8CE50500B07FDA /* GGLChatMessageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6861402B8CE50500B07FDA /* GGLChatMessageAdapter.swift */; };
@@ -201,7 +200,6 @@
 		3E669E152CC4FE4100E1E67E /* GGLPetAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPetAPI.swift; sourceTree = "<group>"; };
 		3E669E182CC56CB500E1E67E /* GGLPetRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPetRequest.swift; sourceTree = "<group>"; };
 		3E669E1A2CC56FB000E1E67E /* GGLPetNetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPetNetworkHelper.swift; sourceTree = "<group>"; };
-		3E669E1E2CC57FBC00E1E67E /* GGLPetNetworkHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPetNetworkHelperTests.swift; sourceTree = "<group>"; };
 		3E68613C2B8CDBC500B07FDA /* GGLChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatModel.swift; sourceTree = "<group>"; };
 		3E68613E2B8CDD8000B07FDA /* GGLChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatCell.swift; sourceTree = "<group>"; };
 		3E6861402B8CE50500B07FDA /* GGLChatMessageAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLChatMessageAdapter.swift; sourceTree = "<group>"; };
@@ -480,14 +478,6 @@
 				3E669E1A2CC56FB000E1E67E /* GGLPetNetworkHelper.swift */,
 			);
 			path = Helper;
-			sourceTree = "<group>";
-		};
-		3E669E1D2CC57F9B00E1E67E /* Pet */ = {
-			isa = PBXGroup;
-			children = (
-				3E669E1E2CC57FBC00E1E67E /* GGLPetNetworkHelperTests.swift */,
-			);
-			path = Pet;
 			sourceTree = "<group>";
 		};
 		3E6861422B8CE50900B07FDA /* Adapter */ = {
@@ -1060,7 +1050,6 @@
 		3EFE52402B179C8800AF3D0E /* GouGouLiuTests */ = {
 			isa = PBXGroup;
 			children = (
-				3E669E1D2CC57F9B00E1E67E /* Pet */,
 				7B87D5532C7F146C00787D5C /* DataBase */,
 				7B87D5522C7F036D00787D5C /* Order */,
 			);
@@ -1439,7 +1428,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B87D5512C7F036800787D5C /* GGLOrderViewModelTests.swift in Sources */,
-				3E669E1F2CC57FBC00E1E67E /* GGLPetNetworkHelperTests.swift in Sources */,
 				3E6AA87C2BF76A1400CCE4B3 /* GGLDataBaseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
