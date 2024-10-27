@@ -78,6 +78,7 @@ extension GGLUploadPhotoManager {
         case avatar
         case post
         case chat
+        case petPhoto
     }
 
 }

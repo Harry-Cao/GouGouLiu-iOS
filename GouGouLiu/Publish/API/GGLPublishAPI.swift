@@ -19,9 +19,9 @@ enum GGLPublishAPI: TargetType {
     var path: String {
         switch self {
         case .publishPost:
-            return GGLAPI.Path.publishPost
+            return "/api/post/publish"
         case .clearAll:
-            return GGLAPI.Path.postClearAll
+            return "/api/post/clearAll"
         }
     }
 

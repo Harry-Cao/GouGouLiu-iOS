@@ -26,7 +26,7 @@ final class GGLMyPetsViewController: GGLBaseHostingController<MyPetsContentView>
     }
 
     @objc private func onClickAddPet() {
-        AppRouter.shared.push(GGLAddPetViewController())
+        AppRouter.shared.push(GGLEditPetViewController())
     }
 }
 
@@ -36,13 +36,13 @@ struct MyPetsContentView: View {
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 0, content: {
-                ForEach(viewModel.myPets, id: \.id) { pet in
+                ForEach(viewModel.myPets, id: \.petId) { pet in
                     GGLPetCard(pet: pet)
                 }
             })
         }
         .onAppear(perform: {
-            viewModel.requestData()
+            viewModel.requestMyPets()
         })
     }
 }

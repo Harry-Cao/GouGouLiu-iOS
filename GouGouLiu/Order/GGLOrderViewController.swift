@@ -32,7 +32,6 @@ final class GGLOrderViewController: GGLBaseViewController {
         navigationItem.title = .Order
         setupUI()
         bindData()
-        viewModel.mockData()
     }
 
     override func viewDidLayoutSubviews() {

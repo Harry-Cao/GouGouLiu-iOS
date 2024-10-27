@@ -16,7 +16,7 @@ struct GGLChatRoomAPI: TargetType {
     }
     
     var path: String {
-        GGLAPI.Path.getChannelId
+        "/api/chat/getChannelId"
     }
     
     var method: Moya.Method {

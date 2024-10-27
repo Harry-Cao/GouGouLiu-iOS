@@ -13,19 +13,19 @@ struct GGLPetCard: View {
 
     var body: some View {
         Button(action: {
-            
+            AppRouter.shared.push(GGLEditPetViewController(pet: pet))
         }, label: {
             VStack {
                 HStack(alignment: .top, spacing: 12, content: {
                     WebImage(url: URL(string: pet.avatarUrl ?? ""))
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 48, height: 48, alignment: .center)
+                        .frame(width: 56, height: 56, alignment: .center)
                         .clipShape(.circle)
                     HStack {
                         VStack(alignment: .leading, spacing: 4, content: {
                             Text(pet.name ?? "")
-                            Text(pet.breed ?? "")
+                            Text(pet.breeds?.compactMap({ $0.breedName }).joined(separator: ", ") ?? "")
                                 .font(.subheadline)
                                 .foregroundStyle(Color(.secondaryLabel))
                             Text(detailInfo)
@@ -39,10 +39,10 @@ struct GGLPetCard: View {
             .padding()
         })
         .foregroundStyle(Color(.label))
-        .background(Color(.secondarySystemBackground))
         .background {
             RoundedRectangle(cornerRadius: 12, style: .circular)
                 .shadow(color: .black.opacity(0.2), radius: 10)
+                .foregroundStyle(Color(.secondarySystemBackground))
         }
         .padding([.leading, .top, .trailing], 20)
     }
@@ -52,7 +52,7 @@ struct GGLPetCard: View {
     }
 
     private var petAge: String {
-        return "\(pet.month ?? 0) months old"
+        return "\(pet.age ?? 0) months old"
     }
 
     private var detailInfo: String {

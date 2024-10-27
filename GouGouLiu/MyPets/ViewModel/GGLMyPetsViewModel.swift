@@ -9,14 +9,13 @@ import SwiftUI
 
 final class GGLMyPetsViewModel: ObservableObject {
     @Published private(set) var myPets = [GGLPetModel]()
+    private let networkHelper = GGLPetNetworkHelper()
 
-    func requestData() {
-        let dog = GGLPetModel(.dog,
-                              breed: "Samoyed",
-                              avatarUrl: "http://f3.ttkt.cc:12873/GGLServer/media/global/customer_service.jpeg",
-                              name: "Cotton",
-                              month: 12,
-                              weight: 22.5)
-        myPets = [dog]
+    func requestMyPets() {
+        guard let userId = GGLUser.getUserId() else { return }
+        networkHelper.getPetOfUser(userId: userId) { [weak self] response in
+            guard let self else { return }
+            myPets = response.data ?? []
+        }
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 import Moya
 
 enum GGLPhotoAPI: TargetType {
-    case upload(imageData: Data?, imageType: UInt?, contactId: String?)
+    case upload(imageData: Data, imageType: UInt, contactId: String)
     case clearAll(userId: String)
 
     var baseURL: URL {
@@ -19,9 +19,9 @@ enum GGLPhotoAPI: TargetType {
     var path: String {
         switch self {
         case .upload:
-            return GGLAPI.Path.uploadPhoto
+            return "/api/photo/upload"
         case .clearAll:
-            return GGLAPI.Path.clearAllPhoto
+            return "/api/photo/clearAll"
         }
     }
 
@@ -37,17 +37,9 @@ enum GGLPhotoAPI: TargetType {
         switch self {
         case .upload(let imageData, let imageType, let contactId):
             var data = [MultipartFormData]()
-            if let imageData = imageData {
-                data.append(MultipartFormData(provider: .data(imageData), name: "imageData", fileName: "GGL_Img.jpeg", mimeType: "image/jpeg"))
-            }
-            if let imageType = imageType {
-                let valueData = String(imageType).multipartFormData(name: "imageType")
-                data.append(valueData)
-            }
-            if let contactId = contactId {
-                let valueData = contactId.multipartFormData(name: "contactId")
-                data.append(valueData)
-            }
+            data.append(MultipartFormData(provider: .data(imageData), name: "imageData", fileName: "\(contactId)-\(UUID()).jpeg", mimeType: "image/jpeg"))
+            data.append(contactId.multipartFormData(name: "contactId"))
+            data.append(String(imageType).multipartFormData(name: "imageType"))
             return .uploadMultipart(data)
         case .clearAll(let userId):
             let para: [String: Any] = ["userId": userId]

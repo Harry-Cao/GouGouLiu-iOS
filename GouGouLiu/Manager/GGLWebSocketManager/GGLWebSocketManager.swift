@@ -37,7 +37,7 @@ final class GGLWebSocketManager {
 
     func connect(userId: String) {
         guard let base64AuthCredentials = userId.data(using: .utf8)?.base64EncodedString(),
-              let url = URL(string: "\(GGLAPI.host)\(GGLAPI.WS.chatGlobal)?\(base64AuthCredentials)") else { return }
+              let url = URL(string: "\(GGLAPI.host)/ws/chat/global/?\(base64AuthCredentials)") else { return }
         var request = URLRequest(url: url)
         request.timeoutInterval = 5
         socket = WebSocket(request: request)
