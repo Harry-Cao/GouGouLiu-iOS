@@ -53,8 +53,8 @@ final class GGLUserNetworkHelper {
             .store(in: &cancellables)
     }
 
-    func requestAllUsers(userId: String, completion: @escaping (GGLMoyaModel<[GGLUserModel]>) -> Void) {
-        provider.requestPublisher(.allUsers(userId: userId))
+    func requestAllUsers(completion: @escaping (GGLMoyaModel<[GGLUserModel]>) -> Void) {
+        provider.requestPublisher(.allUsers)
             .map(GGLMoyaModel<[GGLUserModel]>.self)
             .receive(on: DispatchQueue.main)
             .sinkWithDefaultErrorHandle(receiveValue: { completion($0) })

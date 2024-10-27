@@ -16,8 +16,7 @@ final class GGLUserListViewModel: ObservableObject {
     }
 
     private func requestAllUsers() {
-        guard let userId = GGLUser.getUserId() else { return }
-        networkHelper.requestAllUsers(userId: userId) { [weak self] model in
+        networkHelper.requestAllUsers() { [weak self] model in
             if model.code == .success,
                let users = model.data {
                 self?.userModels = users

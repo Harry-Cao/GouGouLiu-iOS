@@ -14,7 +14,7 @@ enum GGLUserAPI: TargetType {
     case login_id(userId: String)
     case logout(userId: String)
     case clearAll(userId: String)
-    case allUsers(userId: String)
+    case allUsers
     case getUser(userId: String)
 
     var baseURL: URL {
@@ -45,10 +45,10 @@ enum GGLUserAPI: TargetType {
                 .login_n_pw,
                 .login_id,
                 .logout,
-                .clearAll,
-                .allUsers:
+                .clearAll:
             return .post
-        case .getUser:
+        case .allUsers,
+                .getUser:
             return .get
         }
     }
@@ -70,10 +70,8 @@ enum GGLUserAPI: TargetType {
         case .clearAll(let userId):
             let para: [String: Any] = ["userId": userId]
             return .requestParameters(parameters: para, encoding: JSONEncoding.default)
-        case .allUsers(let userId):
-            let para: [String: Any] = ["userId": userId]
-            return .requestParameters(parameters: para, encoding: JSONEncoding.default)
-        case .getUser:
+        case .allUsers,
+                .getUser:
             return .requestPlain
         }
     }
