@@ -35,7 +35,7 @@ struct UpdatePetPhotoView: View {
                     .resizable()
                     .scaledToFill()
             } else {
-                Color(.systemBackground)
+                Color(.secondarySystemBackground)
             }
         }
         .clipped()

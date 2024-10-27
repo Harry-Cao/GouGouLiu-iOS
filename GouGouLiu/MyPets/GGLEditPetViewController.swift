@@ -72,7 +72,7 @@ struct EditPetContentView: View {
             }
             .padding()
         }
-        .background(Color(.secondarySystemBackground))
+        .background(Color(.systemBackground))
     }
 
     struct PetDetailsContainer<Content: View>: View {
@@ -103,7 +103,7 @@ struct EditPetContentView: View {
                 .padding()
                 .background {
                     RoundedRectangle(cornerRadius: 12, style: .circular)
-                        .foregroundStyle(Color(.systemBackground))
+                        .foregroundStyle(Color(.secondarySystemBackground))
                 }
             }
             .padding()
