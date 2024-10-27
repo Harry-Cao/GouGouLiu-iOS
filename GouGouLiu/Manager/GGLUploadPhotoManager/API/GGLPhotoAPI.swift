@@ -19,9 +19,9 @@ enum GGLPhotoAPI: TargetType {
     var path: String {
         switch self {
         case .upload:
-            return GGLAPI.Path.uploadPhoto
+            return "/api/photo/upload"
         case .clearAll:
-            return GGLAPI.Path.clearAllPhoto
+            return "/api/photo/clearAll"
         }
     }
 

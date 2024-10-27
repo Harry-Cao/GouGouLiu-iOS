@@ -15,7 +15,7 @@ struct GGLHomePostAPI: TargetType {
     }
 
     var path: String {
-        GGLAPI.Path.homePagePost
+        "/api/home/post"
     }
 
     var method: Moya.Method {

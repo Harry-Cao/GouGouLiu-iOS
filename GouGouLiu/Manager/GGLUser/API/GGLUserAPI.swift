@@ -24,18 +24,18 @@ enum GGLUserAPI: TargetType {
     var path: String {
         switch self {
         case .signUp:
-            return GGLAPI.Path.userSignup
+            return "/api/user/signup"
         case .login_n_pw,
                 .login_id:
-            return GGLAPI.Path.userLogin
+            return "/api/user/login"
         case .logout:
-            return GGLAPI.Path.userLogout
+            return "/api/user/logout"
         case .clearAll:
-            return GGLAPI.Path.userClearAll
+            return "/api/user/clearAll"
         case .allUsers:
-            return GGLAPI.Path.allUsers
-        case .getUser:
-            return GGLAPI.Path.getUser
+            return "/api/user/allUsers"
+        case .getUser(let userId):
+            return "/api/user/\(userId)"
         }
     }
 
@@ -73,9 +73,8 @@ enum GGLUserAPI: TargetType {
         case .allUsers(let userId):
             let para: [String: Any] = ["userId": userId]
             return .requestParameters(parameters: para, encoding: JSONEncoding.default)
-        case .getUser(let userId):
-            let para: [String: Any] = ["userId": userId]
-            return .requestParameters(parameters: para, encoding: URLEncoding.default)
+        case .getUser:
+            return .requestPlain
         }
     }
 
