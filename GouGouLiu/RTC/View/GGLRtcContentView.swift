@@ -125,7 +125,7 @@ extension GGLRtcContentView {
                     .frame(width: geometry.size.width, height: geometry.size.height)
             })
             .ignoresSafeArea()
-            WebImage(url: URL(string: user?.avatarUrl ?? ""))
+            WebImage(url: URL(string: user?.avatar?.originalUrl ?? ""))
                 .resizable()
                 .scaledToFill()
                 .frame(width: 120, height: 120, alignment: .center)

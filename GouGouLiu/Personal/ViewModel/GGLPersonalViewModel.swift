@@ -35,7 +35,7 @@ final class GGLPersonalViewModel: ObservableObject {
                 if let self,
                    model.code == .success,
                    let newValue = current?.copy() as? GGLUserModel {
-                    newValue.avatarUrl = model.data?.previewUrl
+                    newValue.avatar = model.data
                     GGLDataBase.shared.saveOrUpdateUser(newValue)
                     current = newValue
                 }

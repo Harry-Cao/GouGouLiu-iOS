@@ -13,7 +13,7 @@ struct GGLUserListCell: View {
 
     var body: some View {
         HStack(alignment: .center, spacing: 12, content: {
-            WebImage(url: URL(string: userModel.avatarUrl ?? ""))
+            WebImage(url: URL(string: userModel.avatar?.previewUrl ?? ""))
                 .resizable()
                 .scaledToFill()
                 .frame(width: 48, height: 48, alignment: .center)

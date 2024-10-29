@@ -5,12 +5,17 @@
 //  Created by Harry Cao on 7/18/23.
 //
 
-import Foundation
+import RealmSwift
 
-struct GGLPhotoModel: Codable {
+final class GGLPhotoModel: Object, Codable {
     let id: UInt?
-    let originalUrl: String?
-    let previewUrl: String?
-    let type: UInt?
-    let contactId: String?
+    @Persisted var originalUrl: String?
+    @Persisted var previewUrl: String?
+
+    static func create(url: String?) -> GGLPhotoModel {
+        let model = GGLPhotoModel()
+        model.originalUrl = url
+        model.previewUrl = url
+        return model
+    }
 }

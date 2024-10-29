@@ -22,7 +22,7 @@ struct GGLChatCell: View {
             ForEach(components, id: \.self) { type in
                 switch type {
                 case .avatar:
-                    WebImage(url: URL(string: GGLUser.getUser(userId: model.userId).avatarUrl ?? ""))
+                    WebImage(url: URL(string: GGLUser.getUser(userId: model.userId).avatar?.previewUrl ?? ""))
                         .resizable()
                         .scaledToFill()
                         .frame(width: 48, height: 48, alignment: .center)

@@ -11,13 +11,13 @@ import RealmSwift
 final class GGLUserModel: Object, Codable {
     @Persisted(primaryKey: true) var userId: String?
     @Persisted var userName: String?
-    @Persisted var avatarUrl: String?
+    @Persisted var avatar: GGLPhotoModel?
 
     static func create(userId: String, userName: String? = nil, avatarUrl: String? = nil) -> GGLUserModel {
         let model = GGLUserModel()
         model.userId = userId
         model.userName = userName
-        model.avatarUrl = avatarUrl
+        model.avatar = GGLPhotoModel.create(url: avatarUrl)
         return model
     }
 }
@@ -27,7 +27,7 @@ extension GGLUserModel: NSCopying {
         let copy = GGLUserModel()
         copy.userId = userId
         copy.userName = userName
-        copy.avatarUrl = avatarUrl
+        copy.avatar = avatar
         return copy
     }
 }

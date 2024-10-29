@@ -111,8 +111,8 @@ final class GGLPersonalHeaderView: UIView {
     }
 
     func setup(user: GGLUserModel?) {
-        coverImageView.sd_setImage(with: URL(string: user?.avatarUrl ?? ""))
-        avatarButton.sd_setImage(with: URL(string: user?.avatarUrl ?? ""), for: .normal, placeholderImage: UIImage(resource: .defaultAvatar))
+        coverImageView.sd_setImage(with: URL(string: user?.avatar?.originalUrl ?? ""))
+        avatarButton.sd_setImage(with: URL(string: user?.avatar?.previewUrl ?? ""), for: .normal, placeholderImage: UIImage(resource: .defaultAvatar))
         nameLabel.text = user?.userName
         userIdLabel.text = user?.userId
     }

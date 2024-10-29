@@ -12,7 +12,7 @@ extension GGLDataBase {
         if let user = realm.object(ofType: GGLUserModel.self, forPrimaryKey: newValue.userId) {
             write {
                 user.userName = newValue.userName
-                user.avatarUrl = newValue.avatarUrl
+                user.avatar = newValue.avatar
             }
         } else {
             addUser(newValue)

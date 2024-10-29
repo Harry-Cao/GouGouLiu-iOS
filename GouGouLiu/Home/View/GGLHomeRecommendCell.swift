@@ -94,7 +94,7 @@ final class GGLHomeRecommendCell: UICollectionViewCell {
         } else {
             titleLabel.isHidden = true
         }
-        let avatarUrl = URL(string: model.user?.avatarUrl ?? "")
+        let avatarUrl = URL(string: model.user?.avatar?.previewUrl ?? "")
         avatarImageView.sd_setImage(with: avatarUrl, placeholderImage: UIImage(resource: .defaultAvatar))
         nameLabel.text = model.user?.userName
     }

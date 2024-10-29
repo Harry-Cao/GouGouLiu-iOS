@@ -14,7 +14,7 @@ struct GGLMessageCell: View {
     var body: some View {
         HStack(alignment: .center, spacing: 12, content: {
             ZStack {
-                WebImage(url: URL(string: GGLUser.getUser(userId: messageModel.userId).avatarUrl ?? ""))
+                WebImage(url: URL(string: GGLUser.getUser(userId: messageModel.userId).avatar?.previewUrl ?? ""))
                     .resizable()
                     .scaledToFill()
                     .frame(width: 48, height: 48, alignment: .center)
