@@ -23,7 +23,7 @@ struct PersonalDetailContentView: View {
 
     var body: some View {
         VStack {
-            WebImage(url: URL(string: user.avatar?.originalUrl ?? ""))
+            WebImage(url: URL(string: user.avatar?.previewUrl ?? ""))
                 .resizable()
                 .scaledToFill()
                 .frame(width: 120, height: 120, alignment: .center)
