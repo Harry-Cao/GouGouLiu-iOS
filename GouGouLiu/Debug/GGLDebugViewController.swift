@@ -7,8 +7,10 @@
 
 import UIKit
 import SwiftUI
+import Combine
 
 final class GGLDebugViewController: GGLBaseHostingController<DebugContentView> {
+    private var cancellables = Set<AnyCancellable>()
 
     init() {
         super.init(rootView: DebugContentView())
@@ -21,12 +23,14 @@ final class GGLDebugViewController: GGLBaseHostingController<DebugContentView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = .Debug
+        GGLUser.userStatusSubject.sink { [weak self] status in
+            self?.rootView = DebugContentView()
+        }.store(in: &cancellables)
     }
-
 }
 
 struct DebugContentView: View {
-    let menuRows = DebugRow.allCases
+    let menuRows = (GGLUser.current?.is_superuser ?? false) ? DebugRow.allCases : DebugRow.allCases.filter({ !$0.needSuperuserAccess })
 
     var body: some View {
         List(menuRows) { row in
@@ -96,6 +100,23 @@ extension DebugContentView {
                 return ""
             }
         }
+        var needSuperuserAccess: Bool {
+            switch self {
+            case .switchHost,
+                    .signup,
+                    .login,
+                    .logout,
+                    .signout,
+                    .uploadAvatar,
+                    .allUserList,
+                    .clearImageCache:
+                return false
+            case .clearAllUser,
+                    .clearAllPost,
+                    .clearAllPhoto:
+                return true
+            }
+        }
 
         func action() {
             switch self {
@@ -143,7 +164,7 @@ extension DebugContentView {
                 AppRouter.shared.push(GGLUserListViewController())
             case .switchHost:
                 UserDefaults.host = GGLTool.toggleEnumCase(UserDefaults.host)
-                ProgressHUD.showSucceed("Host updated: \(UserDefaults.host.rawValue), change wouldn't work until next launch.")
+                ProgressHUD.showSucceed("Host switch to: \(UserDefaults.host.rawValue)")
             }
         }
     }

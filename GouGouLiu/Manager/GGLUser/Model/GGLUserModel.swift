@@ -12,6 +12,7 @@ final class GGLUserModel: Object, Codable {
     @Persisted(primaryKey: true) var userId: String?
     @Persisted var userName: String?
     @Persisted var avatar: GGLPhotoModel?
+    @Persisted var is_superuser: Bool = false
 
     static func create(userId: String, userName: String? = nil, avatarUrl: String? = nil) -> GGLUserModel {
         let model = GGLUserModel()
