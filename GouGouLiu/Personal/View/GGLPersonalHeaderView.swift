@@ -26,7 +26,7 @@ final class GGLPersonalHeaderView: UIView {
     }()
     private let container = UIView()
     private lazy var gradientLayer: CAGradientLayer = {
-        let gradientLayerOffset: CGFloat = 100
+        let gradientLayerOffset: CGFloat = 150
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = CGRect(origin: CGPoint(x: .zero, y: -gradientLayerOffset),
                                      size: CGSize(width: mainWindow.bounds.width, height: gradientLayerOffset + avatarSize.height/2))

@@ -61,20 +61,20 @@ struct LoginContentView: View {
                     .foregroundStyle(.white)
                     .padding()
                     .frame(width: 200, height: 50)
-                    .background(Color.blue)
+                    .background(Color(loginDisabled ? .lightGray : .blue))
                     .cornerRadius(10.0)
             }
             .disabled(loginDisabled)
             .padding(.bottom, 20)
 
             Button(action: {
-                GGLUser.signup(username: self.username, password: self.password, isSuper: false)
+                GGLUser.signup(username: self.username, password: self.password)
             }) {
                 Text("Sign Up")
                     .foregroundStyle(.white)
                     .padding()
                     .frame(width: 200, height: 50)
-                    .background(Color.blue)
+                    .background(Color(loginDisabled ? .lightGray : .blue))
                     .cornerRadius(10.0)
             }
             .disabled(loginDisabled)
