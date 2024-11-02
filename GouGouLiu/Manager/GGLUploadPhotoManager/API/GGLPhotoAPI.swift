@@ -19,17 +19,18 @@ enum GGLPhotoAPI: TargetType {
     var path: String {
         switch self {
         case .upload:
-            return "/api/photo/upload"
+            return "/api/photo/upload/"
         case .clearAll:
-            return "/api/photo/clearAll"
+            return "/api/photo/clearAll/"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .upload,
-                .clearAll:
+        case .upload:
             return .post
+        case .clearAll:
+            return .delete
         }
     }
 

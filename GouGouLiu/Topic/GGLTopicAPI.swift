@@ -17,7 +17,7 @@ struct GGLTopicAPI: TargetType {
     }
 
     var path: String {
-        "/api/post/search"
+        "/api/post/\(postId)"
     }
 
     var method: Moya.Method {
@@ -25,9 +25,7 @@ struct GGLTopicAPI: TargetType {
     }
 
     var task: Moya.Task {
-        var para: [String: Any] = [:]
-        para["postId"] = postId
-        return .requestParameters(parameters: para, encoding: URLEncoding.default)
+        return .requestPlain
     }
 
     var headers: [String : String]? {
