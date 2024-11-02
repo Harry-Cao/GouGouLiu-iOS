@@ -85,18 +85,18 @@ final class GGLHomeRecommendCell: UICollectionViewCell {
         }
     }
 
-    func setup(model: GGLHomePostModel) {
-        let coverUrl = URL(string: model.post?.coverImageUrl ?? "")
+    func setup(model: GGLPostModel) {
+        let coverUrl = URL(string: model.coverImageUrl ?? "")
         imageView.sd_setImage(with: coverUrl)
-        if let postTitle = model.post?.title, !postTitle.isEmpty {
+        if let postTitle = model.title, !postTitle.isEmpty {
             titleLabel.isHidden = false
             titleLabel.text = postTitle
         } else {
             titleLabel.isHidden = true
         }
-        let avatarUrl = URL(string: model.user?.avatar?.previewUrl ?? "")
+        let avatarUrl = URL(string: model.owner?.avatar?.previewUrl ?? "")
         avatarImageView.sd_setImage(with: avatarUrl, placeholderImage: UIImage(resource: .defaultAvatar))
-        nameLabel.text = model.user?.userName
+        nameLabel.text = model.owner?.userName
     }
 
 }

@@ -9,9 +9,8 @@ import Foundation
 
 struct GGLPostModel: Codable {
     let postId: String?
-    let userId: String?
+    let owner: GGLUserModel?
     let coverImageUrl: String?
-    let photoIds: [UInt]?
     let photos: [GGLPhotoModel]?
     let title: String?
     let content: String?

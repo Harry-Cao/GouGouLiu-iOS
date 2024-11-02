@@ -61,7 +61,7 @@ struct LoginContentView: View {
                     .foregroundStyle(.white)
                     .padding()
                     .frame(width: 200, height: 50)
-                    .background(Color(loginDisabled ? .lightGray : .blue))
+                    .background(Color(loginDisabled ? .lightGray : .theme_color))
                     .cornerRadius(10.0)
             }
             .disabled(loginDisabled)
@@ -74,7 +74,7 @@ struct LoginContentView: View {
                     .foregroundStyle(.white)
                     .padding()
                     .frame(width: 200, height: 50)
-                    .background(Color(loginDisabled ? .lightGray : .blue))
+                    .background(Color(loginDisabled ? .lightGray : .theme_color))
                     .cornerRadius(10.0)
             }
             .disabled(loginDisabled)

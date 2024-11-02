@@ -18,7 +18,7 @@ final class GGLTopicViewController: GGLBaseViewController {
     private let topicTableView = GGLBaseTableView()
     private var cancellables = Set<AnyCancellable>()
 
-    init(postModel: GGLHomePostModel, coverImage: UIImage?, photoBrowserCellHeroID: String?) {
+    init(postModel: GGLPostModel, coverImage: UIImage?, photoBrowserCellHeroID: String?) {
         self.photoBrowserCellHeroID = photoBrowserCellHeroID
         self.viewModel = GGLTopicViewModel(postModel: postModel, coverImage: coverImage)
         super.init(nibName: nil, bundle: nil)
@@ -39,7 +39,7 @@ final class GGLTopicViewController: GGLBaseViewController {
 
     private func setupNavigationItem() {
         navigationItem.leftBarButtonItem = barButtonItem(navigationItem: .image(UIImage(resource: .navigationBarBack), #selector(didTapBackButton)))
-        navigationItem.rightBarButtonItems = barButtonItems(items: [.avatar(viewModel.postModel.user?.avatar?.previewUrl ?? "", #selector(didTapUser)), .text(viewModel.postModel.user?.userName ?? "", #selector(didTapUser))])
+        navigationItem.rightBarButtonItems = barButtonItems(items: [.avatar(viewModel.postModel.owner?.avatar?.previewUrl ?? "", #selector(didTapUser)), .text(viewModel.postModel.owner?.userName ?? "", #selector(didTapUser))])
     }
 
     private func setupUI() {
@@ -59,7 +59,7 @@ final class GGLTopicViewController: GGLBaseViewController {
             cell.setup(imageModels: viewModel.imageModels, failToGestures: [transitionHelper.dismissGesture], height: viewModel.browserCellHeight)
         }
         adapter.contentCellConfigurator = { [weak self] cell in
-            cell.setup(title: self?.viewModel.postModel.post?.title, content: self?.viewModel.postModel.post?.content)
+            cell.setup(title: self?.viewModel.postModel.title, content: self?.viewModel.postModel.content)
         }
     }
 
@@ -88,7 +88,7 @@ final class GGLTopicViewController: GGLBaseViewController {
     }
 
     @objc private func didTapUser() {
-        guard let user = viewModel.postModel.user else { return }
+        guard let user = viewModel.postModel.owner else { return }
         let viewController = GGLPersonalDetailViewController(user: user)
         AppRouter.shared.push(viewController)
     }
@@ -98,7 +98,7 @@ final class GGLTopicViewController: GGLBaseViewController {
 // MARK: - GGLWebImageBrowserDelegate
 extension GGLTopicViewController: GGLWebImageBrowserDelegate {
     func imageBrowserView(_ imageBrowserView: GGLWebImageBrowser, didSelectItemAt index: Int) {
-        guard let urlString = viewModel.postModel.post?.photos?[index].originalUrl else { return }
+        guard let urlString = viewModel.postModel.photos?[index].originalUrl else { return }
         downloadImage(urlString: urlString)
     }
 

@@ -11,22 +11,22 @@ import Moya
 
 final class GGLTopicViewModel {
 
-    @Published private(set) var postModel: GGLHomePostModel
+    @Published private(set) var postModel: GGLPostModel
     private let coverImage: UIImage?
     private let moyaProvider = MoyaProvider<GGLTopicAPI>()
     private var cancellables = Set<AnyCancellable>()
 
-    init(postModel: GGLHomePostModel, coverImage: UIImage?) {
+    init(postModel: GGLPostModel, coverImage: UIImage?) {
         self.postModel = postModel
         self.coverImage = coverImage
     }
 
     func getPostData() {
-        guard let postId = postModel.post?.postId else { return }
+        guard let postId = postModel.postId else { return }
         requestPostData(postId: postId, completion: { [weak self] model in
             guard let data = model.data,
                   let self = self else { return }
-            postModel.post = data
+            postModel = data
         })
     }
 
@@ -39,7 +39,7 @@ final class GGLTopicViewModel {
     }
 
     var imageModels: [GGLWebImageModel] {
-        postModel.post?.photos?.map({ GGLWebImageModel(imageUrl: $0.originalUrl, previewUrl: $0.previewUrl) }) ?? [GGLWebImageModel(placeholderImage: coverImage)]
+        postModel.photos?.map({ GGLWebImageModel(imageUrl: $0.originalUrl, previewUrl: $0.previewUrl) }) ?? [GGLWebImageModel(placeholderImage: coverImage)]
     }
 
     lazy var browserCellHeight: CGFloat = {
