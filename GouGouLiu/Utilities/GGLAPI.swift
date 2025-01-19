@@ -18,7 +18,7 @@ struct GGLAPI {
 
 extension GGLAPI {
     enum Host: String, CaseIterable {
-        case internet = "http://f3.ttkt.cc:15791"
+        case internet = "http://f3.ttvt.cc:15791"
         case intranet = "http://192.168.0.211:8888"
         case localhost = "http://localhost:8888"
     }

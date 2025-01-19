@@ -23,9 +23,9 @@ enum GGLSystemUser: String, CaseIterable {
     var avatar: String {
         switch self {
         case .customerService:
-            return "http://f3.ttkt.cc:12873/GGLServer/media/global/customer_service.jpeg"
+            return GGLAPI.Host.internet.rawValue + "/media/global/customer_service.jpeg"
         case .gemini:
-            return "http://f3.ttkt.cc:12873/GGLServer/media/global/pyy.jpeg"
+            return GGLAPI.Host.internet.rawValue + "/media/global/pyy.jpeg"
         }
     }
 
