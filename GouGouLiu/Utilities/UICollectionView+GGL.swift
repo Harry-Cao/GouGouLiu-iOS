@@ -15,6 +15,10 @@ extension UICollectionViewCell {
 
 extension UICollectionView {
 
+    func register(_ cellClass: UICollectionViewCell.Type) {
+        register(cellClass, forCellWithReuseIdentifier: cellClass.cellReuseIdentifier)
+    }
+
     func dequeueReusableCell<T: UICollectionViewCell>(for indexPath: IndexPath) -> T {
         guard let cell = self.dequeueReusableCell(withReuseIdentifier: T.cellReuseIdentifier, for: indexPath) as? T else {
             fatalError("Cannot dequeueReusableCell of \(T.self) type!")

@@ -20,7 +20,7 @@ final class GGLPersonalViewController: GGLBaseViewController {
         tableView.showsHorizontalScrollIndicator = false
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(GGLPersonalRowCell.self, forCellReuseIdentifier: "\(GGLPersonalRowCell.self)")
+        tableView.register(GGLPersonalRowCell.self)
         return tableView
     }()
     private lazy var headerView: GGLPersonalHeaderView = {

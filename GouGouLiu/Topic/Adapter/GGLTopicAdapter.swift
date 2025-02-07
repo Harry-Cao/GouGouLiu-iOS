@@ -14,8 +14,8 @@ final class GGLTopicAdapter: NSObject {
         didSet {
             tableView?.dataSource = self
             tableView?.delegate = self
-            tableView?.register(GGLTopicPhotosBrowserCell.self, forCellReuseIdentifier: "\(GGLTopicPhotosBrowserCell.self)")
-            tableView?.register(GGLTopicContentCell.self, forCellReuseIdentifier: "\(GGLTopicContentCell.self)")
+            tableView?.register(GGLTopicPhotosBrowserCell.self)
+            tableView?.register(GGLTopicContentCell.self)
         }
     }
     var photoBrowserCellConfigurator: ((_ photoBrowserCell: GGLTopicPhotosBrowserCell)->Void)?

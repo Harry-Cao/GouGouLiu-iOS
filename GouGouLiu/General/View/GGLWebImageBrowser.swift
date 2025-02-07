@@ -37,7 +37,7 @@ final class GGLWebImageBrowser: UIView {
         collectionView.isPagingEnabled = true
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(GGLWebImageBrowserCell.self, forCellWithReuseIdentifier: "\(GGLWebImageBrowserCell.self)")
+        collectionView.register(GGLWebImageBrowserCell.self)
         return collectionView
     }()
 

@@ -14,9 +14,9 @@ final class GGLPublishAdapter: NSObject {
         didSet {
             tableView?.dataSource = self
             tableView?.delegate = self
-            tableView?.register(GGLPublishUploadPhotoCell.self, forCellReuseIdentifier: "\(GGLPublishUploadPhotoCell.self)")
-            tableView?.register(GGLPublishInputTitleCell.self, forCellReuseIdentifier: "\(GGLPublishInputTitleCell.self)")
-            tableView?.register(GGLPublishInputContentCell.self, forCellReuseIdentifier: "\(GGLPublishInputContentCell.self)")
+            tableView?.register(GGLPublishUploadPhotoCell.self)
+            tableView?.register(GGLPublishInputTitleCell.self)
+            tableView?.register(GGLPublishInputContentCell.self)
         }
     }
     var uploadPhotoCellConfigurator: ((_ uploadPhotoCell: GGLPublishUploadPhotoCell) -> Void)?
@@ -40,11 +40,9 @@ extension GGLPublishAdapter: UITableViewDataSource, UITableViewDelegate {
             uploadPhotoCellConfigurator?(uploadPhotoCell)
             return uploadPhotoCell
         case .inputTitle:
-            let inputTitleCell: GGLPublishInputTitleCell = tableView.dequeueReusableCell(for: indexPath)
-            return inputTitleCell
+            return tableView.dequeueReusableCell(for: indexPath) as GGLPublishInputTitleCell
         case .inputContent:
-            let inputContentCell: GGLPublishInputContentCell = tableView.dequeueReusableCell(for: indexPath)
-            return inputContentCell
+            return tableView.dequeueReusableCell(for: indexPath) as GGLPublishInputContentCell
         }
     }
 

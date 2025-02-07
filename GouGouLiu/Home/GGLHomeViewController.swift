@@ -28,7 +28,7 @@ final class GGLHomeViewController: GGLBaseViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(GGLHomeRecommendCell.self, forCellWithReuseIdentifier: "\(GGLHomeRecommendCell.self)")
+        collectionView.register(GGLHomeRecommendCell.self)
         return collectionView
     }()
 

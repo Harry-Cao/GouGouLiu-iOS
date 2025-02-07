@@ -23,7 +23,7 @@ final class GGLOrderViewController: GGLBaseViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(GGLOrderCell.self, forCellWithReuseIdentifier: "\(GGLOrderCell.self)")
+        collectionView.register(GGLOrderCell.self)
         return collectionView
     }()
 

@@ -30,7 +30,7 @@ final class GGLPublishUploadPhotoCell: GGLBaseTableViewCell {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(GGLPublishUploadPhotoContentCell.self, forCellWithReuseIdentifier: "\(GGLPublishUploadPhotoContentCell.self)")
+        collectionView.register(GGLPublishUploadPhotoContentCell.self)
         return collectionView
     }()
 
