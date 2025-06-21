@@ -115,7 +115,9 @@ extension GGLPersonalViewModel {
                     GGLUser.logout()
                 }
             case .login:
-                AppRouter.shared.present(GGLLoginViewController())
+                let viewController = GGLWelcomeViewController()
+                let navigationController = GGLBaseNavigationController(rootViewController: viewController)
+                AppRouter.shared.present(navigationController)
             }
         }
     }

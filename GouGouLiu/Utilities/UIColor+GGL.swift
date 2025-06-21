@@ -8,9 +8,7 @@
 import Foundation
 
 extension UIColor {
-
     static var theme_color: UIColor { .systemYellow.withAlphaComponent(0.9) }
-
 }
 
 extension UIColor {

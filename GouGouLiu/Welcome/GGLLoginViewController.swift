@@ -10,6 +10,7 @@ import Combine
 
 final class GGLLoginViewController: GGLBaseHostingController<LoginContentView> {
     private var cancellables = Set<AnyCancellable>()
+
     init() {
         super.init(rootView: LoginContentView())
         onLoginSuccess()

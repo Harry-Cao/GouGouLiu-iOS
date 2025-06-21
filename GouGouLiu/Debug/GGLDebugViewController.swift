@@ -142,7 +142,9 @@ extension DebugContentView {
                     GGLUser.signup(username: username, password: password, isSuper: isSuper ?? false)
                 }
             case .login:
-                AppRouter.shared.present(GGLLoginViewController())
+                let viewController = GGLWelcomeViewController()
+                let navigationController = GGLBaseNavigationController(rootViewController: viewController)
+                AppRouter.shared.present(navigationController)
             case .logout:
                 GGLUser.logout()
             case .signout:
