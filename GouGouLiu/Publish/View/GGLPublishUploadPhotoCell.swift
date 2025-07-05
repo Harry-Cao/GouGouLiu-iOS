@@ -71,7 +71,7 @@ extension GGLPublishUploadPhotoCell: UICollectionViewDataSource, UICollectionVie
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let urlString = urlStrings[safe: indexPath.item] else { return }
+        let urlString = urlStrings[safe: indexPath.item]
         delegate?.didSelectItem(urlString: urlString)
     }
 
