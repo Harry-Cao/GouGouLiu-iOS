@@ -9,7 +9,11 @@ import UIKit
 import SnapKit
 
 final class GGLWelcomeViewController: GGLBaseViewController {
-    private let backgroundView = UIView()
+    private let backgroundView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(resource: .welcomeBackground))
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
     private lazy var gradientLayer: CAGradientLayer = {
         let layer = CAGradientLayer()
         layer.colors = [
