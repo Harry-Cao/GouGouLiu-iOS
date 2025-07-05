@@ -32,7 +32,7 @@ extension GGLPublishAdapter: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellType = cellTypes[indexPath.row]
+        guard let cellType = cellTypes[safe: indexPath.row] else { return UITableViewCell() }
         switch cellType {
         case .uploadPhoto:
             let uploadPhotoCell: GGLPublishUploadPhotoCell = tableView.dequeueReusableCell(for: indexPath)

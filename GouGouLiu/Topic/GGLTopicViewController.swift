@@ -98,7 +98,7 @@ final class GGLTopicViewController: GGLBaseViewController {
 // MARK: - GGLWebImageBrowserDelegate
 extension GGLTopicViewController: GGLWebImageBrowserDelegate {
     func imageBrowserView(_ imageBrowserView: GGLWebImageBrowser, didSelectItemAt index: Int) {
-        guard let urlString = viewModel.postModel.photos?[index].originalUrl else { return }
+        guard let urlString = viewModel.postModel.photos?[safe: index]?.originalUrl else { return }
         downloadImage(urlString: urlString)
     }
 

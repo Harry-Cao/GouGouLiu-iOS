@@ -62,8 +62,7 @@ extension GGLPublishUploadPhotoCell: UICollectionViewDataSource, UICollectionVie
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: GGLPublishUploadPhotoContentCell = collectionView.dequeueReusableCell(for: indexPath)
-        if indexPath.item < urlStrings.count {
-            let urlString = urlStrings[indexPath.item]
+        if let urlString = urlStrings[safe: indexPath.item] {
             cell.setup(urlString: urlString)
         } else {
             cell.setupEmpty()
@@ -72,10 +71,7 @@ extension GGLPublishUploadPhotoCell: UICollectionViewDataSource, UICollectionVie
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var urlString: String?
-        if indexPath.item < urlStrings.count {
-            urlString = urlStrings[indexPath.item]
-        }
+        guard let urlString = urlStrings[safe: indexPath.item] else { return }
         delegate?.didSelectItem(urlString: urlString)
     }
 

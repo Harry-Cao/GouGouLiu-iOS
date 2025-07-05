@@ -64,7 +64,7 @@ extension GGLOrderViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let model = viewModel.dataSource[indexPath.row]
+        guard let model = viewModel.dataSource[safe: indexPath.row] else { return UICollectionViewCell() }
         let cell: GGLOrderCell = collectionView.dequeueReusableCell(for: indexPath)
         cell.setup(model: model)
         return cell

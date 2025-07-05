@@ -31,7 +31,7 @@ extension GGLTopicAdapter: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellType = cellTypes[indexPath.row]
+        guard let cellType = cellTypes[safe: indexPath.row] else { return UITableViewCell() }
         switch cellType {
         case .photos:
             let photoBrowserCell: GGLTopicPhotosBrowserCell = tableView.dequeueReusableCell(for: indexPath)

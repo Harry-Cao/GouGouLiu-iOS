@@ -13,8 +13,8 @@ extension UIAlertController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "Confirm", style: .default) { _ in
             let username = alertController.textFields?.first?.text
-            let password = alertController.textFields?[1].text
-            let isSuper = alertController.textFields?[2].text == "t"
+            let password = alertController.textFields?[safe: 1]?.text
+            let isSuper = alertController.textFields?[safe: 2]?.text == "t"
             completion(username, password, isSuper)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)

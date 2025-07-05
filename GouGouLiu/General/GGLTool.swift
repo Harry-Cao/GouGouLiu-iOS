@@ -76,6 +76,6 @@ struct GGLTool {
             return currentCase
         }
         let nextIndex = (currentIndex + 1) % allCases.count
-        return allCases[nextIndex]
+        return allCases[safe: nextIndex] ?? currentCase
     }
 }

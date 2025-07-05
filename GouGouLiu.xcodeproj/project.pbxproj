@@ -116,6 +116,7 @@
 		3EB800E22BDCD74800F1290C /* GGLRtcContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB800E12BDCD74800F1290C /* GGLRtcContentView.swift */; };
 		3EC2DB1F2C96F0E6008E7382 /* GGLPersonalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC2DB1E2C96F0E6008E7382 /* GGLPersonalHeaderView.swift */; };
 		3EC2DB242C984401008E7382 /* GGLPersonalRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC2DB232C984401008E7382 /* GGLPersonalRowCell.swift */; };
+		3ECC88A12E1973340092D30D /* Array+GGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECC88A02E1973340092D30D /* Array+GGL.swift */; };
 		3ECFA7622A75074D00CB465B /* GGLTopicAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFA7612A75074D00CB465B /* GGLTopicAdapter.swift */; };
 		3ECFA7642A750A3100CB465B /* GGLTopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFA7632A750A3100CB465B /* GGLTopicViewModel.swift */; };
 		3ECFA7682A751C8600CB465B /* GGLTopicPhotosBrowserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFA7672A751C8600CB465B /* GGLTopicPhotosBrowserCell.swift */; };
@@ -276,6 +277,7 @@
 		3EB800E12BDCD74800F1290C /* GGLRtcContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLRtcContentView.swift; sourceTree = "<group>"; };
 		3EC2DB1E2C96F0E6008E7382 /* GGLPersonalHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPersonalHeaderView.swift; sourceTree = "<group>"; };
 		3EC2DB232C984401008E7382 /* GGLPersonalRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLPersonalRowCell.swift; sourceTree = "<group>"; };
+		3ECC88A02E1973340092D30D /* Array+GGL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+GGL.swift"; sourceTree = "<group>"; };
 		3ECFA7612A75074D00CB465B /* GGLTopicAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLTopicAdapter.swift; sourceTree = "<group>"; };
 		3ECFA7632A750A3100CB465B /* GGLTopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLTopicViewModel.swift; sourceTree = "<group>"; };
 		3ECFA7672A751C8600CB465B /* GGLTopicPhotosBrowserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLTopicPhotosBrowserCell.swift; sourceTree = "<group>"; };
@@ -906,6 +908,7 @@
 				3ED90BFD2A2E4A200079B4D3 /* UIImage+GGL.swift */,
 				3EF638C52BAA862800E0CFBA /* UIColor+GGL.swift */,
 				3E6B0C312A3087D9002317D6 /* String+GGL.swift */,
+				3ECC88A02E1973340092D30D /* Array+GGL.swift */,
 				3EA0139B2BF1325A00FAD3F2 /* Publisher+Moya.swift */,
 				3EE073A82BCC209900E1DE80 /* MoyaProvider+Concurrency.swift */,
 				3E26D10A2A6856CF00803FC1 /* UserDefaults+GGL.swift */,
@@ -1299,6 +1302,7 @@
 				3E8CECF62C19AA3E006098F4 /* GGLDrawerPresentationController.swift in Sources */,
 				3EAD23E42A401C9F000238AC /* GGLChatRoomViewController.swift in Sources */,
 				3E604A952BD0ED690032E7BA /* UIViewController+Hero.swift in Sources */,
+				3ECC88A12E1973340092D30D /* Array+GGL.swift in Sources */,
 				3E669E162CC4FE4100E1E67E /* GGLPetAPI.swift in Sources */,
 				3EAC31952BD413080022C6A7 /* GGLGetChannelIdModel.swift in Sources */,
 				3ED90BEB2A2E24410079B4D3 /* GGLHomeViewController.swift in Sources */,

@@ -155,8 +155,8 @@ extension GGLHomeViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let model = viewModel.dataSource[safe: indexPath.item] else { return UICollectionViewCell() }
         let cell: GGLHomeRecommendCell = collectionView.dequeueReusableCell(for: indexPath)
-        let model = viewModel.dataSource[indexPath.item]
         cell.setup(model: model)
         return cell
     }
@@ -165,7 +165,7 @@ extension GGLHomeViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension GGLHomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let model = viewModel.dataSource[indexPath.item]
+        guard let model = viewModel.dataSource[safe: indexPath.item] else { return }
         let heroID = String(Date().timeIntervalSince1970)
         let coverHeroID = "\(heroID)-cover"
         let cell = collectionView.cellForItem(at: indexPath) as? GGLHomeRecommendCell

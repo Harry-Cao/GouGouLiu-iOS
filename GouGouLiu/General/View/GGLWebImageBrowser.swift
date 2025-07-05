@@ -67,8 +67,8 @@ extension GGLWebImageBrowser: UICollectionViewDataSource, UICollectionViewDelega
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let imageModel = imageModels[safe: indexPath.item] else { return UICollectionViewCell() }
         let cell: GGLWebImageBrowserCell = collectionView.dequeueReusableCell(for: indexPath)
-        let imageModel = imageModels[indexPath.item]
         cell.setup(imageModel: imageModel)
         return cell
     }

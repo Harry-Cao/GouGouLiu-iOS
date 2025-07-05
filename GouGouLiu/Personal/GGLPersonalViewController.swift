@@ -72,7 +72,7 @@ extension GGLPersonalViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let row = viewModel.settingRows[indexPath.row]
+        guard let row = viewModel.settingRows[safe: indexPath.row] else { return UITableViewCell() }
         let cell: GGLPersonalRowCell = tableView.dequeueReusableCell(for: indexPath)
         cell.setup(row: row)
         return cell
@@ -96,7 +96,7 @@ extension GGLPersonalViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let row = viewModel.settingRows[indexPath.row]
+        guard let row = viewModel.settingRows[safe: indexPath.row] else { return }
         row.action()
     }
 }

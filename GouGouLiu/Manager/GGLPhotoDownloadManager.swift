@@ -32,12 +32,12 @@ final class GGLPhotoDownloadManager {
 
     private func startNextMission() async {
         guard !isPause else { return }
-        guard let missionIndex = downloadMissions.firstIndex(where: { $0.status == .waiting }) else {
+        guard let missionIndex = downloadMissions.firstIndex(where: { $0.status == .waiting }),
+              let mission = downloadMissions[safe: missionIndex] else {
             let failUrlStrings = self.failUrlStrings
             completedBlock?(failUrlStrings.isEmpty, failUrlStrings)
             return
         }
-        let mission = downloadMissions[missionIndex]
         do {
             mission.status = .downloading
             let fileUrl = try await downloadImage(url: mission.urlString, progress: progressBlock)
