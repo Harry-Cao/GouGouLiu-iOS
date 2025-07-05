@@ -8,6 +8,7 @@
 import SwiftUI
 
 class GGLBaseHostingController<Content>: UIHostingController<Content> where Content: View {
+    var prefersNavigationBarHidden: Bool { false }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +22,6 @@ class GGLBaseHostingController<Content>: UIHostingController<Content> where Cont
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationController?.setNavigationBarHidden(prefersNavigationBarHidden, animated: animated)
     }
-
 }

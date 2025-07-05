@@ -8,6 +8,8 @@
 import Foundation
 
 final class GGLDrawerViewController: GGLBaseViewController {
+    override var prefersNavigationBarHidden: Bool { true }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
@@ -26,11 +28,6 @@ final class GGLDrawerViewController: GGLBaseViewController {
         button.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {

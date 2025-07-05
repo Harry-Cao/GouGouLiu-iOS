@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 final class GGLWelcomeViewController: GGLBaseViewController {
+    override var prefersNavigationBarHidden: Bool { true }
+
     private let backgroundView: UIImageView = {
         let imageView = UIImageView(image: UIImage(resource: .welcomeBackground))
         imageView.contentMode = .scaleAspectFill
@@ -100,11 +102,6 @@ final class GGLWelcomeViewController: GGLBaseViewController {
         button.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
         return button
     }()
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

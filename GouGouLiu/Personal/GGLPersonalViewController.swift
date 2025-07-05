@@ -9,6 +9,8 @@ import UIKit
 import Combine
 
 final class GGLPersonalViewController: GGLBaseViewController {
+    override var prefersNavigationBarHidden: Bool { true }
+
     private let viewModel = GGLPersonalViewModel()
     private var cancellables = Set<AnyCancellable>()
     private lazy var personalTableView: UITableView = {
@@ -33,11 +35,6 @@ final class GGLPersonalViewController: GGLBaseViewController {
         super.viewDidLoad()
         bindData()
         setupUI()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
     private func bindData() {
