@@ -46,6 +46,7 @@ final class GGLPersonalHeaderView: UIView {
         view.layer.cornerRadius = 42
         view.layer.borderWidth = 2
         view.layer.borderColor = UIColor.white.cgColor
+        view.backgroundColor = .lightGray.withAlphaComponent(0.5)
         return view
     }()
     private let nameLabel = UILabel()
@@ -112,7 +113,7 @@ final class GGLPersonalHeaderView: UIView {
 
     func setup(user: GGLUserModel?) {
         coverImageView.sd_setImage(with: URL(string: user?.avatar?.previewUrl ?? ""))
-        avatarButton.sd_setImage(with: URL(string: user?.avatar?.previewUrl ?? ""), for: .normal, placeholderImage: UIImage(resource: .defaultAvatar))
+        avatarButton.sd_setImage(with: URL(string: user?.avatar?.previewUrl ?? ""), for: .normal)
         nameLabel.text = user?.userName
         userIdLabel.text = user?.userId
     }
